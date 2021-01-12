@@ -7,7 +7,7 @@
 //
 
 #import "SetDeviceViewController.h"
-
+#import "ViewController.h"
 @interface SetDeviceViewController ()
 @property (nonatomic ,strong)NSTimer *timer;
 @property (weak, nonatomic) IBOutlet UILabel *topLabel;
@@ -60,7 +60,21 @@
     
 }
 - (IBAction)sureClick:(id)sender {
+    BOOL EXIT = NO;
+    for (int i =0; i < DEVICETOOL.deviceArr.count; i++) {
+        Device *device = DEVICETOOL.deviceArr[i];
+        if(device.selected){
+            EXIT = YES;
+            break;
+        }
+    }
+    if(!EXIT){
+        [HUD showAlertWithText:@"未选择测试设备"];
+        return;
+    }
     
+    ViewController *setDeviceVC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"ViewController"];
+    [self.navigationController pushViewController:setDeviceVC animated:YES];
     
 }
 

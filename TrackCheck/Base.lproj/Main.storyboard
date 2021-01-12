@@ -5,84 +5,156 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="center" distribution="fillEqually" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Lsx-cn-Cd3">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="80"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KgE-CK-3IU">
+                                <rect key="frame" x="0.0" y="50" width="768" height="80"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1R-eF-QTd">
-                                        <rect key="frame" x="0.0" y="28" width="0.0" height="24"/>
+                                    <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q6H-6l-g5c">
+                                        <rect key="frame" x="690" y="15" width="70" height="50"/>
+                                        <color key="backgroundColor" red="0.01176470588" green="0.70196078429999997" blue="0.99607843139999996" alpha="0.72399400680000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="Wo6-LZ-baP"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="J1检测" image="stop" catalog="system">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="0.86285164846381557" green="0.86285164846381557" blue="0.86285164846381557" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <state key="selected" image="square.and.pencil" catalog="system"/>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="结束">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="butClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="81f-xb-YfC"/>
+                                            <action selector="endTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jYn-Cs-uIZ"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXS-WB-UKB">
-                                        <rect key="frame" x="0.0" y="28" width="0.0" height="24"/>
+                                    <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Vo-9Y-S6h">
+                                        <rect key="frame" x="612" y="15" width="70" height="50"/>
+                                        <color key="backgroundColor" red="0.01176470588" green="0.70196078429999997" blue="0.99607843139999996" alpha="0.72399400680000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="GLg-5j-nSA"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="J2检测" image="stop" catalog="system">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="0.86285164849999996" green="0.86285164849999996" blue="0.86285164849999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <state key="selected" image="square.and.pencil" catalog="system"/>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="开始">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="butClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YzP-37-eLf"/>
+                                            <action selector="startTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EJf-Qy-ewp"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="URy-qg-wxi">
-                                        <rect key="frame" x="0.0" y="28" width="0.0" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShF-db-R3B">
+                                        <rect key="frame" x="502" y="15" width="90" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="Z7Z-C1-KXW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mre-Af-Var">
+                                        <rect key="frame" x="412" y="15" width="70" height="50"/>
+                                        <color key="backgroundColor" red="0.01176470588" green="0.70196078429999997" blue="0.99607843139999996" alpha="0.72399400680000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="n81-I0-082"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="J3检测" image="stop" catalog="system">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <state key="disabled">
-                                            <color key="titleColor" red="0.86285164849999996" green="0.86285164849999996" blue="0.86285164849999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <state key="selected" image="square.and.pencil" catalog="system"/>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="切换">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="butClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oSu-Gj-IbE"/>
+                                            <action selector="changeTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ivs-QE-X19"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnj-9q-5js">
-                                        <rect key="frame" x="0.0" y="20.5" width="768" height="39"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <state key="normal" title="添加设备"/>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pyM-db-j8L">
+                                        <rect key="frame" x="116" y="15" width="100" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="2Ie-q1-gNv"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                        <state key="normal" title="J2" image="small未勾选">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" image="small选择-勾选">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="butClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i46-NC-w2L"/>
+                                            <action selector="seleClick:" destination="wei-fa-z34" eventType="touchUpInside" id="n4i-7V-2Ow"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="onD-16-trT">
+                                        <rect key="frame" x="224" y="15" width="100" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="E2c-lB-4Ap"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                        <state key="normal" title="J3" image="small未勾选">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" image="small选择-勾选">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="butClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o4m-NX-Bav"/>
+                                            <action selector="seleClick:" destination="wei-fa-z34" eventType="touchUpInside" id="fgB-6k-WXI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="101" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IuH-q4-p05">
+                                        <rect key="frame" x="8" y="15" width="100" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="tJX-tr-4fc"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                        <state key="normal" title="J1" image="small未勾选">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" image="small选择-勾选">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="butClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="scf-2y-j5e"/>
+                                            <action selector="seleClick:" destination="wei-fa-z34" eventType="touchUpInside" id="gh8-6V-sOL"/>
+                                        </connections>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="Oyb-GK-LyI"/>
+                                    <constraint firstItem="IuH-q4-p05" firstAttribute="leading" secondItem="KgE-CK-3IU" secondAttribute="leading" constant="8" id="1pf-qd-Q2t"/>
+                                    <constraint firstItem="pyM-db-j8L" firstAttribute="height" secondItem="IuH-q4-p05" secondAttribute="height" id="3w3-cz-nEm"/>
+                                    <constraint firstItem="onD-16-trT" firstAttribute="height" secondItem="IuH-q4-p05" secondAttribute="height" id="7Vt-7U-Tc3"/>
+                                    <constraint firstAttribute="height" constant="80" id="BdO-BY-h8U"/>
+                                    <constraint firstAttribute="trailing" secondItem="q6H-6l-g5c" secondAttribute="trailing" constant="8" id="IpK-I7-qq0"/>
+                                    <constraint firstAttribute="bottom" secondItem="ShF-db-R3B" secondAttribute="bottom" constant="15" id="Jiw-HP-Z0I"/>
+                                    <constraint firstItem="q6H-6l-g5c" firstAttribute="leading" secondItem="6Vo-9Y-S6h" secondAttribute="trailing" constant="8" id="OIO-AM-Cok"/>
+                                    <constraint firstItem="ShF-db-R3B" firstAttribute="top" secondItem="KgE-CK-3IU" secondAttribute="top" constant="15" id="PJu-fe-5CT"/>
+                                    <constraint firstItem="q6H-6l-g5c" firstAttribute="top" secondItem="KgE-CK-3IU" secondAttribute="top" constant="15" id="QgS-y0-P0o"/>
+                                    <constraint firstItem="IuH-q4-p05" firstAttribute="top" secondItem="KgE-CK-3IU" secondAttribute="top" constant="15" id="Qn9-0M-ZZR"/>
+                                    <constraint firstItem="pyM-db-j8L" firstAttribute="leading" secondItem="IuH-q4-p05" secondAttribute="trailing" constant="8" id="R5K-YD-pW7"/>
+                                    <constraint firstItem="6Vo-9Y-S6h" firstAttribute="top" secondItem="KgE-CK-3IU" secondAttribute="top" constant="15" id="Rja-pA-E9Q"/>
+                                    <constraint firstAttribute="bottom" secondItem="Mre-Af-Var" secondAttribute="bottom" constant="15" id="TcT-KA-IRo"/>
+                                    <constraint firstItem="onD-16-trT" firstAttribute="leading" secondItem="pyM-db-j8L" secondAttribute="trailing" constant="8" id="Xfg-mb-OlP"/>
+                                    <constraint firstItem="6Vo-9Y-S6h" firstAttribute="leading" secondItem="ShF-db-R3B" secondAttribute="trailing" constant="20" id="Zgg-lO-2qE"/>
+                                    <constraint firstItem="pyM-db-j8L" firstAttribute="centerY" secondItem="IuH-q4-p05" secondAttribute="centerY" id="cjC-Gb-wCh"/>
+                                    <constraint firstAttribute="bottom" secondItem="6Vo-9Y-S6h" secondAttribute="bottom" constant="15" id="fdQ-bO-ttV"/>
+                                    <constraint firstItem="Mre-Af-Var" firstAttribute="top" secondItem="KgE-CK-3IU" secondAttribute="top" constant="15" id="hUp-pA-aho"/>
+                                    <constraint firstItem="onD-16-trT" firstAttribute="centerY" secondItem="IuH-q4-p05" secondAttribute="centerY" id="l5i-jy-cL0"/>
+                                    <constraint firstAttribute="bottom" secondItem="q6H-6l-g5c" secondAttribute="bottom" constant="15" id="ld2-2b-Zjr"/>
+                                    <constraint firstItem="onD-16-trT" firstAttribute="width" secondItem="IuH-q4-p05" secondAttribute="width" id="raE-fh-Dnh"/>
+                                    <constraint firstAttribute="bottom" secondItem="IuH-q4-p05" secondAttribute="bottom" constant="15" id="upE-nn-kxC"/>
+                                    <constraint firstItem="pyM-db-j8L" firstAttribute="width" secondItem="IuH-q4-p05" secondAttribute="width" id="yHb-wk-F6Y"/>
+                                    <constraint firstItem="ShF-db-R3B" firstAttribute="leading" secondItem="Mre-Af-Var" secondAttribute="trailing" constant="20" id="ycn-Yf-vwj"/>
                                 </constraints>
-                            </stackView>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gec-mZ-7DJ">
-                                <rect key="frame" x="0.0" y="80" width="768" height="1"/>
+                                <rect key="frame" x="0.0" y="130" width="768" height="1"/>
                                 <color key="backgroundColor" red="0.86285164849999996" green="0.86285164849999996" blue="0.86285164849999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="1vc-T2-bKu"/>
@@ -92,7 +164,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Rx0-gp-zgw">
-                                <rect key="frame" x="5" y="138" width="758" height="878"/>
+                                <rect key="frame" x="5" y="130" width="758" height="828"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pXf-Ir-bfw" customClass="PYZoomEchartsView">
                                         <rect key="frame" x="0.0" y="0.0" width="758" height="0.0"/>
@@ -111,16 +183,16 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Lsx-cn-Cd3" secondAttribute="trailing" id="2qV-ku-JO4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gec-mZ-7DJ" secondAttribute="trailing" id="3Ds-hs-KNm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KgE-CK-3IU" secondAttribute="trailing" id="6aP-7N-PTr"/>
                             <constraint firstItem="Rx0-gp-zgw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="8bR-E0-ET9"/>
                             <constraint firstItem="gec-mZ-7DJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9EW-QT-YZV"/>
-                            <constraint firstItem="gec-mZ-7DJ" firstAttribute="top" secondItem="Lsx-cn-Cd3" secondAttribute="bottom" id="CJh-7Z-I32"/>
+                            <constraint firstItem="gec-mZ-7DJ" firstAttribute="top" secondItem="KgE-CK-3IU" secondAttribute="bottom" id="BNP-iR-IhF"/>
+                            <constraint firstItem="KgE-CK-3IU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="FlA-b1-D9c"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Rx0-gp-zgw" secondAttribute="trailing" constant="5" id="GDQ-lZ-pTu"/>
-                            <constraint firstItem="Lsx-cn-Cd3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ICE-Z7-Mni"/>
+                            <constraint firstItem="KgE-CK-3IU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QMi-yJ-njv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Rx0-gp-zgw" secondAttribute="bottom" constant="10" id="R16-Lh-zJ4"/>
                             <constraint firstItem="Rx0-gp-zgw" firstAttribute="top" secondItem="gec-mZ-7DJ" secondAttribute="bottom" constant="5" id="ayR-GY-1cY"/>
-                            <constraint firstItem="Lsx-cn-Cd3" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="l53-fB-9yI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -146,29 +218,32 @@
                                     <segue destination="Htp-Ue-l1N" kind="show" id="1y8-sS-i2f"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="清空" id="4DQ-BZ-A5B"/>
+                            <barButtonItem title="存档" id="4DQ-BZ-A5B"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="addButton" destination="fnj-9q-5js" id="NaI-td-e4b"/>
-                        <outlet property="firstButton" destination="C1R-eF-QTd" id="teG-x9-xEV"/>
+                        <outlet property="changeBut" destination="Mre-Af-Var" id="I7r-AF-YI6"/>
+                        <outlet property="endBut" destination="q6H-6l-g5c" id="wn9-wR-pap"/>
+                        <outlet property="firstButton" destination="IuH-q4-p05" id="xaN-X7-EXX"/>
                         <outlet property="kEchartView1" destination="pXf-Ir-bfw" id="KwP-bw-soM"/>
                         <outlet property="kEchartView2" destination="sIu-zW-ENC" id="fJW-WK-2eq"/>
                         <outlet property="kEchartView3" destination="4C3-3t-vbl" id="jeU-nm-PKg"/>
                         <outlet property="leftBarItem" destination="DzU-rj-7hf" id="Pza-Zf-jzg"/>
-                        <outlet property="secondButton" destination="lXS-WB-UKB" id="ew2-La-HZI"/>
-                        <outlet property="threeButton" destination="URy-qg-wxi" id="MXS-Ro-QqZ"/>
+                        <outlet property="secondButton" destination="pyM-db-j8L" id="BKk-T0-mOp"/>
+                        <outlet property="startBut" destination="6Vo-9Y-S6h" id="yuQ-hW-c2h"/>
+                        <outlet property="testTimeLabel" destination="ShF-db-R3B" id="MDK-rW-lES"/>
+                        <outlet property="threeButton" destination="onD-16-trT" id="4vb-tu-Dgc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-43.75" y="-706.0546875"/>
+            <point key="canvasLocation" x="1288.28125" y="-63.281249999999993"/>
         </scene>
         <!--测试地点设置-->
         <scene sceneID="GLr-FM-t26">
             <objects>
-                <viewController id="NOn-r6-Pj7" customClass="SetAddressViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SetAddressViewController" id="NOn-r6-Pj7" customClass="SetAddressViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5l8-5I-4kg">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -219,7 +294,6 @@
                                 </state>
                                 <connections>
                                     <action selector="sureClick:" destination="NOn-r6-Pj7" eventType="touchUpInside" id="h38-Jm-VO6"/>
-                                    <segue destination="wei-fa-z34" kind="show" id="9e5-lg-EYK"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hx9-O9-1eQ">
@@ -291,6 +365,14 @@
                                     <constraint firstItem="oOX-Ul-VFg" firstAttribute="centerY" secondItem="lno-qW-dTZ" secondAttribute="centerY" id="wkV-df-cZV"/>
                                 </constraints>
                             </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D0i-4n-NMG">
+                                <rect key="frame" x="702" y="50" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="wei-fa-z34" kind="show" id="aiO-CC-lEB"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PeP-Ce-m7W">
                                 <rect key="frame" x="99" y="683" width="571" height="85"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -343,12 +425,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDb-oZ-mel" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="-63.281249999999993"/>
+            <point key="canvasLocation" x="-40" y="-63"/>
         </scene>
         <!--测试设备设置-->
         <scene sceneID="K01-OU-OLC">
             <objects>
-                <viewController id="wei-fa-z34" customClass="SetDeviceViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SetDeviceViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wei-fa-z34" customClass="SetDeviceViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0eo-o7-8aG">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -441,7 +523,6 @@
                                 <rect key="frame" x="99" y="868" width="570" height="66"/>
                                 <color key="backgroundColor" red="0.01176470588" green="0.70196078429999997" blue="0.99607843139999996" alpha="0.72399400680000003" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="66" id="FGN-Je-iRB"/>
                                     <constraint firstAttribute="height" constant="66" id="WcW-Xz-rjJ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
@@ -449,8 +530,15 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="sureClick:" destination="NOn-r6-Pj7" eventType="touchUpInside" id="R9G-jL-dYt"/>
-                                    <action selector="sureClick:" destination="wei-fa-z34" eventType="touchUpInside" id="bTb-Fd-Ud6"/>
+                                    <action selector="sureClick:" destination="wei-fa-z34" eventType="touchUpInside" id="4VM-om-mWR"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehf-wK-1vS">
+                                <rect key="frame" x="693" y="62" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="OW6-gE-Cfw"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -499,18 +587,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BKD-Yv-6ZJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="554.6875" y="-63.281249999999993"/>
+            <point key="canvasLocation" x="642" y="-63"/>
         </scene>
         <!--Report View Controller-->
         <scene sceneID="qaf-1o-pcx">
             <objects>
                 <viewController id="Htp-Ue-l1N" customClass="ReportViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zoj-EG-VN0">
-                        <rect key="frame" x="0.0" y="0.0" width="712" height="984"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FzO-eR-vRv">
-                                <rect key="frame" x="0.0" y="0.0" width="712" height="984"/>
+                                <rect key="frame" x="0.0" y="50" width="768" height="924"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                         </subviews>
@@ -540,7 +628,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a5h-SW-8bU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="638" y="-800"/>
+            <point key="canvasLocation" x="1938" y="-63"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tQs-P5-1ml">
@@ -560,8 +648,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="square.and.pencil" catalog="system" width="64" height="58"/>
-        <image name="stop" catalog="system" width="64" height="56"/>
+        <image name="small未勾选" width="25" height="25"/>
+        <image name="small选择-勾选" width="25" height="25"/>
         <image name="删 除 " width="32" height="41"/>
         <image name="未勾选" width="45" height="45"/>
         <image name="选择-勾选" width="45" height="45"/>

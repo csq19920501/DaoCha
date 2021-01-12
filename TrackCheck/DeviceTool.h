@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-
+typedef enum:NSInteger{
+    TestNotStart,
+    TestStarted,
+    TestEnd,
+}CSQTestStatus;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeviceTool : NSObject
@@ -18,16 +22,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *stationStr;
 @property(nonatomic,strong)NSMutableArray *stationStrArr;
 @property(nonatomic,assign)long long saveStaionTime;
-
 @property(nonatomic,strong)NSMutableArray *deviceDataArr1;
 @property(nonatomic,strong)NSMutableArray *deviceDataArr2;
 @property(nonatomic,strong)NSMutableArray *deviceDataArr3;
 @property(nonatomic,strong)NSMutableArray *deviceDataArr4;
 @property(nonatomic,strong)NSMutableArray *deviceDataArr5;
-
 @property(nonatomic,strong)NSArray *deviceNameArr;
-
+@property (nonatomic,assign)CSQTestStatus testStatus;
 -(void)syncArr;
+-(void)removeAllData;
 @end
 
 NS_ASSUME_NONNULL_END

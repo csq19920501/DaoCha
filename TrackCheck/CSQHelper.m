@@ -7,7 +7,9 @@
 //
 
 #import "CSQHelper.h"
-
+#import <ifaddrs.h>
+#import <net/if.h>
+#import <SystemConfiguration/CaptiveNetwork.h>
 @implementation CSQHelper
 
 

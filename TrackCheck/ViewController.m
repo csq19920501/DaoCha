@@ -23,9 +23,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *secondButton;
 @property (weak, nonatomic) IBOutlet UIButton *threeButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftBarItem;
-@property (weak, nonatomic) IBOutlet UIButton *addButton;
-
+@property (weak, nonatomic) IBOutlet UIButton *changeBut;
+@property (weak, nonatomic) IBOutlet UIButton *startBut;
+@property (weak, nonatomic) IBOutlet UIButton *endBut;
+@property (nonatomic,strong)NSMutableArray *seleJJJArr;
 @property (nonatomic ,strong)NSTimer *timer;
+@property (nonatomic ,assign)long long startTime;
+@property (weak, nonatomic) IBOutlet UILabel *testTimeLabel;
+
 @end
 
 @implementation ViewController
@@ -34,31 +39,75 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceChange) name:DEVICECHANGE object:nil];
-    
-//    [_kEchartView1 setOption:[self irregularLine2Option1]];
-//    [_kEchartView1 loadEcharts];
-//
-//    [_kEchartView2 setOption:[self irregularLine2Option2]];
-//    [_kEchartView2 loadEcharts];
-//
-//    [_kEchartView3 setOption:[self irregularLine2Option3]];
-//    [_kEchartView3 loadEcharts];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceChange) name:DEVICECHANGE object:nil];
     
     self.leftBarItem.title = [NSString stringWithFormat:@"%@%@",[DeviceTool shareInstance].stationStr,[DeviceTool shareInstance].roadSwitchNo];
-    [self startScoketService];
+
+    DEVICETOOL.testStatus = TestNotStart;
     
+    NSArray *butArr2 = @[_changeBut,_startBut,_endBut];
+    for (UIButton *but in butArr2) {
+        but.layer.masksToBounds = YES;
+        but.layer.cornerRadius = 16;
+    }
+    _endBut.enabled = NO;
+    _endBut.alpha = 0.2;
+    
+    
+    NSArray *butArr = @[_firstButton,_secondButton,_threeButton];
+    for (UIButton *but in butArr) {
+        but.layer.masksToBounds = YES;
+        but.layer.borderColor = BLUECOLOR.CGColor;
+        but.layer.borderWidth = 2;
+        but.layer.cornerRadius = 10;
+        but.hidden = YES;
+        but.selected = NO;
+    }
+    NSMutableArray *seleJJJArr = [NSMutableArray array];
+    _seleJJJArr = seleJJJArr;
+    for (int i =0; i < DEVICETOOL.deviceArr.count; i++) {
+        Device *device = DEVICETOOL.deviceArr[i];
+        if(device.selected && [device.id intValue] <=3 ){
+            [seleJJJArr addObject:device];
+        }
+    }
+    for (int i = 0 ; i < seleJJJArr.count; i++) {
+        Device *device = seleJJJArr[i];
+        UIButton * but ;
+        if(i == 0){
+            but = _firstButton;
+        }else if(i == 1){
+            but = _secondButton;
+        }else if(i == 2){
+            but = _threeButton;
+        }
+        but.hidden = NO;
+        [but setTitle:device.typeStr forState:UIControlStateNormal];
+        but.selected = YES;
+    }
+    _kEchartView1.hidden = !_firstButton.selected;
+    _kEchartView2.hidden = !_secondButton.selected;
+    _kEchartView3.hidden = !_threeButton.selected;
+    if(!_kEchartView1.hidden ){
+        [_kEchartView1 setOption:[self irregularLine2Option:0]];
+        [_kEchartView1 loadEcharts];
+    }
+    if(!_kEchartView2.hidden ){
+        [_kEchartView2 setOption:[self irregularLine2Option:1]];
+               [_kEchartView2 loadEcharts];
+           }
+    if(!_kEchartView3.hidden){
+        [_kEchartView3 setOption:[self irregularLine2Option:2]];
+        [_kEchartView3 loadEcharts];
+    }
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeView) userInfo:nil repeats:YES];
-    
-    
-//    NSMutableArray* d = [NSMutableArray array];int len = 0;NSDate* now = [NSDate date];
-//    while (len++ < 200) {
-//        long a = len + 3000;
-//        [d addObject:@[@(1610190577000),@(a)]];
-//        
-//    };
-//    NSLog(@"测试可变数据 d = %@",d);
-    
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [_timer invalidate];
+    _timer = nil;
 }
 - (IBAction)signmentChange:(id)sender {
     UISegmentedControl   *control = sender;
@@ -69,6 +118,37 @@
         [self.timer setFireDate:[NSDate date]];
     }
 }
+- (IBAction)startTest:(id)sender {
+    _startTime = [[NSDate date] timeIntervalSince1970];
+    
+    
+    _startBut.enabled = NO;
+    _startBut.alpha = 0.2;
+    _changeBut.enabled = NO;
+    _changeBut.alpha = 0.2;
+    
+    _endBut.enabled = YES;
+    _endBut.alpha = 1;
+    
+    _testTimeLabel.text = @"00:00";
+    
+    [DEVICETOOL removeAllData];
+    DEVICETOOL.testStatus = TestStarted;
+}
+- (IBAction)endTest:(id)sender {
+    DEVICETOOL.testStatus = TestEnd;
+    
+    _startBut.enabled = YES;
+    _startBut.alpha = 1;
+    _changeBut.enabled = YES;
+    _changeBut.alpha = 1;
+    
+    _endBut.enabled = NO;
+    _endBut.alpha = 0.2;
+    //保存数据
+}
+- (IBAction)changeTest:(id)sender {
+}
 
 - (IBAction)butClick:(id)sender {
     NSLog(@"butClick");
@@ -77,103 +157,105 @@
     if(but == _firstButton){
         [self.kEchartView1 setHidden:!self.firstButton.selected];
     }else if(but == _secondButton){
-        [self.kEchartView1 setHidden:!self.firstButton.selected];
+        [self.kEchartView2 setHidden:!_secondButton.selected];
     }else if(but == _threeButton){
-        [self.kEchartView1 setHidden:!self.firstButton.selected];
+        [self.kEchartView3 setHidden:!_threeButton.selected];
     }
 
 }
 -(void)changeView{
     
-        if(!self.kEchartView1.hidden ){
-            [_kEchartView1 setOption:[self irregularLine2Option1]];
-            [self.kEchartView1 loadEcharts];
+    if(DEVICETOOL.testStatus == TestStarted){
+        
+        
+                if(!self.kEchartView1.hidden ){
+        //            [_kEchartView1 setOption:[self irregularLine2Option:0]];
+        //            [self.kEchartView1 loadEcharts];
+                    [_kEchartView1 refreshEchartsWithOption:[self irregularLine2Option:0]];
+                }
+                if(!self.kEchartView2.hidden ){
+                    [_kEchartView1 refreshEchartsWithOption:[self irregularLine2Option:1]];
+                       }
+                if(!self.kEchartView3.hidden){
+                    [_kEchartView1 refreshEchartsWithOption:[self irregularLine2Option:2]];
+                }
+        
+        long long currentTime = [[NSDate date] timeIntervalSince1970];
+        NSInteger timeinterval = currentTime - _startTime;
+        NSInteger ss = timeinterval%60;
+        NSInteger hh = timeinterval/60;
+        NSString *ssStr = ss < 10 ? [NSString stringWithFormat:@"0%ld",(long)ss]:[NSString stringWithFormat:@"%ld",(long)ss];
+        _testTimeLabel.text = [NSString stringWithFormat:@"0%ld:%@",(long)hh,ssStr];
+        if(timeinterval >= 180){
+            [self endTest:_endBut];
         }
-        if(!self.kEchartView2.hidden ){
-                   [self.kEchartView2 loadEcharts];
-               }
-        if(!self.kEchartView3.hidden){
-            [self.kEchartView3 loadEcharts];
-        }
-}
--(void)deviceChange{
-    NSLog(@"设备状态变化");
-    __weak typeof(self) weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-//    AppDelegate *delegate =  (AppDelegate *)[UIApplication sharedApplication].delegate;
-    DeviceTool *delegate = [DeviceTool shareInstance];
-    self.firstButton.hidden = YES;
-    self.secondButton.hidden = YES;
-    self.threeButton.hidden = YES;
-//        self.firstButton.superview.hidden = YES;
-//        self.secondButton.superview.hidden = YES;
-//        self.threeButton.superview.hidden = YES;
-        int needLoad = -1;
-    for(int a = 0;a<delegate.deviceArr.count;a++){
-        Device *device = delegate.deviceArr[a];
-        UIButton *but = nil;
-        if(a == 0){
-            but = self.firstButton;
-        }else if(a == 1){
-            but = self.secondButton;
-        }else if(a == 2){
-            but = self.threeButton;
-        }
-        if(device.fitstAdd){
-            needLoad = a;
-            device.fitstAdd = NO;
-        }
-        if(but){
-            but.hidden = NO;
-                   but.titleLabel.text = device.typeStr;
-                   but.selected = device.selected;
-                   if(device.offline){
-                       but.titleLabel.textColor = [UIColor lightGrayColor];
-                   }else{
-                       but.titleLabel.textColor = [UIColor blackColor];
-                   }
-        }
-       
     }
-        
-        [weakSelf.kEchartView1 setHidden:!weakSelf.firstButton.selected];
-        weakSelf.kEchartView2.hidden = !weakSelf.secondButton.selected;
-        weakSelf.kEchartView3.hidden = !weakSelf.threeButton.selected;
-        
-//        if(!weakSelf.kEchartView1.hidden && needLoad == 0){
-//            [weakSelf.kEchartView1 loadEcharts];
-//        }
-//        if(!weakSelf.kEchartView2.hidden && needLoad == 1){
-//                   [weakSelf.kEchartView2 loadEcharts];
-//               }
-//        if(!weakSelf.kEchartView3.hidden && needLoad == 2){
-//            [weakSelf.kEchartView3 loadEcharts];
-//        }
-        if(!self.firstButton.hidden && !self.firstButton.hidden && !self.firstButton.hidden){
-            self.addButton.hidden = YES;
-        }else{
-            self.addButton.hidden = NO;
-        }
-    });
 }
--(void)startScoketService{
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    // 异步执行任务创建方法
-    dispatch_async(queue, ^{
-        // 这里放异步执行任务代码
-    });
+//-(void)deviceChange{
+//    NSLog(@"设备状态变化");
+//    __weak typeof(self) weakSelf = self;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//    });
+//}
+//-(void)startScoketService{
+//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    // 异步执行任务创建方法
+//    dispatch_async(queue, ^{
+//        // 这里放异步执行任务代码
+//    });
+//}
+-(PYOption *)refreshEcharts:(NSInteger)no{
+    if(no>=_seleJJJArr.count){
+        return nil;
+    }
+    NSMutableArray *saveDataArr ;
+    Device *device = _seleJJJArr[no];
+    if([device.id intValue] == 1){
+        saveDataArr = [DeviceTool shareInstance].deviceDataArr1;
+    }else if([device.id intValue] == 2){
+        saveDataArr = [DeviceTool shareInstance].deviceDataArr2;
+    }else if([device.id intValue] == 3){
+        saveDataArr = [DeviceTool shareInstance].deviceDataArr3;
+    }
+    long long currentTime = [[NSDate date] timeIntervalSince1970] *1000;
+    NSNumber *time = [NSNumber numberWithLongLong:currentTime];
+    NSNumber *time2 = [NSNumber numberWithLongLong:currentTime+100];
+    if(saveDataArr.count == 0 || DEVICETOOL.testStatus == TestNotStart){
+        saveDataArr = [NSMutableArray arrayWithArray:@[@[time,@(0)],@[time2,@(0)]]];
+    }
+     return [PYOption initPYOptionWithBlock:^(PYOption *option) {
+            option.addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
+            series.dataEqual(saveDataArr);
+            }]);
+        }];
 }
-- (PYOption *)irregularLine2Option1 {
-    NSArray *dataArr = @[@[@(1610190577000),@(0)]];
-//     NSArray *dataArr = [NSArray arrayWithArray:[DeviceTool shareInstance].deviceDataArr1];
-//    NSLog(@"dataArr = %@",dataArr);
+- (PYOption *)irregularLine2Option:(NSInteger)no {
+    if(no>=_seleJJJArr.count){
+        return nil;
+    }
+    NSMutableArray *saveDataArr ;
+    Device *device = _seleJJJArr[no];
+    if([device.id intValue] == 1){
+        saveDataArr = [DeviceTool shareInstance].deviceDataArr1;
+    }else if([device.id intValue] == 2){
+        saveDataArr = [DeviceTool shareInstance].deviceDataArr2;
+    }else if([device.id intValue] == 3){
+        saveDataArr = [DeviceTool shareInstance].deviceDataArr3;
+    }
+    long long currentTime = [[NSDate date] timeIntervalSince1970] *1000;
+    NSNumber *time = [NSNumber numberWithLongLong:currentTime];
+    NSNumber *time2 = [NSNumber numberWithLongLong:currentTime+100];
+    if(saveDataArr.count == 0 || DEVICETOOL.testStatus == TestNotStart){
+        saveDataArr = [NSMutableArray arrayWithArray:@[@[time,@(0)],@[time2,@(0)]]];
+    }
+    NSString *titleStr = [NSString stringWithFormat:@"%@%@",device.typeStr,@"曲线图"];
     
     return [PYOption initPYOptionWithBlock:^(PYOption *option) {
         option.titleEqual([PYTitle initPYTitleWithBlock:^(PYTitle *title) {
-            title.textEqual(@"J1曲线图")
+            title.textEqual(titleStr)
             .subtextEqual(@"");
         }])
-         .animationEqual(NO)
+        .animationEqual(NO)
         .gridEqual([PYGrid initPYGridWithBlock:^(PYGrid *grid) {
             grid.xEqual(@40).x2Equal(@50).y2Equal(@80);
         }])
@@ -187,7 +269,8 @@
 //                    .widthEqual(@1);
 //                }]);
 //            }])
-            .formatterEqual(@"(function(params){var date = new Date(params.value[0]);data = date.getFullYear() + \'-\' + (date.getMonth() + 1) + \'-\' + date.getDate() + \' \' + date.getHours() + \':\' + date.getMinutes(); return data + \'<br/>\' + params.value[1] })");
+//             .formatterEqual(@"(function(params){var date = new Date(params.value[0]);data = date.getFullYear() + \'-\' + (date.getMonth() + 1) + \'-\' + date.getDate() + \' \' + date.getHours() + \':\' + date.getMinutes(); return data + \'<br/>\' + params.value[1] })");
+            .formatterEqual(@"(function(params){var date = new Date(params.value[0]);data =  date.getHours() + \':\' + date.getMinutes()+ \':\' + date.getSeconds(); return data + \'<br/>\' + params.value[1] })");
         }])
         .dataZoomEqual([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
             dataZoom.showEqual(YES).startEqual(@0);
@@ -199,82 +282,19 @@
             axis.typeEqual(PYAxisTypeTime)
             .splitNumberEqual(@8)
             .axisLabelEqual([PYAxisLabel initPYAxisLabelWithBlock:^(PYAxisLabel *axisLabel) {
-                axisLabel.formatterEqual(@"(function (value, index) {let hour = new Date(value).getHours();let min = new Date(value).getMinutes();min = min.toString();min = min.toString(); if(min.length <2){min = '0'+min};return `${hour}:${min}`;})");
+                axisLabel.formatterEqual(@"(function (value, index) {let hour = new Date(value).getHours();let min = new Date(value).getMinutes();let ss = new Date(value).getSeconds();ss = ss.toString();min = min.toString(); if(min.length <2){min = '0'+min};if(ss.length <2){ss = '0'+ss};return `${hour}:${min}`:${ss}`;})");
                 
             }]);
         }])
         .addYAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
-            axis.typeEqual(PYAxisTypeValue)
-            .minEqual(@(-1000))
-            .maxEqual(@(4000));
-        }])
-        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
-        series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES).nameEqual(@"道岔检测").typeEqual(PYSeriesTypeLine).dataEqual(dataArr);
-        }]);
-    }];
-//    @"(function () {var d = [];var len = 0;var now = new Date();var value;while (len++ < 200) {d.push([new Date(2014, 9, 1, 0, len * 10000),(Math.random()*3000).toFixed(2) - 300,(Math.random()*100).toFixed(2) - 0]);}return d;})()"
-}
-- (PYOption *)irregularLine2Option2 {
-    return [PYOption initPYOptionWithBlock:^(PYOption *option) {
-        option.titleEqual([PYTitle initPYTitleWithBlock:^(PYTitle *title) {
-            title.textEqual(@"J2曲线图")
-            .subtextEqual(@"");
-        }])
-        .animationEqual(NO)
-        .gridEqual([PYGrid initPYGridWithBlock:^(PYGrid *grid) {
-            grid.xEqual(@40).x2Equal(@50).y2Equal(@80);
-        }])
-        .tooltipEqual([PYTooltip initPYTooltipWithBlock:^(PYTooltip *tooltip) {
-            tooltip.triggerEqual(PYTooltipTriggerItem)
-            .formatterEqual(@"(function(params){var date = new Date(params.value[0]);data = date.getFullYear() + \'-\' + (date.getMonth() + 1) + \'-\' + date.getDate() + \' \' + date.getHours() + \':\' + date.getMinutes(); return data + \'<br/>\' + params.value[1] + \',\' + params.value[2]})");
-        }])
-        .dataZoomEqual([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
-            dataZoom.showEqual(YES).startEqual(@0);
-        }])
-        .legendEqual([PYLegend initPYLegendWithBlock:^(PYLegend *legend) {
-            legend.dataEqual(@[@"道岔检测"]);
-        }])
-        .addXAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
-            axis.typeEqual(PYAxisTypeTime)
-            .splitNumberEqual(@10);
-        }])
-        .addYAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
             axis.typeEqual(PYAxisTypeValue);
+//            .minEqual(@(-1000))
+//            .maxEqual(@(4000));
         }])
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
-            series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES).nameEqual(@"道岔检测").typeEqual(PYSeriesTypeLine).dataEqual(@"(function () {var d = [];var len = 0;var now = new Date();var value;while (len++ < 200) {d.push([new Date(2014, 9, 1, 0, len * 10000),(Math.random()*3000).toFixed(2) - 300,(Math.random()*100).toFixed(2) - 0]);}return d;})()");
+        series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES).nameEqual(@"道岔检测").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr);
         }]);
     }];
 }
-- (PYOption *)irregularLine2Option3 {
-    return [PYOption initPYOptionWithBlock:^(PYOption *option) {
-        option.titleEqual([PYTitle initPYTitleWithBlock:^(PYTitle *title) {
-            title.textEqual(@"J3曲线图")
-            .subtextEqual(@"");
-        }])
-        .gridEqual([PYGrid initPYGridWithBlock:^(PYGrid *grid) {
-            grid.xEqual(@40).x2Equal(@50).y2Equal(@80);
-        }])
-        .tooltipEqual([PYTooltip initPYTooltipWithBlock:^(PYTooltip *tooltip) {
-            tooltip.triggerEqual(PYTooltipTriggerItem)
-            .formatterEqual(@"(function(params){var date = new Date(params.value[0]);data = date.getFullYear() + \'-\' + (date.getMonth() + 1) + \'-\' + date.getDate() + \' \' + date.getHours() + \':\' + date.getMinutes(); return data + \'<br/>\' + params.value[1] + \',\' + params.value[2]})");
-        }])
-        .dataZoomEqual([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
-            dataZoom.showEqual(YES).startEqual(@0);
-        }])
-        .legendEqual([PYLegend initPYLegendWithBlock:^(PYLegend *legend) {
-            legend.dataEqual(@[@"道岔检测"]);
-        }])
-        .addXAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
-            axis.typeEqual(PYAxisTypeTime)
-            .splitNumberEqual(@10);
-        }])
-        .addYAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
-            axis.typeEqual(PYAxisTypeValue);
-        }])
-        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
-            series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES).nameEqual(@"道岔检测").typeEqual(PYSeriesTypeLine).dataEqual(@"(function () {var d = [];var len = 0;var now = new Date();var value;while (len++ < 200) {d.push([new Date(2014, 9, 1, 0, len * 10000),(Math.random()*3000).toFixed(2) - 300,(Math.random()*100).toFixed(2) - 0]);}return d;})()");
-        }]);
-    }];
-}
+
 @end

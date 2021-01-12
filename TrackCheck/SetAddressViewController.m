@@ -8,6 +8,7 @@
 
 #import "SetAddressViewController.h"
 #import "PYSearch.h"
+#import "SetDeviceViewController.h"
 
 #define PYTextColor PYSEARCH_COLOR(113, 113, 113)
 #define PYSEARCH_COLORPolRandomColor self.colorPol[arc4random_uniform((uint32_t)self.colorPol.count)]
@@ -119,8 +120,11 @@
     }
     [DEVICETOOL syncArr];
     
-    [self setStationTagesView];
-    [self setDaoChaTagesView];
+    SetDeviceViewController *setDeviceVC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"SetDeviceViewController"];
+    [self.navigationController pushViewController:setDeviceVC animated:YES];
+    
+//    [self setStationTagesView];
+//    [self setDaoChaTagesView];
 }
 
 -(void)setStationTagesView{
