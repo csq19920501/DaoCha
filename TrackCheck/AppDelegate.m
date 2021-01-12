@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "CSQScoketService.h"
 @interface AppDelegate ()
 
 @end
@@ -17,9 +17,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+//    self.deviceArr = [NSMutableArray array];
+    
+//    [DeviceTool shareInstance].stationStr = @"杭州南站";
+//    [DeviceTool shareInstance].roadSwitchNo = @"109道岔";
+
+    self.scoketThread = [[NSThread alloc]initWithTarget:self selector:@selector(startSocket) object:nil];
+    [self.scoketThread start];
+    
     return YES;
 }
-
+-(void)startSocket{
+    CSQScoketService *socketSerview = [[CSQScoketService alloc]init];
+               //开始服务
+    [socketSerview start];
+               
+    [[NSRunLoop currentRunLoop]addPort:[NSPort port] forMode:NSDefaultRunLoopMode];
+    [[NSRunLoop currentRunLoop]run];//目的让服务器不停止//循环运行
+}
 
 #pragma mark - UISceneSession lifecycle
 

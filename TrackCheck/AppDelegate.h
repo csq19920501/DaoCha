@@ -10,6 +10,7 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-
+//@property(nonatomic,strong)NSMutableArray *deviceArr;
+@property(nonatomic,strong)NSThread *scoketThread;
 @end
 

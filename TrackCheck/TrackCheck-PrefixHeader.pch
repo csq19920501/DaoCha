@@ -1,0 +1,40 @@
+//
+//  TrackCheck-PrefixHeader.pch
+//  TrackCheck
+//
+//  Created by ethome on 2021/1/6.
+//  Copyright © 2021 ethome. All rights reserved.
+//
+
+#ifndef TrackCheck_PrefixHeader_pch
+#define TrackCheck_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+//For the Demo Test.
+#import "RMMapper.h"
+
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "iOS-Echarts.h"
+#import "PYDemoOptions.h"
+#import "MJExtension.h"
+#import "AppDelegate.h"
+#import "DeviceTool.h"
+#import "Device.h"
+#import "HUD.h"
+#import "CSQHelper.h"
+
+#define APPDELEGATE (AppDelegate *)[UIApplication sharedApplication].delegate
+#define DEVICECHANGE @"DEVICECHANGE"
+#define DEVICETOOL [DeviceTool shareInstance]
+#define CSQCOLOR(r,g,b,a) [UIColor colorWithRed:(r/255.0) green:(g/255.0) blue:(b/255.0) alpha:a]
+#define BLUECOLOR CSQCOLOR(3,179,254,0.72)
+#define WEAKBLUECOLOR CSQCOLOR(3,179,254,0.17)
+#define STRONGLUECOLOR CSQCOLOR(3,179,254,1)
+#endif
+
+#endif /* TrackCheck_PrefixHeader_pch */

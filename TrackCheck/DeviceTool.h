@@ -1,0 +1,33 @@
+//
+//  DeviceTool.h
+//  TrackCheck
+//
+//  Created by ethome on 2021/1/8.
+//  Copyright © 2021 ethome. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface DeviceTool : NSObject
++(DeviceTool*)shareInstance;
+@property(nonatomic,strong)NSMutableArray *deviceArr;
+@property(nonatomic,copy)NSString *roadSwitchNo;
+@property(nonatomic,strong)NSMutableArray *roadSwitchNoArr;
+@property(nonatomic,copy)NSString *stationStr;
+@property(nonatomic,strong)NSMutableArray *stationStrArr;
+@property(nonatomic,assign)long long saveStaionTime;
+
+@property(nonatomic,strong)NSMutableArray *deviceDataArr1;
+@property(nonatomic,strong)NSMutableArray *deviceDataArr2;
+@property(nonatomic,strong)NSMutableArray *deviceDataArr3;
+@property(nonatomic,strong)NSMutableArray *deviceDataArr4;
+@property(nonatomic,strong)NSMutableArray *deviceDataArr5;
+
+@property(nonatomic,strong)NSArray *deviceNameArr;
+
+-(void)syncArr;
+@end
+
+NS_ASSUME_NONNULL_END

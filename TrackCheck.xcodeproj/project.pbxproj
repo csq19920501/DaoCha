@@ -3,10 +3,27 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B17C4971D66A221FCEA9C513 /* libPods-TrackCheck.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A37D2DEF2B065C598A77A1 /* libPods-TrackCheck.a */; };
+		B556508425AC636E00CB61D7 /* SetAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B556508325AC636E00CB61D7 /* SetAddressViewController.m */; };
+		B556509425AC64B000CB61D7 /* UIColor+PYSearchExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B556508725AC64B000CB61D7 /* UIColor+PYSearchExtension.m */; };
+		B556509525AC64B000CB61D7 /* PYSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B556508825AC64B000CB61D7 /* PYSearchViewController.m */; };
+		B556509625AC64B000CB61D7 /* PYSearchSuggestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B556508925AC64B000CB61D7 /* PYSearchSuggestionViewController.m */; };
+		B556509725AC64B000CB61D7 /* PYSearchConst.m in Sources */ = {isa = PBXBuildFile; fileRef = B556508B25AC64B000CB61D7 /* PYSearchConst.m */; };
+		B556509825AC64B000CB61D7 /* PYSearch.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B556508C25AC64B000CB61D7 /* PYSearch.bundle */; };
+		B556509925AC64B000CB61D7 /* NSBundle+PYSearchExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B556508D25AC64B000CB61D7 /* NSBundle+PYSearchExtension.m */; };
+		B556509A25AC64B000CB61D7 /* UIView+PYSearchExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B556509325AC64B000CB61D7 /* UIView+PYSearchExtension.m */; };
+		B55650A825AD418800CB61D7 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B556509C25AD418800CB61D7 /* MBProgressHUD.m */; };
+		B55650A925AD418800CB61D7 /* HIKLoadViewItem+configPath.m in Sources */ = {isa = PBXBuildFile; fileRef = B55650A325AD418800CB61D7 /* HIKLoadViewItem+configPath.m */; };
+		B55650AA25AD418800CB61D7 /* HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B55650A425AD418800CB61D7 /* HUD.m */; };
+		B55650AB25AD418800CB61D7 /* HIKLoadPercentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B55650A525AD418800CB61D7 /* HIKLoadPercentView.m */; };
+		B55650AC25AD418800CB61D7 /* HIKLoadViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B55650A625AD418800CB61D7 /* HIKLoadViewItem.m */; };
+		B55650AD25AD418800CB61D7 /* HIKLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B55650A725AD418800CB61D7 /* HIKLoadView.m */; };
+		B55650B025AD7F9A00CB61D7 /* SetDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B55650AF25AD7F9A00CB61D7 /* SetDeviceViewController.m */; };
+		B55650B325AD907200CB61D7 /* CSQHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B55650B225AD907200CB61D7 /* CSQHelper.m */; };
 		B556CA1625A55A2400523758 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA1525A55A2400523758 /* AppDelegate.m */; };
 		B556CA1925A55A2400523758 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA1825A55A2400523758 /* SceneDelegate.m */; };
 		B556CA1C25A55A2400523758 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA1B25A55A2400523758 /* ViewController.m */; };
@@ -16,6 +33,91 @@
 		B556CA2725A55A2700523758 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA2625A55A2700523758 /* main.m */; };
 		B556CA3125A55A2700523758 /* TrackCheckTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA3025A55A2700523758 /* TrackCheckTests.m */; };
 		B556CA3C25A55A2700523758 /* TrackCheckUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA3B25A55A2700523758 /* TrackCheckUITests.m */; };
+		B556CA6325A5CDD000523758 /* PYGaugesDemoOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA4C25A5CDD000523758 /* PYGaugesDemoOptions.m */; };
+		B556CA6425A5CDD000523758 /* PYFunnelDemoOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA4F25A5CDD000523758 /* PYFunnelDemoOptions.m */; };
+		B556CA6525A5CDD000523758 /* PYScatterDemoOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA5225A5CDD000523758 /* PYScatterDemoOptions.m */; };
+		B556CA6625A5CDD000523758 /* PYTreeDemoOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA5325A5CDD000523758 /* PYTreeDemoOptions.m */; };
+		B556CA6725A5CDD000523758 /* PYBarDemoOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA5425A5CDD000523758 /* PYBarDemoOptions.m */; };
+		B556CA6825A5CDD000523758 /* PYPieDemoOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA5725A5CDD000523758 /* PYPieDemoOptions.m */; };
+		B556CA6925A5CDD000523758 /* PYTreemapDemoOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA5825A5CDD000523758 /* PYTreemapDemoOptions.m */; };
+		B556CA6A25A5CDD000523758 /* PYCandlestickDemoOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA5925A5CDD000523758 /* PYCandlestickDemoOptions.m */; };
+		B556CA6B25A5CDD000523758 /* PYWorldCloudDemoOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA5B25A5CDD000523758 /* PYWorldCloudDemoOptions.m */; };
+		B556CA6C25A5CDD000523758 /* PYLineDemoOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA5C25A5CDD000523758 /* PYLineDemoOptions.m */; };
+		B556CA6D25A5CDD000523758 /* PYVennDemoOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA5E25A5CDD000523758 /* PYVennDemoOptions.m */; };
+		B556CA6E25A5CDD000523758 /* PYEventRiverDemoOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA5F25A5CDD000523758 /* PYEventRiverDemoOptions.m */; };
+		B556CAF725A5CEAE00523758 /* PYJsonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA7325A5CEAD00523758 /* PYJsonUtil.m */; };
+		B556CAF925A5CEAE00523758 /* echarts.html in Resources */ = {isa = PBXBuildFile; fileRef = B556CA7825A5CEAD00523758 /* echarts.html */; };
+		B556CB0725A5CEAE00523758 /* PYAxisTick.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA8825A5CEAD00523758 /* PYAxisTick.m */; };
+		B556CB0825A5CEAE00523758 /* PYForceSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA8A25A5CEAD00523758 /* PYForceSeries.m */; };
+		B556CB0925A5CEAE00523758 /* PYCartesianSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA8C25A5CEAD00523758 /* PYCartesianSeries.m */; };
+		B556CB0A25A5CEAE00523758 /* PYRadarSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA8E25A5CEAD00523758 /* PYRadarSeries.m */; };
+		B556CB0B25A5CEAE00523758 /* PYPieSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA8F25A5CEAD00523758 /* PYPieSeries.m */; };
+		B556CB0C25A5CEAE00523758 /* PYSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA9025A5CEAD00523758 /* PYSeries.m */; };
+		B556CB0D25A5CEAE00523758 /* PYVennSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA9125A5CEAD00523758 /* PYVennSeries.m */; };
+		B556CB0E25A5CEAE00523758 /* PYMarkPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA9225A5CEAD00523758 /* PYMarkPoint.m */; };
+		B556CB0F25A5CEAE00523758 /* PYMapSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA9725A5CEAD00523758 /* PYMapSeries.m */; };
+		B556CB1025A5CEAE00523758 /* PYChordSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA9925A5CEAD00523758 /* PYChordSeries.m */; };
+		B556CB1125A5CEAE00523758 /* PYWordCloudSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA9A25A5CEAD00523758 /* PYWordCloudSeries.m */; };
+		B556CB1225A5CEAE00523758 /* PYTreeSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA9C25A5CEAD00523758 /* PYTreeSeries.m */; };
+		B556CB1325A5CEAE00523758 /* PYEventRiverSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAA225A5CEAD00523758 /* PYEventRiverSeries.m */; };
+		B556CB1425A5CEAE00523758 /* PYTreeMapSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAA325A5CEAD00523758 /* PYTreeMapSeries.m */; };
+		B556CB1525A5CEAE00523758 /* PYHeatmapSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAA425A5CEAD00523758 /* PYHeatmapSeries.m */; };
+		B556CB1625A5CEAE00523758 /* PYFunnelSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAA825A5CEAD00523758 /* PYFunnelSeries.m */; };
+		B556CB1725A5CEAE00523758 /* PYMarkLine.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAAA25A5CEAD00523758 /* PYMarkLine.m */; };
+		B556CB1825A5CEAE00523758 /* PYGaugeSeries.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAAB25A5CEAD00523758 /* PYGaugeSeries.m */; };
+		B556CB1925A5CEAE00523758 /* PYColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAB025A5CEAD00523758 /* PYColor.m */; };
+		B556CB1A25A5CEAE00523758 /* PYCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAB125A5CEAD00523758 /* PYCategories.m */; };
+		B556CB1B25A5CEAE00523758 /* PYRoamController.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAB425A5CEAD00523758 /* PYRoamController.m */; };
+		B556CB1C25A5CEAE00523758 /* PYChordStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAB625A5CEAD00523758 /* PYChordStyle.m */; };
+		B556CB1D25A5CEAE00523758 /* PYGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAB725A5CEAD00523758 /* PYGrid.m */; };
+		B556CB1E25A5CEAE00523758 /* PYDataRange.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CABA25A5CEAD00523758 /* PYDataRange.m */; };
+		B556CB1F25A5CEAE00523758 /* PYNodeStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CABC25A5CEAD00523758 /* PYNodeStyle.m */; };
+		B556CB2025A5CEAE00523758 /* PYLoadingOption.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CABE25A5CEAD00523758 /* PYLoadingOption.m */; };
+		B556CB2125A5CEAE00523758 /* PYLinks.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAC025A5CEAD00523758 /* PYLinks.m */; };
+		B556CB2225A5CEAE00523758 /* PYTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAC125A5CEAD00523758 /* PYTextStyle.m */; };
+		B556CB2325A5CEAE00523758 /* PYTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAC225A5CEAD00523758 /* PYTitle.m */; };
+		B556CB2425A5CEAE00523758 /* PYAxis.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAC425A5CEAD00523758 /* PYAxis.m */; };
+		B556CB2525A5CEAE00523758 /* PYOption.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAC525A5CEAD00523758 /* PYOption.m */; };
+		B556CB2625A5CEAE00523758 /* PYAxisPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAC725A5CEAD00523758 /* PYAxisPointer.m */; };
+		B556CB2725A5CEAE00523758 /* PYAreaStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAC825A5CEAD00523758 /* PYAreaStyle.m */; };
+		B556CB2825A5CEAE00523758 /* PYLineStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CACD25A5CEAD00523758 /* PYLineStyle.m */; };
+		B556CB2925A5CEAE00523758 /* PYToolbox.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CACE25A5CEAD00523758 /* PYToolbox.m */; };
+		B556CB2A25A5CEAE00523758 /* PYPolar.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CACF25A5CEAD00523758 /* PYPolar.m */; };
+		B556CB2B25A5CEAE00523758 /* PYLegend.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAD325A5CEAD00523758 /* PYLegend.m */; };
+		B556CB2C25A5CEAE00523758 /* PYAxisLine.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAD425A5CEAD00523758 /* PYAxisLine.m */; };
+		B556CB2D25A5CEAE00523758 /* PYToolboxFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAD525A5CEAD00523758 /* PYToolboxFeature.m */; };
+		B556CB2E25A5CEAE00523758 /* PYItemStyleProp.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAD625A5CEAD00523758 /* PYItemStyleProp.m */; };
+		B556CB2F25A5CEAE00523758 /* PYTimeline.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CADA25A5CEAD00523758 /* PYTimeline.m */; };
+		B556CB3025A5CEAE00523758 /* PYNoDataLoadingOption.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CADB25A5CEAD00523758 /* PYNoDataLoadingOption.m */; };
+		B556CB3125A5CEAE00523758 /* PYLinkStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CADD25A5CEAD00523758 /* PYLinkStyle.m */; };
+		B556CB3225A5CEAE00523758 /* PYAxisSplitLine.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CADE25A5CEAD00523758 /* PYAxisSplitLine.m */; };
+		B556CB3325A5CEAE00523758 /* PYDataZoom.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAE025A5CEAD00523758 /* PYDataZoom.m */; };
+		B556CB3425A5CEAE00523758 /* PYTooltip.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAE225A5CEAD00523758 /* PYTooltip.m */; };
+		B556CB3525A5CEAE00523758 /* PYSplitArea.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAE525A5CEAD00523758 /* PYSplitArea.m */; };
+		B556CB3625A5CEAE00523758 /* PYAxisLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAE825A5CEAD00523758 /* PYAxisLabel.m */; };
+		B556CB3725A5CEAE00523758 /* PYItemStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAE925A5CEAE00523758 /* PYItemStyle.m */; };
+		B556CB3825A5CEAE00523758 /* PYNodes.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAEA25A5CEAE00523758 /* PYNodes.m */; };
+		B556CB3925A5CEAE00523758 /* WKEchartsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAEE25A5CEAE00523758 /* WKEchartsView.m */; };
+		B556CB3A25A5CEAE00523758 /* PYZoomEchartsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAEF25A5CEAE00523758 /* PYZoomEchartsView.m */; };
+		B556CB3B25A5CEAE00523758 /* PYEchartsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAF025A5CEAE00523758 /* PYEchartsView.m */; };
+		B556CB3C25A5CEAE00523758 /* NSObject+PYObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CAF625A5CEAE00523758 /* NSObject+PYObject.m */; };
+		B556CB4325A5D01400523758 /* js in Resources */ = {isa = PBXBuildFile; fileRef = B556CB4125A5D01400523758 /* js */; };
+		B556CB4425A5D01400523758 /* theme in Resources */ = {isa = PBXBuildFile; fileRef = B556CB4225A5D01400523758 /* theme */; };
+		B556CB4E25A5D0A100523758 /* RMMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB4625A5D0A100523758 /* RMMapper.m */; };
+		B556CB4F25A5D0A100523758 /* NSUserDefaults+RMSaveCustomObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB4A25A5D0A100523758 /* NSUserDefaults+RMSaveCustomObject.m */; };
+		B556CB5025A5D0A100523758 /* NSObject+RMArchivable.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB4C25A5D0A100523758 /* NSObject+RMArchivable.m */; };
+		B556CB5125A5D0A100523758 /* NSObject+RMCopyable.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB4D25A5D0A100523758 /* NSObject+RMCopyable.m */; };
+		B556CB5925A728CB00523758 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB5825A728CB00523758 /* ReportViewController.m */; };
+		B556CB5F25A729AC00523758 /* FCChartCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB5C25A729AC00523758 /* FCChartCollectionViewFlowLayout.m */; };
+		B556CB6025A729AC00523758 /* FCChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB5D25A729AC00523758 /* FCChartView.m */; };
+		B556CB6525A729C700523758 /* FCChartCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB6225A729C700523758 /* FCChartCollectionViewCell.m */; };
+		B556CB6625A729C700523758 /* FCMaxOrMinLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB6425A729C700523758 /* FCMaxOrMinLayer.m */; };
+		B556CB6D25A83E4A00523758 /* Documentation.html in Resources */ = {isa = PBXBuildFile; fileRef = B556CB6825A83E4A00523758 /* Documentation.html */; };
+		B556CB6E25A83E4A00523758 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB6925A83E4A00523758 /* GCDAsyncUdpSocket.m */; };
+		B556CB6F25A83E4A00523758 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB6A25A83E4A00523758 /* GCDAsyncSocket.m */; };
+		B556CB7225A83E8B00523758 /* CSQScoketService.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB7125A83E8B00523758 /* CSQScoketService.m */; };
+		B556CB7525A8721800523758 /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB7425A8721800523758 /* Device.m */; };
+		B556CB7825A885A900523758 /* DeviceTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB7725A885A900523758 /* DeviceTool.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +138,41 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		282EC67EE51632C9D1B2E328 /* Pods-TrackCheck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrackCheck.debug.xcconfig"; path = "Target Support Files/Pods-TrackCheck/Pods-TrackCheck.debug.xcconfig"; sourceTree = "<group>"; };
+		59A37D2DEF2B065C598A77A1 /* libPods-TrackCheck.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrackCheck.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A129EEB72E0506FF9D93C4FD /* Pods-TrackCheck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrackCheck.release.xcconfig"; path = "Target Support Files/Pods-TrackCheck/Pods-TrackCheck.release.xcconfig"; sourceTree = "<group>"; };
+		B556508225AC636E00CB61D7 /* SetAddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetAddressViewController.h; sourceTree = "<group>"; };
+		B556508325AC636E00CB61D7 /* SetAddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetAddressViewController.m; sourceTree = "<group>"; };
+		B556508625AC64B000CB61D7 /* NSBundle+PYSearchExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+PYSearchExtension.h"; sourceTree = "<group>"; };
+		B556508725AC64B000CB61D7 /* UIColor+PYSearchExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+PYSearchExtension.m"; sourceTree = "<group>"; };
+		B556508825AC64B000CB61D7 /* PYSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYSearchViewController.m; sourceTree = "<group>"; };
+		B556508925AC64B000CB61D7 /* PYSearchSuggestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYSearchSuggestionViewController.m; sourceTree = "<group>"; };
+		B556508A25AC64B000CB61D7 /* UIView+PYSearchExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+PYSearchExtension.h"; sourceTree = "<group>"; };
+		B556508B25AC64B000CB61D7 /* PYSearchConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYSearchConst.m; sourceTree = "<group>"; };
+		B556508C25AC64B000CB61D7 /* PYSearch.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PYSearch.bundle; sourceTree = "<group>"; };
+		B556508D25AC64B000CB61D7 /* NSBundle+PYSearchExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+PYSearchExtension.m"; sourceTree = "<group>"; };
+		B556508E25AC64B000CB61D7 /* PYSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearch.h; sourceTree = "<group>"; };
+		B556508F25AC64B000CB61D7 /* PYSearchSuggestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearchSuggestionViewController.h; sourceTree = "<group>"; };
+		B556509025AC64B000CB61D7 /* PYSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearchViewController.h; sourceTree = "<group>"; };
+		B556509125AC64B000CB61D7 /* UIColor+PYSearchExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+PYSearchExtension.h"; sourceTree = "<group>"; };
+		B556509225AC64B000CB61D7 /* PYSearchConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearchConst.h; sourceTree = "<group>"; };
+		B556509325AC64B000CB61D7 /* UIView+PYSearchExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+PYSearchExtension.m"; sourceTree = "<group>"; };
+		B556509C25AD418800CB61D7 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		B556509D25AD418800CB61D7 /* HIKLoadPercentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIKLoadPercentView.h; sourceTree = "<group>"; };
+		B556509E25AD418800CB61D7 /* HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUD.h; sourceTree = "<group>"; };
+		B556509F25AD418800CB61D7 /* HIKLoadViewItem+configPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HIKLoadViewItem+configPath.h"; sourceTree = "<group>"; };
+		B55650A025AD418800CB61D7 /* HIKLoadViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIKLoadViewItem.h; sourceTree = "<group>"; };
+		B55650A125AD418800CB61D7 /* HIKLoadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIKLoadView.h; sourceTree = "<group>"; };
+		B55650A225AD418800CB61D7 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		B55650A325AD418800CB61D7 /* HIKLoadViewItem+configPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HIKLoadViewItem+configPath.m"; sourceTree = "<group>"; };
+		B55650A425AD418800CB61D7 /* HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUD.m; sourceTree = "<group>"; };
+		B55650A525AD418800CB61D7 /* HIKLoadPercentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIKLoadPercentView.m; sourceTree = "<group>"; };
+		B55650A625AD418800CB61D7 /* HIKLoadViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIKLoadViewItem.m; sourceTree = "<group>"; };
+		B55650A725AD418800CB61D7 /* HIKLoadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HIKLoadView.m; sourceTree = "<group>"; };
+		B55650AE25AD7F9A00CB61D7 /* SetDeviceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetDeviceViewController.h; sourceTree = "<group>"; };
+		B55650AF25AD7F9A00CB61D7 /* SetDeviceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetDeviceViewController.m; sourceTree = "<group>"; };
+		B55650B125AD907200CB61D7 /* CSQHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSQHelper.h; sourceTree = "<group>"; };
+		B55650B225AD907200CB61D7 /* CSQHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSQHelper.m; sourceTree = "<group>"; };
 		B556CA1125A55A2400523758 /* TrackCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B556CA1425A55A2400523758 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B556CA1525A55A2400523758 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -54,6 +191,176 @@
 		B556CA3725A55A2700523758 /* TrackCheckUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackCheckUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B556CA3B25A55A2700523758 /* TrackCheckUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackCheckUITests.m; sourceTree = "<group>"; };
 		B556CA3D25A55A2700523758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B556CA4A25A5CDD000523758 /* PYPieDemoOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPieDemoOptions.h; sourceTree = "<group>"; };
+		B556CA4B25A5CDD000523758 /* PYCandlestickDemoOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYCandlestickDemoOptions.h; sourceTree = "<group>"; };
+		B556CA4C25A5CDD000523758 /* PYGaugesDemoOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYGaugesDemoOptions.m; sourceTree = "<group>"; };
+		B556CA4D25A5CDD000523758 /* PYTreemapDemoOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYTreemapDemoOptions.h; sourceTree = "<group>"; };
+		B556CA4E25A5CDD000523758 /* PYVennDemoOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYVennDemoOptions.h; sourceTree = "<group>"; };
+		B556CA4F25A5CDD000523758 /* PYFunnelDemoOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYFunnelDemoOptions.m; sourceTree = "<group>"; };
+		B556CA5025A5CDD000523758 /* PYLineDemoOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYLineDemoOptions.h; sourceTree = "<group>"; };
+		B556CA5125A5CDD000523758 /* PYWorldCloudDemoOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYWorldCloudDemoOptions.h; sourceTree = "<group>"; };
+		B556CA5225A5CDD000523758 /* PYScatterDemoOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYScatterDemoOptions.m; sourceTree = "<group>"; };
+		B556CA5325A5CDD000523758 /* PYTreeDemoOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYTreeDemoOptions.m; sourceTree = "<group>"; };
+		B556CA5425A5CDD000523758 /* PYBarDemoOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYBarDemoOptions.m; sourceTree = "<group>"; };
+		B556CA5525A5CDD000523758 /* PYEventRiverDemoOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYEventRiverDemoOptions.h; sourceTree = "<group>"; };
+		B556CA5625A5CDD000523758 /* PYDemoOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYDemoOptions.h; sourceTree = "<group>"; };
+		B556CA5725A5CDD000523758 /* PYPieDemoOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPieDemoOptions.m; sourceTree = "<group>"; };
+		B556CA5825A5CDD000523758 /* PYTreemapDemoOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYTreemapDemoOptions.m; sourceTree = "<group>"; };
+		B556CA5925A5CDD000523758 /* PYCandlestickDemoOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYCandlestickDemoOptions.m; sourceTree = "<group>"; };
+		B556CA5A25A5CDD000523758 /* PYGaugesDemoOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYGaugesDemoOptions.h; sourceTree = "<group>"; };
+		B556CA5B25A5CDD000523758 /* PYWorldCloudDemoOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYWorldCloudDemoOptions.m; sourceTree = "<group>"; };
+		B556CA5C25A5CDD000523758 /* PYLineDemoOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYLineDemoOptions.m; sourceTree = "<group>"; };
+		B556CA5D25A5CDD000523758 /* PYFunnelDemoOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYFunnelDemoOptions.h; sourceTree = "<group>"; };
+		B556CA5E25A5CDD000523758 /* PYVennDemoOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYVennDemoOptions.m; sourceTree = "<group>"; };
+		B556CA5F25A5CDD000523758 /* PYEventRiverDemoOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYEventRiverDemoOptions.m; sourceTree = "<group>"; };
+		B556CA6025A5CDD000523758 /* PYBarDemoOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYBarDemoOptions.h; sourceTree = "<group>"; };
+		B556CA6125A5CDD000523758 /* PYTreeDemoOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYTreeDemoOptions.h; sourceTree = "<group>"; };
+		B556CA6225A5CDD000523758 /* PYScatterDemoOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYScatterDemoOptions.h; sourceTree = "<group>"; };
+		B556CA7025A5CEAD00523758 /* iOS-Echarts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iOS-Echarts.h"; sourceTree = "<group>"; };
+		B556CA7225A5CEAD00523758 /* PYJsonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYJsonUtil.h; sourceTree = "<group>"; };
+		B556CA7325A5CEAD00523758 /* PYJsonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYJsonUtil.m; sourceTree = "<group>"; };
+		B556CA7425A5CEAD00523758 /* PYUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYUtilities.h; sourceTree = "<group>"; };
+		B556CA7825A5CEAD00523758 /* echarts.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = echarts.html; sourceTree = "<group>"; };
+		B556CA8825A5CEAD00523758 /* PYAxisTick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYAxisTick.m; sourceTree = "<group>"; };
+		B556CA8A25A5CEAD00523758 /* PYForceSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYForceSeries.m; sourceTree = "<group>"; };
+		B556CA8B25A5CEAD00523758 /* PYTreeSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYTreeSeries.h; sourceTree = "<group>"; };
+		B556CA8C25A5CEAD00523758 /* PYCartesianSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYCartesianSeries.m; sourceTree = "<group>"; };
+		B556CA8D25A5CEAD00523758 /* PYEventRiverSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYEventRiverSeries.h; sourceTree = "<group>"; };
+		B556CA8E25A5CEAD00523758 /* PYRadarSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYRadarSeries.m; sourceTree = "<group>"; };
+		B556CA8F25A5CEAD00523758 /* PYPieSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPieSeries.m; sourceTree = "<group>"; };
+		B556CA9025A5CEAD00523758 /* PYSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYSeries.m; sourceTree = "<group>"; };
+		B556CA9125A5CEAD00523758 /* PYVennSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYVennSeries.m; sourceTree = "<group>"; };
+		B556CA9225A5CEAD00523758 /* PYMarkPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYMarkPoint.m; sourceTree = "<group>"; };
+		B556CA9325A5CEAD00523758 /* PYHeatmapSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYHeatmapSeries.h; sourceTree = "<group>"; };
+		B556CA9425A5CEAD00523758 /* PYTreeMapSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYTreeMapSeries.h; sourceTree = "<group>"; };
+		B556CA9525A5CEAD00523758 /* PYGaugeSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYGaugeSeries.h; sourceTree = "<group>"; };
+		B556CA9625A5CEAD00523758 /* PYMarkLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYMarkLine.h; sourceTree = "<group>"; };
+		B556CA9725A5CEAD00523758 /* PYMapSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYMapSeries.m; sourceTree = "<group>"; };
+		B556CA9825A5CEAD00523758 /* PYFunnelSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYFunnelSeries.h; sourceTree = "<group>"; };
+		B556CA9925A5CEAD00523758 /* PYChordSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYChordSeries.m; sourceTree = "<group>"; };
+		B556CA9A25A5CEAD00523758 /* PYWordCloudSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYWordCloudSeries.m; sourceTree = "<group>"; };
+		B556CA9B25A5CEAD00523758 /* PYCartesianSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYCartesianSeries.h; sourceTree = "<group>"; };
+		B556CA9C25A5CEAD00523758 /* PYTreeSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYTreeSeries.m; sourceTree = "<group>"; };
+		B556CA9D25A5CEAD00523758 /* PYForceSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYForceSeries.h; sourceTree = "<group>"; };
+		B556CA9E25A5CEAD00523758 /* PYSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSeries.h; sourceTree = "<group>"; };
+		B556CA9F25A5CEAD00523758 /* PYVennSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYVennSeries.h; sourceTree = "<group>"; };
+		B556CAA025A5CEAD00523758 /* PYPieSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPieSeries.h; sourceTree = "<group>"; };
+		B556CAA125A5CEAD00523758 /* PYRadarSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYRadarSeries.h; sourceTree = "<group>"; };
+		B556CAA225A5CEAD00523758 /* PYEventRiverSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYEventRiverSeries.m; sourceTree = "<group>"; };
+		B556CAA325A5CEAD00523758 /* PYTreeMapSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYTreeMapSeries.m; sourceTree = "<group>"; };
+		B556CAA425A5CEAD00523758 /* PYHeatmapSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYHeatmapSeries.m; sourceTree = "<group>"; };
+		B556CAA525A5CEAD00523758 /* PYMarkPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYMarkPoint.h; sourceTree = "<group>"; };
+		B556CAA625A5CEAD00523758 /* PYWordCloudSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYWordCloudSeries.h; sourceTree = "<group>"; };
+		B556CAA725A5CEAD00523758 /* PYChordSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYChordSeries.h; sourceTree = "<group>"; };
+		B556CAA825A5CEAD00523758 /* PYFunnelSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYFunnelSeries.m; sourceTree = "<group>"; };
+		B556CAA925A5CEAD00523758 /* PYMapSeries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYMapSeries.h; sourceTree = "<group>"; };
+		B556CAAA25A5CEAD00523758 /* PYMarkLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYMarkLine.m; sourceTree = "<group>"; };
+		B556CAAB25A5CEAD00523758 /* PYGaugeSeries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYGaugeSeries.m; sourceTree = "<group>"; };
+		B556CAAC25A5CEAD00523758 /* PYItemStyleProp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYItemStyleProp.h; sourceTree = "<group>"; };
+		B556CAAD25A5CEAD00523758 /* PYToolboxFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYToolboxFeature.h; sourceTree = "<group>"; };
+		B556CAAE25A5CEAD00523758 /* PYAxisLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYAxisLine.h; sourceTree = "<group>"; };
+		B556CAAF25A5CEAD00523758 /* PYLegend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYLegend.h; sourceTree = "<group>"; };
+		B556CAB025A5CEAD00523758 /* PYColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYColor.m; sourceTree = "<group>"; };
+		B556CAB125A5CEAD00523758 /* PYCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYCategories.m; sourceTree = "<group>"; };
+		B556CAB225A5CEAD00523758 /* PYToolbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYToolbox.h; sourceTree = "<group>"; };
+		B556CAB325A5CEAD00523758 /* PYPolar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPolar.h; sourceTree = "<group>"; };
+		B556CAB425A5CEAD00523758 /* PYRoamController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYRoamController.m; sourceTree = "<group>"; };
+		B556CAB525A5CEAD00523758 /* PYLineStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYLineStyle.h; sourceTree = "<group>"; };
+		B556CAB625A5CEAD00523758 /* PYChordStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYChordStyle.m; sourceTree = "<group>"; };
+		B556CAB725A5CEAD00523758 /* PYGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYGrid.m; sourceTree = "<group>"; };
+		B556CAB825A5CEAD00523758 /* PYDataZoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYDataZoom.h; sourceTree = "<group>"; };
+		B556CAB925A5CEAD00523758 /* PYAxisSplitLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYAxisSplitLine.h; sourceTree = "<group>"; };
+		B556CABA25A5CEAD00523758 /* PYDataRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYDataRange.m; sourceTree = "<group>"; };
+		B556CABB25A5CEAD00523758 /* PYLinkStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYLinkStyle.h; sourceTree = "<group>"; };
+		B556CABC25A5CEAD00523758 /* PYNodeStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYNodeStyle.m; sourceTree = "<group>"; };
+		B556CABD25A5CEAD00523758 /* PYNoDataLoadingOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYNoDataLoadingOption.h; sourceTree = "<group>"; };
+		B556CABE25A5CEAD00523758 /* PYLoadingOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYLoadingOption.m; sourceTree = "<group>"; };
+		B556CABF25A5CEAD00523758 /* PYTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYTimeline.h; sourceTree = "<group>"; };
+		B556CAC025A5CEAD00523758 /* PYLinks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYLinks.m; sourceTree = "<group>"; };
+		B556CAC125A5CEAD00523758 /* PYTextStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYTextStyle.m; sourceTree = "<group>"; };
+		B556CAC225A5CEAD00523758 /* PYTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYTitle.m; sourceTree = "<group>"; };
+		B556CAC325A5CEAD00523758 /* PYSplitArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSplitArea.h; sourceTree = "<group>"; };
+		B556CAC425A5CEAD00523758 /* PYAxis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYAxis.m; sourceTree = "<group>"; };
+		B556CAC525A5CEAD00523758 /* PYOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYOption.m; sourceTree = "<group>"; };
+		B556CAC625A5CEAD00523758 /* PYTooltip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYTooltip.h; sourceTree = "<group>"; };
+		B556CAC725A5CEAD00523758 /* PYAxisPointer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYAxisPointer.m; sourceTree = "<group>"; };
+		B556CAC825A5CEAD00523758 /* PYAreaStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYAreaStyle.m; sourceTree = "<group>"; };
+		B556CAC925A5CEAD00523758 /* PYNodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYNodes.h; sourceTree = "<group>"; };
+		B556CACA25A5CEAD00523758 /* PYItemStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYItemStyle.h; sourceTree = "<group>"; };
+		B556CACB25A5CEAD00523758 /* PYAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYAxisLabel.h; sourceTree = "<group>"; };
+		B556CACC25A5CEAD00523758 /* PYChordStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYChordStyle.h; sourceTree = "<group>"; };
+		B556CACD25A5CEAD00523758 /* PYLineStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYLineStyle.m; sourceTree = "<group>"; };
+		B556CACE25A5CEAD00523758 /* PYToolbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYToolbox.m; sourceTree = "<group>"; };
+		B556CACF25A5CEAD00523758 /* PYPolar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPolar.m; sourceTree = "<group>"; };
+		B556CAD025A5CEAD00523758 /* PYRoamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYRoamController.h; sourceTree = "<group>"; };
+		B556CAD125A5CEAD00523758 /* PYCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYCategories.h; sourceTree = "<group>"; };
+		B556CAD225A5CEAD00523758 /* PYColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYColor.h; sourceTree = "<group>"; };
+		B556CAD325A5CEAD00523758 /* PYLegend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYLegend.m; sourceTree = "<group>"; };
+		B556CAD425A5CEAD00523758 /* PYAxisLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYAxisLine.m; sourceTree = "<group>"; };
+		B556CAD525A5CEAD00523758 /* PYToolboxFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYToolboxFeature.m; sourceTree = "<group>"; };
+		B556CAD625A5CEAD00523758 /* PYItemStyleProp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYItemStyleProp.m; sourceTree = "<group>"; };
+		B556CAD725A5CEAD00523758 /* PYAxisTick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYAxisTick.h; sourceTree = "<group>"; };
+		B556CAD825A5CEAD00523758 /* PYLinks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYLinks.h; sourceTree = "<group>"; };
+		B556CAD925A5CEAD00523758 /* PYLoadingOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYLoadingOption.h; sourceTree = "<group>"; };
+		B556CADA25A5CEAD00523758 /* PYTimeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYTimeline.m; sourceTree = "<group>"; };
+		B556CADB25A5CEAD00523758 /* PYNoDataLoadingOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYNoDataLoadingOption.m; sourceTree = "<group>"; };
+		B556CADC25A5CEAD00523758 /* PYNodeStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYNodeStyle.h; sourceTree = "<group>"; };
+		B556CADD25A5CEAD00523758 /* PYLinkStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYLinkStyle.m; sourceTree = "<group>"; };
+		B556CADE25A5CEAD00523758 /* PYAxisSplitLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYAxisSplitLine.m; sourceTree = "<group>"; };
+		B556CADF25A5CEAD00523758 /* PYDataRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYDataRange.h; sourceTree = "<group>"; };
+		B556CAE025A5CEAD00523758 /* PYDataZoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYDataZoom.m; sourceTree = "<group>"; };
+		B556CAE125A5CEAD00523758 /* PYGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYGrid.h; sourceTree = "<group>"; };
+		B556CAE225A5CEAD00523758 /* PYTooltip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYTooltip.m; sourceTree = "<group>"; };
+		B556CAE325A5CEAD00523758 /* PYOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYOption.h; sourceTree = "<group>"; };
+		B556CAE425A5CEAD00523758 /* PYAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYAxis.h; sourceTree = "<group>"; };
+		B556CAE525A5CEAD00523758 /* PYSplitArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYSplitArea.m; sourceTree = "<group>"; };
+		B556CAE625A5CEAD00523758 /* PYTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYTitle.h; sourceTree = "<group>"; };
+		B556CAE725A5CEAD00523758 /* PYTextStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYTextStyle.h; sourceTree = "<group>"; };
+		B556CAE825A5CEAD00523758 /* PYAxisLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYAxisLabel.m; sourceTree = "<group>"; };
+		B556CAE925A5CEAE00523758 /* PYItemStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYItemStyle.m; sourceTree = "<group>"; };
+		B556CAEA25A5CEAE00523758 /* PYNodes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYNodes.m; sourceTree = "<group>"; };
+		B556CAEB25A5CEAE00523758 /* PYAreaStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYAreaStyle.h; sourceTree = "<group>"; };
+		B556CAEC25A5CEAE00523758 /* PYAxisPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYAxisPointer.h; sourceTree = "<group>"; };
+		B556CAEE25A5CEAE00523758 /* WKEchartsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKEchartsView.m; sourceTree = "<group>"; };
+		B556CAEF25A5CEAE00523758 /* PYZoomEchartsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYZoomEchartsView.m; sourceTree = "<group>"; };
+		B556CAF025A5CEAE00523758 /* PYEchartsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYEchartsView.m; sourceTree = "<group>"; };
+		B556CAF125A5CEAE00523758 /* WKEchartsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKEchartsView.h; sourceTree = "<group>"; };
+		B556CAF225A5CEAE00523758 /* PYZoomEchartsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYZoomEchartsView.h; sourceTree = "<group>"; };
+		B556CAF325A5CEAE00523758 /* PYEchartsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYEchartsView.h; sourceTree = "<group>"; };
+		B556CAF525A5CEAE00523758 /* NSObject+PYObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+PYObject.h"; sourceTree = "<group>"; };
+		B556CAF625A5CEAE00523758 /* NSObject+PYObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+PYObject.m"; sourceTree = "<group>"; };
+		B556CB4125A5D01400523758 /* js */ = {isa = PBXFileReference; lastKnownFileType = folder; path = js; sourceTree = "<group>"; };
+		B556CB4225A5D01400523758 /* theme */ = {isa = PBXFileReference; lastKnownFileType = folder; path = theme; sourceTree = "<group>"; };
+		B556CB4625A5D0A100523758 /* RMMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMapper.m; sourceTree = "<group>"; };
+		B556CB4725A5D0A100523758 /* NSUserDefaults+RMSaveCustomObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+RMSaveCustomObject.h"; sourceTree = "<group>"; };
+		B556CB4825A5D0A100523758 /* NSObject+RMArchivable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+RMArchivable.h"; sourceTree = "<group>"; };
+		B556CB4925A5D0A100523758 /* NSObject+RMCopyable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+RMCopyable.h"; sourceTree = "<group>"; };
+		B556CB4A25A5D0A100523758 /* NSUserDefaults+RMSaveCustomObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+RMSaveCustomObject.m"; sourceTree = "<group>"; };
+		B556CB4B25A5D0A100523758 /* RMMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMapper.h; sourceTree = "<group>"; };
+		B556CB4C25A5D0A100523758 /* NSObject+RMArchivable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+RMArchivable.m"; sourceTree = "<group>"; };
+		B556CB4D25A5D0A100523758 /* NSObject+RMCopyable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+RMCopyable.m"; sourceTree = "<group>"; };
+		B556CB5425A5D61E00523758 /* TrackCheck-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TrackCheck-PrefixHeader.pch"; sourceTree = "<group>"; };
+		B556CB5725A728CB00523758 /* ReportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportViewController.h; sourceTree = "<group>"; };
+		B556CB5825A728CB00523758 /* ReportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReportViewController.m; sourceTree = "<group>"; };
+		B556CB5B25A729AC00523758 /* FCChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCChartView.h; sourceTree = "<group>"; };
+		B556CB5C25A729AC00523758 /* FCChartCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCChartCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		B556CB5D25A729AC00523758 /* FCChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCChartView.m; sourceTree = "<group>"; };
+		B556CB5E25A729AC00523758 /* FCChartCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCChartCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		B556CB6125A729C700523758 /* FCMaxOrMinLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCMaxOrMinLayer.h; sourceTree = "<group>"; };
+		B556CB6225A729C700523758 /* FCChartCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCChartCollectionViewCell.m; sourceTree = "<group>"; };
+		B556CB6325A729C700523758 /* FCChartCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCChartCollectionViewCell.h; sourceTree = "<group>"; };
+		B556CB6425A729C700523758 /* FCMaxOrMinLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCMaxOrMinLayer.m; sourceTree = "<group>"; };
+		B556CB6825A83E4A00523758 /* Documentation.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Documentation.html; sourceTree = "<group>"; };
+		B556CB6925A83E4A00523758 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
+		B556CB6A25A83E4A00523758 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		B556CB6B25A83E4A00523758 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		B556CB6C25A83E4A00523758 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		B556CB7025A83E8B00523758 /* CSQScoketService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSQScoketService.h; sourceTree = "<group>"; };
+		B556CB7125A83E8B00523758 /* CSQScoketService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSQScoketService.m; sourceTree = "<group>"; };
+		B556CB7325A8721800523758 /* Device.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
+		B556CB7425A8721800523758 /* Device.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
+		B556CB7625A885A900523758 /* DeviceTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceTool.h; sourceTree = "<group>"; };
+		B556CB7725A885A900523758 /* DeviceTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceTool.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +368,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B17C4971D66A221FCEA9C513 /* libPods-TrackCheck.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +389,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8893DC8E08B5CB029C10C4E2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				282EC67EE51632C9D1B2E328 /* Pods-TrackCheck.debug.xcconfig */,
+				A129EEB72E0506FF9D93C4FD /* Pods-TrackCheck.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		B556508525AC64B000CB61D7 /* PYSearch */ = {
+			isa = PBXGroup;
+			children = (
+				B556508625AC64B000CB61D7 /* NSBundle+PYSearchExtension.h */,
+				B556508725AC64B000CB61D7 /* UIColor+PYSearchExtension.m */,
+				B556508825AC64B000CB61D7 /* PYSearchViewController.m */,
+				B556508925AC64B000CB61D7 /* PYSearchSuggestionViewController.m */,
+				B556508A25AC64B000CB61D7 /* UIView+PYSearchExtension.h */,
+				B556508B25AC64B000CB61D7 /* PYSearchConst.m */,
+				B556508C25AC64B000CB61D7 /* PYSearch.bundle */,
+				B556508D25AC64B000CB61D7 /* NSBundle+PYSearchExtension.m */,
+				B556508E25AC64B000CB61D7 /* PYSearch.h */,
+				B556508F25AC64B000CB61D7 /* PYSearchSuggestionViewController.h */,
+				B556509025AC64B000CB61D7 /* PYSearchViewController.h */,
+				B556509125AC64B000CB61D7 /* UIColor+PYSearchExtension.h */,
+				B556509225AC64B000CB61D7 /* PYSearchConst.h */,
+				B556509325AC64B000CB61D7 /* UIView+PYSearchExtension.m */,
+			);
+			path = PYSearch;
+			sourceTree = "<group>";
+		};
+		B556509B25AD418700CB61D7 /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				B556509C25AD418800CB61D7 /* MBProgressHUD.m */,
+				B556509D25AD418800CB61D7 /* HIKLoadPercentView.h */,
+				B556509E25AD418800CB61D7 /* HUD.h */,
+				B556509F25AD418800CB61D7 /* HIKLoadViewItem+configPath.h */,
+				B55650A025AD418800CB61D7 /* HIKLoadViewItem.h */,
+				B55650A125AD418800CB61D7 /* HIKLoadView.h */,
+				B55650A225AD418800CB61D7 /* MBProgressHUD.h */,
+				B55650A325AD418800CB61D7 /* HIKLoadViewItem+configPath.m */,
+				B55650A425AD418800CB61D7 /* HUD.m */,
+				B55650A525AD418800CB61D7 /* HIKLoadPercentView.m */,
+				B55650A625AD418800CB61D7 /* HIKLoadViewItem.m */,
+				B55650A725AD418800CB61D7 /* HIKLoadView.m */,
+			);
+			path = HUD;
+			sourceTree = "<group>";
+		};
 		B556CA0825A55A2400523758 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +445,8 @@
 				B556CA2F25A55A2700523758 /* TrackCheckTests */,
 				B556CA3A25A55A2700523758 /* TrackCheckUITests */,
 				B556CA1225A55A2400523758 /* Products */,
+				8893DC8E08B5CB029C10C4E2 /* Pods */,
+				FB24DFD980EFF4E103CDDB4A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,17 +463,38 @@
 		B556CA1325A55A2400523758 /* TrackCheck */ = {
 			isa = PBXGroup;
 			children = (
+				B556509B25AD418700CB61D7 /* HUD */,
+				B556508525AC64B000CB61D7 /* PYSearch */,
+				B556CB6725A83E4A00523758 /* GCD */,
+				B556CB5A25A729AC00523758 /* FCChartCollectionView */,
+				B556CB4525A5D0A100523758 /* RMMapper */,
+				B556CA6F25A5CEAD00523758 /* iOS-Echarts */,
 				B556CA1425A55A2400523758 /* AppDelegate.h */,
 				B556CA1525A55A2400523758 /* AppDelegate.m */,
 				B556CA1725A55A2400523758 /* SceneDelegate.h */,
 				B556CA1825A55A2400523758 /* SceneDelegate.m */,
 				B556CA1A25A55A2400523758 /* ViewController.h */,
 				B556CA1B25A55A2400523758 /* ViewController.m */,
+				B556508225AC636E00CB61D7 /* SetAddressViewController.h */,
+				B556508325AC636E00CB61D7 /* SetAddressViewController.m */,
+				B55650AE25AD7F9A00CB61D7 /* SetDeviceViewController.h */,
+				B55650AF25AD7F9A00CB61D7 /* SetDeviceViewController.m */,
+				B556CB5725A728CB00523758 /* ReportViewController.h */,
+				B556CB5825A728CB00523758 /* ReportViewController.m */,
+				B556CB7025A83E8B00523758 /* CSQScoketService.h */,
+				B556CB7125A83E8B00523758 /* CSQScoketService.m */,
+				B556CB7325A8721800523758 /* Device.h */,
+				B556CB7425A8721800523758 /* Device.m */,
+				B556CB7625A885A900523758 /* DeviceTool.h */,
+				B556CB7725A885A900523758 /* DeviceTool.m */,
+				B55650B125AD907200CB61D7 /* CSQHelper.h */,
+				B55650B225AD907200CB61D7 /* CSQHelper.m */,
 				B556CA1D25A55A2400523758 /* Main.storyboard */,
 				B556CA2025A55A2700523758 /* Assets.xcassets */,
 				B556CA2225A55A2700523758 /* LaunchScreen.storyboard */,
 				B556CA2525A55A2700523758 /* Info.plist */,
 				B556CA2625A55A2700523758 /* main.m */,
+				B556CB5425A5D61E00523758 /* TrackCheck-PrefixHeader.pch */,
 			);
 			path = TrackCheck;
 			sourceTree = "<group>";
@@ -137,6 +517,259 @@
 			path = TrackCheckUITests;
 			sourceTree = "<group>";
 		};
+		B556CA4925A5CDD000523758 /* DemoOptions */ = {
+			isa = PBXGroup;
+			children = (
+				B556CA4A25A5CDD000523758 /* PYPieDemoOptions.h */,
+				B556CA4B25A5CDD000523758 /* PYCandlestickDemoOptions.h */,
+				B556CA4C25A5CDD000523758 /* PYGaugesDemoOptions.m */,
+				B556CA4D25A5CDD000523758 /* PYTreemapDemoOptions.h */,
+				B556CA4E25A5CDD000523758 /* PYVennDemoOptions.h */,
+				B556CA4F25A5CDD000523758 /* PYFunnelDemoOptions.m */,
+				B556CA5025A5CDD000523758 /* PYLineDemoOptions.h */,
+				B556CA5125A5CDD000523758 /* PYWorldCloudDemoOptions.h */,
+				B556CA5225A5CDD000523758 /* PYScatterDemoOptions.m */,
+				B556CA5325A5CDD000523758 /* PYTreeDemoOptions.m */,
+				B556CA5425A5CDD000523758 /* PYBarDemoOptions.m */,
+				B556CA5525A5CDD000523758 /* PYEventRiverDemoOptions.h */,
+				B556CA5625A5CDD000523758 /* PYDemoOptions.h */,
+				B556CA5725A5CDD000523758 /* PYPieDemoOptions.m */,
+				B556CA5825A5CDD000523758 /* PYTreemapDemoOptions.m */,
+				B556CA5925A5CDD000523758 /* PYCandlestickDemoOptions.m */,
+				B556CA5A25A5CDD000523758 /* PYGaugesDemoOptions.h */,
+				B556CA5B25A5CDD000523758 /* PYWorldCloudDemoOptions.m */,
+				B556CA5C25A5CDD000523758 /* PYLineDemoOptions.m */,
+				B556CA5D25A5CDD000523758 /* PYFunnelDemoOptions.h */,
+				B556CA5E25A5CDD000523758 /* PYVennDemoOptions.m */,
+				B556CA5F25A5CDD000523758 /* PYEventRiverDemoOptions.m */,
+				B556CA6025A5CDD000523758 /* PYBarDemoOptions.h */,
+				B556CA6125A5CDD000523758 /* PYTreeDemoOptions.h */,
+				B556CA6225A5CDD000523758 /* PYScatterDemoOptions.h */,
+			);
+			path = DemoOptions;
+			sourceTree = "<group>";
+		};
+		B556CA6F25A5CEAD00523758 /* iOS-Echarts */ = {
+			isa = PBXGroup;
+			children = (
+				B556CA4925A5CDD000523758 /* DemoOptions */,
+				B556CA7025A5CEAD00523758 /* iOS-Echarts.h */,
+				B556CA7125A5CEAD00523758 /* Util */,
+				B556CA7425A5CEAD00523758 /* PYUtilities.h */,
+				B556CA7525A5CEAD00523758 /* Resources */,
+				B556CA8725A5CEAD00523758 /* Model */,
+				B556CAED25A5CEAE00523758 /* View */,
+				B556CAF425A5CEAE00523758 /* Categories */,
+			);
+			path = "iOS-Echarts";
+			sourceTree = "<group>";
+		};
+		B556CA7125A5CEAD00523758 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				B556CA7225A5CEAD00523758 /* PYJsonUtil.h */,
+				B556CA7325A5CEAD00523758 /* PYJsonUtil.m */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		B556CA7525A5CEAD00523758 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B556CB4125A5D01400523758 /* js */,
+				B556CB4225A5D01400523758 /* theme */,
+				B556CA7825A5CEAD00523758 /* echarts.html */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B556CA8725A5CEAD00523758 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B556CA8825A5CEAD00523758 /* PYAxisTick.m */,
+				B556CA8925A5CEAD00523758 /* Series */,
+				B556CAAC25A5CEAD00523758 /* PYItemStyleProp.h */,
+				B556CAAD25A5CEAD00523758 /* PYToolboxFeature.h */,
+				B556CAAE25A5CEAD00523758 /* PYAxisLine.h */,
+				B556CAAF25A5CEAD00523758 /* PYLegend.h */,
+				B556CAB025A5CEAD00523758 /* PYColor.m */,
+				B556CAB125A5CEAD00523758 /* PYCategories.m */,
+				B556CAB225A5CEAD00523758 /* PYToolbox.h */,
+				B556CAB325A5CEAD00523758 /* PYPolar.h */,
+				B556CAB425A5CEAD00523758 /* PYRoamController.m */,
+				B556CAB525A5CEAD00523758 /* PYLineStyle.h */,
+				B556CAB625A5CEAD00523758 /* PYChordStyle.m */,
+				B556CAB725A5CEAD00523758 /* PYGrid.m */,
+				B556CAB825A5CEAD00523758 /* PYDataZoom.h */,
+				B556CAB925A5CEAD00523758 /* PYAxisSplitLine.h */,
+				B556CABA25A5CEAD00523758 /* PYDataRange.m */,
+				B556CABB25A5CEAD00523758 /* PYLinkStyle.h */,
+				B556CABC25A5CEAD00523758 /* PYNodeStyle.m */,
+				B556CABD25A5CEAD00523758 /* PYNoDataLoadingOption.h */,
+				B556CABE25A5CEAD00523758 /* PYLoadingOption.m */,
+				B556CABF25A5CEAD00523758 /* PYTimeline.h */,
+				B556CAC025A5CEAD00523758 /* PYLinks.m */,
+				B556CAC125A5CEAD00523758 /* PYTextStyle.m */,
+				B556CAC225A5CEAD00523758 /* PYTitle.m */,
+				B556CAC325A5CEAD00523758 /* PYSplitArea.h */,
+				B556CAC425A5CEAD00523758 /* PYAxis.m */,
+				B556CAC525A5CEAD00523758 /* PYOption.m */,
+				B556CAC625A5CEAD00523758 /* PYTooltip.h */,
+				B556CAC725A5CEAD00523758 /* PYAxisPointer.m */,
+				B556CAC825A5CEAD00523758 /* PYAreaStyle.m */,
+				B556CAC925A5CEAD00523758 /* PYNodes.h */,
+				B556CACA25A5CEAD00523758 /* PYItemStyle.h */,
+				B556CACB25A5CEAD00523758 /* PYAxisLabel.h */,
+				B556CACC25A5CEAD00523758 /* PYChordStyle.h */,
+				B556CACD25A5CEAD00523758 /* PYLineStyle.m */,
+				B556CACE25A5CEAD00523758 /* PYToolbox.m */,
+				B556CACF25A5CEAD00523758 /* PYPolar.m */,
+				B556CAD025A5CEAD00523758 /* PYRoamController.h */,
+				B556CAD125A5CEAD00523758 /* PYCategories.h */,
+				B556CAD225A5CEAD00523758 /* PYColor.h */,
+				B556CAD325A5CEAD00523758 /* PYLegend.m */,
+				B556CAD425A5CEAD00523758 /* PYAxisLine.m */,
+				B556CAD525A5CEAD00523758 /* PYToolboxFeature.m */,
+				B556CAD625A5CEAD00523758 /* PYItemStyleProp.m */,
+				B556CAD725A5CEAD00523758 /* PYAxisTick.h */,
+				B556CAD825A5CEAD00523758 /* PYLinks.h */,
+				B556CAD925A5CEAD00523758 /* PYLoadingOption.h */,
+				B556CADA25A5CEAD00523758 /* PYTimeline.m */,
+				B556CADB25A5CEAD00523758 /* PYNoDataLoadingOption.m */,
+				B556CADC25A5CEAD00523758 /* PYNodeStyle.h */,
+				B556CADD25A5CEAD00523758 /* PYLinkStyle.m */,
+				B556CADE25A5CEAD00523758 /* PYAxisSplitLine.m */,
+				B556CADF25A5CEAD00523758 /* PYDataRange.h */,
+				B556CAE025A5CEAD00523758 /* PYDataZoom.m */,
+				B556CAE125A5CEAD00523758 /* PYGrid.h */,
+				B556CAE225A5CEAD00523758 /* PYTooltip.m */,
+				B556CAE325A5CEAD00523758 /* PYOption.h */,
+				B556CAE425A5CEAD00523758 /* PYAxis.h */,
+				B556CAE525A5CEAD00523758 /* PYSplitArea.m */,
+				B556CAE625A5CEAD00523758 /* PYTitle.h */,
+				B556CAE725A5CEAD00523758 /* PYTextStyle.h */,
+				B556CAE825A5CEAD00523758 /* PYAxisLabel.m */,
+				B556CAE925A5CEAE00523758 /* PYItemStyle.m */,
+				B556CAEA25A5CEAE00523758 /* PYNodes.m */,
+				B556CAEB25A5CEAE00523758 /* PYAreaStyle.h */,
+				B556CAEC25A5CEAE00523758 /* PYAxisPointer.h */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B556CA8925A5CEAD00523758 /* Series */ = {
+			isa = PBXGroup;
+			children = (
+				B556CA8A25A5CEAD00523758 /* PYForceSeries.m */,
+				B556CA8B25A5CEAD00523758 /* PYTreeSeries.h */,
+				B556CA8C25A5CEAD00523758 /* PYCartesianSeries.m */,
+				B556CA8D25A5CEAD00523758 /* PYEventRiverSeries.h */,
+				B556CA8E25A5CEAD00523758 /* PYRadarSeries.m */,
+				B556CA8F25A5CEAD00523758 /* PYPieSeries.m */,
+				B556CA9025A5CEAD00523758 /* PYSeries.m */,
+				B556CA9125A5CEAD00523758 /* PYVennSeries.m */,
+				B556CA9225A5CEAD00523758 /* PYMarkPoint.m */,
+				B556CA9325A5CEAD00523758 /* PYHeatmapSeries.h */,
+				B556CA9425A5CEAD00523758 /* PYTreeMapSeries.h */,
+				B556CA9525A5CEAD00523758 /* PYGaugeSeries.h */,
+				B556CA9625A5CEAD00523758 /* PYMarkLine.h */,
+				B556CA9725A5CEAD00523758 /* PYMapSeries.m */,
+				B556CA9825A5CEAD00523758 /* PYFunnelSeries.h */,
+				B556CA9925A5CEAD00523758 /* PYChordSeries.m */,
+				B556CA9A25A5CEAD00523758 /* PYWordCloudSeries.m */,
+				B556CA9B25A5CEAD00523758 /* PYCartesianSeries.h */,
+				B556CA9C25A5CEAD00523758 /* PYTreeSeries.m */,
+				B556CA9D25A5CEAD00523758 /* PYForceSeries.h */,
+				B556CA9E25A5CEAD00523758 /* PYSeries.h */,
+				B556CA9F25A5CEAD00523758 /* PYVennSeries.h */,
+				B556CAA025A5CEAD00523758 /* PYPieSeries.h */,
+				B556CAA125A5CEAD00523758 /* PYRadarSeries.h */,
+				B556CAA225A5CEAD00523758 /* PYEventRiverSeries.m */,
+				B556CAA325A5CEAD00523758 /* PYTreeMapSeries.m */,
+				B556CAA425A5CEAD00523758 /* PYHeatmapSeries.m */,
+				B556CAA525A5CEAD00523758 /* PYMarkPoint.h */,
+				B556CAA625A5CEAD00523758 /* PYWordCloudSeries.h */,
+				B556CAA725A5CEAD00523758 /* PYChordSeries.h */,
+				B556CAA825A5CEAD00523758 /* PYFunnelSeries.m */,
+				B556CAA925A5CEAD00523758 /* PYMapSeries.h */,
+				B556CAAA25A5CEAD00523758 /* PYMarkLine.m */,
+				B556CAAB25A5CEAD00523758 /* PYGaugeSeries.m */,
+			);
+			path = Series;
+			sourceTree = "<group>";
+		};
+		B556CAED25A5CEAE00523758 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B556CAEE25A5CEAE00523758 /* WKEchartsView.m */,
+				B556CAEF25A5CEAE00523758 /* PYZoomEchartsView.m */,
+				B556CAF025A5CEAE00523758 /* PYEchartsView.m */,
+				B556CAF125A5CEAE00523758 /* WKEchartsView.h */,
+				B556CAF225A5CEAE00523758 /* PYZoomEchartsView.h */,
+				B556CAF325A5CEAE00523758 /* PYEchartsView.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B556CAF425A5CEAE00523758 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				B556CAF525A5CEAE00523758 /* NSObject+PYObject.h */,
+				B556CAF625A5CEAE00523758 /* NSObject+PYObject.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		B556CB4525A5D0A100523758 /* RMMapper */ = {
+			isa = PBXGroup;
+			children = (
+				B556CB4625A5D0A100523758 /* RMMapper.m */,
+				B556CB4725A5D0A100523758 /* NSUserDefaults+RMSaveCustomObject.h */,
+				B556CB4825A5D0A100523758 /* NSObject+RMArchivable.h */,
+				B556CB4925A5D0A100523758 /* NSObject+RMCopyable.h */,
+				B556CB4A25A5D0A100523758 /* NSUserDefaults+RMSaveCustomObject.m */,
+				B556CB4B25A5D0A100523758 /* RMMapper.h */,
+				B556CB4C25A5D0A100523758 /* NSObject+RMArchivable.m */,
+				B556CB4D25A5D0A100523758 /* NSObject+RMCopyable.m */,
+			);
+			path = RMMapper;
+			sourceTree = "<group>";
+		};
+		B556CB5A25A729AC00523758 /* FCChartCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				B556CB6325A729C700523758 /* FCChartCollectionViewCell.h */,
+				B556CB6225A729C700523758 /* FCChartCollectionViewCell.m */,
+				B556CB6125A729C700523758 /* FCMaxOrMinLayer.h */,
+				B556CB6425A729C700523758 /* FCMaxOrMinLayer.m */,
+				B556CB5B25A729AC00523758 /* FCChartView.h */,
+				B556CB5D25A729AC00523758 /* FCChartView.m */,
+				B556CB5E25A729AC00523758 /* FCChartCollectionViewFlowLayout.h */,
+				B556CB5C25A729AC00523758 /* FCChartCollectionViewFlowLayout.m */,
+			);
+			path = FCChartCollectionView;
+			sourceTree = "<group>";
+		};
+		B556CB6725A83E4A00523758 /* GCD */ = {
+			isa = PBXGroup;
+			children = (
+				B556CB6825A83E4A00523758 /* Documentation.html */,
+				B556CB6925A83E4A00523758 /* GCDAsyncUdpSocket.m */,
+				B556CB6A25A83E4A00523758 /* GCDAsyncSocket.m */,
+				B556CB6B25A83E4A00523758 /* GCDAsyncUdpSocket.h */,
+				B556CB6C25A83E4A00523758 /* GCDAsyncSocket.h */,
+			);
+			path = GCD;
+			sourceTree = "<group>";
+		};
+		FB24DFD980EFF4E103CDDB4A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				59A37D2DEF2B065C598A77A1 /* libPods-TrackCheck.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -144,9 +777,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B556CA4025A55A2700523758 /* Build configuration list for PBXNativeTarget "TrackCheck" */;
 			buildPhases = (
+				1E4F3BD16AD59FF6DB78E4BF /* [CP] Check Pods Manifest.lock */,
 				B556CA0D25A55A2400523758 /* Sources */,
 				B556CA0E25A55A2400523758 /* Frameworks */,
 				B556CA0F25A55A2400523758 /* Resources */,
+				7B5DCC62144BF20D537D406C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -240,8 +875,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B556CB4425A5D01400523758 /* theme in Resources */,
+				B556CB4325A5D01400523758 /* js in Resources */,
 				B556CA2425A55A2700523758 /* LaunchScreen.storyboard in Resources */,
+				B556CAF925A5CEAE00523758 /* echarts.html in Resources */,
 				B556CA2125A55A2700523758 /* Assets.xcassets in Resources */,
+				B556CB6D25A83E4A00523758 /* Documentation.html in Resources */,
+				B556509825AC64B000CB61D7 /* PYSearch.bundle in Resources */,
 				B556CA1F25A55A2400523758 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,15 +902,153 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1E4F3BD16AD59FF6DB78E4BF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TrackCheck-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7B5DCC62144BF20D537D406C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TrackCheck/Pods-TrackCheck-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TrackCheck/Pods-TrackCheck-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TrackCheck/Pods-TrackCheck-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B556CA0D25A55A2400523758 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B556509725AC64B000CB61D7 /* PYSearchConst.m in Sources */,
+				B556509425AC64B000CB61D7 /* UIColor+PYSearchExtension.m in Sources */,
+				B556CB1525A5CEAE00523758 /* PYHeatmapSeries.m in Sources */,
+				B55650A925AD418800CB61D7 /* HIKLoadViewItem+configPath.m in Sources */,
+				B556CB6525A729C700523758 /* FCChartCollectionViewCell.m in Sources */,
+				B556CB4E25A5D0A100523758 /* RMMapper.m in Sources */,
+				B556CB0E25A5CEAE00523758 /* PYMarkPoint.m in Sources */,
+				B556CB1A25A5CEAE00523758 /* PYCategories.m in Sources */,
+				B556CA6625A5CDD000523758 /* PYTreeDemoOptions.m in Sources */,
+				B556508425AC636E00CB61D7 /* SetAddressViewController.m in Sources */,
 				B556CA1C25A55A2400523758 /* ViewController.m in Sources */,
+				B556CB1025A5CEAE00523758 /* PYChordSeries.m in Sources */,
+				B556CB2E25A5CEAE00523758 /* PYItemStyleProp.m in Sources */,
+				B556CB2825A5CEAE00523758 /* PYLineStyle.m in Sources */,
+				B556CB7225A83E8B00523758 /* CSQScoketService.m in Sources */,
+				B556CB3A25A5CEAE00523758 /* PYZoomEchartsView.m in Sources */,
+				B556CA6325A5CDD000523758 /* PYGaugesDemoOptions.m in Sources */,
+				B556CA6725A5CDD000523758 /* PYBarDemoOptions.m in Sources */,
+				B556CB1C25A5CEAE00523758 /* PYChordStyle.m in Sources */,
+				B556509525AC64B000CB61D7 /* PYSearchViewController.m in Sources */,
+				B556509625AC64B000CB61D7 /* PYSearchSuggestionViewController.m in Sources */,
+				B556CB5025A5D0A100523758 /* NSObject+RMArchivable.m in Sources */,
+				B556509A25AC64B000CB61D7 /* UIView+PYSearchExtension.m in Sources */,
+				B55650AB25AD418800CB61D7 /* HIKLoadPercentView.m in Sources */,
+				B55650A825AD418800CB61D7 /* MBProgressHUD.m in Sources */,
+				B556CB0925A5CEAE00523758 /* PYCartesianSeries.m in Sources */,
+				B55650AC25AD418800CB61D7 /* HIKLoadViewItem.m in Sources */,
+				B556CB1325A5CEAE00523758 /* PYEventRiverSeries.m in Sources */,
+				B556CB6025A729AC00523758 /* FCChartView.m in Sources */,
+				B556CB0825A5CEAE00523758 /* PYForceSeries.m in Sources */,
+				B556CB0B25A5CEAE00523758 /* PYPieSeries.m in Sources */,
+				B556CB1725A5CEAE00523758 /* PYMarkLine.m in Sources */,
+				B556CB2125A5CEAE00523758 /* PYLinks.m in Sources */,
+				B556CB3B25A5CEAE00523758 /* PYEchartsView.m in Sources */,
+				B556CB2325A5CEAE00523758 /* PYTitle.m in Sources */,
+				B556CB1925A5CEAE00523758 /* PYColor.m in Sources */,
+				B556CA6A25A5CDD000523758 /* PYCandlestickDemoOptions.m in Sources */,
 				B556CA1625A55A2400523758 /* AppDelegate.m in Sources */,
+				B556CB2725A5CEAE00523758 /* PYAreaStyle.m in Sources */,
+				B556CB3525A5CEAE00523758 /* PYSplitArea.m in Sources */,
+				B556CB3725A5CEAE00523758 /* PYItemStyle.m in Sources */,
+				B556CB3625A5CEAE00523758 /* PYAxisLabel.m in Sources */,
 				B556CA2725A55A2700523758 /* main.m in Sources */,
+				B556CA6525A5CDD000523758 /* PYScatterDemoOptions.m in Sources */,
+				B556CB1125A5CEAE00523758 /* PYWordCloudSeries.m in Sources */,
+				B556CB3325A5CEAE00523758 /* PYDataZoom.m in Sources */,
+				B556CB1F25A5CEAE00523758 /* PYNodeStyle.m in Sources */,
+				B556CB7825A885A900523758 /* DeviceTool.m in Sources */,
+				B556CB2D25A5CEAE00523758 /* PYToolboxFeature.m in Sources */,
+				B556CB2525A5CEAE00523758 /* PYOption.m in Sources */,
+				B556CB2925A5CEAE00523758 /* PYToolbox.m in Sources */,
+				B55650AD25AD418800CB61D7 /* HIKLoadView.m in Sources */,
+				B556CA6E25A5CDD000523758 /* PYEventRiverDemoOptions.m in Sources */,
+				B556CB2625A5CEAE00523758 /* PYAxisPointer.m in Sources */,
+				B556CB3425A5CEAE00523758 /* PYTooltip.m in Sources */,
+				B556CB2425A5CEAE00523758 /* PYAxis.m in Sources */,
+				B556CAF725A5CEAE00523758 /* PYJsonUtil.m in Sources */,
+				B556CB3225A5CEAE00523758 /* PYAxisSplitLine.m in Sources */,
+				B556CB6625A729C700523758 /* FCMaxOrMinLayer.m in Sources */,
+				B556CB6F25A83E4A00523758 /* GCDAsyncSocket.m in Sources */,
+				B556CA6925A5CDD000523758 /* PYTreemapDemoOptions.m in Sources */,
+				B556CA6D25A5CDD000523758 /* PYVennDemoOptions.m in Sources */,
+				B556CB1425A5CEAE00523758 /* PYTreeMapSeries.m in Sources */,
+				B556CB0C25A5CEAE00523758 /* PYSeries.m in Sources */,
+				B556CB1D25A5CEAE00523758 /* PYGrid.m in Sources */,
+				B556CB0725A5CEAE00523758 /* PYAxisTick.m in Sources */,
+				B556CA6425A5CDD000523758 /* PYFunnelDemoOptions.m in Sources */,
+				B556CB3C25A5CEAE00523758 /* NSObject+PYObject.m in Sources */,
+				B556CB1825A5CEAE00523758 /* PYGaugeSeries.m in Sources */,
+				B556CB6E25A83E4A00523758 /* GCDAsyncUdpSocket.m in Sources */,
+				B556CB5125A5D0A100523758 /* NSObject+RMCopyable.m in Sources */,
+				B556CB2B25A5CEAE00523758 /* PYLegend.m in Sources */,
+				B556CB1225A5CEAE00523758 /* PYTreeSeries.m in Sources */,
+				B55650AA25AD418800CB61D7 /* HUD.m in Sources */,
+				B556CB2C25A5CEAE00523758 /* PYAxisLine.m in Sources */,
+				B556CB3825A5CEAE00523758 /* PYNodes.m in Sources */,
+				B556CB2225A5CEAE00523758 /* PYTextStyle.m in Sources */,
+				B556CA6B25A5CDD000523758 /* PYWorldCloudDemoOptions.m in Sources */,
+				B556509925AC64B000CB61D7 /* NSBundle+PYSearchExtension.m in Sources */,
+				B556CB3925A5CEAE00523758 /* WKEchartsView.m in Sources */,
+				B556CB5925A728CB00523758 /* ReportViewController.m in Sources */,
+				B556CB3025A5CEAE00523758 /* PYNoDataLoadingOption.m in Sources */,
+				B556CB1E25A5CEAE00523758 /* PYDataRange.m in Sources */,
+				B556CB4F25A5D0A100523758 /* NSUserDefaults+RMSaveCustomObject.m in Sources */,
+				B556CB3125A5CEAE00523758 /* PYLinkStyle.m in Sources */,
+				B55650B325AD907200CB61D7 /* CSQHelper.m in Sources */,
 				B556CA1925A55A2400523758 /* SceneDelegate.m in Sources */,
+				B556CB2025A5CEAE00523758 /* PYLoadingOption.m in Sources */,
+				B556CB2F25A5CEAE00523758 /* PYTimeline.m in Sources */,
+				B556CB0D25A5CEAE00523758 /* PYVennSeries.m in Sources */,
+				B556CB7525A8721800523758 /* Device.m in Sources */,
+				B556CB0F25A5CEAE00523758 /* PYMapSeries.m in Sources */,
+				B556CB5F25A729AC00523758 /* FCChartCollectionViewFlowLayout.m in Sources */,
+				B556CB0A25A5CEAE00523758 /* PYRadarSeries.m in Sources */,
+				B556CB2A25A5CEAE00523758 /* PYPolar.m in Sources */,
+				B55650B025AD7F9A00CB61D7 /* SetDeviceViewController.m in Sources */,
+				B556CA6C25A5CDD000523758 /* PYLineDemoOptions.m in Sources */,
+				B556CB1B25A5CEAE00523758 /* PYRoamController.m in Sources */,
+				B556CA6825A5CDD000523758 /* PYPieDemoOptions.m in Sources */,
+				B556CB1625A5CEAE00523758 /* PYFunnelSeries.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,11 +1215,15 @@
 		};
 		B556CA4125A55A2700523758 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 282EC67EE51632C9D1B2E328 /* Pods-TrackCheck.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 89CTY2D5G8;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TrackCheck/TrackCheck-PrefixHeader.pch";
 				INFOPLIST_FILE = TrackCheck/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -454,11 +1236,15 @@
 		};
 		B556CA4225A55A2700523758 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A129EEB72E0506FF9D93C4FD /* Pods-TrackCheck.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 89CTY2D5G8;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TrackCheck/TrackCheck-PrefixHeader.pch";
 				INFOPLIST_FILE = TrackCheck/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
