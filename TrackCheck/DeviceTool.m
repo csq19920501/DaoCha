@@ -15,7 +15,9 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         tcpSocket = [[DeviceTool alloc] init];
-        tcpSocket.deviceNameArr = @[@"J1",@"J2",@"J3",@"X1",@"X2"];
+        tcpSocket.seleLook = ONE;
+        tcpSocket.jOrX = J;
+        tcpSocket.deviceNameArr = @[@"J1",@"J2",@"J3",@"J4",@"J5",@"J6"];
         tcpSocket.deviceArr = [NSMutableArray array];
         tcpSocket.deviceDataArr1 = [NSMutableArray array];
         tcpSocket.deviceDataArr2 = [NSMutableArray array];

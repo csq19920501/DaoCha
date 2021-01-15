@@ -144,7 +144,14 @@
     [[self windowScriptObject] evaluateWebScript:methodWithParam];
 #endif
 }
-
+-(void)layoutSubviews{
+    [super layoutSubviews];
+    if(option == nil){
+        return;
+    }
+    [self setOption:option];
+    [self loadEcharts];
+}
 /**
  *  Resize the main div in the `echarts.html`
  */
@@ -152,7 +159,7 @@
     float height = self.frame.size.height;
     float width = self.frame.size.width;
     if (!CGSizeEqualToSize(_divSize, CGSizeZero)) {
-        height = _divSize.height;
+        height = height;
         width = _divSize.width;
     } else {
         _divSize = CGSizeMake(width, height);
@@ -178,6 +185,7 @@
  *  @param newOption EChart's option
  */
 - (void)refreshEchartsWithOption:(PYOption *)newOption {
+    option = newOption;
     NSString *jsonStr = [PYJsonUtil getJSONString:newOption];
     PYLog(@"jsonStr:%@", jsonStr);
     [self callJsMethods:[NSString stringWithFormat:@"refreshWithOption(%@)", jsonStr]];

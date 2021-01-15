@@ -47,7 +47,6 @@
     _daoChaTF.text = DEVICETOOL.roadSwitchNo;
     [_sureBut.titleLabel setTextColor:[UIColor whiteColor]];
     
-    
 }
 -(void)viewDidAppear:(BOOL)animated{
     [self setStationTagesView];

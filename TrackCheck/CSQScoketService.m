@@ -84,54 +84,18 @@
         NSDictionary *dict =  @{@"cmd":@"push_msg_ack",@"packnum":@"0"};
         dataStr = dict.mj_JSONString;
         
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_async(queue, ^{
-            NSString * timeStr = dic[@"time"];
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-            NSDate *localDate = [dateFormatter dateFromString:timeStr];
-            NSTimeInterval timeinterval = [localDate timeIntervalSince1970]*1000;
-//            NSLog(@"timeinterval 收到时间 = %@-%f",timeStr,timeinterval);
-//            long long timeinter = (long long)timeinterval;
-            
-            NSString * idStr = dic[@"id"];
-            NSMutableArray *dataArr = nil;
-            switch ([idStr intValue]) {
-                case 1:
-                    dataArr = [DeviceTool shareInstance].deviceDataArr1;
-                    break;
-                case 2:
-                    dataArr = [DeviceTool shareInstance].deviceDataArr2;
-                break;
-                case 3:
-                    dataArr = [DeviceTool shareInstance].deviceDataArr3;
-                    break;
-                case 4:
-                    dataArr = [DeviceTool shareInstance].deviceDataArr4;
-                    break;
-                case 5:
-                    dataArr = [DeviceTool shareInstance].deviceDataArr5;
-                break;
-                default:
-                    break;
-            }
-            
-            NSString *dataStr = dic[@"data"];
-            NSArray *reciveataArr = [dataStr componentsSeparatedByString:@","];
-            [reciveataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                long errCode = (long)strtoul([obj UTF8String],0,16);  //16进制字符串转换成long
-//                NSLog(@"%@----%ld",reciveataArr[idx],errCode);
-                NSTimeInterval  timeinterval2 = timeinterval + idx*50;
-                long a = 3000 + idx;
-                [dataArr addObject:@[@(timeinterval2),@(a)]];
-            }];
-        });
-        
-          
+        if( DEVICETOOL.testStatus != TestStarted){
+            [sock writeData:[dataStr dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+            [sock readDataWithTimeout:-1 tag:0];
+            return;
+        }
+        [self getData:dic];
     }
    else if([cmd isEqualToString:@"ping"]){
         NSDictionary *dict =  @{@"cmd":@"pong"};
         dataStr = dict.mj_JSONString;
+       
+//       [self  changeDevice:dic];
         
     }else if([cmd isEqualToString:@"time"]){
         long long currentTime = [[NSDate date] timeIntervalSince1970];
@@ -143,52 +107,7 @@
         NSDictionary *dict =  @{@"cmd":@"push_info_ack"};
         dataStr = dict.mj_JSONString;
         
-        DeviceTool *delegate = [DeviceTool shareInstance];
-        BOOL isExit = NO;
-        for(int a = 0;a<delegate.deviceArr.count;a++){
-            Device *device = delegate.deviceArr[a];
-            if([device.id isEqualToString:dic[@"id"]]){
-                isExit = YES;
-            }
-        }
-        if(!isExit){
-            Device *newDevice = [[Device alloc]init];
-//            newDevice.selected = YES;
-//            newDevice.typeNum = dic[@"type"];
-            newDevice.version = dic[@"version"];
-            newDevice.fitstAdd = YES;
-            newDevice.id = dic[@"id"];
-            NSInteger type = [newDevice.id integerValue];
-            switch (type) {
-                case 1:
-                    newDevice.typeStr = delegate.deviceNameArr[0];
-                    break;
-                case 2:
-                    newDevice.typeStr = delegate.deviceNameArr[1];
-                    break;
-                case 3:
-                    newDevice.typeStr = delegate.deviceNameArr[2];
-                    break;
-                case 4:
-                    newDevice.typeStr = delegate.deviceNameArr[3];
-                    break;
-                case 5:
-                    newDevice.typeStr = delegate.deviceNameArr[4];
-                    break;
-                default:
-
-                    break;
-            }
-            [delegate.deviceArr addObject:newDevice];
-            [delegate.deviceArr sortedArrayUsingComparator:^(Device *obj1,Device*obj2){
-                           if([obj1.id integerValue] < [obj2.id integerValue]){
-                               return NSOrderedAscending;
-                           }else{
-                               return NSOrderedAscending;
-                           }
-            }];
-            [[NSNotificationCenter defaultCenter] postNotificationName:DEVICECHANGE object:nil userInfo:nil];
-        }
+        [self  changeDevice:dic];
         
     }else if([cmd isEqualToString:@"version"]){
         long long currentTime = [[NSDate date] timeIntervalSince1970];
@@ -200,6 +119,112 @@
 //    NSLog(@"senddataStr = %@",dataStr);
     [sock writeData:[dataStr dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
     [sock readDataWithTimeout:-1 tag:0];
+}
+-(void)getData:(NSDictionary*)dic{
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            dispatch_async(queue, ^{
+                NSString * timeStr = dic[@"time"];
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+                NSDate *localDate = [dateFormatter dateFromString:timeStr];
+                NSTimeInterval timeinterval = [localDate timeIntervalSince1970]*1000;
+    //            NSLog(@"timeinterval 收到时间 = %@-%f",timeStr,timeinterval);
+    //            long long timeinter = (long long)timeinterval;
+                
+                NSString * idStr = dic[@"id"];
+                NSMutableArray *dataArr = nil;
+                switch ([idStr intValue]) {
+                    case 1:
+                        dataArr = [DeviceTool shareInstance].deviceDataArr1;
+                        break;
+                    case 2:
+                        dataArr = [DeviceTool shareInstance].deviceDataArr2;
+                    break;
+                    case 3:
+                        dataArr = [DeviceTool shareInstance].deviceDataArr3;
+                        break;
+                    case 11:
+                        dataArr = [DeviceTool shareInstance].deviceDataArr4;
+                        break;
+                    case 12:
+                        dataArr = [DeviceTool shareInstance].deviceDataArr5;
+                    break;
+                    default:
+                        break;
+                }
+                
+                NSString *dataStr = dic[@"data"];
+                NSArray *reciveataArr = [dataStr componentsSeparatedByString:@","];
+                [reciveataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    long errCode = (long)strtoul([obj UTF8String],0,16);  //16进制字符串转换成long
+    //                NSLog(@"%@----%ld",reciveataArr[idx],errCode);
+                    NSTimeInterval  timeinterval2 = timeinterval + idx*50;
+                    long a = 3000 + idx;
+                    [dataArr addObject:@[@(timeinterval2),@(a)]];
+                    [[DeviceTool shareInstance].deviceDataArr2 addObject:@[@(timeinterval2),@(a)]];
+                    [[DeviceTool shareInstance].deviceDataArr3 addObject:@[@(timeinterval2),@(a)]];
+                    [[DeviceTool shareInstance].deviceDataArr4 addObject:@[@(timeinterval2),@(a)]];
+                    [[DeviceTool shareInstance].deviceDataArr5 addObject:@[@(timeinterval2),@(a)]];
+                }];
+            });
+}
+-(void)changeDevice:(NSDictionary *)dic{
+    DeviceTool *delegate = [DeviceTool shareInstance];
+            BOOL isExit = NO;
+            for(int a = 0;a<delegate.deviceArr.count;a++){
+                Device *device = delegate.deviceArr[a];
+                if([device.id isEqualToString:dic[@"id"]]){
+                    isExit = YES;
+                }
+            }
+            if(!isExit){
+                Device *newDevice = [[Device alloc]init];
+    //            newDevice.selected = YES;
+    //            newDevice.typeNum = dic[@"type"];
+                newDevice.version = dic[@"version"];
+                newDevice.fitstAdd = YES;
+                newDevice.looked = YES;
+                newDevice.id = dic[@"id"];
+                NSInteger type = [newDevice.id integerValue];
+                switch (type) {
+//                    case 1:
+//                        newDevice.typeStr = delegate.deviceNameArr[0];
+//                        break;
+//                    case 2:
+//                        newDevice.typeStr = delegate.deviceNameArr[1];
+//                        break;
+//                    case 3:
+//                        newDevice.typeStr = delegate.deviceNameArr[2];
+//                        break;
+                    case 11:
+                        newDevice.typeStr = @"定位闭锁力";
+                        break;
+                    case 12:
+                        newDevice.typeStr = @"反位闭锁力";
+                        break;
+                    default:
+                        break;
+                }
+                [delegate.deviceArr addObject:newDevice];
+                Device *j2 = [[Device alloc]init];
+                j2 = [newDevice copy];
+                j2.id = @"2";
+                [delegate.deviceArr addObject:j2];
+                
+                Device *j3 = [[Device alloc]init];
+                               j3 = [newDevice copy];
+                               j3.id = @"3";
+                               [delegate.deviceArr addObject:j3];
+                
+                [delegate.deviceArr sortedArrayUsingComparator:^(Device *obj1,Device*obj2){
+                               if([obj1.id integerValue] < [obj2.id integerValue]){
+                                   return NSOrderedAscending;
+                               }else{
+                                   return NSOrderedAscending;
+                               }
+                }];
+                [[NSNotificationCenter defaultCenter] postNotificationName:DEVICECHANGE object:nil userInfo:nil];
+            }
 }
 @end
 

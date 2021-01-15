@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "CSQScoketService.h"
+#import "SetAddressViewController.h"
+#import "SetDeviceViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -17,12 +19,33 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    if (@available(iOS 13.0, *)) {
     
-//    self.deviceArr = [NSMutableArray array];
-    
-//    [DeviceTool shareInstance].stationStr = @"杭州南站";
-//    [DeviceTool shareInstance].roadSwitchNo = @"109道岔";
+      } else {
+        
+          self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+          NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+          long long currentTime = [[NSDate date] timeIntervalSince1970];
+          long long saveTime = [[user objectForKey:@"saveStaionTime"] longLongValue];
+          NSLog(@"current - save = %lld %lld = %lld",currentTime,saveTime,currentTime-saveTime);
+          if(currentTime - saveTime >= 8 *3600){
+              NSLog(@"SetAddressViewController");
+              SetAddressViewController *homeVC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]  instantiateViewControllerWithIdentifier:@"SetAddressViewController"];
+              UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:homeVC];
+              [self.window setRootViewController:nav];
+          }else{
+              NSLog(@"SetDeviceViewController");
+              SetDeviceViewController *homeVC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]  instantiateViewControllerWithIdentifier:@"SetDeviceViewController"];
+              UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:homeVC];
+   
+              [self.window setRootViewController:nav];
+          }
+          self.window.backgroundColor = [UIColor whiteColor];
+          [self.window makeKeyAndVisible];
+          
+      }
 
+    
     self.scoketThread = [[NSThread alloc]initWithTarget:self selector:@selector(startSocket) object:nil];
     [self.scoketThread start];
     

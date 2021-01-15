@@ -9,5 +9,12 @@
 #import "Device.h"
 
 @implementation Device
-
+-(instancetype)init{
+    self = [super init];
+    if(self){
+        long long currentTime = [[NSDate date] timeIntervalSince1970] ;
+        _timeStr = [NSString stringWithFormat:@"%lld",currentTime];
+    }
+    return self;
+}
 @end

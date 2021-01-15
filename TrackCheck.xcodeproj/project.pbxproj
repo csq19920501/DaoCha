@@ -24,6 +24,37 @@
 		B55650AD25AD418800CB61D7 /* HIKLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B55650A725AD418800CB61D7 /* HIKLoadView.m */; };
 		B55650B025AD7F9A00CB61D7 /* SetDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B55650AF25AD7F9A00CB61D7 /* SetDeviceViewController.m */; };
 		B55650B325AD907200CB61D7 /* CSQHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B55650B225AD907200CB61D7 /* CSQHelper.m */; };
+		B556510325B05D0A00CB61D7 /* LPDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B55650FF25B05D0900CB61D7 /* LPDBManager.m */; };
+		B556510425B05D0A00CB61D7 /* LPDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B556510025B05D0A00CB61D7 /* LPDBModel.m */; };
+		B556511125B05D1600CB61D7 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = B556510725B05D1600CB61D7 /* FMDatabaseQueue.m */; };
+		B556511225B05D1600CB61D7 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B556510A25B05D1600CB61D7 /* FMDatabaseAdditions.m */; };
+		B556511325B05D1600CB61D7 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = B556510B25B05D1600CB61D7 /* FMDatabase.m */; };
+		B556511425B05D1600CB61D7 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = B556510F25B05D1600CB61D7 /* FMDatabasePool.m */; };
+		B556511525B05D1600CB61D7 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B556511025B05D1600CB61D7 /* FMResultSet.m */; };
+		B556513625B05D1B00CB61D7 /* NSDate-SQLitePersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = B556511825B05D1B00CB61D7 /* NSDate-SQLitePersistence.m */; };
+		B556513725B05D1B00CB61D7 /* NSObject-ClassName.m in Sources */ = {isa = PBXBuildFile; fileRef = B556511A25B05D1B00CB61D7 /* NSObject-ClassName.m */; };
+		B556513825B05D1B00CB61D7 /* NSData-SQLitePersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = B556511B25B05D1B00CB61D7 /* NSData-SQLitePersistence.m */; };
+		B556513925B05D1B00CB61D7 /* UIImage-SQLitePersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = B556511C25B05D1B00CB61D7 /* UIImage-SQLitePersistence.m */; };
+		B556513A25B05D1B00CB61D7 /* NSObject-SQLitePersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = B556511D25B05D1B00CB61D7 /* NSObject-SQLitePersistence.m */; };
+		B556513B25B05D1B00CB61D7 /* NSSet-SQLitePersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = B556511F25B05D1B00CB61D7 /* NSSet-SQLitePersistence.m */; };
+		B556513C25B05D1B00CB61D7 /* UIColor-SQLitePersistentObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B556512125B05D1B00CB61D7 /* UIColor-SQLitePersistentObject.m */; };
+		B556513D25B05D1B00CB61D7 /* LPDBModel+SQL.m in Sources */ = {isa = PBXBuildFile; fileRef = B556512225B05D1B00CB61D7 /* LPDBModel+SQL.m */; };
+		B556513E25B05D1B00CB61D7 /* NSString-SQLitePersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = B556512625B05D1B00CB61D7 /* NSString-SQLitePersistence.m */; };
+		B556513F25B05D1B00CB61D7 /* NSNumber-SQLitePersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = B556512A25B05D1B00CB61D7 /* NSNumber-SQLitePersistence.m */; };
+		B556514025B05D1B00CB61D7 /* NSArray-SQLitePersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = B556513025B05D1B00CB61D7 /* NSArray-SQLitePersistence.m */; };
+		B556514125B05D1B00CB61D7 /* NSDictionary-SQLitePersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = B556513125B05D1B00CB61D7 /* NSDictionary-SQLitePersistence.m */; };
+		B556514225B05D1B00CB61D7 /* NSString-UppercaseFirst.m in Sources */ = {isa = PBXBuildFile; fileRef = B556513225B05D1B00CB61D7 /* NSString-UppercaseFirst.m */; };
+		B556514325B05D1B00CB61D7 /* NSString-SQLiteColumnName.m in Sources */ = {isa = PBXBuildFile; fileRef = B556513325B05D1B00CB61D7 /* NSString-SQLiteColumnName.m */; };
+		B556514625B05E2900CB61D7 /* TestDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B556514525B05E2900CB61D7 /* TestDataModel.m */; };
+		B556514925B0736800CB61D7 /* HistoryDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B556514825B0736800CB61D7 /* HistoryDataViewController.m */; };
+		B556514C25B073AE00CB61D7 /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B556514B25B073AE00CB61D7 /* HistoryCell.m */; };
+		B556515025B1607100CB61D7 /* DLDateSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = B556514E25B1607000CB61D7 /* DLDateSelectController.m */; };
+		B556515525B1611C00CB61D7 /* UIColor+DLGlobalColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B556515425B1611C00CB61D7 /* UIColor+DLGlobalColor.m */; };
+		B556515925B1612300CB61D7 /* UIImage+DLGlobalImage.m in Sources */ = {isa = PBXBuildFile; fileRef = B556515725B1612300CB61D7 /* UIImage+DLGlobalImage.m */; };
+		B556516325B162C100CB61D7 /* UIButton+DLAdaptiveButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B556515B25B162C100CB61D7 /* UIButton+DLAdaptiveButton.m */; };
+		B556516425B162C100CB61D7 /* UIImage+DLRotate.m in Sources */ = {isa = PBXBuildFile; fileRef = B556515C25B162C100CB61D7 /* UIImage+DLRotate.m */; };
+		B556516525B162C100CB61D7 /* UIColor+DLAddtion.m in Sources */ = {isa = PBXBuildFile; fileRef = B556516125B162C100CB61D7 /* UIColor+DLAddtion.m */; };
+		B556516625B162C100CB61D7 /* UIView+DLSize.m in Sources */ = {isa = PBXBuildFile; fileRef = B556516225B162C100CB61D7 /* UIView+DLSize.m */; };
 		B556CA1625A55A2400523758 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA1525A55A2400523758 /* AppDelegate.m */; };
 		B556CA1925A55A2400523758 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA1825A55A2400523758 /* SceneDelegate.m */; };
 		B556CA1C25A55A2400523758 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA1B25A55A2400523758 /* ViewController.m */; };
@@ -173,6 +204,74 @@
 		B55650AF25AD7F9A00CB61D7 /* SetDeviceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetDeviceViewController.m; sourceTree = "<group>"; };
 		B55650B125AD907200CB61D7 /* CSQHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSQHelper.h; sourceTree = "<group>"; };
 		B55650B225AD907200CB61D7 /* CSQHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSQHelper.m; sourceTree = "<group>"; };
+		B55650FE25B05D0900CB61D7 /* LPDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPDBModel.h; sourceTree = "<group>"; };
+		B55650FF25B05D0900CB61D7 /* LPDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPDBManager.m; sourceTree = "<group>"; };
+		B556510025B05D0A00CB61D7 /* LPDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPDBModel.m; sourceTree = "<group>"; };
+		B556510125B05D0A00CB61D7 /* LPDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPDBManager.h; sourceTree = "<group>"; };
+		B556510225B05D0A00CB61D7 /* LPDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPDB.h; sourceTree = "<group>"; };
+		B556510625B05D1600CB61D7 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		B556510725B05D1600CB61D7 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		B556510825B05D1600CB61D7 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		B556510925B05D1600CB61D7 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		B556510A25B05D1600CB61D7 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		B556510B25B05D1600CB61D7 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		B556510C25B05D1600CB61D7 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		B556510D25B05D1600CB61D7 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		B556510E25B05D1600CB61D7 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		B556510F25B05D1600CB61D7 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		B556511025B05D1600CB61D7 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		B556511725B05D1B00CB61D7 /* NSNumber-SQLitePersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber-SQLitePersistence.h"; sourceTree = "<group>"; };
+		B556511825B05D1B00CB61D7 /* NSDate-SQLitePersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-SQLitePersistence.m"; sourceTree = "<group>"; };
+		B556511925B05D1B00CB61D7 /* LPDBModel+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LPDBModel+Private.h"; sourceTree = "<group>"; };
+		B556511A25B05D1B00CB61D7 /* NSObject-ClassName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject-ClassName.m"; sourceTree = "<group>"; };
+		B556511B25B05D1B00CB61D7 /* NSData-SQLitePersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-SQLitePersistence.m"; sourceTree = "<group>"; };
+		B556511C25B05D1B00CB61D7 /* UIImage-SQLitePersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage-SQLitePersistence.m"; sourceTree = "<group>"; };
+		B556511D25B05D1B00CB61D7 /* NSObject-SQLitePersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject-SQLitePersistence.m"; sourceTree = "<group>"; };
+		B556511E25B05D1B00CB61D7 /* LPDBManager+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LPDBManager+Private.h"; sourceTree = "<group>"; };
+		B556511F25B05D1B00CB61D7 /* NSSet-SQLitePersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSSet-SQLitePersistence.m"; sourceTree = "<group>"; };
+		B556512025B05D1B00CB61D7 /* CompilerCheckedKeyPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilerCheckedKeyPaths.h; sourceTree = "<group>"; };
+		B556512125B05D1B00CB61D7 /* UIColor-SQLitePersistentObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor-SQLitePersistentObject.m"; sourceTree = "<group>"; };
+		B556512225B05D1B00CB61D7 /* LPDBModel+SQL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LPDBModel+SQL.m"; sourceTree = "<group>"; };
+		B556512325B05D1B00CB61D7 /* NSString-SQLiteColumnName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-SQLiteColumnName.h"; sourceTree = "<group>"; };
+		B556512425B05D1B00CB61D7 /* NSString-UppercaseFirst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-UppercaseFirst.h"; sourceTree = "<group>"; };
+		B556512525B05D1B00CB61D7 /* NSDictionary-SQLitePersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary-SQLitePersistence.h"; sourceTree = "<group>"; };
+		B556512625B05D1B00CB61D7 /* NSString-SQLitePersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-SQLitePersistence.m"; sourceTree = "<group>"; };
+		B556512725B05D1B00CB61D7 /* NSArray-SQLitePersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray-SQLitePersistence.h"; sourceTree = "<group>"; };
+		B556512825B05D1B00CB61D7 /* NSObject-ClassName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject-ClassName.h"; sourceTree = "<group>"; };
+		B556512925B05D1B00CB61D7 /* NSDate-SQLitePersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-SQLitePersistence.h"; sourceTree = "<group>"; };
+		B556512A25B05D1B00CB61D7 /* NSNumber-SQLitePersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber-SQLitePersistence.m"; sourceTree = "<group>"; };
+		B556512B25B05D1B00CB61D7 /* NSObject-SQLitePersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject-SQLitePersistence.h"; sourceTree = "<group>"; };
+		B556512C25B05D1B00CB61D7 /* UIImage-SQLitePersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage-SQLitePersistence.h"; sourceTree = "<group>"; };
+		B556512D25B05D1B00CB61D7 /* NSData-SQLitePersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-SQLitePersistence.h"; sourceTree = "<group>"; };
+		B556512E25B05D1B00CB61D7 /* NSSet-SQLitePersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSSet-SQLitePersistence.h"; sourceTree = "<group>"; };
+		B556512F25B05D1B00CB61D7 /* NSString-SQLitePersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-SQLitePersistence.h"; sourceTree = "<group>"; };
+		B556513025B05D1B00CB61D7 /* NSArray-SQLitePersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray-SQLitePersistence.m"; sourceTree = "<group>"; };
+		B556513125B05D1B00CB61D7 /* NSDictionary-SQLitePersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary-SQLitePersistence.m"; sourceTree = "<group>"; };
+		B556513225B05D1B00CB61D7 /* NSString-UppercaseFirst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-UppercaseFirst.m"; sourceTree = "<group>"; };
+		B556513325B05D1B00CB61D7 /* NSString-SQLiteColumnName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-SQLiteColumnName.m"; sourceTree = "<group>"; };
+		B556513425B05D1B00CB61D7 /* LPDBModel+SQL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LPDBModel+SQL.h"; sourceTree = "<group>"; };
+		B556513525B05D1B00CB61D7 /* UIColor-SQLitePersistentObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor-SQLitePersistentObject.h"; sourceTree = "<group>"; };
+		B556514425B05E2900CB61D7 /* TestDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestDataModel.h; sourceTree = "<group>"; };
+		B556514525B05E2900CB61D7 /* TestDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestDataModel.m; sourceTree = "<group>"; };
+		B556514725B0736800CB61D7 /* HistoryDataViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryDataViewController.h; sourceTree = "<group>"; };
+		B556514825B0736800CB61D7 /* HistoryDataViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryDataViewController.m; sourceTree = "<group>"; };
+		B556514A25B073AE00CB61D7 /* HistoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryCell.h; sourceTree = "<group>"; };
+		B556514B25B073AE00CB61D7 /* HistoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryCell.m; sourceTree = "<group>"; };
+		B556514E25B1607000CB61D7 /* DLDateSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLDateSelectController.m; sourceTree = "<group>"; };
+		B556514F25B1607100CB61D7 /* DLDateSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLDateSelectController.h; sourceTree = "<group>"; };
+		B556515325B1611C00CB61D7 /* UIColor+DLGlobalColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+DLGlobalColor.h"; sourceTree = "<group>"; };
+		B556515425B1611C00CB61D7 /* UIColor+DLGlobalColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DLGlobalColor.m"; sourceTree = "<group>"; };
+		B556515725B1612300CB61D7 /* UIImage+DLGlobalImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DLGlobalImage.m"; sourceTree = "<group>"; };
+		B556515825B1612300CB61D7 /* UIImage+DLGlobalImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DLGlobalImage.h"; sourceTree = "<group>"; };
+		B556515B25B162C100CB61D7 /* UIButton+DLAdaptiveButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+DLAdaptiveButton.m"; sourceTree = "<group>"; };
+		B556515C25B162C100CB61D7 /* UIImage+DLRotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DLRotate.m"; sourceTree = "<group>"; };
+		B556515D25B162C100CB61D7 /* UIView+DLSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DLSize.h"; sourceTree = "<group>"; };
+		B556515E25B162C100CB61D7 /* UIColor+DLAddtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+DLAddtion.h"; sourceTree = "<group>"; };
+		B556515F25B162C100CB61D7 /* UIButton+DLAdaptiveButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+DLAdaptiveButton.h"; sourceTree = "<group>"; };
+		B556516025B162C100CB61D7 /* UIImage+DLRotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DLRotate.h"; sourceTree = "<group>"; };
+		B556516125B162C100CB61D7 /* UIColor+DLAddtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DLAddtion.m"; sourceTree = "<group>"; };
+		B556516225B162C100CB61D7 /* UIView+DLSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DLSize.m"; sourceTree = "<group>"; };
+		B556516725B1636700CB61D7 /* Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
 		B556CA1125A55A2400523758 /* TrackCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B556CA1425A55A2400523758 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B556CA1525A55A2400523758 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -438,6 +537,129 @@
 			path = HUD;
 			sourceTree = "<group>";
 		};
+		B55650B425B05BEF00CB61D7 /* LPDB */ = {
+			isa = PBXGroup;
+			children = (
+				B556510225B05D0A00CB61D7 /* LPDB.h */,
+				B556510125B05D0A00CB61D7 /* LPDBManager.h */,
+				B55650FF25B05D0900CB61D7 /* LPDBManager.m */,
+				B55650FE25B05D0900CB61D7 /* LPDBModel.h */,
+				B556510025B05D0A00CB61D7 /* LPDBModel.m */,
+				B556511625B05D1B00CB61D7 /* SQL */,
+				B556510525B05D1600CB61D7 /* fmdb */,
+			);
+			path = LPDB;
+			sourceTree = "<group>";
+		};
+		B556510525B05D1600CB61D7 /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				B556510625B05D1600CB61D7 /* FMDatabase.h */,
+				B556510725B05D1600CB61D7 /* FMDatabaseQueue.m */,
+				B556510825B05D1600CB61D7 /* FMResultSet.h */,
+				B556510925B05D1600CB61D7 /* FMDatabasePool.h */,
+				B556510A25B05D1600CB61D7 /* FMDatabaseAdditions.m */,
+				B556510B25B05D1600CB61D7 /* FMDatabase.m */,
+				B556510C25B05D1600CB61D7 /* FMDatabaseQueue.h */,
+				B556510D25B05D1600CB61D7 /* FMDB.h */,
+				B556510E25B05D1600CB61D7 /* FMDatabaseAdditions.h */,
+				B556510F25B05D1600CB61D7 /* FMDatabasePool.m */,
+				B556511025B05D1600CB61D7 /* FMResultSet.m */,
+			);
+			path = fmdb;
+			sourceTree = "<group>";
+		};
+		B556511625B05D1B00CB61D7 /* SQL */ = {
+			isa = PBXGroup;
+			children = (
+				B556511725B05D1B00CB61D7 /* NSNumber-SQLitePersistence.h */,
+				B556511825B05D1B00CB61D7 /* NSDate-SQLitePersistence.m */,
+				B556511925B05D1B00CB61D7 /* LPDBModel+Private.h */,
+				B556511A25B05D1B00CB61D7 /* NSObject-ClassName.m */,
+				B556511B25B05D1B00CB61D7 /* NSData-SQLitePersistence.m */,
+				B556511C25B05D1B00CB61D7 /* UIImage-SQLitePersistence.m */,
+				B556511D25B05D1B00CB61D7 /* NSObject-SQLitePersistence.m */,
+				B556511E25B05D1B00CB61D7 /* LPDBManager+Private.h */,
+				B556511F25B05D1B00CB61D7 /* NSSet-SQLitePersistence.m */,
+				B556512025B05D1B00CB61D7 /* CompilerCheckedKeyPaths.h */,
+				B556512125B05D1B00CB61D7 /* UIColor-SQLitePersistentObject.m */,
+				B556512225B05D1B00CB61D7 /* LPDBModel+SQL.m */,
+				B556512325B05D1B00CB61D7 /* NSString-SQLiteColumnName.h */,
+				B556512425B05D1B00CB61D7 /* NSString-UppercaseFirst.h */,
+				B556512525B05D1B00CB61D7 /* NSDictionary-SQLitePersistence.h */,
+				B556512625B05D1B00CB61D7 /* NSString-SQLitePersistence.m */,
+				B556512725B05D1B00CB61D7 /* NSArray-SQLitePersistence.h */,
+				B556512825B05D1B00CB61D7 /* NSObject-ClassName.h */,
+				B556512925B05D1B00CB61D7 /* NSDate-SQLitePersistence.h */,
+				B556512A25B05D1B00CB61D7 /* NSNumber-SQLitePersistence.m */,
+				B556512B25B05D1B00CB61D7 /* NSObject-SQLitePersistence.h */,
+				B556512C25B05D1B00CB61D7 /* UIImage-SQLitePersistence.h */,
+				B556512D25B05D1B00CB61D7 /* NSData-SQLitePersistence.h */,
+				B556512E25B05D1B00CB61D7 /* NSSet-SQLitePersistence.h */,
+				B556512F25B05D1B00CB61D7 /* NSString-SQLitePersistence.h */,
+				B556513025B05D1B00CB61D7 /* NSArray-SQLitePersistence.m */,
+				B556513125B05D1B00CB61D7 /* NSDictionary-SQLitePersistence.m */,
+				B556513225B05D1B00CB61D7 /* NSString-UppercaseFirst.m */,
+				B556513325B05D1B00CB61D7 /* NSString-SQLiteColumnName.m */,
+				B556513425B05D1B00CB61D7 /* LPDBModel+SQL.h */,
+				B556513525B05D1B00CB61D7 /* UIColor-SQLitePersistentObject.h */,
+			);
+			path = SQL;
+			sourceTree = "<group>";
+		};
+		B556514D25B1605800CB61D7 /* PickVIew */ = {
+			isa = PBXGroup;
+			children = (
+				B556514F25B1607100CB61D7 /* DLDateSelectController.h */,
+				B556514E25B1607000CB61D7 /* DLDateSelectController.m */,
+			);
+			path = PickVIew;
+			sourceTree = "<group>";
+		};
+		B556515125B160F900CB61D7 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				B556516725B1636700CB61D7 /* Const.h */,
+				B556515A25B162C100CB61D7 /* Categories */,
+				B556515625B1612300CB61D7 /* Image */,
+				B556515225B1611C00CB61D7 /* Color */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		B556515225B1611C00CB61D7 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				B556515325B1611C00CB61D7 /* UIColor+DLGlobalColor.h */,
+				B556515425B1611C00CB61D7 /* UIColor+DLGlobalColor.m */,
+			);
+			path = Color;
+			sourceTree = "<group>";
+		};
+		B556515625B1612300CB61D7 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				B556515725B1612300CB61D7 /* UIImage+DLGlobalImage.m */,
+				B556515825B1612300CB61D7 /* UIImage+DLGlobalImage.h */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		B556515A25B162C100CB61D7 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				B556515F25B162C100CB61D7 /* UIButton+DLAdaptiveButton.h */,
+				B556515B25B162C100CB61D7 /* UIButton+DLAdaptiveButton.m */,
+				B556515D25B162C100CB61D7 /* UIView+DLSize.h */,
+				B556516225B162C100CB61D7 /* UIView+DLSize.m */,
+				B556515E25B162C100CB61D7 /* UIColor+DLAddtion.h */,
+				B556516125B162C100CB61D7 /* UIColor+DLAddtion.m */,
+				B556516025B162C100CB61D7 /* UIImage+DLRotate.h */,
+				B556515C25B162C100CB61D7 /* UIImage+DLRotate.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 		B556CA0825A55A2400523758 = {
 			isa = PBXGroup;
 			children = (
@@ -463,6 +685,9 @@
 		B556CA1325A55A2400523758 /* TrackCheck */ = {
 			isa = PBXGroup;
 			children = (
+				B556515125B160F900CB61D7 /* Tools */,
+				B556514D25B1605800CB61D7 /* PickVIew */,
+				B55650B425B05BEF00CB61D7 /* LPDB */,
 				B556509B25AD418700CB61D7 /* HUD */,
 				B556508525AC64B000CB61D7 /* PYSearch */,
 				B556CB6725A83E4A00523758 /* GCD */,
@@ -479,6 +704,10 @@
 				B556508325AC636E00CB61D7 /* SetAddressViewController.m */,
 				B55650AE25AD7F9A00CB61D7 /* SetDeviceViewController.h */,
 				B55650AF25AD7F9A00CB61D7 /* SetDeviceViewController.m */,
+				B556514725B0736800CB61D7 /* HistoryDataViewController.h */,
+				B556514825B0736800CB61D7 /* HistoryDataViewController.m */,
+				B556514A25B073AE00CB61D7 /* HistoryCell.h */,
+				B556514B25B073AE00CB61D7 /* HistoryCell.m */,
 				B556CB5725A728CB00523758 /* ReportViewController.h */,
 				B556CB5825A728CB00523758 /* ReportViewController.m */,
 				B556CB7025A83E8B00523758 /* CSQScoketService.h */,
@@ -489,6 +718,8 @@
 				B556CB7725A885A900523758 /* DeviceTool.m */,
 				B55650B125AD907200CB61D7 /* CSQHelper.h */,
 				B55650B225AD907200CB61D7 /* CSQHelper.m */,
+				B556514425B05E2900CB61D7 /* TestDataModel.h */,
+				B556514525B05E2900CB61D7 /* TestDataModel.m */,
 				B556CA1D25A55A2400523758 /* Main.storyboard */,
 				B556CA2025A55A2700523758 /* Assets.xcassets */,
 				B556CA2225A55A2700523758 /* LaunchScreen.storyboard */,
@@ -950,12 +1181,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				B556509725AC64B000CB61D7 /* PYSearchConst.m in Sources */,
+				B556514925B0736800CB61D7 /* HistoryDataViewController.m in Sources */,
 				B556509425AC64B000CB61D7 /* UIColor+PYSearchExtension.m in Sources */,
 				B556CB1525A5CEAE00523758 /* PYHeatmapSeries.m in Sources */,
+				B556511325B05D1600CB61D7 /* FMDatabase.m in Sources */,
+				B556513C25B05D1B00CB61D7 /* UIColor-SQLitePersistentObject.m in Sources */,
+				B556515525B1611C00CB61D7 /* UIColor+DLGlobalColor.m in Sources */,
 				B55650A925AD418800CB61D7 /* HIKLoadViewItem+configPath.m in Sources */,
 				B556CB6525A729C700523758 /* FCChartCollectionViewCell.m in Sources */,
 				B556CB4E25A5D0A100523758 /* RMMapper.m in Sources */,
 				B556CB0E25A5CEAE00523758 /* PYMarkPoint.m in Sources */,
+				B556513F25B05D1B00CB61D7 /* NSNumber-SQLitePersistence.m in Sources */,
 				B556CB1A25A5CEAE00523758 /* PYCategories.m in Sources */,
 				B556CA6625A5CDD000523758 /* PYTreeDemoOptions.m in Sources */,
 				B556508425AC636E00CB61D7 /* SetAddressViewController.m in Sources */,
@@ -964,18 +1200,22 @@
 				B556CB2E25A5CEAE00523758 /* PYItemStyleProp.m in Sources */,
 				B556CB2825A5CEAE00523758 /* PYLineStyle.m in Sources */,
 				B556CB7225A83E8B00523758 /* CSQScoketService.m in Sources */,
+				B556510425B05D0A00CB61D7 /* LPDBModel.m in Sources */,
 				B556CB3A25A5CEAE00523758 /* PYZoomEchartsView.m in Sources */,
 				B556CA6325A5CDD000523758 /* PYGaugesDemoOptions.m in Sources */,
 				B556CA6725A5CDD000523758 /* PYBarDemoOptions.m in Sources */,
 				B556CB1C25A5CEAE00523758 /* PYChordStyle.m in Sources */,
+				B556515925B1612300CB61D7 /* UIImage+DLGlobalImage.m in Sources */,
 				B556509525AC64B000CB61D7 /* PYSearchViewController.m in Sources */,
 				B556509625AC64B000CB61D7 /* PYSearchSuggestionViewController.m in Sources */,
 				B556CB5025A5D0A100523758 /* NSObject+RMArchivable.m in Sources */,
 				B556509A25AC64B000CB61D7 /* UIView+PYSearchExtension.m in Sources */,
 				B55650AB25AD418800CB61D7 /* HIKLoadPercentView.m in Sources */,
+				B556513825B05D1B00CB61D7 /* NSData-SQLitePersistence.m in Sources */,
 				B55650A825AD418800CB61D7 /* MBProgressHUD.m in Sources */,
 				B556CB0925A5CEAE00523758 /* PYCartesianSeries.m in Sources */,
 				B55650AC25AD418800CB61D7 /* HIKLoadViewItem.m in Sources */,
+				B556515025B1607100CB61D7 /* DLDateSelectController.m in Sources */,
 				B556CB1325A5CEAE00523758 /* PYEventRiverSeries.m in Sources */,
 				B556CB6025A729AC00523758 /* FCChartView.m in Sources */,
 				B556CB0825A5CEAE00523758 /* PYForceSeries.m in Sources */,
@@ -983,10 +1223,19 @@
 				B556CB1725A5CEAE00523758 /* PYMarkLine.m in Sources */,
 				B556CB2125A5CEAE00523758 /* PYLinks.m in Sources */,
 				B556CB3B25A5CEAE00523758 /* PYEchartsView.m in Sources */,
+				B556513725B05D1B00CB61D7 /* NSObject-ClassName.m in Sources */,
 				B556CB2325A5CEAE00523758 /* PYTitle.m in Sources */,
+				B556513B25B05D1B00CB61D7 /* NSSet-SQLitePersistence.m in Sources */,
+				B556510325B05D0A00CB61D7 /* LPDBManager.m in Sources */,
 				B556CB1925A5CEAE00523758 /* PYColor.m in Sources */,
+				B556513E25B05D1B00CB61D7 /* NSString-SQLitePersistence.m in Sources */,
+				B556514C25B073AE00CB61D7 /* HistoryCell.m in Sources */,
 				B556CA6A25A5CDD000523758 /* PYCandlestickDemoOptions.m in Sources */,
+				B556516525B162C100CB61D7 /* UIColor+DLAddtion.m in Sources */,
+				B556516625B162C100CB61D7 /* UIView+DLSize.m in Sources */,
+				B556513925B05D1B00CB61D7 /* UIImage-SQLitePersistence.m in Sources */,
 				B556CA1625A55A2400523758 /* AppDelegate.m in Sources */,
+				B556516325B162C100CB61D7 /* UIButton+DLAdaptiveButton.m in Sources */,
 				B556CB2725A5CEAE00523758 /* PYAreaStyle.m in Sources */,
 				B556CB3525A5CEAE00523758 /* PYSplitArea.m in Sources */,
 				B556CB3725A5CEAE00523758 /* PYItemStyle.m in Sources */,
@@ -994,7 +1243,10 @@
 				B556CA2725A55A2700523758 /* main.m in Sources */,
 				B556CA6525A5CDD000523758 /* PYScatterDemoOptions.m in Sources */,
 				B556CB1125A5CEAE00523758 /* PYWordCloudSeries.m in Sources */,
+				B556511225B05D1600CB61D7 /* FMDatabaseAdditions.m in Sources */,
+				B556511425B05D1600CB61D7 /* FMDatabasePool.m in Sources */,
 				B556CB3325A5CEAE00523758 /* PYDataZoom.m in Sources */,
+				B556514125B05D1B00CB61D7 /* NSDictionary-SQLitePersistence.m in Sources */,
 				B556CB1F25A5CEAE00523758 /* PYNodeStyle.m in Sources */,
 				B556CB7825A885A900523758 /* DeviceTool.m in Sources */,
 				B556CB2D25A5CEAE00523758 /* PYToolboxFeature.m in Sources */,
@@ -1008,19 +1260,26 @@
 				B556CAF725A5CEAE00523758 /* PYJsonUtil.m in Sources */,
 				B556CB3225A5CEAE00523758 /* PYAxisSplitLine.m in Sources */,
 				B556CB6625A729C700523758 /* FCMaxOrMinLayer.m in Sources */,
+				B556513A25B05D1B00CB61D7 /* NSObject-SQLitePersistence.m in Sources */,
+				B556514225B05D1B00CB61D7 /* NSString-UppercaseFirst.m in Sources */,
+				B556514325B05D1B00CB61D7 /* NSString-SQLiteColumnName.m in Sources */,
+				B556514625B05E2900CB61D7 /* TestDataModel.m in Sources */,
 				B556CB6F25A83E4A00523758 /* GCDAsyncSocket.m in Sources */,
 				B556CA6925A5CDD000523758 /* PYTreemapDemoOptions.m in Sources */,
 				B556CA6D25A5CDD000523758 /* PYVennDemoOptions.m in Sources */,
 				B556CB1425A5CEAE00523758 /* PYTreeMapSeries.m in Sources */,
 				B556CB0C25A5CEAE00523758 /* PYSeries.m in Sources */,
 				B556CB1D25A5CEAE00523758 /* PYGrid.m in Sources */,
+				B556511125B05D1600CB61D7 /* FMDatabaseQueue.m in Sources */,
 				B556CB0725A5CEAE00523758 /* PYAxisTick.m in Sources */,
 				B556CA6425A5CDD000523758 /* PYFunnelDemoOptions.m in Sources */,
+				B556516425B162C100CB61D7 /* UIImage+DLRotate.m in Sources */,
 				B556CB3C25A5CEAE00523758 /* NSObject+PYObject.m in Sources */,
 				B556CB1825A5CEAE00523758 /* PYGaugeSeries.m in Sources */,
 				B556CB6E25A83E4A00523758 /* GCDAsyncUdpSocket.m in Sources */,
 				B556CB5125A5D0A100523758 /* NSObject+RMCopyable.m in Sources */,
 				B556CB2B25A5CEAE00523758 /* PYLegend.m in Sources */,
+				B556514025B05D1B00CB61D7 /* NSArray-SQLitePersistence.m in Sources */,
 				B556CB1225A5CEAE00523758 /* PYTreeSeries.m in Sources */,
 				B55650AA25AD418800CB61D7 /* HUD.m in Sources */,
 				B556CB2C25A5CEAE00523758 /* PYAxisLine.m in Sources */,
@@ -1039,6 +1298,7 @@
 				B556CB2025A5CEAE00523758 /* PYLoadingOption.m in Sources */,
 				B556CB2F25A5CEAE00523758 /* PYTimeline.m in Sources */,
 				B556CB0D25A5CEAE00523758 /* PYVennSeries.m in Sources */,
+				B556513D25B05D1B00CB61D7 /* LPDBModel+SQL.m in Sources */,
 				B556CB7525A8721800523758 /* Device.m in Sources */,
 				B556CB0F25A5CEAE00523758 /* PYMapSeries.m in Sources */,
 				B556CB5F25A729AC00523758 /* FCChartCollectionViewFlowLayout.m in Sources */,
@@ -1047,7 +1307,9 @@
 				B55650B025AD7F9A00CB61D7 /* SetDeviceViewController.m in Sources */,
 				B556CA6C25A5CDD000523758 /* PYLineDemoOptions.m in Sources */,
 				B556CB1B25A5CEAE00523758 /* PYRoamController.m in Sources */,
+				B556513625B05D1B00CB61D7 /* NSDate-SQLitePersistence.m in Sources */,
 				B556CA6825A5CDD000523758 /* PYPieDemoOptions.m in Sources */,
+				B556511525B05D1600CB61D7 /* FMResultSet.m in Sources */,
 				B556CB1625A5CEAE00523758 /* PYFunnelSeries.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

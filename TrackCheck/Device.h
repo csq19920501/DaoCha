@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)BOOL  selected;
 @property(nonatomic,assign)BOOL  fitstAdd;
 @property(nonatomic,assign)BOOL  offline;
+@property (nonatomic,assign)BOOL looked;
+@property (nonatomic,copy)NSString * timeStr;
 @end
 
 NS_ASSUME_NONNULL_END

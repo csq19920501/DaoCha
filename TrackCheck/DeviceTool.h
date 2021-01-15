@@ -12,6 +12,14 @@ typedef enum:NSInteger{
     TestStarted,
     TestEnd,
 }CSQTestStatus;
+typedef enum:NSInteger{
+    J,
+    X,
+}CSQJOrX;
+typedef enum:NSInteger{
+    ONE,
+    TWO,
+}CSQSeleLook;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeviceTool : NSObject
@@ -29,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSMutableArray *deviceDataArr5;
 @property(nonatomic,strong)NSArray *deviceNameArr;
 @property (nonatomic,assign)CSQTestStatus testStatus;
+@property (nonatomic,assign)CSQSeleLook seleLook;
+@property (nonatomic,assign)CSQJOrX jOrX;
 -(void)syncArr;
 -(void)removeAllData;
 @end

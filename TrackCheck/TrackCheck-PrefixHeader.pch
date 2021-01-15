@@ -17,6 +17,12 @@
 //For the Demo Test.
 #import "RMMapper.h"
 
+#import "Const.h"
+#import "UIView+DLSize.h"
+#import "UIImage+DLGlobalImage.h"
+#import "UIColor+DLGlobalColor.h"
+#import <Masonry.h>
+
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 #import "iOS-Echarts.h"
