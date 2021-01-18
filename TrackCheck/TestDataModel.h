@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)NSString *roadSwitch;
 @property (nonatomic,strong)NSString *deviceType;
 @property (nonatomic,strong)NSString *idStr;
-@property (nonatomic,strong)NSNumber *time;
+//@property (nonatomic,strong)NSNumber *time;
 @property (nonatomic,strong)NSMutableArray *dataArr;
 @property (nonatomic,assign)long long timeLong ;
 @end

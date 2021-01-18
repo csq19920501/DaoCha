@@ -343,6 +343,14 @@
                                             <action selector="seleStationClick:" destination="eJd-OE-y6I" eventType="touchUpInside" id="hnx-h8-Oba"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jgj-s3-Z8D">
+                                        <rect key="frame" x="714" y="71" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <segue destination="5r8-ic-IHH" kind="show" id="BDX-27-jgQ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -383,7 +391,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DFv-LG-lUK">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DFv-LG-lUK">
                                 <rect key="frame" x="0.0" y="181" width="768" height="793"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
@@ -412,13 +420,26 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lLt-KR-QsE">
+                                                    <rect key="frame" x="0.0" y="83" width="768" height="1"/>
+                                                    <color key="backgroundColor" red="0.01176470588" green="0.70196078429999997" blue="0.99607843139999996" alpha="0.72399400680000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="vUb-v2-bcG"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="thE-Ul-pTf" firstAttribute="centerY" secondItem="eyZ-nJ-QMm" secondAttribute="centerY" id="3F9-CD-y5H"/>
+                                                <constraint firstItem="lLt-KR-QsE" firstAttribute="leading" secondItem="eyZ-nJ-QMm" secondAttribute="leading" id="6pU-dk-Nlf"/>
                                                 <constraint firstItem="WXw-31-B19" firstAttribute="leading" secondItem="eyZ-nJ-QMm" secondAttribute="leading" constant="40" id="Ikh-H6-Jcd"/>
                                                 <constraint firstItem="WXw-31-B19" firstAttribute="centerY" secondItem="eyZ-nJ-QMm" secondAttribute="centerY" id="TkQ-kE-0qm"/>
+                                                <constraint firstAttribute="trailing" secondItem="lLt-KR-QsE" secondAttribute="trailing" id="dZ4-iU-473"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="thE-Ul-pTf" secondAttribute="trailing" constant="40" id="lR0-0a-b6J"/>
                                                 <constraint firstItem="RAI-x0-YsY" firstAttribute="centerX" secondItem="eyZ-nJ-QMm" secondAttribute="centerX" id="oVo-jN-lVc"/>
+                                                <constraint firstAttribute="bottom" secondItem="lLt-KR-QsE" secondAttribute="bottom" id="pk9-aV-L8r"/>
                                                 <constraint firstItem="RAI-x0-YsY" firstAttribute="centerY" secondItem="eyZ-nJ-QMm" secondAttribute="centerY" id="zYM-NG-Jn1"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -452,8 +473,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="历史数据" id="YE2-9f-k3p"/>
                     <connections>
-                        <outlet property="datePicker" destination="l91-jg-2Ja" id="Wct-gt-v3Z"/>
-                        <outlet property="dateTool" destination="f0J-gs-dpi" id="PAC-mW-ppl"/>
                         <outlet property="endTimeTextField" destination="735-gy-2PW" id="vH4-CN-Xac"/>
                         <outlet property="searchBut" destination="GhJ-5g-ZP1" id="QFe-Nb-MhO"/>
                         <outlet property="seleStationBut" destination="4Zf-d8-ndt" id="oZe-q9-OUd"/>
@@ -462,33 +481,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wkV-E5-MAB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="f0J-gs-dpi">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <items>
-                        <barButtonItem title="取消" id="rUG-DT-TxP">
-                            <connections>
-                                <action selector="cancle:" destination="eJd-OE-y6I" id="eRN-30-LaN"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem width="200" style="plain" systemItem="flexibleSpace" id="nHz-f9-awf"/>
-                        <barButtonItem title="确定" id="lSI-kb-caT">
-                            <connections>
-                                <action selector="sureDateAction:" destination="eJd-OE-y6I" id="rBQ-1k-GcD"/>
-                            </connections>
-                        </barButtonItem>
-                    </items>
-                </toolbar>
-                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" id="l91-jg-2Ja">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="162"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <date key="maximumDate" timeIntervalSinceReferenceDate="1167562800">
-                        <!--2037-12-31 11:00:00 +0000-->
-                    </date>
-                    <locale key="locale" localeIdentifier="zh"/>
-                </datePicker>
             </objects>
-            <point key="canvasLocation" x="1964.0625" y="-187.5"/>
+            <point key="canvasLocation" x="1930" y="-791"/>
         </scene>
         <!--测试地点设置-->
         <scene sceneID="GLr-FM-t26">
@@ -947,11 +941,11 @@
                     <navigationItem key="navigationItem" id="NPX-nT-qXM">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="GtF-oe-cNV">
-                            <rect key="frame" x="298.5" y="9" width="171" height="32"/>
+                            <rect key="frame" x="298.5" y="9" width="171" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="道岔曲线"/>
-                                <segment title="锁闭力曲线"/>
+                                <segment title="锁闭力"/>
                             </segments>
                         </segmentedControl>
                     </navigationItem>
@@ -978,6 +972,102 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RBj-SM-JBF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-694" y="-535"/>
+        </scene>
+        <!--历史曲线-->
+        <scene sceneID="Q7k-nj-r4x">
+            <objects>
+                <viewController storyboardIdentifier="HistoryChartViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5r8-ic-IHH" customClass="HistoryChartViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UlY-Mv-vTu">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0k-d9-Oap">
+                                <rect key="frame" x="0.0" y="50" width="768" height="80"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="牵引点:反扳闭锁力" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUZ-2i-l79">
+                                        <rect key="frame" x="312.5" y="30" width="143.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2021-02-03 18:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0P-Na-oOV">
+                                        <rect key="frame" x="561" y="30" width="167" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地点：杭州南站110道岔" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2hN-hG-veF">
+                                        <rect key="frame" x="40" y="30" width="181.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="KUZ-2i-l79" firstAttribute="centerY" secondItem="f0k-d9-Oap" secondAttribute="centerY" id="9uf-J4-5Vf"/>
+                                    <constraint firstItem="2hN-hG-veF" firstAttribute="leading" secondItem="f0k-d9-Oap" secondAttribute="leading" constant="40" id="QPA-gO-MAp"/>
+                                    <constraint firstAttribute="trailing" secondItem="a0P-Na-oOV" secondAttribute="trailing" constant="40" id="gOe-cT-fjo"/>
+                                    <constraint firstAttribute="height" constant="80" id="hZO-dD-Nqb"/>
+                                    <constraint firstItem="KUZ-2i-l79" firstAttribute="centerX" secondItem="f0k-d9-Oap" secondAttribute="centerX" id="klb-el-d58"/>
+                                    <constraint firstItem="2hN-hG-veF" firstAttribute="centerY" secondItem="f0k-d9-Oap" secondAttribute="centerY" id="otG-Kl-xBz"/>
+                                    <constraint firstItem="a0P-Na-oOV" firstAttribute="centerY" secondItem="f0k-d9-Oap" secondAttribute="centerY" id="pI2-4g-tqf"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdk-UG-fnE">
+                                <rect key="frame" x="0.0" y="130" width="768" height="1"/>
+                                <color key="backgroundColor" red="0.86285164849999996" green="0.86285164849999996" blue="0.86285164849999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="fVf-jA-zNP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1rv-tY-beG">
+                                <rect key="frame" x="0.0" y="131" width="768" height="843"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UsA-gg-DQR" customClass="PYZoomEchartsView">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="843"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="UsA-gg-DQR" firstAttribute="top" secondItem="1rv-tY-beG" secondAttribute="top" id="M9y-uK-pVO"/>
+                                    <constraint firstAttribute="trailing" secondItem="UsA-gg-DQR" secondAttribute="trailing" id="b39-IX-G7w"/>
+                                    <constraint firstItem="UsA-gg-DQR" firstAttribute="leading" secondItem="1rv-tY-beG" secondAttribute="leading" id="bdQ-la-aGv"/>
+                                    <constraint firstAttribute="bottom" secondItem="UsA-gg-DQR" secondAttribute="bottom" id="yuS-t0-GQj"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="1rv-tY-beG" firstAttribute="top" secondItem="cdk-UG-fnE" secondAttribute="bottom" id="1w0-Ug-GRo"/>
+                            <constraint firstItem="f0k-d9-Oap" firstAttribute="top" secondItem="f8s-OT-EFc" secondAttribute="top" id="64e-Hw-eMF"/>
+                            <constraint firstItem="f8s-OT-EFc" firstAttribute="bottom" secondItem="1rv-tY-beG" secondAttribute="bottom" id="CDL-ht-TIF"/>
+                            <constraint firstItem="f8s-OT-EFc" firstAttribute="trailing" secondItem="1rv-tY-beG" secondAttribute="trailing" id="Qtf-Cx-iM3"/>
+                            <constraint firstItem="f8s-OT-EFc" firstAttribute="trailing" secondItem="cdk-UG-fnE" secondAttribute="trailing" id="U7g-ou-Dlv"/>
+                            <constraint firstItem="cdk-UG-fnE" firstAttribute="top" secondItem="f0k-d9-Oap" secondAttribute="bottom" id="ZYA-qL-QSa"/>
+                            <constraint firstItem="1rv-tY-beG" firstAttribute="leading" secondItem="f8s-OT-EFc" secondAttribute="leading" id="f76-rL-t7l"/>
+                            <constraint firstItem="cdk-UG-fnE" firstAttribute="leading" secondItem="f8s-OT-EFc" secondAttribute="leading" id="jn3-OF-eu5"/>
+                            <constraint firstItem="f0k-d9-Oap" firstAttribute="leading" secondItem="f8s-OT-EFc" secondAttribute="leading" id="nB8-hc-NDT"/>
+                            <constraint firstItem="f8s-OT-EFc" firstAttribute="trailing" secondItem="f0k-d9-Oap" secondAttribute="trailing" id="sB6-LS-m1b"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="f8s-OT-EFc"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="历史曲线" id="1Jy-Os-oS6"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="2hN-hG-veF" id="XRr-Em-ewn"/>
+                        <outlet property="chartView" destination="UsA-gg-DQR" id="cCJ-Uk-RN8"/>
+                        <outlet property="deviceTypeLabel" destination="KUZ-2i-l79" id="en4-rt-NrC"/>
+                        <outlet property="timeLabel" destination="a0P-Na-oOV" id="dcb-ea-CdV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5A0-vL-XRC" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2559" y="-791"/>
         </scene>
     </scenes>
     <resources>

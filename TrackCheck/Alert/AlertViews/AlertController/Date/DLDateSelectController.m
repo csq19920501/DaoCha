@@ -58,15 +58,20 @@
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
     self.view.layer.shadowOpacity = 0.3f;
     self.view.layer.shadowOffset = CGSizeMake(3.0, -2.0);
+    
     CALayer *lineLayer = [[CALayer alloc] init];
     lineLayer.backgroundColor = [UIColor lineColor].CGColor;
-    lineLayer.frame = CGRectMake(0, 44, self.view.width - 60, 1);
+    NSInteger width = ANIMATION_X;
+    lineLayer.frame = CGRectMake(0, 60, self.view.width - (width * 2), 1);
     [self.view.layer addSublayer:lineLayer];
     
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.textColor = [UIColor normalTextColor];
     titleLabel.text = @"选择日期";
-    titleLabel.font = [UIFont systemFontOfSize:18.0f];
+    if(self.title){
+        titleLabel.text = self.title;
+    }
+    titleLabel.font = [UIFont systemFontOfSize:24.0f];
     [self.view addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
@@ -76,7 +81,7 @@
     UIButton *cancelBtn = [[UIButton alloc] init];
     [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
     [cancelBtn setTitleColor:[UIColor dl_redColor] forState:UIControlStateNormal];
-    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
+    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:22.0f];
     [self.view addSubview:cancelBtn];
     [cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(15);
@@ -87,7 +92,7 @@
     UIButton *confirmBtn = [[UIButton alloc] init];
     [confirmBtn setTitle:@"确认" forState:UIControlStateNormal];
     [confirmBtn setTitleColor:[UIColor themeColor] forState:UIControlStateNormal];
-    confirmBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
+    confirmBtn.titleLabel.font = [UIFont systemFontOfSize:22.0f];
     [self.view addSubview:confirmBtn];
     [confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view).offset(-15);
@@ -169,6 +174,9 @@
 #pragma mark - UIPickerViewDelegate
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    if(IS_PAD){
+      return 60;
+    }
     return 44;
 }
 
@@ -191,7 +199,7 @@
     }
     customLabel.text = title;
     customLabel.textColor = [UIColor blackColor];
-    customLabel.font = [UIFont systemFontOfSize:16.0f];
+    customLabel.font = [UIFont systemFontOfSize:22.0f];
     return customLabel;
 }
 

@@ -31,3 +31,10 @@ if (216 == notchValue || 46 == notchValue) {\
 #define kNavigationBarHeight 44.0f
 
 #define kTabbarHeight 49.0f
+
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+
+#define IS_PAD (UI_USER_INTERFACE_IDIOM()== UIUserInterfaceIdiomPad)
+#define ANIMATION_X  (IS_PAD)?120:30
+
+#import "UIViewController+DLPresent.h"

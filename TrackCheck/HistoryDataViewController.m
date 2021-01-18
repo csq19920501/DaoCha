@@ -9,7 +9,12 @@
 #import "HistoryDataViewController.h"
 #import "HistoryCell.h"
 #import "TestDataModel.h"
-@interface HistoryDataViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+#import "DLDateSelectController.h"
+#import "DLDateAnimation.h"
+#import "DLCustomAlertController.h"
+#import "HistoryChartViewController.h"
+@interface HistoryDataViewController ()<UITableViewDelegate,UITableViewDataSource,DLEmptyDataSetDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *startTimeTextField;
 @property (weak, nonatomic) IBOutlet UITextField *endTimeTextField;
 @property (weak, nonatomic) IBOutlet UIButton *seleStationBut;
@@ -29,12 +34,6 @@
     // Do any additional setup after loading the view.
     _dataArray = [NSMutableArray array];
     
-    self.startTimeTextField.inputView = self.datePicker;
-       self.startTimeTextField.inputAccessoryView = self.dateTool;
-       
-       self.endTimeTextField.inputView = self.datePicker;
-       self.endTimeTextField.inputAccessoryView = self.dateTool;
-    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
        dateFormatter.dateFormat = @"yyyy-MM-dd";
     NSString *startTime = [dateFormatter stringFromDate:[NSDate date]];
@@ -53,6 +52,7 @@
     [_seleStationBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_searchBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 //    [_tabView registerClass:[HistoryCell class]  forCellReuseIdentifier:@"HistoryCell"];
+    _tabView.dataSetDelegate = self;
     [self searchClick:nil];
 }
 
@@ -68,26 +68,51 @@
     cell.model = _dataArray[indexPath.row];
     return cell;
 }
-- (IBAction)cancle:(id)sender {
-    [self.startTimeTextField resignFirstResponder];
-    
-    [self.endTimeTextField resignFirstResponder];
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    TestDataModel *model = _dataArray[indexPath.row];
+    HistoryChartViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryChartViewController"];
+    VC.dataModel = model;
+    [self.navigationController pushViewController:VC animated:YES];
 }
-- (IBAction)sureDateAction:(id)sender {
-    [self.startTimeTextField resignFirstResponder];
-    
-    [self.endTimeTextField resignFirstResponder];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd";
-    
-    if (_isStart) {
-        _startTimeTextField.text = [dateFormatter stringFromDate:self.datePicker.date];
-    }else{
-        _endTimeTextField.text = [dateFormatter stringFromDate:self.datePicker.date];
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSMutableDictionary *attr = [NSMutableDictionary new];
+    attr[NSFontAttributeName] = [UIFont systemFontOfSize:16];
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    attr[NSParagraphStyleAttributeName] = paragraphStyle;
 
-    }
+   return [[NSAttributedString alloc]initWithString:@"暂无数据" attributes:attr];
 }
+
+
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return [UIImage imageNamed:@"famuli_cry_zhubo"];
+}
+
+
+//- (IBAction)cancle:(id)sender {
+//    [self.startTimeTextField resignFirstResponder];
+//
+//    [self.endTimeTextField resignFirstResponder];
+//}
+//- (IBAction)sureDateAction:(id)sender {
+//    [self.startTimeTextField resignFirstResponder];
+//
+//    [self.endTimeTextField resignFirstResponder];
+//
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    dateFormatter.dateFormat = @"yyyy-MM-dd";
+//
+//    if (_isStart) {
+//        _startTimeTextField.text = [dateFormatter stringFromDate:self.datePicker.date];
+//    }else{
+//        _endTimeTextField.text = [dateFormatter stringFromDate:self.datePicker.date];
+//
+//    }
+//}
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
 
     if (textField == _startTimeTextField) {
@@ -95,9 +120,23 @@
     }else{
         _isStart = NO;
     }
-    return YES;
+    [self.startTimeTextField resignFirstResponder];
+    [self.endTimeTextField resignFirstResponder];
+    [self getDatePick];
+    
+    return NO;
 }
 - (IBAction)seleStationClick:(id)sender {
+    __weak typeof(self) weakSelf = self;
+//    NSArray *arr = @[@[@"aaa", @"bbb", @"ccc", @"ddd", @"eee"]];
+    DLCustomAlertController *customAlertC = [[DLCustomAlertController alloc] init];
+    customAlertC.title = @"选择站点";
+    customAlertC.pickerDatas = @[DEVICETOOL.stationStrArr];//arr;
+    DLDateAnimation * animation = [[DLDateAnimation alloc] init];
+    customAlertC.selectValues = ^(NSArray * _Nonnull dateArray){
+        [weakSelf.seleStationBut setTitle:dateArray[0] forState:UIControlStateNormal];
+    };
+    [self presentViewController:customAlertC animation:animation completion:nil];
     
 }
 - (IBAction)searchClick:(id)sender {
@@ -111,10 +150,46 @@
        NSDate *endDate = [dateFormatter dateFromString:endTimeStr];
        NSTimeInterval endTimeInterval = [endDate timeIntervalSince1970];
     
+    if(startTimeInterval > endTimeInterval){
+        [HUD showAlertWithText:@"开始时间不能早于结束时间"];
+        return;
+    }
+    
     NSArray <TestDataModel *> * results = [[LPDBManager defaultManager] findModels: [TestDataModel class]
     where: @"station = '%@' and timeLong > %@ and timeLong < %@",_seleStationBut.titleLabel.text,@(startTimeInterval),@(endTimeInterval)];
     _dataArray = [NSMutableArray arrayWithArray:results];
-    [_tabView reloadData];
+    [_tabView reloadDataWithEmptyView];
+}
+-(void)getDatePick{
+    DLDateSelectController *dateAlert = [[DLDateSelectController alloc] init];
+    DLDateAnimation*  animation = [[DLDateAnimation alloc] init];
+    if(_isStart){
+        dateAlert.title = @"开始时间";
+    }else{
+        dateAlert.title = @"结束时间";
+    }
+    [self presentViewController:dateAlert animation:animation completion:nil];
+    __weak typeof(self) weakSelf = self;
+    dateAlert.selectDate = ^(NSArray * _Nonnull dateArray) {
+        NSLog(@"%@",dateArray);
+        int year = [dateArray[0]  intValue];
+        int month = [dateArray[1]  intValue];
+        NSString *monthStr = [NSString stringWithFormat:@"%d",month];
+        if(monthStr.length<2){
+            monthStr = [NSString stringWithFormat:@"0%@",monthStr];
+        }
+        int day = [dateArray[2]  intValue];
+        NSString *dayStr = [NSString stringWithFormat:@"%d",day];
+        if(dayStr.length<2){
+            dayStr = [NSString stringWithFormat:@"0%@",dayStr];
+        }
+        if (weakSelf.isStart) {
+            weakSelf.startTimeTextField.text = [NSString stringWithFormat:@"%d-%@-%@",year,monthStr,dayStr];
+        }else{
+            weakSelf.endTimeTextField.text = [NSString stringWithFormat:@"%d-%@-%@",year,monthStr,dayStr];
+
+        }
+    };
 }
 /*
 #pragma mark - Navigation

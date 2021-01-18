@@ -33,6 +33,7 @@
 #import "Device.h"
 #import "HUD.h"
 #import "CSQHelper.h"
+#import "UIScrollView+DLEmptyDataSet.h"
 
 #define APPDELEGATE (AppDelegate *)[UIApplication sharedApplication].delegate
 #define DEVICECHANGE @"DEVICECHANGE"

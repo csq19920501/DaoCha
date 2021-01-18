@@ -8,6 +8,13 @@
 
 #import "SetDeviceViewController.h"
 #import "ViewController.h"
+
+//#import "DLDateSelectController.h"
+//#import "DLDateAnimation.h"
+//#import "UIViewController+DLPresent.h"
+
+
+#import "DLAlertDemoController.h"
 typedef enum:NSInteger{
     None,
     Right,
@@ -45,6 +52,7 @@ typedef enum:NSInteger{
     }
     _layerLabel1.hidden = YES;
     _layerLabel2.hidden = YES;
+    
 //    _layerLabel1.layer.masksToBounds = YES;
 //    _layerLabel1.layer.borderColor = BLUECOLOR.CGColor;
 //    _layerLabel1.layer.borderWidth = 2;
@@ -68,7 +76,6 @@ typedef enum:NSInteger{
         UIButton *but2 =(UIButton *)[self.view viewWithTag:101];
         but2.selected = NO;
     }
-   
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -81,6 +88,7 @@ typedef enum:NSInteger{
     _timer = nil;
 }
 - (IBAction)changeJOrX:(id)sender {
+   
     UIButton *but = (UIButton *)sender;
     if(!but.selected){
         NSArray * array = @[@"201",@"202",@"203",@"301",@"302",@"303",];
@@ -317,11 +325,7 @@ typedef enum:NSInteger{
             default:
                 break;
         }
-        
-        
-       
     }
-    
     
     BOOL isWIFIConnection = [CSQHelper isWIFIConnection];
     if(isWIFIConnection){
@@ -329,6 +333,15 @@ typedef enum:NSInteger{
     }else{
         _topLabel.text = @"检测到WiFi未连接,请连接WiFi:666666,密码:88888888";
     }
+}
+-(void)getDatePick{
+//    DLDateSelectController *dateAlert = [[DLDateSelectController alloc] init];
+//    DLDateAnimation*  animation = [[DLDateAnimation alloc] init];
+//    [self presentViewController:dateAlert animation:animation completion:nil];
+//    dateAlert.selectDate = ^(NSArray * _Nonnull dateArray) {
+//        NSLog(@"%@",dateArray);
+//    };
+    [self presentViewController:[[DLAlertDemoController alloc]init] animated:YES completion:nil];
 }
 /*
 #pragma mark - Navigation

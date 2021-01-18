@@ -231,13 +231,11 @@
             but.hidden = NO;
         }
     }else{
-        
         _firstButton.hidden = YES;
         _secondButton.hidden = YES;
         _threeButton.hidden = YES;
-        
         _chartViewBackV.hidden  = NO;
-        
+        [_kEchartView4 refreshEchartsWithOption:[self getOption]];
     }
 }
 - (IBAction)startTest:(id)sender {
@@ -271,7 +269,7 @@
     
     NSMutableArray * saveArray = [NSMutableArray array];
     for (Device *device in DEVICETOOL.deviceArr) {
-        if(device.selected || [device.id intValue] > 3){
+        if(device.selected ){  //|| [device.id intValue] > 3 闭锁力单独保存
             TestDataModel *dataModel = [[TestDataModel alloc]init];
                     dataModel.station = DEVICETOOL.stationStr;
                     dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
@@ -288,11 +286,11 @@
                             case 3:
                             dataArray = DEVICETOOL.deviceDataArr3;
                             break;
-                            case 11:
-                            dataArray = DEVICETOOL.deviceDataArr4;
-                            break;
-                            case 12:
-                            dataArray = DEVICETOOL.deviceDataArr5;
+//                            case 11:
+//                            dataArray = DEVICETOOL.deviceDataArr4;
+//                            break;
+//                            case 12:
+//                            dataArray = DEVICETOOL.deviceDataArr5;
                             break;
                             
                         default:
@@ -308,6 +306,29 @@
                     [[LPDBManager defaultManager] saveModels: saveArray];
         }
     }
+    if(DEVICETOOL.deviceDataArr4.count >0 || DEVICETOOL.deviceDataArr5.count >0){
+        //正反闭锁力保存在一个TestDataModel
+//        Device *device1;Device *device2;
+//         for (Device *dev in DEVICETOOL.deviceArr) {
+//             if([dev.id intValue] == 11){
+//                 device1 = dev;
+//             }
+//             if( [dev.id intValue] == 12){
+//                 device2 = dev;
+//             }
+//         }
+        NSMutableArray *dataArray = [NSMutableArray arrayWithArray:@[DEVICETOOL.deviceDataArr4,DEVICETOOL.deviceDataArr5]];
+        TestDataModel *dataModel = [[TestDataModel alloc]init];
+        dataModel.station = DEVICETOOL.stationStr;
+        dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
+        dataModel.idStr = [NSString stringWithFormat:@"%lld%@",_startTime,@"闭锁力"];
+                
+        dataModel.dataArr = dataArray;
+        dataModel.deviceType = @"闭锁力";
+        long long currentTime = [[NSDate date] timeIntervalSince1970] ;
+        dataModel.timeLong = currentTime;
+        [[LPDBManager defaultManager] saveModels: @[dataModel]];
+    }
 }
 - (IBAction)changeTest:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -319,12 +340,23 @@
     but.selected = !but.selected;
     if(but == _firstButton){
         [self.kEchartView1 setHidden:!self.firstButton.selected];
+        if(!self.kEchartView1.hidden ){
+            [_kEchartView1 refreshEchartsWithOption:[self irregularLine2Option:0]];
+        }
     }else if(but == _secondButton){
         [self.kEchartView2 setHidden:!_secondButton.selected];
+        if(!self.kEchartView2.hidden ){
+        [_kEchartView2 refreshEchartsWithOption:[self irregularLine2Option:1]];
+           }
     }else if(but == _threeButton){
         [self.kEchartView3 setHidden:!_threeButton.selected];
+        if(!self.kEchartView3.hidden){
+               [_kEchartView3 refreshEchartsWithOption:[self irregularLine2Option:2]];
+           }
     }
     
+    
+   
 //     __weak typeof(self) weakSelf = self;
 //            dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.23/*延迟执行时间*/ * NSEC_PER_SEC));
 //            dispatch_after(delayTime, dispatch_get_main_queue(), ^{
@@ -373,31 +405,31 @@
 //        // 这里放异步执行任务代码
 //    });
 //}
--(PYOption *)refreshEcharts:(NSInteger)no{
-    if(no>=_seleJJJArr.count){
-        return nil;
-    }
-    NSMutableArray *saveDataArr ;
-    Device *device = _seleJJJArr[no];
-    if([device.id intValue] == 1){
-        saveDataArr = [DeviceTool shareInstance].deviceDataArr1;
-    }else if([device.id intValue] == 2){
-        saveDataArr = [DeviceTool shareInstance].deviceDataArr2;
-    }else if([device.id intValue] == 3){
-        saveDataArr = [DeviceTool shareInstance].deviceDataArr3;
-    }
-    long long currentTime = [[NSDate date] timeIntervalSince1970] *1000;
-    NSNumber *time = [NSNumber numberWithLongLong:currentTime];
-    NSNumber *time2 = [NSNumber numberWithLongLong:currentTime+100];
-    if(saveDataArr.count == 0 || DEVICETOOL.testStatus == TestNotStart){
-        saveDataArr = [NSMutableArray arrayWithArray:@[@[time,@(0)],@[time2,@(0)]]];
-    }
-     return [PYOption initPYOptionWithBlock:^(PYOption *option) {
-            option.addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
-            series.dataEqual(saveDataArr);
-            }]);
-        }];
-}
+//-(PYOption *)refreshEcharts:(NSInteger)no{
+//    if(no>=_seleJJJArr.count){
+//        return nil;
+//    }
+//    NSMutableArray *saveDataArr ;
+//    Device *device = _seleJJJArr[no];
+//    if([device.id intValue] == 1){
+//        saveDataArr = [DeviceTool shareInstance].deviceDataArr1;
+//    }else if([device.id intValue] == 2){
+//        saveDataArr = [DeviceTool shareInstance].deviceDataArr2;
+//    }else if([device.id intValue] == 3){
+//        saveDataArr = [DeviceTool shareInstance].deviceDataArr3;
+//    }
+//    long long currentTime = [[NSDate date] timeIntervalSince1970] *1000;
+//    NSNumber *time = [NSNumber numberWithLongLong:currentTime];
+//    NSNumber *time2 = [NSNumber numberWithLongLong:currentTime+100];
+//    if(saveDataArr.count == 0 || DEVICETOOL.testStatus == TestNotStart){
+//        saveDataArr = [NSMutableArray arrayWithArray:@[@[time,@(0)],@[time2,@(0)]]];
+//    }
+//     return [PYOption initPYOptionWithBlock:^(PYOption *option) {
+//            option.addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
+//            series.dataEqual(saveDataArr);
+//            }]);
+//        }];
+//}
 - (PYOption *)irregularLine2Option:(NSInteger)no {
     if(no>=_seleJJJArr.count){
         return nil;
