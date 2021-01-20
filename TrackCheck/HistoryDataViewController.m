@@ -53,6 +53,9 @@
     [_searchBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 //    [_tabView registerClass:[HistoryCell class]  forCellReuseIdentifier:@"HistoryCell"];
     _tabView.dataSetDelegate = self;
+    
+    [DEVICETOOL getSavedStationArr];
+    
     [self searchClick:nil];
 }
 
@@ -127,17 +130,21 @@
     return NO;
 }
 - (IBAction)seleStationClick:(id)sender {
+    
+    if(DEVICETOOL.savedStationArr.count == 0){
+        [HUD showAlertWithText:@"未存储站点"];
+    }
     __weak typeof(self) weakSelf = self;
-//    NSArray *arr = @[@[@"aaa", @"bbb", @"ccc", @"ddd", @"eee"]];
     DLCustomAlertController *customAlertC = [[DLCustomAlertController alloc] init];
     customAlertC.title = @"选择站点";
-    customAlertC.pickerDatas = @[DEVICETOOL.stationStrArr];//arr;
+    customAlertC.pickerDatas = @[DEVICETOOL.savedStationArr];//arr;
     DLDateAnimation * animation = [[DLDateAnimation alloc] init];
     customAlertC.selectValues = ^(NSArray * _Nonnull dateArray){
-        [weakSelf.seleStationBut setTitle:dateArray[0] forState:UIControlStateNormal];
+        if(dateArray.count > 0){
+            [weakSelf.seleStationBut setTitle:dateArray[0] forState:UIControlStateNormal];
+        }
     };
     [self presentViewController:customAlertC animation:animation completion:nil];
-    
 }
 - (IBAction)searchClick:(id)sender {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -147,8 +154,8 @@
     NSTimeInterval startTimeInterval = [startDate timeIntervalSince1970];
     
     NSString *endTimeStr = [NSString stringWithFormat:@"%@ %@",_endTimeTextField.text,@"23:059:59"];
-       NSDate *endDate = [dateFormatter dateFromString:endTimeStr];
-       NSTimeInterval endTimeInterval = [endDate timeIntervalSince1970];
+    NSDate *endDate = [dateFormatter dateFromString:endTimeStr];
+    NSTimeInterval endTimeInterval = [endDate timeIntervalSince1970];
     
     if(startTimeInterval > endTimeInterval){
         [HUD showAlertWithText:@"开始时间不能早于结束时间"];

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CheckModel.h"
 typedef enum:NSInteger{
     TestNotStart,
     TestStarted,
@@ -30,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *stationStr;
 @property(nonatomic,strong)NSMutableArray *stationStrArr;
 @property(nonatomic,assign)long long saveStaionTime;
+@property(nonatomic,assign)long long startTime;
 @property(nonatomic,strong)NSMutableArray *deviceDataArr1;
 @property(nonatomic,strong)NSMutableArray *deviceDataArr2;
 @property(nonatomic,strong)NSMutableArray *deviceDataArr3;
@@ -39,8 +41,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)CSQTestStatus testStatus;
 @property (nonatomic,assign)CSQSeleLook seleLook;
 @property (nonatomic,assign)CSQJOrX jOrX;
+@property(nonatomic,strong)NSArray *savedStationArr;
+@property(nonatomic,strong)CheckModel*checkModel1;
+@property(nonatomic,strong)CheckModel*checkModel2;
+@property(nonatomic,strong)CheckModel*checkModel3;
+@property(nonatomic,strong)CheckModel*checkModel4;
+@property(nonatomic,strong)CheckModel*checkModel5;
 -(void)syncArr;
 -(void)removeAllData;
+-(void)getSavedStationArr;
+
 @end
 
 NS_ASSUME_NONNULL_END

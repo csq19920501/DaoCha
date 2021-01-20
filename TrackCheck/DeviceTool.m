@@ -7,7 +7,7 @@
 //
 
 #import "DeviceTool.h"
-
+#import "TestDataModel.h"
 @implementation DeviceTool
 + (DeviceTool *)shareInstance{
     
@@ -60,5 +60,28 @@
     [user setObject:time forKey:@"saveStaionTime"];
     [user synchronize];
    
+}
+-(void)getSavedStationArr{
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    // 异步执行任务创建方法
+    dispatch_async(queue, ^{
+        NSMutableArray *arr = [NSMutableArray array];
+        NSArray <TestDataModel *> * results = [[LPDBManager defaultManager] findModels: [TestDataModel class]
+         where:nil];
+        for (TestDataModel *model in results) {
+            NSArray*statArr = [NSArray arrayWithArray:arr];
+            BOOL isExit = NO;
+            for(NSString *str  in statArr){
+                if([str isEqualToString:model.station]){
+                    isExit = YES;
+                    break;
+                }
+            }
+            if(!isExit){
+                [arr addObject:model.station];
+            }
+        }
+        self.savedStationArr = [NSArray arrayWithArray:arr];
+    });
 }
 @end

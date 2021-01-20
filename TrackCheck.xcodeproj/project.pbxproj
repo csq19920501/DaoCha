@@ -95,6 +95,10 @@
 		B556520925B1890600CB61D7 /* province.json in Resources */ = {isa = PBXBuildFile; fileRef = B556520525B1890600CB61D7 /* province.json */; };
 		B556520C25B19AA600CB61D7 /* UIScrollView+DLEmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B556520B25B19AA600CB61D7 /* UIScrollView+DLEmptyDataSet.m */; };
 		B556520F25B1B33D00CB61D7 /* HistoryChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B556520E25B1B33D00CB61D7 /* HistoryChartViewController.m */; };
+		B556521225B5647700CB61D7 /* ReportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B556521125B5647700CB61D7 /* ReportModel.m */; };
+		B556521525B5925600CB61D7 /* CheckModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B556521425B5925600CB61D7 /* CheckModel.m */; };
+		B556521825B7C73200CB61D7 /* ETAFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = B556521725B7C73200CB61D7 /* ETAFNetworking.m */; };
+		B556521B25B833FD00CB61D7 /* TcpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B556521A25B833FD00CB61D7 /* TcpManager.m */; };
 		B556CA1625A55A2400523758 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA1525A55A2400523758 /* AppDelegate.m */; };
 		B556CA1925A55A2400523758 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA1825A55A2400523758 /* SceneDelegate.m */; };
 		B556CA1C25A55A2400523758 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CA1B25A55A2400523758 /* ViewController.m */; };
@@ -388,6 +392,14 @@
 		B556520B25B19AA600CB61D7 /* UIScrollView+DLEmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+DLEmptyDataSet.m"; sourceTree = "<group>"; };
 		B556520D25B1B33D00CB61D7 /* HistoryChartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryChartViewController.h; sourceTree = "<group>"; };
 		B556520E25B1B33D00CB61D7 /* HistoryChartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryChartViewController.m; sourceTree = "<group>"; };
+		B556521025B5647700CB61D7 /* ReportModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportModel.h; sourceTree = "<group>"; };
+		B556521125B5647700CB61D7 /* ReportModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReportModel.m; sourceTree = "<group>"; };
+		B556521325B5925500CB61D7 /* CheckModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckModel.h; sourceTree = "<group>"; };
+		B556521425B5925600CB61D7 /* CheckModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckModel.m; sourceTree = "<group>"; };
+		B556521625B7C73200CB61D7 /* ETAFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETAFNetworking.h; sourceTree = "<group>"; };
+		B556521725B7C73200CB61D7 /* ETAFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETAFNetworking.m; sourceTree = "<group>"; };
+		B556521925B833FD00CB61D7 /* TcpManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TcpManager.h; sourceTree = "<group>"; };
+		B556521A25B833FD00CB61D7 /* TcpManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TcpManager.m; sourceTree = "<group>"; };
 		B556CA1125A55A2400523758 /* TrackCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B556CA1425A55A2400523758 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B556CA1525A55A2400523758 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -726,6 +738,8 @@
 		B556515125B160F900CB61D7 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				B556521625B7C73200CB61D7 /* ETAFNetworking.h */,
+				B556521725B7C73200CB61D7 /* ETAFNetworking.m */,
 				B55651D525B1681300CB61D7 /* Base */,
 				B556516725B1636700CB61D7 /* Const.h */,
 				B556515A25B162C100CB61D7 /* Categories */,
@@ -1008,6 +1022,8 @@
 				B556CB5825A728CB00523758 /* ReportViewController.m */,
 				B556CB7025A83E8B00523758 /* CSQScoketService.h */,
 				B556CB7125A83E8B00523758 /* CSQScoketService.m */,
+				B556521925B833FD00CB61D7 /* TcpManager.h */,
+				B556521A25B833FD00CB61D7 /* TcpManager.m */,
 				B556CB7325A8721800523758 /* Device.h */,
 				B556CB7425A8721800523758 /* Device.m */,
 				B556CB7625A885A900523758 /* DeviceTool.h */,
@@ -1016,6 +1032,10 @@
 				B55650B225AD907200CB61D7 /* CSQHelper.m */,
 				B556514425B05E2900CB61D7 /* TestDataModel.h */,
 				B556514525B05E2900CB61D7 /* TestDataModel.m */,
+				B556521025B5647700CB61D7 /* ReportModel.h */,
+				B556521125B5647700CB61D7 /* ReportModel.m */,
+				B556521325B5925500CB61D7 /* CheckModel.h */,
+				B556521425B5925600CB61D7 /* CheckModel.m */,
 				B556CA1D25A55A2400523758 /* Main.storyboard */,
 				B556CA2025A55A2700523758 /* Assets.xcassets */,
 				B556CA2225A55A2700523758 /* LaunchScreen.storyboard */,
@@ -1531,6 +1551,7 @@
 				B556CB2125A5CEAE00523758 /* PYLinks.m in Sources */,
 				B556CB3B25A5CEAE00523758 /* PYEchartsView.m in Sources */,
 				B55651EF25B1689600CB61D7 /* UIViewController+GKNavigationController.m in Sources */,
+				B556521825B7C73200CB61D7 /* ETAFNetworking.m in Sources */,
 				B556513725B05D1B00CB61D7 /* NSObject-ClassName.m in Sources */,
 				B556CB2325A5CEAE00523758 /* PYTitle.m in Sources */,
 				B556513B25B05D1B00CB61D7 /* NSSet-SQLitePersistence.m in Sources */,
@@ -1571,6 +1592,7 @@
 				B55651F125B1689600CB61D7 /* GKWrapNavigationController.m in Sources */,
 				B556CB2525A5CEAE00523758 /* PYOption.m in Sources */,
 				B556CB2925A5CEAE00523758 /* PYToolbox.m in Sources */,
+				B556521B25B833FD00CB61D7 /* TcpManager.m in Sources */,
 				B55650AD25AD418800CB61D7 /* HIKLoadView.m in Sources */,
 				B556CA6E25A5CDD000523758 /* PYEventRiverDemoOptions.m in Sources */,
 				B556CB2625A5CEAE00523758 /* PYAxisPointer.m in Sources */,
@@ -1581,6 +1603,7 @@
 				B556CB6625A729C700523758 /* FCMaxOrMinLayer.m in Sources */,
 				B556518325B1655200CB61D7 /* DLAnimationRight.m in Sources */,
 				B55651E125B1686600CB61D7 /* UIImage+GKCategory.m in Sources */,
+				B556521225B5647700CB61D7 /* ReportModel.m in Sources */,
 				B556513A25B05D1B00CB61D7 /* NSObject-SQLitePersistence.m in Sources */,
 				B556520C25B19AA600CB61D7 /* UIScrollView+DLEmptyDataSet.m in Sources */,
 				B556514225B05D1B00CB61D7 /* NSString-UppercaseFirst.m in Sources */,
@@ -1646,6 +1669,7 @@
 				B556513625B05D1B00CB61D7 /* NSDate-SQLitePersistence.m in Sources */,
 				B556CA6825A5CDD000523758 /* PYPieDemoOptions.m in Sources */,
 				B556511525B05D1600CB61D7 /* FMResultSet.m in Sources */,
+				B556521525B5925600CB61D7 /* CheckModel.m in Sources */,
 				B556CB1625A5CEAE00523758 /* PYFunnelSeries.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

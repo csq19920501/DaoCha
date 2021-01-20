@@ -230,7 +230,7 @@
                             <color key="backgroundColor" red="0.0109061205" green="0.70093407780000005" blue="0.99422856370000001" alpha="0.72399400680000003" colorSpace="custom" customColorSpace="sRGB"/>
                             <segments>
                                 <segment title="转换阻力"/>
-                                <segment title="锁闭力曲线"/>
+                                <segment title="锁闭力"/>
                             </segments>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -944,7 +944,7 @@
                             <rect key="frame" x="298.5" y="9" width="171" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
-                                <segment title="道岔曲线"/>
+                                <segment title="转换阻力"/>
                                 <segment title="锁闭力"/>
                             </segments>
                         </segmentedControl>

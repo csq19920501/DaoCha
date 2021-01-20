@@ -17,7 +17,7 @@
 #import "SetAddressViewController.h"
 #import "SceneDelegate.h"
 #import "TestDataModel.h"
-
+#import "ReportModel.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet PYZoomEchartsView *kEchartView1;
@@ -240,7 +240,7 @@
 }
 - (IBAction)startTest:(id)sender {
     _startTime = [[NSDate date] timeIntervalSince1970];
-    
+    DEVICETOOL.startTime = _startTime;
     
     _startBut.enabled = NO;
     _startBut.alpha = 0.2;
@@ -270,7 +270,8 @@
     NSMutableArray * saveArray = [NSMutableArray array];
     for (Device *device in DEVICETOOL.deviceArr) {
         if(device.selected ){  //|| [device.id intValue] > 3 闭锁力单独保存
-            TestDataModel *dataModel = [[TestDataModel alloc]init];
+            
+                    TestDataModel *dataModel = [[TestDataModel alloc]init];
                     dataModel.station = DEVICETOOL.stationStr;
                     dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
                     dataModel.idStr = [NSString stringWithFormat:@"%lld%@",_startTime,device.typeStr];
@@ -329,6 +330,15 @@
         dataModel.timeLong = currentTime;
         [[LPDBManager defaultManager] saveModels: @[dataModel]];
     }
+    
+    ReportModel *dataModel = [[ReportModel alloc]init];
+    dataModel.station = DEVICETOOL.stationStr;
+    dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
+    dataModel.idStr = [NSString stringWithFormat:@"%lld%@",_startTime,@"闭锁力"];
+    dataModel.deviceType = @"闭锁力";
+    long long currentTime = [[NSDate date] timeIntervalSince1970] ;
+    dataModel.timeLong = currentTime;
+    [[LPDBManager defaultManager] saveModels: @[dataModel]];
 }
 - (IBAction)changeTest:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -354,9 +364,7 @@
                [_kEchartView3 refreshEchartsWithOption:[self irregularLine2Option:2]];
            }
     }
-    
-    
-   
+
 //     __weak typeof(self) weakSelf = self;
 //            dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.23/*延迟执行时间*/ * NSEC_PER_SEC));
 //            dispatch_after(delayTime, dispatch_get_main_queue(), ^{
@@ -398,13 +406,13 @@
 //    dispatch_async(dispatch_get_main_queue(), ^{
 //    });
 //}
-//-(void)startScoketService{
-//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//    // 异步执行任务创建方法
-//    dispatch_async(queue, ^{
-//        // 这里放异步执行任务代码
-//    });
-//}
+-(void)startScoketService{
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    // 异步执行任务创建方法
+    dispatch_async(queue, ^{
+        
+    });
+}
 //-(PYOption *)refreshEcharts:(NSInteger)no{
 //    if(no>=_seleJJJArr.count){
 //        return nil;

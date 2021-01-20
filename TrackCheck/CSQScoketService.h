@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Foundation/Foundation.h>
 #import "GCDAsyncSocket.h"
+#import "CheckModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CSQScoketService : NSObject

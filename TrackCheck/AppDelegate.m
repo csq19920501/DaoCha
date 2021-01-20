@@ -10,6 +10,7 @@
 #import "CSQScoketService.h"
 #import "SetAddressViewController.h"
 #import "SetDeviceViewController.h"
+#import "TestDataModel.h"
 @interface AppDelegate ()
 
 @end
@@ -49,8 +50,12 @@
     self.scoketThread = [[NSThread alloc]initWithTarget:self selector:@selector(startSocket) object:nil];
     [self.scoketThread start];
     
+    long revData = (long)strtoul([@"8000" UTF8String],0,16);  //16进制字符串转换成long
+               NSLog(@"%ld",revData);
+
     return YES;
 }
+
 -(void)startSocket{
     CSQScoketService *socketSerview = [[CSQScoketService alloc]init];
                //开始服务
@@ -75,6 +80,4 @@
     // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
     // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
 }
-
-
 @end

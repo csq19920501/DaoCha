@@ -9,6 +9,7 @@
 #import "TestDataModel.h"
 
 @implementation TestDataModel
+
 + (NSString *)primaryKey
 {
     return @"idStr";
