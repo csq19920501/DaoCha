@@ -45,12 +45,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)long  step4_min;
 @property (nonatomic,assign)long  step4_average;
 
-@property (nonatomic,assign)BOOL  blockedChange_OK;
-@property (nonatomic,assign)BOOL  blockedStable1_OK;
+@property (nonatomic,assign)BOOL  blockedChange1_OK;  //受阻上升
+@property (nonatomic,assign)BOOL  blockedChange2_OK;  //受阻下降
+
+@property (nonatomic,assign)BOOL  blockedStable1_OK;    //受阻稳定
 @property (nonatomic,assign)BOOL  blockedStable2_OK;
+@property (nonatomic,assign)BOOL  blockedStable3_OK;
 
 @property (nonatomic,assign)long blockedStable_value;
 @property (nonatomic,assign)long blocked_max;
+
+@property (nonatomic,assign)BOOL  blockedError;
+@property (nonatomic,assign)BOOL  blockedErrorTypeUp;
 
 @property (nonatomic,assign)BOOL  close1_OK;
 @property (nonatomic,assign)BOOL  closeChange_OK;
