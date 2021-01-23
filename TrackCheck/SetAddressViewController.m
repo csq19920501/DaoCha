@@ -9,10 +9,11 @@
 #import "SetAddressViewController.h"
 #import "PYSearch.h"
 #import "SetDeviceViewController.h"
+#import "TYAlertController.h"
 
 #define PYTextColor PYSEARCH_COLOR(113, 113, 113)
 #define PYSEARCH_COLORPolRandomColor self.colorPol[arc4random_uniform((uint32_t)self.colorPol.count)]
-@interface SetAddressViewController ()
+@interface SetAddressViewController ()<UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *stationTF;
 @property (weak, nonatomic) IBOutlet UITextField *daoChaTF;
@@ -21,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIView *daoChaTagsView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *stationTagsViewH;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *daoChaTagsViewH;
+@property (weak, nonatomic) IBOutlet UIButton *shen_Ding;
+@property (weak, nonatomic) IBOutlet UIButton *shen_Fan;
 
 @property (nonatomic, strong) NSMutableArray<UIColor *> *colorPol;
 @end
@@ -47,6 +50,17 @@
     _daoChaTF.text = DEVICETOOL.roadSwitchNo;
     [_sureBut.titleLabel setTextColor:[UIColor whiteColor]];
     
+    _shen_Fan.layer.masksToBounds = YES;
+    _shen_Fan.layer.borderColor = BLUECOLOR.CGColor;
+    _shen_Fan.layer.borderWidth = 2;
+    _shen_Fan.layer.cornerRadius = 10;
+    
+    _shen_Ding.layer.masksToBounds = YES;
+    _shen_Ding.layer.borderColor = BLUECOLOR.CGColor;
+    _shen_Ding.layer.borderWidth = 2;
+    _shen_Ding.layer.cornerRadius = 10;
+    
+    [self setSele];
 }
 -(void)viewDidAppear:(BOOL)animated{
     [self setStationTagesView];
@@ -55,13 +69,18 @@
 -(void)viewDidLayoutSubviews{
     
 }
+
 -(void)tagDidCLick:(UIGestureRecognizer*)gesture{
     UILabel *label = (UILabel *)gesture.view;
     _stationTF.text = label.text;
+    [self setSele];
+    
 }
 -(void)tagDidCLick2:(UIGestureRecognizer*)gesture{
     UILabel *label = (UILabel *)gesture.view;
     _daoChaTF.text = label.text;
+    
+    [self setSele];
 }
 - (IBAction)empty:(id)sender {
     UIButton *but = (UIButton *)sender;
@@ -74,12 +93,149 @@
     }
     [DEVICETOOL syncArr];
 }
+-(void)textViewDidEndEditing:(UITextView *)textView{
+    [self setSele];
+}
+-(void)setSele{
+    if(_stationTF.text.length!=0){
+        if(_daoChaTF.text.length!=0){
+            NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+            NSInteger shenSuo = [user integerForKey:[NSString stringWithFormat:@"%@%@",_stationTF.text,_daoChaTF.text]];
+            if(shenSuo == Shen_Ding){
+                _shen_Ding.selected = YES;
+                _shen_Fan.selected =NO;
+                DEVICETOOL.shenSuo = Shen_Ding;
+            }else if(shenSuo == Shen_Fan){
+                _shen_Ding.selected = NO;
+                _shen_Fan.selected =YES;
+                DEVICETOOL.shenSuo = Shen_Fan;
+            }else{
+                _shen_Ding.selected = NO;
+                _shen_Fan.selected = NO;
+                DEVICETOOL.shenSuo = NoSet;
+            }
+        }else{
+            _shen_Ding.selected = NO;
+            _shen_Fan.selected = NO;
+            DEVICETOOL.shenSuo = NoSet;
+        }
+    }else{
+        _shen_Ding.selected = NO;
+        _shen_Fan.selected = NO;
+        DEVICETOOL.shenSuo = NoSet;
+    }
+}
+
+-(void)pushAlertView:(void (^)(BOOL))re{
+    TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"提示" message:@"请输入'修改',确认修改操作"];
+    
+    TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:alertView preferredStyle:TYAlertControllerStyleAlert];
+    
+    [alertView addAction:[TYAlertAction actionWithTitle:@"取消" style:TYAlertActionStyleCancle handler:^(TYAlertAction *action) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [alertController dismissViewControllerAnimated:YES];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            if(re){
+                re(NO);
+            }
+        });
+    }]];
+    
+    // 弱引用alertView 否则 会循环引用
+    __typeof (alertView) __weak weakAlertView = alertView;
+    
+    [alertView addAction:[TYAlertAction actionWithTitle:@"确定" style:TYAlertActionStyleDestructive handler:^(TYAlertAction *action) {
+        
+        UITextField *textField = [weakAlertView.textFieldArray firstObject];
+        
+        [textField resignFirstResponder];
+        
+        if (![textField.text isEqualToString:@"修改"] ){
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [HUD showAlertWithText:@"请输入'修改'，确认修改操作"];
+            });
+            if(re){
+                re(NO);
+            }
+        }else{
+         if(re){
+             re(YES);
+         }
+        }
+        
+    }]];
+    
+    [alertView addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        
+        textField.placeholder = @"请输入'修改'";
+        
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+        
+        [textField becomeFirstResponder];
+    }];
+    
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+- (IBAction)dingFanCheck:(id)sender {
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    UIButton *but = (UIButton *)sender;
+    if(!but.selected){
+        if(sender == _shen_Ding){
+            if(_shen_Fan.selected && DEVICETOOL.shenSuo == Shen_Fan){
+                [self pushAlertView:^(BOOL retu){
+                    if(retu){
+                        _shen_Ding.selected = YES;
+                        _shen_Fan.selected = NO;
+                        
+                        DEVICETOOL.shenSuo = Shen_Ding;
+                        [user setInteger:Shen_Ding forKey:[NSString stringWithFormat:@"%@%@",_stationTF.text,_daoChaTF.text]];
+                       
+                    }
+                }];
+            }else{
+                _shen_Ding.selected = YES;
+            }
+        }else if(sender == _shen_Fan){
+            if(_shen_Ding.selected && DEVICETOOL.shenSuo == Shen_Ding){
+                [self pushAlertView:^(BOOL retu){
+                    if(retu){
+                        _shen_Fan.selected = YES;
+                        _shen_Ding.selected = NO;
+                        
+                        DEVICETOOL.shenSuo = Shen_Fan;
+                        [user setInteger:Shen_Fan forKey:[NSString stringWithFormat:@"%@%@",_stationTF.text,_daoChaTF.text]];
+                    }
+                }];
+            }else{
+                _shen_Fan.selected = YES;
+            }
+        }
+    }
+}
+
+
 - (IBAction)sureClick:(id)sender {
     if(_stationTF.text.length == 0){
        [HUD showAlertWithText:@"站点名称不能为空"];
         return;
     }else if(_daoChaTF.text.length == 0){
        [HUD showAlertWithText:@"道岔号不能为空"];
+        return;
+    }
+    if(_shen_Ding.selected){
+        DEVICETOOL.shenSuo = Shen_Ding;
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        [user setInteger:Shen_Ding forKey:[NSString stringWithFormat:@"%@%@",_stationTF.text,_daoChaTF.text]];
+    }else if(_shen_Fan.selected){
+        DEVICETOOL.shenSuo = Shen_Fan;
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        [user setInteger:Shen_Fan forKey:[NSString stringWithFormat:@"%@%@",_stationTF.text,_daoChaTF.text]];
+    }else{
+        [HUD showAlertWithText:@"请选择伸缩对应的定反类型"];
         return;
     }
     NSArray *copyArr = [NSArray arrayWithArray:DEVICETOOL.stationStrArr];

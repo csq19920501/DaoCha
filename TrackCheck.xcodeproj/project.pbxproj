@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		B17C4971D66A221FCEA9C513 /* libPods-TrackCheck.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A37D2DEF2B065C598A77A1 /* libPods-TrackCheck.a */; };
+		B5362CB125BBC46D00AE189A /* TYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362C9E25BBC46C00AE189A /* TYAlertView.m */; };
+		B5362CB225BBC46D00AE189A /* UIView+TYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CA225BBC46C00AE189A /* UIView+TYAlertView.m */; };
+		B5362CB325BBC46D00AE189A /* TYAlertScaleFadeAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CA325BBC46C00AE189A /* TYAlertScaleFadeAnimation.m */; };
+		B5362CB425BBC46D00AE189A /* TYAlertFadeAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CA525BBC46C00AE189A /* TYAlertFadeAnimation.m */; };
+		B5362CB525BBC46D00AE189A /* TYAlertController+TransitionAnimate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CA625BBC46C00AE189A /* TYAlertController+TransitionAnimate.m */; };
+		B5362CB625BBC46D00AE189A /* UIView+TYAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CA825BBC46C00AE189A /* UIView+TYAutoLayout.m */; };
+		B5362CB725BBC46D00AE189A /* TYAlertDropDownAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CA925BBC46C00AE189A /* TYAlertDropDownAnimation.m */; };
+		B5362CB825BBC46D00AE189A /* TYShowAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CAC25BBC46C00AE189A /* TYShowAlertView.m */; };
+		B5362CB925BBC46D00AE189A /* TYBaseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CAD25BBC46C00AE189A /* TYBaseAnimation.m */; };
+		B5362CBA25BBC46D00AE189A /* TYAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CAF25BBC46C00AE189A /* TYAlertController.m */; };
 		B556508425AC636E00CB61D7 /* SetAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B556508325AC636E00CB61D7 /* SetAddressViewController.m */; };
 		B556509425AC64B000CB61D7 /* UIColor+PYSearchExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B556508725AC64B000CB61D7 /* UIColor+PYSearchExtension.m */; };
 		B556509525AC64B000CB61D7 /* PYSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B556508825AC64B000CB61D7 /* PYSearchViewController.m */; };
@@ -216,6 +226,25 @@
 		282EC67EE51632C9D1B2E328 /* Pods-TrackCheck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrackCheck.debug.xcconfig"; path = "Target Support Files/Pods-TrackCheck/Pods-TrackCheck.debug.xcconfig"; sourceTree = "<group>"; };
 		59A37D2DEF2B065C598A77A1 /* libPods-TrackCheck.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrackCheck.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A129EEB72E0506FF9D93C4FD /* Pods-TrackCheck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrackCheck.release.xcconfig"; path = "Target Support Files/Pods-TrackCheck/Pods-TrackCheck.release.xcconfig"; sourceTree = "<group>"; };
+		B5362C9E25BBC46C00AE189A /* TYAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYAlertView.m; sourceTree = "<group>"; };
+		B5362C9F25BBC46C00AE189A /* TYAlertDropDownAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYAlertDropDownAnimation.h; sourceTree = "<group>"; };
+		B5362CA025BBC46C00AE189A /* UIView+TYAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TYAutoLayout.h"; sourceTree = "<group>"; };
+		B5362CA125BBC46C00AE189A /* TYShowAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYShowAlertView.h; sourceTree = "<group>"; };
+		B5362CA225BBC46C00AE189A /* UIView+TYAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TYAlertView.m"; sourceTree = "<group>"; };
+		B5362CA325BBC46C00AE189A /* TYAlertScaleFadeAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYAlertScaleFadeAnimation.m; sourceTree = "<group>"; };
+		B5362CA425BBC46C00AE189A /* TYBaseAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYBaseAnimation.h; sourceTree = "<group>"; };
+		B5362CA525BBC46C00AE189A /* TYAlertFadeAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYAlertFadeAnimation.m; sourceTree = "<group>"; };
+		B5362CA625BBC46C00AE189A /* TYAlertController+TransitionAnimate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TYAlertController+TransitionAnimate.m"; sourceTree = "<group>"; };
+		B5362CA725BBC46C00AE189A /* TYAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYAlertController.h; sourceTree = "<group>"; };
+		B5362CA825BBC46C00AE189A /* UIView+TYAutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TYAutoLayout.m"; sourceTree = "<group>"; };
+		B5362CA925BBC46C00AE189A /* TYAlertDropDownAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYAlertDropDownAnimation.m; sourceTree = "<group>"; };
+		B5362CAA25BBC46C00AE189A /* TYAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYAlertView.h; sourceTree = "<group>"; };
+		B5362CAB25BBC46C00AE189A /* UIView+TYAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TYAlertView.h"; sourceTree = "<group>"; };
+		B5362CAC25BBC46C00AE189A /* TYShowAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYShowAlertView.m; sourceTree = "<group>"; };
+		B5362CAD25BBC46C00AE189A /* TYBaseAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYBaseAnimation.m; sourceTree = "<group>"; };
+		B5362CAE25BBC46C00AE189A /* TYAlertScaleFadeAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYAlertScaleFadeAnimation.h; sourceTree = "<group>"; };
+		B5362CAF25BBC46C00AE189A /* TYAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYAlertController.m; sourceTree = "<group>"; };
+		B5362CB025BBC46C00AE189A /* TYAlertFadeAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYAlertFadeAnimation.h; sourceTree = "<group>"; };
 		B556508225AC636E00CB61D7 /* SetAddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetAddressViewController.h; sourceTree = "<group>"; };
 		B556508325AC636E00CB61D7 /* SetAddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetAddressViewController.m; sourceTree = "<group>"; };
 		B556508625AC64B000CB61D7 /* NSBundle+PYSearchExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+PYSearchExtension.h"; sourceTree = "<group>"; };
@@ -625,6 +654,32 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		B5362C9D25BBC46C00AE189A /* TYAlertController */ = {
+			isa = PBXGroup;
+			children = (
+				B5362C9E25BBC46C00AE189A /* TYAlertView.m */,
+				B5362C9F25BBC46C00AE189A /* TYAlertDropDownAnimation.h */,
+				B5362CA025BBC46C00AE189A /* UIView+TYAutoLayout.h */,
+				B5362CA125BBC46C00AE189A /* TYShowAlertView.h */,
+				B5362CA225BBC46C00AE189A /* UIView+TYAlertView.m */,
+				B5362CA325BBC46C00AE189A /* TYAlertScaleFadeAnimation.m */,
+				B5362CA425BBC46C00AE189A /* TYBaseAnimation.h */,
+				B5362CA525BBC46C00AE189A /* TYAlertFadeAnimation.m */,
+				B5362CA625BBC46C00AE189A /* TYAlertController+TransitionAnimate.m */,
+				B5362CA725BBC46C00AE189A /* TYAlertController.h */,
+				B5362CA825BBC46C00AE189A /* UIView+TYAutoLayout.m */,
+				B5362CA925BBC46C00AE189A /* TYAlertDropDownAnimation.m */,
+				B5362CAA25BBC46C00AE189A /* TYAlertView.h */,
+				B5362CAB25BBC46C00AE189A /* UIView+TYAlertView.h */,
+				B5362CAC25BBC46C00AE189A /* TYShowAlertView.m */,
+				B5362CAD25BBC46C00AE189A /* TYBaseAnimation.m */,
+				B5362CAE25BBC46C00AE189A /* TYAlertScaleFadeAnimation.h */,
+				B5362CAF25BBC46C00AE189A /* TYAlertController.m */,
+				B5362CB025BBC46C00AE189A /* TYAlertFadeAnimation.h */,
+			);
+			path = TYAlertController;
+			sourceTree = "<group>";
+		};
 		B556508525AC64B000CB61D7 /* PYSearch */ = {
 			isa = PBXGroup;
 			children = (
@@ -993,6 +1048,7 @@
 		B556CA1325A55A2400523758 /* TrackCheck */ = {
 			isa = PBXGroup;
 			children = (
+				B5362C9D25BBC46C00AE189A /* TYAlertController */,
 				B556518B25B166CD00CB61D7 /* Alert */,
 				B556515125B160F900CB61D7 /* Tools */,
 				B55650B425B05BEF00CB61D7 /* LPDB */,
@@ -1545,6 +1601,7 @@
 				B556518A25B165B400CB61D7 /* DLBaseAnimation.m in Sources */,
 				B556CB6025A729AC00523758 /* FCChartView.m in Sources */,
 				B556518125B1655200CB61D7 /* DLAnimationFading.m in Sources */,
+				B5362CB825BBC46D00AE189A /* TYShowAlertView.m in Sources */,
 				B556CB0825A5CEAE00523758 /* PYForceSeries.m in Sources */,
 				B556CB0B25A5CEAE00523758 /* PYPieSeries.m in Sources */,
 				B556CB1725A5CEAE00523758 /* PYMarkLine.m in Sources */,
@@ -1556,6 +1613,7 @@
 				B556CB2325A5CEAE00523758 /* PYTitle.m in Sources */,
 				B556513B25B05D1B00CB61D7 /* NSSet-SQLitePersistence.m in Sources */,
 				B556510325B05D0A00CB61D7 /* LPDBManager.m in Sources */,
+				B5362CB625BBC46D00AE189A /* UIView+TYAutoLayout.m in Sources */,
 				B556517D25B1655200CB61D7 /* DLAnimationBottom.m in Sources */,
 				B556518725B1656A00CB61D7 /* DLDateAnimation.m in Sources */,
 				B556CB1925A5CEAE00523758 /* PYColor.m in Sources */,
@@ -1568,6 +1626,7 @@
 				B556513925B05D1B00CB61D7 /* UIImage-SQLitePersistence.m in Sources */,
 				B556CA1625A55A2400523758 /* AppDelegate.m in Sources */,
 				B556516325B162C100CB61D7 /* UIButton+DLAdaptiveButton.m in Sources */,
+				B5362CB125BBC46D00AE189A /* TYAlertView.m in Sources */,
 				B556CB2725A5CEAE00523758 /* PYAreaStyle.m in Sources */,
 				B55651C525B166CD00CB61D7 /* DLAddressAnimation.m in Sources */,
 				B556CB3525A5CEAE00523758 /* PYSplitArea.m in Sources */,
@@ -1576,6 +1635,7 @@
 				B55651F425B168A800CB61D7 /* GKNavigationController.m in Sources */,
 				B556CB3625A5CEAE00523758 /* PYAxisLabel.m in Sources */,
 				B556CA2725A55A2700523758 /* main.m in Sources */,
+				B5362CB425BBC46D00AE189A /* TYAlertFadeAnimation.m in Sources */,
 				B556CA6525A5CDD000523758 /* PYScatterDemoOptions.m in Sources */,
 				B556CB1125A5CEAE00523758 /* PYWordCloudSeries.m in Sources */,
 				B556518425B1655200CB61D7 /* DLAnimationLeft.m in Sources */,
@@ -1592,6 +1652,8 @@
 				B55651F125B1689600CB61D7 /* GKWrapNavigationController.m in Sources */,
 				B556CB2525A5CEAE00523758 /* PYOption.m in Sources */,
 				B556CB2925A5CEAE00523758 /* PYToolbox.m in Sources */,
+				B5362CB525BBC46D00AE189A /* TYAlertController+TransitionAnimate.m in Sources */,
+				B5362CBA25BBC46D00AE189A /* TYAlertController.m in Sources */,
 				B556521B25B833FD00CB61D7 /* TcpManager.m in Sources */,
 				B55650AD25AD418800CB61D7 /* HIKLoadView.m in Sources */,
 				B556CA6E25A5CDD000523758 /* PYEventRiverDemoOptions.m in Sources */,
@@ -1599,6 +1661,7 @@
 				B556CB3425A5CEAE00523758 /* PYTooltip.m in Sources */,
 				B556CB2425A5CEAE00523758 /* PYAxis.m in Sources */,
 				B556CAF725A5CEAE00523758 /* PYJsonUtil.m in Sources */,
+				B5362CB725BBC46D00AE189A /* TYAlertDropDownAnimation.m in Sources */,
 				B556CB3225A5CEAE00523758 /* PYAxisSplitLine.m in Sources */,
 				B556CB6625A729C700523758 /* FCMaxOrMinLayer.m in Sources */,
 				B556518325B1655200CB61D7 /* DLAnimationRight.m in Sources */,
@@ -1623,6 +1686,7 @@
 				B556516425B162C100CB61D7 /* UIImage+DLRotate.m in Sources */,
 				B556CB3C25A5CEAE00523758 /* NSObject+PYObject.m in Sources */,
 				B556CB1825A5CEAE00523758 /* PYGaugeSeries.m in Sources */,
+				B5362CB225BBC46D00AE189A /* UIView+TYAlertView.m in Sources */,
 				B556CB6E25A83E4A00523758 /* GCDAsyncUdpSocket.m in Sources */,
 				B55651F725B168FE00CB61D7 /* DLBaseViewController.m in Sources */,
 				B55651D125B166CD00CB61D7 /* DLCustomPresentationController.m in Sources */,
@@ -1637,6 +1701,7 @@
 				B556CA6B25A5CDD000523758 /* PYWorldCloudDemoOptions.m in Sources */,
 				B55651C125B166CD00CB61D7 /* DLInputViewController.m in Sources */,
 				B556509925AC64B000CB61D7 /* NSBundle+PYSearchExtension.m in Sources */,
+				B5362CB925BBC46D00AE189A /* TYBaseAnimation.m in Sources */,
 				B556CB3925A5CEAE00523758 /* WKEchartsView.m in Sources */,
 				B55651C725B166CD00CB61D7 /* DLNameLabelCell.m in Sources */,
 				B55651C825B166CD00CB61D7 /* DLAddressSelectCell.m in Sources */,
@@ -1651,6 +1716,7 @@
 				B55650B325AD907200CB61D7 /* CSQHelper.m in Sources */,
 				B556CA1925A55A2400523758 /* SceneDelegate.m in Sources */,
 				B556CB2025A5CEAE00523758 /* PYLoadingOption.m in Sources */,
+				B5362CB325BBC46D00AE189A /* TYAlertScaleFadeAnimation.m in Sources */,
 				B556CB2F25A5CEAE00523758 /* PYTimeline.m in Sources */,
 				B556CB0D25A5CEAE00523758 /* PYVennSeries.m in Sources */,
 				B556513D25B05D1B00CB61D7 /* LPDBModel+SQL.m in Sources */,

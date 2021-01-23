@@ -12,8 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TestDataModel : LPDBModel
 
-
-
 @property (nonatomic,strong)NSString *station;
 @property (nonatomic,strong)NSString *roadSwitch;
 @property (nonatomic,strong)NSString *deviceType;
@@ -21,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic,strong)NSNumber *time;
 @property (nonatomic,strong)NSMutableArray *dataArr;
 @property (nonatomic,assign)long long timeLong ;
+
 @end
 
 NS_ASSUME_NONNULL_END

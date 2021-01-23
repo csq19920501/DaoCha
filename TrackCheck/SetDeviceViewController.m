@@ -32,6 +32,8 @@ typedef enum:NSInteger{
 @property (weak, nonatomic) IBOutlet UIButton *sureBut;
 @property (weak, nonatomic) IBOutlet UILabel *layerLabel1;
 @property (weak, nonatomic) IBOutlet UILabel *layerLabel2;
+@property (weak, nonatomic) IBOutlet UIView *sigmet2BackView;
+@property (weak, nonatomic) IBOutlet UIButton *closeDeviceBut;
 
 @property(nonatomic,assign)CSQROrL rOrL;
 @end
@@ -42,7 +44,7 @@ typedef enum:NSInteger{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    NSArray * array = @[@"101",@"102",@"106",@"201",@"202",@"203",@"301",@"302",@"303",];
+    NSArray * array = @[@"101",@"102",@"106",@"201",@"202",@"203",@"301",@"302",@"303",@"901",@"902",@"903",@"904",@"905",@"906",@"907",@"908",@"909",@"910",];
     for (NSString * a in array) {
         UIButton *but =(UIButton *)[self.view viewWithTag:[a intValue]];
         but.layer.masksToBounds = YES;
@@ -53,15 +55,6 @@ typedef enum:NSInteger{
     _layerLabel1.hidden = YES;
     _layerLabel2.hidden = YES;
     
-//    _layerLabel1.layer.masksToBounds = YES;
-//    _layerLabel1.layer.borderColor = BLUECOLOR.CGColor;
-//    _layerLabel1.layer.borderWidth = 2;
-//    _layerLabel1.layer.cornerRadius = 10;
-//
-//    _layerLabel2.layer.masksToBounds = YES;
-//    _layerLabel2.layer.borderColor = BLUECOLOR.CGColor;
-//    _layerLabel2.layer.borderWidth = 2;
-//    _layerLabel2.layer.cornerRadius = 10;
     
     if(DEVICETOOL.jOrX == J){
         UIButton *but =(UIButton *)[self.view viewWithTag:101];
@@ -76,17 +69,47 @@ typedef enum:NSInteger{
         UIButton *but2 =(UIButton *)[self.view viewWithTag:101];
         but2.selected = NO;
     }
+    
+    
+    
 }
+- (IBAction)changeLinkType:(id)sender {
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self changeView];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeView) userInfo:nil repeats:YES];
+    
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSString* linkType = [user stringForKey:[NSString stringWithFormat:@"%@%@CLOSE",DEVICETOOL.stationStr,DEVICETOOL.roadSwitchNo]];
+    for(int i = 901; i<=909;i++){
+        UIButton *but = (UIButton *)[self.view viewWithTag:i];
+        if([linkType isEqualToString:but.titleLabel.text]){
+            but.selected = YES;
+        }else{
+            but.selected = NO;
+        }
+    }
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [_timer invalidate];
     _timer = nil;
 }
+- (IBAction)sigmentChange:(id)sender {
+    UISegmentedControl   *control = sender;
+        NSLog(@"control.selectedSegmentIndex = %ld",(long)control.selectedSegmentIndex);
+        if(control.selectedSegmentIndex == 0){
+            DEVICETOOL.seleLook = ONE;
+            _sigmet2BackView.hidden = YES;
+            
+        }else{
+            DEVICETOOL.seleLook = TWO;
+            _sigmet2BackView.hidden = NO;
+        }
+}
+
 - (IBAction)changeJOrX:(id)sender {
    
     UIButton *but = (UIButton *)sender;
@@ -332,6 +355,25 @@ typedef enum:NSInteger{
         _topLabel.text = @"搜索设备中";
     }else{
         _topLabel.text = @"检测到WiFi未连接,请连接WiFi:666666,密码:88888888";
+    }
+    
+    
+    _closeDeviceBut.alpha = 0.2;
+    _closeDeviceBut.enabled = NO;
+    BOOL hasDing = false ;
+    BOOL hasFan = false;
+    
+    for (int i =0; i < DEVICETOOL.deviceArr.count; i++) {
+        Device *device = DEVICETOOL.deviceArr[i];
+        if([device.id intValue] ==11){
+            hasDing = YES;
+        }else if([device.id intValue] ==12){
+            hasFan = YES;
+        }
+    }
+    if(hasFan && hasDing){
+        _closeDeviceBut.alpha = 1;
+        _closeDeviceBut.enabled = YES;
     }
 }
 -(void)getDatePick{

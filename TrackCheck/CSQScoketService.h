@@ -15,6 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CSQScoketService : NSObject
 //开启服务
 - (void)start;
++(CSQScoketService*)shareInstance;
+@property (strong, nonatomic) NSArray *testArray;
+@property (assign, nonatomic) NSInteger testCount;
+@property (assign, nonatomic) NSTimer * timer;
+-(void)stopTest1234;
+-(void)test1234;
 @end
 
 NS_ASSUME_NONNULL_END

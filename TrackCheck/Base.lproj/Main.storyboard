@@ -224,7 +224,7 @@
                                 <action selector="clickLeft:" destination="BYZ-38-t0r" id="xXq-dg-ucK"/>
                             </connections>
                         </barButtonItem>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="sUh-ID-h8M">
+                        <segmentedControl key="titleView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="sUh-ID-h8M">
                             <rect key="frame" x="298.5" y="8.5" width="171" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.0109061205" green="0.70093407780000005" blue="0.99422856370000001" alpha="0.72399400680000003" colorSpace="custom" customColorSpace="sRGB"/>
@@ -493,7 +493,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入监测站点名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZlG-XG-yr6">
-                                <rect key="frame" x="99" y="145" width="256" height="34"/>
+                                <rect key="frame" x="99" y="80" width="256" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="dXH-DB-XFj"/>
                                 </constraints>
@@ -502,7 +502,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入监测道岔号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qsM-ll-s3r">
-                                <rect key="frame" x="99" y="487" width="227" height="34"/>
+                                <rect key="frame" x="99" y="365" width="227" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="jBr-SL-BjU"/>
                                 </constraints>
@@ -511,7 +511,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FUJ-9O-fI0">
-                                <rect key="frame" x="99" y="214" width="571" height="66"/>
+                                <rect key="frame" x="99" y="149" width="571" height="66"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="66" id="GJ3-2w-GDo"/>
                                 </constraints>
@@ -519,7 +519,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gob-CA-iVb">
-                                <rect key="frame" x="99" y="568" width="571" height="66"/>
+                                <rect key="frame" x="99" y="446" width="571" height="66"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="66" id="YVu-Al-PL8"/>
                                 </constraints>
@@ -541,7 +541,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hx9-O9-1eQ">
-                                <rect key="frame" x="99" y="288" width="571" height="42"/>
+                                <rect key="frame" x="99" y="223" width="571" height="42"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="历史记录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jr8-0S-T71">
                                         <rect key="frame" x="0.0" y="9.5" width="78" height="23"/>
@@ -572,14 +572,14 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Gv-BK-UGI">
-                                <rect key="frame" x="99" y="330" width="570" height="112"/>
+                                <rect key="frame" x="99" y="265" width="570" height="80"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="112" id="lqx-Lh-3MZ"/>
+                                    <constraint firstAttribute="height" constant="80" id="lqx-Lh-3MZ"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lno-qW-dTZ">
-                                <rect key="frame" x="98" y="642" width="571" height="42"/>
+                                <rect key="frame" x="98" y="520" width="571" height="42"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="历史记录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOX-Ul-VFg">
                                         <rect key="frame" x="0.0" y="9.5" width="78" height="23"/>
@@ -617,31 +617,70 @@
                                     <segue destination="wei-fa-z34" kind="show" id="aiO-CC-lEB"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PeP-Ce-m7W">
-                                <rect key="frame" x="99" y="683" width="571" height="85"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PeP-Ce-m7W">
+                                <rect key="frame" x="99" y="562" width="571" height="85"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="85" id="hJM-Vt-kaC"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择伸缩对应定反类型" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Dn-Ab-Aad">
+                                <rect key="frame" x="98" y="667" width="312.5" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="l8V-Z8-HgA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" tag="500" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IRj-17-cHf">
+                                <rect key="frame" x="98" y="709" width="401" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
+                                <state key="normal" title="伸出=定位 缩进=反位" image="未勾选">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <state key="selected" image="选择-勾选"/>
+                                <connections>
+                                    <action selector="dingFanCheck:" destination="NOn-r6-Pj7" eventType="touchUpInside" id="ZOx-6k-cpo"/>
+                                    <action selector="seleClick:" destination="wei-fa-z34" eventType="touchUpInside" id="iHS-pV-MUE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="501" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R3C-HD-oz7">
+                                <rect key="frame" x="98" y="783" width="401" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
+                                <state key="normal" title="伸出=反位 缩进=定位" image="未勾选">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <state key="selected" image="选择-勾选"/>
+                                <connections>
+                                    <action selector="dingFanCheck:" destination="NOn-r6-Pj7" eventType="touchUpInside" id="mr8-DS-gRt"/>
+                                    <action selector="seleClick:" destination="wei-fa-z34" eventType="touchUpInside" id="WzN-Q5-NgI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="7Gv-BK-UGI" firstAttribute="leading" secondItem="K8Y-3D-fsy" secondAttribute="leading" constant="99" id="2BM-ya-NOl"/>
                             <constraint firstItem="K8Y-3D-fsy" firstAttribute="trailing" secondItem="Hx9-O9-1eQ" secondAttribute="trailing" constant="98" id="6ZK-Jt-8RQ"/>
                             <constraint firstItem="K8Y-3D-fsy" firstAttribute="trailing" secondItem="FUJ-9O-fI0" secondAttribute="trailing" constant="98" id="8AW-Lk-8mN"/>
-                            <constraint firstItem="ZlG-XG-yr6" firstAttribute="top" secondItem="K8Y-3D-fsy" secondAttribute="top" constant="95" id="8aH-lI-erD"/>
+                            <constraint firstItem="ZlG-XG-yr6" firstAttribute="top" secondItem="K8Y-3D-fsy" secondAttribute="top" constant="30" id="8aH-lI-erD"/>
                             <constraint firstItem="lno-qW-dTZ" firstAttribute="leading" secondItem="K8Y-3D-fsy" secondAttribute="leading" constant="98" id="BSK-Lr-mDv"/>
+                            <constraint firstItem="0Dn-Ab-Aad" firstAttribute="leading" secondItem="K8Y-3D-fsy" secondAttribute="leading" constant="98" id="BSZ-3e-BBd"/>
                             <constraint firstItem="gob-CA-iVb" firstAttribute="leading" secondItem="K8Y-3D-fsy" secondAttribute="leading" constant="99" id="BkF-TM-hKw"/>
                             <constraint firstItem="K8Y-3D-fsy" firstAttribute="trailing" secondItem="lno-qW-dTZ" secondAttribute="trailing" constant="99" id="I3W-zN-baU"/>
                             <constraint firstItem="PeP-Ce-m7W" firstAttribute="leading" secondItem="K8Y-3D-fsy" secondAttribute="leading" constant="99" id="Jq7-Fu-NN7"/>
                             <constraint firstItem="7Gv-BK-UGI" firstAttribute="top" secondItem="FUJ-9O-fI0" secondAttribute="bottom" constant="50" id="KVZ-3Q-NFQ"/>
                             <constraint firstItem="K8Y-3D-fsy" firstAttribute="trailing" secondItem="Xor-ow-8Ma" secondAttribute="trailing" constant="99" id="Kmw-ng-pnG"/>
-                            <constraint firstItem="qsM-ll-s3r" firstAttribute="top" secondItem="7Gv-BK-UGI" secondAttribute="bottom" constant="45" id="KzA-xN-oRi"/>
+                            <constraint firstItem="qsM-ll-s3r" firstAttribute="top" secondItem="7Gv-BK-UGI" secondAttribute="bottom" constant="20" id="KzA-xN-oRi"/>
                             <constraint firstItem="Hx9-O9-1eQ" firstAttribute="top" secondItem="FUJ-9O-fI0" secondAttribute="bottom" constant="8" id="LHs-mJ-nSD"/>
                             <constraint firstItem="qsM-ll-s3r" firstAttribute="leading" secondItem="K8Y-3D-fsy" secondAttribute="leading" constant="99" id="R0F-R9-wWs"/>
                             <constraint firstItem="K8Y-3D-fsy" firstAttribute="trailing" secondItem="PeP-Ce-m7W" secondAttribute="trailing" constant="98" id="SPw-QB-oKi"/>
                             <constraint firstItem="PeP-Ce-m7W" firstAttribute="top" secondItem="gob-CA-iVb" secondAttribute="bottom" constant="50" id="Suc-Go-O5b"/>
+                            <constraint firstItem="0Dn-Ab-Aad" firstAttribute="top" secondItem="PeP-Ce-m7W" secondAttribute="bottom" constant="20" id="TSz-Nz-i12"/>
                             <constraint firstItem="K8Y-3D-fsy" firstAttribute="bottom" secondItem="Xor-ow-8Ma" secondAttribute="bottom" constant="90" id="UYn-T7-JKH"/>
                             <constraint firstItem="FUJ-9O-fI0" firstAttribute="top" secondItem="ZlG-XG-yr6" secondAttribute="bottom" constant="35" id="YEm-NM-T3b"/>
                             <constraint firstItem="K8Y-3D-fsy" firstAttribute="trailing" secondItem="gob-CA-iVb" secondAttribute="trailing" constant="98" id="Zr8-aQ-2iW"/>
@@ -661,6 +700,8 @@
                         <outlet property="daoChaTF" destination="gob-CA-iVb" id="xjj-93-Ctk"/>
                         <outlet property="daoChaTagsView" destination="PeP-Ce-m7W" id="KsL-xq-stW"/>
                         <outlet property="daoChaTagsViewH" destination="hJM-Vt-kaC" id="NQk-8A-Vdn"/>
+                        <outlet property="shen_Ding" destination="IRj-17-cHf" id="Kvu-b2-U9b"/>
+                        <outlet property="shen_Fan" destination="R3C-HD-oz7" id="NWe-J3-qxx"/>
                         <outlet property="stationTF" destination="FUJ-9O-fI0" id="gqy-sE-GZb"/>
                         <outlet property="stationTagsView" destination="7Gv-BK-UGI" id="yqr-vM-QWt"/>
                         <outlet property="stationTagsViewH" destination="lqx-Lh-3MZ" id="cxp-2N-Ioy"/>
@@ -669,9 +710,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDb-oZ-mel" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-40" y="-63"/>
+            <point key="canvasLocation" x="-40.625" y="-63.281249999999993"/>
         </scene>
-        <!--测试设备设置-->
+        <!--Set Device View Controller-->
         <scene sceneID="K01-OU-OLC">
             <objects>
                 <viewController storyboardIdentifier="SetDeviceViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wei-fa-z34" customClass="SetDeviceViewController" sceneMemberID="viewController">
@@ -841,12 +882,163 @@
                                     <action selector="changeJOrX:" destination="wei-fa-z34" eventType="touchUpInside" id="pqG-lz-G0D"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N7B-Gh-sgW">
+                                <rect key="frame" x="0.0" y="162" width="768" height="706"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="锁闭力测试设备" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2p-dH-2hk">
+                                        <rect key="frame" x="106" y="27" width="212.5" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="勾选锁闭力对应牵引点" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7F7-Lv-YM3">
+                                        <rect key="frame" x="106" y="169" width="304" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" tag="901" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SOv-eB-at4">
+                                        <rect key="frame" x="106" y="228" width="165" height="66"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
+                                        <state key="normal" title="J1" image="未勾选">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" image="选择-勾选"/>
+                                        <connections>
+                                            <action selector="changeLinkType:" destination="wei-fa-z34" eventType="touchUpInside" id="2ka-EX-ood"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="903" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="39G-5c-rW4">
+                                        <rect key="frame" x="510" y="228" width="165" height="66"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
+                                        <state key="normal" title="J3" image="未勾选">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" image="选择-勾选"/>
+                                        <connections>
+                                            <action selector="changeLinkType:" destination="wei-fa-z34" eventType="touchUpInside" id="5bw-6g-plu"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="902" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v8k-PQ-886">
+                                        <rect key="frame" x="302" y="228" width="165" height="66"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
+                                        <state key="normal" title="J2" image="未勾选">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" image="选择-勾选"/>
+                                        <connections>
+                                            <action selector="changeLinkType:" destination="wei-fa-z34" eventType="touchUpInside" id="Sq1-aR-SeC"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="904" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahT-QU-VGW">
+                                        <rect key="frame" x="106" y="339" width="165" height="66"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
+                                        <state key="normal" title="J4" image="未勾选">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" image="选择-勾选"/>
+                                        <connections>
+                                            <action selector="changeLinkType:" destination="wei-fa-z34" eventType="touchUpInside" id="GN8-mC-v2P"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="906" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i1p-83-zAw">
+                                        <rect key="frame" x="510" y="339" width="165" height="66"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
+                                        <state key="normal" title="J6" image="未勾选">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" image="选择-勾选"/>
+                                        <connections>
+                                            <action selector="changeLinkType:" destination="wei-fa-z34" eventType="touchUpInside" id="9nY-oZ-SoY"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="905" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y97-mS-4TJ">
+                                        <rect key="frame" x="302" y="339" width="165" height="66"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
+                                        <state key="normal" title="J5" image="未勾选">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" image="选择-勾选"/>
+                                        <connections>
+                                            <action selector="changeLinkType:" destination="wei-fa-z34" eventType="touchUpInside" id="7z6-ZT-Nlu"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="907" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jb2-rU-ACp">
+                                        <rect key="frame" x="106" y="456" width="165" height="66"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
+                                        <state key="normal" title="X1" image="未勾选">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" image="选择-勾选"/>
+                                        <connections>
+                                            <action selector="changeLinkType:" destination="wei-fa-z34" eventType="touchUpInside" id="wMu-hh-J1p"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="909" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0JK-Pi-rAM">
+                                        <rect key="frame" x="510" y="456" width="165" height="66"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
+                                        <state key="normal" title="X3" image="未勾选">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" image="选择-勾选"/>
+                                        <connections>
+                                            <action selector="changeLinkType:" destination="wei-fa-z34" eventType="touchUpInside" id="PE6-1f-WFl"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="908" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fqb-hR-pCb">
+                                        <rect key="frame" x="302" y="456" width="165" height="66"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
+                                        <state key="normal" title="X2" image="未勾选">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" image="选择-勾选"/>
+                                        <connections>
+                                            <action selector="changeLinkType:" destination="wei-fa-z34" eventType="touchUpInside" id="gWH-Qf-CEX"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="910" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fdu-OB-Vtz">
+                                        <rect key="frame" x="171" y="84" width="427" height="66"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
+                                        <state key="normal" title="定位锁闭力--反位锁闭力">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" image="选择-勾选"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="x2p-dH-2hk" firstAttribute="leading" secondItem="N7B-Gh-sgW" secondAttribute="leading" constant="106" id="4bD-RZ-LrC"/>
+                                    <constraint firstItem="x2p-dH-2hk" firstAttribute="top" secondItem="N7B-Gh-sgW" secondAttribute="top" constant="27" id="y6N-xx-9jp"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="cEw-ak-7f9" firstAttribute="top" secondItem="PrC-eF-8vv" secondAttribute="bottom" constant="35" id="0t0-cE-hOm"/>
                             <constraint firstItem="8mc-ko-weY" firstAttribute="bottom" secondItem="KDk-o8-lfa" secondAttribute="bottom" constant="-10" id="1Iu-Wq-mdc"/>
                             <constraint firstItem="ehf-wK-1vS" firstAttribute="leading" secondItem="82m-bx-Ux4" secondAttribute="leading" constant="693" id="22g-1O-Kz9"/>
+                            <constraint firstItem="N7B-Gh-sgW" firstAttribute="top" secondItem="UdF-6O-0Pl" secondAttribute="bottom" id="2Gu-dW-2i9"/>
                             <constraint firstItem="F1I-LO-5Xd" firstAttribute="bottom" secondItem="AId-H2-Dvc" secondAttribute="bottom" constant="-10" id="2wA-DG-19d"/>
                             <constraint firstItem="Tew-Xf-l7G" firstAttribute="height" secondItem="zfi-Sl-04b" secondAttribute="height" id="3RJ-IQ-n1v"/>
                             <constraint firstItem="ehf-wK-1vS" firstAttribute="top" secondItem="82m-bx-Ux4" secondAttribute="top" constant="12" id="5Kp-Uo-oHD"/>
@@ -856,6 +1048,7 @@
                             <constraint firstItem="vwM-VB-Aqd" firstAttribute="top" secondItem="UdF-6O-0Pl" secondAttribute="bottom" constant="27" id="FbW-Tw-7Bk"/>
                             <constraint firstItem="MrK-VO-qMQ" firstAttribute="centerY" secondItem="PrC-eF-8vv" secondAttribute="centerY" id="GkU-5h-KxW"/>
                             <constraint firstItem="vwM-VB-Aqd" firstAttribute="leading" secondItem="82m-bx-Ux4" secondAttribute="leading" constant="106" id="Gvl-IN-50p"/>
+                            <constraint firstItem="mUy-0w-maJ" firstAttribute="top" secondItem="N7B-Gh-sgW" secondAttribute="bottom" id="HVq-ge-Uxh"/>
                             <constraint firstItem="F1I-LO-5Xd" firstAttribute="height" secondItem="zfi-Sl-04b" secondAttribute="height" id="JH6-cd-tHE"/>
                             <constraint firstItem="pds-he-cdY" firstAttribute="leading" secondItem="82m-bx-Ux4" secondAttribute="leading" constant="106" id="KPg-xJ-aG7"/>
                             <constraint firstItem="82m-bx-Ux4" firstAttribute="bottom" secondItem="mUy-0w-maJ" secondAttribute="bottom" constant="90" id="LI1-RE-EFg"/>
@@ -866,6 +1059,7 @@
                             <constraint firstItem="PrC-eF-8vv" firstAttribute="centerX" secondItem="zfi-Sl-04b" secondAttribute="centerX" id="RrL-gi-bO7"/>
                             <constraint firstItem="Tew-Xf-l7G" firstAttribute="leading" secondItem="zfi-Sl-04b" secondAttribute="trailing" constant="77" id="S7I-5F-in5"/>
                             <constraint firstItem="8mc-ko-weY" firstAttribute="leading" secondItem="KDk-o8-lfa" secondAttribute="leading" id="SH6-5g-kpA"/>
+                            <constraint firstItem="N7B-Gh-sgW" firstAttribute="leading" secondItem="82m-bx-Ux4" secondAttribute="leading" id="Tav-tI-Zb1"/>
                             <constraint firstItem="pds-he-cdY" firstAttribute="top" secondItem="zfi-Sl-04b" secondAttribute="bottom" constant="41" id="TrT-Pj-hHx"/>
                             <constraint firstItem="cEw-ak-7f9" firstAttribute="height" secondItem="zfi-Sl-04b" secondAttribute="height" id="WDY-Da-1C0"/>
                             <constraint firstItem="8mc-ko-weY" firstAttribute="centerY" secondItem="F1I-LO-5Xd" secondAttribute="centerY" id="XFZ-XB-JV8"/>
@@ -875,6 +1069,7 @@
                             <constraint firstItem="Mjj-ka-VXd" firstAttribute="centerX" secondItem="Tew-Xf-l7G" secondAttribute="centerX" id="bbP-9o-Jr9"/>
                             <constraint firstItem="PrC-eF-8vv" firstAttribute="width" secondItem="zfi-Sl-04b" secondAttribute="width" id="caG-0h-gH9"/>
                             <constraint firstItem="8mc-ko-weY" firstAttribute="width" secondItem="zfi-Sl-04b" secondAttribute="width" id="ePB-8N-n8s"/>
+                            <constraint firstItem="82m-bx-Ux4" firstAttribute="trailing" secondItem="N7B-Gh-sgW" secondAttribute="trailing" id="ev3-aZ-uVN"/>
                             <constraint firstItem="8aW-Pd-fNA" firstAttribute="centerX" secondItem="0eo-o7-8aG" secondAttribute="centerX" id="fT6-1H-LS5"/>
                             <constraint firstItem="F1I-LO-5Xd" firstAttribute="leading" secondItem="AId-H2-Dvc" secondAttribute="leading" id="fZh-p4-DqI"/>
                             <constraint firstItem="Tew-Xf-l7G" firstAttribute="width" secondItem="zfi-Sl-04b" secondAttribute="width" id="hJy-4l-p3h"/>
@@ -898,7 +1093,22 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="82m-bx-Ux4"/>
                     </view>
-                    <navigationItem key="navigationItem" title="测试设备设置" id="6ta-Vo-11U"/>
+                    <navigationItem key="navigationItem" id="6ta-Vo-11U">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="emY-gY-ttd">
+                            <rect key="frame" x="311.5" y="9" width="145" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.0109061205" green="0.70093407780000005" blue="0.99422856370000001" alpha="0.72399400680000003" colorSpace="custom" customColorSpace="sRGB"/>
+                            <segments>
+                                <segment title="转换阻力"/>
+                                <segment title="锁闭力"/>
+                            </segments>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="sigmentChange:" destination="wei-fa-z34" eventType="valueChanged" id="NtH-BD-lkZ"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
                     <connections>
                         <outlet property="but1" destination="PrC-eF-8vv" id="saY-7X-2X6"/>
                         <outlet property="but2" destination="cEw-ak-7f9" id="pMd-Sw-70Z"/>
@@ -906,8 +1116,10 @@
                         <outlet property="but4" destination="MrK-VO-qMQ" id="wo4-5V-yH9"/>
                         <outlet property="but5" destination="Mjj-ka-VXd" id="zw8-FE-ZhW"/>
                         <outlet property="but6" destination="8mc-ko-weY" id="LpL-hw-gSF"/>
+                        <outlet property="closeDeviceBut" destination="Fdu-OB-Vtz" id="968-Gw-WqO"/>
                         <outlet property="layerLabel1" destination="AId-H2-Dvc" id="cCU-pb-d7e"/>
                         <outlet property="layerLabel2" destination="KDk-o8-lfa" id="ZiX-8B-8wu"/>
+                        <outlet property="sigmet2BackView" destination="N7B-Gh-sgW" id="dJ0-aw-9qE"/>
                         <outlet property="sureBut" destination="mUy-0w-maJ" id="YVy-ic-02U"/>
                         <outlet property="topLabel" destination="UdF-6O-0Pl" id="XSL-JK-E8p"/>
                     </connections>
@@ -941,7 +1153,7 @@
                     <navigationItem key="navigationItem" id="NPX-nT-qXM">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="GtF-oe-cNV">
-                            <rect key="frame" x="298.5" y="9" width="171" height="33"/>
+                            <rect key="frame" x="298.5" y="8.5" width="171" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="转换阻力"/>

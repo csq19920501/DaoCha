@@ -57,7 +57,7 @@
 }
 
 -(void)startSocket{
-    CSQScoketService *socketSerview = [[CSQScoketService alloc]init];
+    CSQScoketService *socketSerview = [CSQScoketService shareInstance];
                //开始服务
     [socketSerview start];
                

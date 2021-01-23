@@ -38,6 +38,7 @@
 @property (nonatomic ,assign)long long startTime;
 @property (weak, nonatomic) IBOutlet UILabel *testTimeLabel;
 
+
 @end
 
 @implementation ViewController
@@ -176,11 +177,16 @@
     [_timer invalidate];
     _timer = nil;
 }
+
 - (IBAction)clickLeft:(id)sender {
     if(DEVICETOOL.testStatus == TestStarted){
         [HUD showAlertWithText: @"测试中，不能修改测试地址"];
     }else{
-        
+        for (int i =0; i < DEVICETOOL.deviceArr.count; i++) {
+            Device *device = DEVICETOOL.deviceArr[i];
+            device.selected = NO;
+        }
+        [_seleJJJArr removeAllObjects];
         
         if([self.navigationController.childViewControllers[0] isKindOfClass:[SetAddressViewController class]]){
             [self.navigationController popToRootViewControllerAnimated:YES];
@@ -252,11 +258,17 @@
     
     _testTimeLabel.text = @"00:00";
     
+    
+    
     [DEVICETOOL removeAllData];
     DEVICETOOL.testStatus = TestStarted;
+    
+    [[CSQScoketService shareInstance]test1234];
 }
 - (IBAction)endTest:(id)sender {
     DEVICETOOL.testStatus = TestEnd;
+    
+     [[CSQScoketService shareInstance]stopTest1234];
     
     _startBut.enabled = YES;
     _startBut.alpha = 1;
@@ -578,4 +590,6 @@
     }];
 }
 
+- (IBAction)closeDeviceBut:(id)sender {
+}
 @end

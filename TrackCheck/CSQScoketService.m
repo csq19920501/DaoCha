@@ -16,12 +16,21 @@
 @interface CSQScoketService ()<GCDAsyncSocketDelegate>
 @property (strong, nonatomic) GCDAsyncSocket *socket;
 @property (strong, nonatomic) NSMutableArray *clientSockets;//保存客户端scoket
-@property (strong, nonatomic) NSArray *testArray;
-@property (assign, nonatomic) NSInteger testCount;
-@property (assign, nonatomic) NSTimer * timer;
+
 //@property(strong,nonatomic) GCDAsyncSocket *testSocket;
 @end
 @implementation CSQScoketService
+
++ (CSQScoketService *)shareInstance{
+    
+    static CSQScoketService *tcpSocket =nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        tcpSocket = [[CSQScoketService alloc] init];
+    });
+    return tcpSocket;
+}
+
 - (NSMutableArray *)clientSockets
 {
     if (_clientSockets == nil) {
@@ -50,7 +59,14 @@
         NSLog(@"开启失败");
     }
     self.socket = serviceScoket;
-    [self test1234];
+//    [self test1234];
+    
+    NSDictionary *deviceDict = @{
+        @"id":@"1",
+        @"version":@"sss"
+    };
+    [self changeDevice:deviceDict];
+    
     
     
 //    TcpManager *tcp = [TcpManager Share];
@@ -277,6 +293,9 @@
             });
 }
 -(void)test1234{
+    
+    
+    
     _testCount = 0;
     __weak typeof(self) weakSelf = self;
     NSString *url = @"http://118.31.39.28:21006/getresistance.cpp?starttime=2021-01-20%2002:51:00&endtime=2021-01-20%2002:51:20&IMEI=860588048931334&name=%E6%99%AE%E5%AE%8914%E5%8F%B7%E5%B2%94%E5%BF%83&idx=0&timestamp=1611107677743&idxname=X2";
@@ -286,7 +305,7 @@
         if(series.count>2){
             weakSelf.testArray = series[2][@"data"];
             NSLog(@"获取到的历史数据数量%ld  %@ %@ ",weakSelf.testArray.count,series[2][@"name"],series[2][@"data"]);
-             self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(test) userInfo:nil repeats:YES];
+             self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(testTimer) userInfo:nil repeats:YES];
         }
     } failure:^(NSError *error) {
         
@@ -297,10 +316,19 @@
 
     } WithHud:YES AndTitle:nil];
     
-   
-   
 }
--(void)test{
+-(void)stopTest1234{
+    [self.timer invalidate];
+    self.timer = nil;
+    _testCount = 0;
+}
+-(void)testTimer{
+    if(DEVICETOOL.testStatus != TestStarted){
+        NSLog(@"还未点击开始");
+        
+        return;
+    }
+    
     if(!DEVICETOOL.checkModel1){
         NSLog(@"生成DEVICETOOL.checkModel1");
         DEVICETOOL.checkModel1 = [[CheckModel alloc]init];
@@ -311,14 +339,16 @@
         for (long a = _testCount; a< _testCount + 50; a++) {
             NSArray *data = self.testArray[a];
             [testArr addObject:data[1]];
+            [DEVICETOOL.deviceDataArr1 addObject:data];
         }
     }else{
         for (long a = _testCount; a< self.testArray.count; a++) {
             NSArray *data = self.testArray[a];
             NSString *dataStr = data[1];
-            long dataLong = [dataStr longLongValue];
+            long long dataLong = [dataStr longLongValue];
             NSNumber *num = [NSNumber numberWithLongLong:dataLong];
             [testArr addObject:num];
+            [DEVICETOOL.deviceDataArr1 addObject:data];
         }
     }
     [self checkData:testArr withModel:DEVICETOOL.checkModel1 withTypeStr:@"J1" withId:1];
@@ -367,6 +397,7 @@
                         break;
                 }
                 [delegate.deviceArr addObject:newDevice];
+                
                 Device *j2 = [[Device alloc]init];
                 j2 = [newDevice copy];
                 j2.id = @"2";
@@ -623,12 +654,20 @@
                     
                     if(mean < model.startValue){
                         model.blocked_max = min;
-                        dataModel.reportType = 2;
+                        if(DEVICETOOL.shenSuo == Shen_Ding){
+                              dataModel.reportType = 2;
+                        }else if(DEVICETOOL.shenSuo == Shen_Fan){
+                              dataModel.reportType = 4;
+                        }
                         dataModel.blocked_Top = model.min + model.startValue;
                          NSLog(@"average < 70  model.blockedStable2_OK = YES 定扳反受阻空转生成");
                     }else{
                          model.blocked_max = max;
-                        dataModel.reportType = 4;
+                       if(DEVICETOOL.shenSuo == Shen_Ding){
+                              dataModel.reportType = 4;
+                        }else if(DEVICETOOL.shenSuo == Shen_Fan){
+                              dataModel.reportType = 2;
+                        }
                         dataModel.blocked_Top = model.max + model.startValue;
                         NSLog(@"average < 70  model.blockedStable2_OK = YES 反扳定受阻空转生成");
                     }
@@ -801,7 +840,11 @@
                        
                         
                                            if(halfMean < model.startValue){
-                                               dataModel.reportType = 1;
+                                               if(DEVICETOOL.shenSuo == Shen_Ding){
+                                                     dataModel.reportType = 1;
+                                               }else if(DEVICETOOL.shenSuo == Shen_Fan){
+                                                     dataModel.reportType = 3;
+                                               }
                                                dataModel.all_Top = model.min + model.startValue;
                                                dataModel.all_mean = allMean;
                                                
@@ -813,9 +856,13 @@
                                                
                                                dataModel.close_Top = closeMin;
                                                dataModel.close_mean = closeMean;
-                                               NSLog(@" 定扳反 halfMean= %ld  model.startValue= %ld", halfMean,model.startValue);
+                                               NSLog(@" 扳动类型%ld halfMean= %ld  model.startValue= %ld",dataModel.reportType, halfMean,model.startValue);
                                            }else{
-                                               dataModel.reportType = 3;
+                                               if(DEVICETOOL.shenSuo == Shen_Ding){
+                                                      dataModel.reportType = 3;
+                                               }else if(DEVICETOOL.shenSuo == Shen_Fan){
+                                                     dataModel.reportType = 1;
+                                               }
                                                dataModel.all_Top = model.max + model.startValue;
                                                dataModel.all_mean = allMean;
                                                
@@ -827,7 +874,7 @@
                                                
                                                dataModel.close_Top = closeMax;
                                                dataModel.close_mean = closeMean;
-                                               NSLog(@" 反扳定 halfMean= %ld  model.startValue= %ld", halfMean,model.startValue);
+                                               NSLog(@" 扳动类型%ld halfMean= %ld  model.startValue= %ld",dataModel.reportType, halfMean,model.startValue);
                                            }
                                             
                                             NSLog(@"average < 100  波动结束 !model.blockedStable2_OK  正常阻力转换生");

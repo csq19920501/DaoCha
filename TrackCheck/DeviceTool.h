@@ -21,6 +21,11 @@ typedef enum:NSInteger{
     ONE,
     TWO,
 }CSQSeleLook;
+typedef enum:NSInteger{
+    NoSet,
+    Shen_Ding,
+    Shen_Fan,
+}CSQShenSuo;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeviceTool : NSObject
@@ -41,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)CSQTestStatus testStatus;
 @property (nonatomic,assign)CSQSeleLook seleLook;
 @property (nonatomic,assign)CSQJOrX jOrX;
+@property (nonatomic,assign)CSQShenSuo shenSuo;
 @property(nonatomic,strong)NSArray *savedStationArr;
 @property(nonatomic,strong)CheckModel*checkModel1;
 @property(nonatomic,strong)CheckModel*checkModel2;

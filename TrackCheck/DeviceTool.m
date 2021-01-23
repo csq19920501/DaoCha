@@ -16,6 +16,7 @@
     dispatch_once(&onceToken, ^{
         tcpSocket = [[DeviceTool alloc] init];
         tcpSocket.seleLook = ONE;
+        tcpSocket.shenSuo = NoSet;
         tcpSocket.jOrX = J;
         tcpSocket.deviceNameArr = @[@"J1",@"J2",@"J3",@"J4",@"J5",@"J6"];
         tcpSocket.deviceArr = [NSMutableArray array];
@@ -47,6 +48,11 @@
     [self.deviceDataArr3 removeAllObjects];
     [self.deviceDataArr4 removeAllObjects];
     [self.deviceDataArr5 removeAllObjects];
+    self.checkModel1 = nil;
+    self.checkModel2 = nil;
+    self.checkModel3 = nil;
+    self.checkModel4 = nil;
+    self.checkModel5 = nil;
 }
 -(void)syncArr{
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
