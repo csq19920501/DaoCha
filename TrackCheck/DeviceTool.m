@@ -15,6 +15,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         tcpSocket = [[DeviceTool alloc] init];
+        tcpSocket.isDebug = NO;
         tcpSocket.seleLook = ONE;
         tcpSocket.shenSuo = NoSet;
         tcpSocket.jOrX = J;

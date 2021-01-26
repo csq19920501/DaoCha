@@ -13,7 +13,7 @@
 
 #define PYTextColor PYSEARCH_COLOR(113, 113, 113)
 #define PYSEARCH_COLORPolRandomColor self.colorPol[arc4random_uniform((uint32_t)self.colorPol.count)]
-@interface SetAddressViewController ()<UITextViewDelegate>
+@interface SetAddressViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *stationTF;
 @property (weak, nonatomic) IBOutlet UITextField *daoChaTF;
@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *shen_Fan;
 
 @property (nonatomic, strong) NSMutableArray<UIColor *> *colorPol;
+@property (nonatomic, strong) TYAlertController *alertController;
 @end
 
 @implementation SetAddressViewController
@@ -61,6 +62,9 @@
     _shen_Ding.layer.cornerRadius = 10;
     
     [self setSele];
+//    [self pushAlertView:^(BOOL retu){}];
+        
+    
 }
 -(void)viewDidAppear:(BOOL)animated{
     [self setStationTagesView];
@@ -93,9 +97,14 @@
     }
     [DEVICETOOL syncArr];
 }
--(void)textViewDidEndEditing:(UITextView *)textView{
+
+-(void)textFieldDidEndEditing:(UITextField *)textField{
     [self setSele];
 }
+//-(void)
+//-(void)textFieldDidBeginEditing:(UITextField *)textField{
+//    [self setSele];
+//}
 -(void)setSele{
     if(_stationTF.text.length!=0){
         if(_daoChaTF.text.length!=0){
@@ -127,16 +136,17 @@
 }
 
 -(void)pushAlertView:(void (^)(BOOL))re{
+    __weak typeof(self) weakSelf = self;
     TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"提示" message:@"请输入'修改',确认修改操作"];
     
-    TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:alertView preferredStyle:TYAlertControllerStyleAlert];
+    self.alertController = [TYAlertController alertControllerWithAlertView:alertView preferredStyle:TYAlertControllerStyleAlert];
     
     [alertView addAction:[TYAlertAction actionWithTitle:@"取消" style:TYAlertActionStyleCancle handler:^(TYAlertAction *action) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [alertController dismissViewControllerAnimated:YES];
+            [weakSelf.alertController dismissViewControllerAnimated:YES];
             
-            [self.navigationController popViewControllerAnimated:YES];
+//            [self.navigationController popViewControllerAnimated:YES];
             if(re){
                 re(NO);
             }
@@ -153,7 +163,6 @@
         [textField resignFirstResponder];
         
         if (![textField.text isEqualToString:@"修改"] ){
-            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [HUD showAlertWithText:@"请输入'修改'，确认修改操作"];
             });
@@ -164,6 +173,7 @@
          if(re){
              re(YES);
          }
+         [weakSelf.alertController dismissViewControllerAnimated:YES];
         }
         
     }]];
@@ -178,7 +188,8 @@
     }];
     
     
-    [self presentViewController:alertController animated:YES completion:nil];
+    [self presentViewController:self.alertController animated:YES completion:nil];
+//    [self.navigationController pushViewController:self.alertController animated:YES];
 }
 - (IBAction)dingFanCheck:(id)sender {
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
@@ -198,6 +209,7 @@
                 }];
             }else{
                 _shen_Ding.selected = YES;
+                _shen_Fan.selected = NO;
             }
         }else if(sender == _shen_Fan){
             if(_shen_Ding.selected && DEVICETOOL.shenSuo == Shen_Ding){
@@ -212,6 +224,7 @@
                 }];
             }else{
                 _shen_Fan.selected = YES;
+                _shen_Ding.selected = NO;
             }
         }
     }
@@ -252,7 +265,7 @@
        [DEVICETOOL.stationStrArr insertObject:_stationTF.text atIndex:0];
     }
     DEVICETOOL.stationStr = _stationTF.text;
-    if(DEVICETOOL.stationStrArr.count >12){
+    if(DEVICETOOL.stationStrArr.count >8){
         [DEVICETOOL.stationStrArr removeLastObject];
     }
     

@@ -13,3 +13,13 @@
 @property(nonatomic,strong)NSThread *scoketThread;
 @end
 
+//     __weak typeof(self) weakSelf = self;
+//            dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.23/*延迟执行时间*/ * NSEC_PER_SEC));
+//            dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+//
+//            });
+//异步主线程
+//dispatch_async(dispatch_get_main_queue(), ^{ \
+//typeof(weakSelf) self = weakSelf; \
+//{x} \
+//});

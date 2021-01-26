@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *roadSwitchNo;
 @property(nonatomic,strong)NSMutableArray *roadSwitchNoArr;
 @property(nonatomic,copy)NSString *stationStr;
+@property(nonatomic,copy)NSString *closeLinkDevice;
 @property(nonatomic,strong)NSMutableArray *stationStrArr;
 @property(nonatomic,assign)long long saveStaionTime;
 @property(nonatomic,assign)long long startTime;
@@ -53,6 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)CheckModel*checkModel3;
 @property(nonatomic,strong)CheckModel*checkModel4;
 @property(nonatomic,strong)CheckModel*checkModel5;
+
+@property (nonatomic,assign)BOOL  isDebug;
 -(void)syncArr;
 -(void)removeAllData;
 -(void)getSavedStationArr;

@@ -17,10 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)start;
 +(CSQScoketService*)shareInstance;
 @property (strong, nonatomic) NSArray *testArray;
+@property (strong, nonatomic) NSArray *testArray2;
 @property (assign, nonatomic) NSInteger testCount;
 @property (assign, nonatomic) NSTimer * timer;
 -(void)stopTest1234;
+-(void)test1234_;
 -(void)test1234;
+-(void)addDebugDevice;
 @end
 
 NS_ASSUME_NONNULL_END

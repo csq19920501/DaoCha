@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)NSString *deviceType;
 @property (nonatomic,assign)long long timeLong ;
 
-//事件类型  1 定扳反 2定扳反受阻 3反扳定 4反扳定受阻空转 5闭锁力定扳反 6闭锁力反扳定
+//事件类型  1 定扳反 2定扳反受阻 3反扳定 4反扳定受阻空转 5锁闭力   //定扳反 6闭锁力反扳定
 @property (nonatomic,assign)NSInteger reportType;
 
 @property (nonatomic,assign)NSInteger open_Top;
@@ -36,8 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)NSInteger blocked_Top;
 @property (nonatomic,assign)NSInteger blocked_stable;
 
-@property (nonatomic,assign)NSInteger atresia_ding;  //
-@property (nonatomic,assign)NSInteger atresia_fan;
+@property (nonatomic,assign)NSInteger close_ding;  //
+@property (nonatomic,assign)NSInteger close_fan;
 
 @property (nonatomic,assign)NSInteger keep_ding;
 @property (nonatomic,assign)NSInteger keep_fan;

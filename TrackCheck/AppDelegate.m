@@ -50,9 +50,10 @@
     self.scoketThread = [[NSThread alloc]initWithTarget:self selector:@selector(startSocket) object:nil];
     [self.scoketThread start];
     
-    long revData = (long)strtoul([@"8000" UTF8String],0,16);  //16进制字符串转换成long
-               NSLog(@"%ld",revData);
+//    long revData = (long)strtoul([@"8000" UTF8String],0,16);  //16进制字符串转换成long
+//               NSLog(@"%ld",revData);
 
+     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     return YES;
 }
 

@@ -30,7 +30,8 @@
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:_dataModel.timeLong];
         NSString *time = [dateFormatter stringFromDate:date];
         _timeLabel.text = time;
-    if(![_dataModel.deviceType isEqualToString:@"闭锁力"]){
+    NSString *type = _dataModel.deviceType;
+    if(![type containsString:@"锁闭力"]){
            [_chartView setOption:[self getOption]];
     }else{
         [_chartView setOption:[self getOption2]];

@@ -19,8 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *endTimeTextField;
 @property (weak, nonatomic) IBOutlet UIButton *seleStationBut;
 @property (weak, nonatomic) IBOutlet UIButton *searchBut;
-@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
-@property (strong, nonatomic) IBOutlet UIToolbar *dateTool;
+
 @property (weak, nonatomic) IBOutlet UITableView *tabView;
 @property (nonatomic ,strong) NSMutableArray *dataArray;
 @property (nonatomic, assign) BOOL isStart;
@@ -51,14 +50,14 @@
     }
     [_seleStationBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_searchBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [_tabView registerClass:[HistoryCell class]  forCellReuseIdentifier:@"HistoryCell"];
     _tabView.dataSetDelegate = self;
     
-    [DEVICETOOL getSavedStationArr];
-    
-    [self searchClick:nil];
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self searchClick:nil];
+    [DEVICETOOL getSavedStationArr];
+}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _dataArray.count;
@@ -133,6 +132,7 @@
     
     if(DEVICETOOL.savedStationArr.count == 0){
         [HUD showAlertWithText:@"未存储站点"];
+        return;
     }
     __weak typeof(self) weakSelf = self;
     DLCustomAlertController *customAlertC = [[DLCustomAlertController alloc] init];
@@ -147,25 +147,35 @@
     [self presentViewController:customAlertC animation:animation completion:nil];
 }
 - (IBAction)searchClick:(id)sender {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-    NSString *startTimeStr = [NSString stringWithFormat:@"%@ %@",_startTimeTextField.text,@"00:00:00"];
-    NSDate *startDate = [dateFormatter dateFromString:startTimeStr];
-    NSTimeInterval startTimeInterval = [startDate timeIntervalSince1970];
-    
-    NSString *endTimeStr = [NSString stringWithFormat:@"%@ %@",_endTimeTextField.text,@"23:059:59"];
-    NSDate *endDate = [dateFormatter dateFromString:endTimeStr];
-    NSTimeInterval endTimeInterval = [endDate timeIntervalSince1970];
-    
-    if(startTimeInterval > endTimeInterval){
-        [HUD showAlertWithText:@"开始时间不能早于结束时间"];
-        return;
-    }
-    
-    NSArray <TestDataModel *> * results = [[LPDBManager defaultManager] findModels: [TestDataModel class]
-    where: @"station = '%@' and timeLong > %@ and timeLong < %@",_seleStationBut.titleLabel.text,@(startTimeInterval),@(endTimeInterval)];
-    _dataArray = [NSMutableArray arrayWithArray:results];
-    [_tabView reloadDataWithEmptyView];
+    [HUD showBlocking];
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    // 异步执行任务创建方法
+    dispatch_async(queue, ^{
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+        NSString *startTimeStr = [NSString stringWithFormat:@"%@ %@",_startTimeTextField.text,@"00:00:00"];
+        NSDate *startDate = [dateFormatter dateFromString:startTimeStr];
+        NSTimeInterval startTimeInterval = [startDate timeIntervalSince1970];
+        
+        NSString *endTimeStr = [NSString stringWithFormat:@"%@ %@",_endTimeTextField.text,@"23:059:59"];
+        NSDate *endDate = [dateFormatter dateFromString:endTimeStr];
+        NSTimeInterval endTimeInterval = [endDate timeIntervalSince1970];
+        
+        if(startTimeInterval > endTimeInterval){
+            [HUD showAlertWithText:@"开始时间不能早于结束时间"];
+            return;
+        }
+        
+        NSArray <TestDataModel *> * results = [[LPDBManager defaultManager] findModels: [TestDataModel class]
+        where: @"station = '%@' and timeLong > %@ and timeLong < %@",_seleStationBut.titleLabel.text,@(startTimeInterval),@(endTimeInterval)];
+        _dataArray = [NSMutableArray arrayWithArray:results];
+        dispatch_async(dispatch_get_main_queue(), ^{
+              
+              [_tabView reloadDataWithEmptyView];
+            [HUD hideUIBlockingIndicator];
+        });
+    });
+  
 }
 -(void)getDatePick{
     DLDateSelectController *dateAlert = [[DLDateSelectController alloc] init];

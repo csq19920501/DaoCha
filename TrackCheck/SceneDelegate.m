@@ -19,7 +19,8 @@
         self.window = [[UIWindow alloc] initWithWindowScene:windowScene];
         [self.window setWindowScene:windowScene];
         [self.window setBackgroundColor:[UIColor whiteColor]];
-       
+        
+        
         NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
         long long currentTime = [[NSDate date] timeIntervalSince1970];
         long long saveTime = [[user objectForKey:@"saveStaionTime"] longLongValue];
@@ -35,7 +36,6 @@
             UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:homeVC];
             [self.window setRootViewController:nav];
         }
-        
         [self.window makeKeyAndVisible];
     } else {
         // Fallback on earlier versions

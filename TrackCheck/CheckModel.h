@@ -7,19 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "ReportModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CheckModel : NSObject
 
 @property (nonatomic,assign)long  startTime;
+@property (nonatomic,assign)long  startTime_Fan;
 @property (nonatomic,assign)long  endTime;
 @property (nonatomic,assign)long  startValue;
+@property (nonatomic,assign)long  startValue_Fan;
 
 @property (nonatomic,assign)long  max;
+@property (nonatomic,assign)long  max_Fan;
 @property (nonatomic,assign)long  min;
+@property (nonatomic,assign)long  min_Fan;
 
 @property (nonatomic,strong)NSMutableArray* dataArr;
+@property (nonatomic,strong)NSMutableArray* dataArr_Fan;
 
 @property (nonatomic,assign)BOOL  step1_OK;
 @property (nonatomic,assign)long  step1_mean;
@@ -52,19 +57,61 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)BOOL  blockedStable2_OK;
 @property (nonatomic,assign)BOOL  blockedStable3_OK;
 
+@property (nonatomic,assign)BOOL  blockedChange1_OK_Fan;  //受阻上升
+@property (nonatomic,assign)BOOL  blockedChange2_OK_Fan;  //受阻下降
+
+@property (nonatomic,assign)BOOL  blockedStable1_OK_Fan;    //受阻稳定
+@property (nonatomic,assign)BOOL  blockedStable2_OK_Fan;
+@property (nonatomic,assign)BOOL  blockedStable3_OK_Fan;
+
 @property (nonatomic,assign)long blockedStable_value;
 @property (nonatomic,assign)long blocked_max;
 
 @property (nonatomic,assign)BOOL  blockedError;
 @property (nonatomic,assign)BOOL  blockedErrorTypeUp;
 
-@property (nonatomic,assign)BOOL  close1_OK;
-@property (nonatomic,assign)BOOL  closeChange_OK;
-@property (nonatomic,assign)BOOL  closeStable1_OK;
-@property (nonatomic,assign)BOOL  closeStable2_OK;
+@property (nonatomic,assign)BOOL  blockedError_Fan;
+@property (nonatomic,assign)BOOL  blockedErrorTypeUp_Fan;
 
-@property (nonatomic,assign)long closeValue;//闭锁力
-@property (nonatomic,assign)long stableValue;//保持力
+//@property (nonatomic,assign)BOOL  close1_OK;
+//@property (nonatomic,assign)BOOL  closeChange_OK;
+//@property (nonatomic,assign)BOOL  closeStable1_OK;
+//@property (nonatomic,assign)BOOL  closeStable2_OK;
+//@property (nonatomic,assign)long closeValue;//闭锁力
+//@property (nonatomic,assign)long stableValue;//保持力
+
+
+
+@property (nonatomic,assign)BOOL  closeDingBefore_OK;
+@property (nonatomic,assign)BOOL  closeDingChange_OK;
+@property (nonatomic,assign)BOOL  closeDingChange2_OK;
+
+@property (nonatomic,assign)BOOL  closeDingAfter1_OK;
+@property (nonatomic,assign)BOOL  closeDingAfter2_OK;
+@property (nonatomic,assign)BOOL  closeDingAfter3_OK;
+
+@property (nonatomic,assign)long  closeDingBeforeValue;//闭锁力
+@property (nonatomic,assign)long  closeDingAfterValue;//保持力
+
+
+@property (nonatomic,assign)BOOL  closeFanBefore_OK;
+@property (nonatomic,assign)BOOL  closeFanChange_OK;
+@property (nonatomic,assign)BOOL  closeFanChange2_OK;
+@property (nonatomic,assign)BOOL  closeFanAfter1_OK;
+@property (nonatomic,assign)BOOL  closeFanAfter2_OK;
+@property (nonatomic,assign)BOOL  closeFanAfter3_OK;
+@property (nonatomic,assign)long  closeFanBeforeValue;//闭锁力
+@property (nonatomic,assign)long  closeFanAfterValue;//保持力
+
+@property (nonatomic,assign)BOOL  reportEdDing;
+@property (nonatomic,assign)BOOL  reportEdFan;
+
+@property (nonatomic,assign)BOOL  reportEd;
+
+@property (nonatomic,assign)BOOL  reportBlockDing;
+@property (nonatomic,assign)BOOL  reportBlockFan;
+
+@property (nonatomic,strong)ReportModel *dataModel;
 @end
 
 NS_ASSUME_NONNULL_END

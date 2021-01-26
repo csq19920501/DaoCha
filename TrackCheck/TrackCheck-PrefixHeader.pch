@@ -42,6 +42,18 @@
 #define BLUECOLOR CSQCOLOR(3,179,254,0.72)
 #define WEAKBLUECOLOR CSQCOLOR(3,179,254,0.17)
 #define STRONGLUECOLOR CSQCOLOR(3,179,254,1)
+
+
+
+#ifdef DEBUG
+#define NSLog(...) NSLog(__VA_ARGS__)
+#define debugMethod() NSLog(@"%s", __func__)
+#else
+#define NSLog(...)
+#define debugMethod()
+#endif
+
+
 #endif
 
 #endif /* TrackCheck_PrefixHeader_pch */

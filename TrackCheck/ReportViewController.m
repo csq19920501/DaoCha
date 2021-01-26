@@ -34,7 +34,6 @@
 -(void)layoutSubviews{
     
 }
-
 #pragma mark - FCChartViewDataSource
 
 - (NSInteger)chartView:(FCChartView *)chartView numberOfItemsInSection:(NSInteger)section{

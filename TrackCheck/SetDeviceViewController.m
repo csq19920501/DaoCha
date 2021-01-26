@@ -5,14 +5,15 @@
 //  Created by ethome on 2021/1/12.
 //  Copyright © 2021 ethome. All rights reserved.
 //
-
+#import "TYAlertController.h"
 #import "SetDeviceViewController.h"
 #import "ViewController.h"
-
+#import "SceneDelegate.h"
+#import "CSQScoketService.h"
 //#import "DLDateSelectController.h"
 //#import "DLDateAnimation.h"
 //#import "UIViewController+DLPresent.h"
-
+#import "HLAlertView.h"
 
 #import "DLAlertDemoController.h"
 typedef enum:NSInteger{
@@ -35,15 +36,30 @@ typedef enum:NSInteger{
 @property (weak, nonatomic) IBOutlet UIView *sigmet2BackView;
 @property (weak, nonatomic) IBOutlet UIButton *closeDeviceBut;
 
+
+@property (weak, nonatomic) IBOutlet UISwitch *debugSwitch;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *sigmentController;
 @property(nonatomic,assign)CSQROrL rOrL;
+@property (nonatomic ,strong)TYAlertController *alertController;
 @end
 
 @implementation SetDeviceViewController
+- (IBAction)switchDebug:(id)sender {
+    UISwitch *swi = (UISwitch *)sender;
+    if(swi.on){
+        
+        DEVICETOOL.isDebug = YES;
+        [[CSQScoketService shareInstance] addDebugDevice];
+    }else{
+        DEVICETOOL.isDebug = NO;
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+    
+    _debugSwitch.on = DEVICETOOL.isDebug;
     NSArray * array = @[@"101",@"102",@"106",@"201",@"202",@"203",@"301",@"302",@"303",@"901",@"902",@"903",@"904",@"905",@"906",@"907",@"908",@"909",@"910",];
     for (NSString * a in array) {
         UIButton *but =(UIButton *)[self.view viewWithTag:[a intValue]];
@@ -70,12 +86,99 @@ typedef enum:NSInteger{
         but2.selected = NO;
     }
     
-    
-    
+    if(DEVICETOOL.seleLook == ONE){
+        _sigmet2BackView.hidden = YES;
+    }else{
+        _sigmentController.selectedSegmentIndex = 1;
+    }
 }
 - (IBAction)changeLinkType:(id)sender {
+    UIButton *but = (UIButton *)sender;
+    if(!but.selected){
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        NSString* linkType = [user stringForKey:[NSString stringWithFormat:@"%@%@CLOSE",DEVICETOOL.stationStr,DEVICETOOL.roadSwitchNo]];
+        if(linkType.length > 0){
+            if(![but.titleLabel.text isEqualToString:linkType]){
+                [self pushAlertView:^(BOOL retu){
+                    if(retu){
+                        for(int i = 901; i<=909;i++){
+                           UIButton *but2 = (UIButton *)[self.view viewWithTag:i];
+                           but2.selected = NO;
+                        }
+                        but.selected = YES;
+                        [user setObject:but.titleLabel.text forKey:[NSString stringWithFormat:@"%@%@CLOSE",DEVICETOOL.stationStr,DEVICETOOL.roadSwitchNo]];
+                    }
+                }];
+            }else{
+                for(int i = 901; i<=909;i++){
+                   UIButton *but2 = (UIButton *)[self.view viewWithTag:i];
+                   but2.selected = NO;
+                }
+                but.selected = YES;
+            }
+        }else{
+           for(int i = 901; i<=909;i++){
+               UIButton *but2 = (UIButton *)[self.view viewWithTag:i];
+               but2.selected = NO;
+            }
+            but.selected = YES;
+        }
+    }
 }
-
+-(void)pushAlertView:(void (^)(BOOL))re{
+    __weak typeof(self) weakSelf = self;
+    TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"提示" message:@"请输入'修改',确认修改操作"];
+    
+    _alertController = [TYAlertController alertControllerWithAlertView:alertView preferredStyle:TYAlertControllerStyleAlert];
+    
+    [alertView addAction:[TYAlertAction actionWithTitle:@"取消" style:TYAlertActionStyleCancle handler:^(TYAlertAction *action) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.alertController dismissViewControllerAnimated:YES];
+            if(re){
+                re(NO);
+            }
+        });
+    }]];
+    
+    // 弱引用alertView 否则 会循环引用
+    __typeof (alertView) __weak weakAlertView = alertView;
+    
+    [alertView addAction:[TYAlertAction actionWithTitle:@"确定" style:TYAlertActionStyleDestructive handler:^(TYAlertAction *action) {
+        
+        UITextField *textField = [weakAlertView.textFieldArray firstObject];
+        
+        [textField resignFirstResponder];
+        
+        if (![textField.text isEqualToString:@"修改"] ){
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [HUD showAlertWithText:@"请输入'修改'，确认修改操作"];
+            });
+            if(re){
+                re(NO);
+            }
+        }else{
+         if(re){
+             re(YES);
+         }
+         [weakSelf.alertController dismissViewControllerAnimated:YES];
+        }
+        
+    }]];
+    
+    [alertView addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        
+        textField.placeholder = @"请输入'修改'";
+        
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+        
+        [textField becomeFirstResponder];
+    }];
+    
+    
+    [self presentViewController:self.alertController animated:YES completion:nil];
+}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self changeView];
@@ -91,6 +194,8 @@ typedef enum:NSInteger{
             but.selected = NO;
         }
     }
+    
+   
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -274,22 +379,41 @@ typedef enum:NSInteger{
     
 }
 - (IBAction)sureClick:(id)sender {
-    BOOL EXIT = NO;
-    for (int i =0; i < DEVICETOOL.deviceArr.count; i++) {
-        Device *device = DEVICETOOL.deviceArr[i];
-        if(device.selected){
-            EXIT = YES;
-            break;
+    if(DEVICETOOL.seleLook == ONE){
+        BOOL EXIT = NO;
+        for (int i =0; i < DEVICETOOL.deviceArr.count; i++) {
+            Device *device = DEVICETOOL.deviceArr[i];
+            if(device.selected){
+                EXIT = YES;
+                break;
+            }
+        }
+        if(!EXIT){
+            [HUD showAlertWithText:@"未选择测试设备"];
+            return;
         }
     }
-    if(!EXIT){
-        [HUD showAlertWithText:@"未选择测试设备"];
-        return;
+    else if(DEVICETOOL.seleLook == TWO){
+        BOOL seleLink = NO;
+        NSString *seleType = nil;
+        for(int i = 901; i<=909;i++){
+            UIButton *but = (UIButton *)[self.view viewWithTag:i];
+            if(but.selected){
+                seleLink = YES;
+                seleType = but.titleLabel.text;
+                break;
+            }
+        }
+        if(!seleLink){
+            [HUD showAlertWithText:@"未选择锁闭力对应的牵引点"];
+        }
+        DEVICETOOL.closeLinkDevice = seleType;
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        [user setObject:seleType forKey:[NSString stringWithFormat:@"%@%@CLOSE",DEVICETOOL.stationStr,DEVICETOOL.roadSwitchNo]];
     }
     
     ViewController *setDeviceVC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"ViewController"];
     [self.navigationController pushViewController:setDeviceVC animated:YES];
-    
 }
 
 -(void)changeView{
@@ -354,7 +478,7 @@ typedef enum:NSInteger{
     if(isWIFIConnection){
         _topLabel.text = @"搜索设备中";
     }else{
-        _topLabel.text = @"检测到WiFi未连接,请连接WiFi:666666,密码:88888888";
+        _topLabel.text = @"检测到WiFi未连接,请连接WiFi:WSD_xxxxxxx,密码:12345678";
     }
     
     
@@ -383,7 +507,7 @@ typedef enum:NSInteger{
 //    dateAlert.selectDate = ^(NSArray * _Nonnull dateArray) {
 //        NSLog(@"%@",dateArray);
 //    };
-    [self presentViewController:[[DLAlertDemoController alloc]init] animated:YES completion:nil];
+//    [self presentViewController:[[DLAlertDemoController alloc]init] animated:YES completion:nil];
 }
 /*
 #pragma mark - Navigation

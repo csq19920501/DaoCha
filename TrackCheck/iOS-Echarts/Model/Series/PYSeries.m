@@ -77,6 +77,7 @@ PYPropertyEqualImpTemplate(PYSeries, PYItemStyle *, itemStyle);
 PYPropertyEqualImpTemplate(PYSeries, id, data);
 PYPropertyEqualImpTemplate(PYSeries, PYMarkPoint *, markPoint);
 PYPropertyEqualImpTemplate(PYSeries, PYMarkLine *, markLine);
+PYPropertyEqualImpTemplate(PYSeries, NSString *, sampling);
 
 PYAddMethodImpTemplate(PYSeries, NSObject, Data, data);
 
