@@ -44,7 +44,7 @@ static NSArray<PYTooltipTrigger> *tooltipTriggerScope;
         _hideDelay = @(100);
         _transitionDuration = @(0.4);
         _enterable = NO;
-        _backgroundColor = PYRGBA(0, 0, 0, .7);
+        _backgroundColor = [PYColor colorWithHexString:@"fff"];//PYRGBA(0, 0, 0, .7);
         _borderColor = PYRGBA(3, 3, 3, 1);
         _borderRadius = @(4);
         _borderWidth = @(0);

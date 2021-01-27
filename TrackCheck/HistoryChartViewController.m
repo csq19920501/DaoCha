@@ -76,11 +76,11 @@
         }])
         .animationEqual(NO)
         .gridEqual([PYGrid initPYGridWithBlock:^(PYGrid *grid) {
-            grid.xEqual(@40).x2Equal(@50).y2Equal(@80);
+            grid.xEqual(@40).x2Equal(@40).y2Equal(@80).yEqual(@80);
         }])
         .tooltipEqual([PYTooltip initPYTooltipWithBlock:^(PYTooltip *tooltip) {
-            tooltip.triggerEqual(PYTooltipTriggerItem)
-            .formatterEqual(@"(function(params){var date = new Date(params.value[0]);data =  date.getHours() + \':\' + date.getMinutes()+ \':\' + date.getSeconds(); return data + \'<br/>\' + params.value[1] })");
+            tooltip.triggerEqual(PYTooltipTriggerAxis);
+//            .formatterEqual(@"(function(params){var date = new Date(params.value[0]);data =  date.getHours() + \':\' + date.getMinutes()+ \':\' + date.getSeconds(); return data + \'<br/>\' + params.value[1] })");
         }])
         .dataZoomEqual([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
             dataZoom.showEqual(YES).startEqual(@0);
@@ -91,18 +91,23 @@
         .addXAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
             axis.typeEqual(PYAxisTypeTime)
             .splitNumberEqual(@8)
+            .scaleEqual(YES)
+            .splitLineEqual([PYAxisSplitLine initPYAxisSplitLineWithBlock:^(PYAxisSplitLine *splitLine) {
+                splitLine.showEqual(NO);
+            }])
             .axisLabelEqual([PYAxisLabel initPYAxisLabelWithBlock:^(PYAxisLabel *axisLabel) {
                 axisLabel.formatterEqual(@"(function (value, index) {let hour = new Date(value).getHours();let min = new Date(value).getMinutes();let ss = new Date(value).getSeconds();ss = ss.toString();min = min.toString(); if(min.length <2){min = '0'+min};if(ss.length <2){ss = '0'+ss};return `${hour}:${min}:${ss}`;})");
                 
             }]);
         }])
         .addYAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
-            axis.typeEqual(PYAxisTypeValue);
+            axis.typeEqual(PYAxisTypeValue).scaleEqual(YES).boundaryGapEqual(@[@"2.5%",@"2.5%"]);
 //            .minEqual(@(-1000))
 //            .maxEqual(@(4000));
         }])
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
-        series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES).nameEqual(titleStr).typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr);
+        series.symbolEqual(@"none")
+            .nameEqual(titleStr).typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(@"average");
         }]);
 //        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
 //        series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES).nameEqual(@"反位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr2);
@@ -140,11 +145,11 @@
         }])
         .animationEqual(NO)
         .gridEqual([PYGrid initPYGridWithBlock:^(PYGrid *grid) {
-            grid.xEqual(@40).x2Equal(@50).y2Equal(@80);
+            grid.xEqual(@40).x2Equal(@40).y2Equal(@80).yEqual(@80);
         }])
         .tooltipEqual([PYTooltip initPYTooltipWithBlock:^(PYTooltip *tooltip) {
-            tooltip.triggerEqual(PYTooltipTriggerItem)
-            .formatterEqual(@"(function(params){var date = new Date(params.value[0]);data =  date.getHours() + \':\' + date.getMinutes()+ \':\' + date.getSeconds(); return data + \'<br/>\' + params.value[1] })");
+            tooltip.triggerEqual(PYTooltipTriggerAxis);
+//            .formatterEqual(@"(function(params){var date = new Date(params.value[0]);data =  date.getHours() + \':\' + date.getMinutes()+ \':\' + date.getSeconds(); return data + \'<br/>\' + params.value[1] })");
         }])
         .dataZoomEqual([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
             dataZoom.showEqual(YES).startEqual(@0);
@@ -155,21 +160,28 @@
         .addXAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
             axis.typeEqual(PYAxisTypeTime)
             .splitNumberEqual(@8)
+            .scaleEqual(YES)
+            .splitLineEqual([PYAxisSplitLine initPYAxisSplitLineWithBlock:^(PYAxisSplitLine *splitLine) {
+                splitLine.showEqual(NO);
+            }])
             .axisLabelEqual([PYAxisLabel initPYAxisLabelWithBlock:^(PYAxisLabel *axisLabel) {
                 axisLabel.formatterEqual(@"(function (value, index) {let hour = new Date(value).getHours();let min = new Date(value).getMinutes();let ss = new Date(value).getSeconds();ss = ss.toString();min = min.toString(); if(min.length <2){min = '0'+min};if(ss.length <2){ss = '0'+ss};return `${hour}:${min}:${ss}`;})");
                 
             }]);
         }])
         .addYAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
-            axis.typeEqual(PYAxisTypeValue);
+            axis.typeEqual(PYAxisTypeValue).scaleEqual(YES).boundaryGapEqual(@[@"2.5%",@"2.5%"]);
 //            .minEqual(@(-1000))
 //            .maxEqual(@(4000));
         }])
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
-        series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES).nameEqual(@"定位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr);
+//        series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES)
+            series.symbolEqual(@"none")
+            .nameEqual(@"定位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(@"average");
         }])
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
-        series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES).nameEqual(@"反位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr2);
+        series.symbolEqual(@"none")
+            .nameEqual(@"反位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr2).samplingEqual(@"average");
         }]);
     }];
 }
