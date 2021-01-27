@@ -11,6 +11,7 @@
 #import "iOS-Echarts.h"
 #import "PYEchartsView.h"
 #import "PYZoomEchartsView.h"
+#import "WKEchartsView.h"
 #import "PYDemoOptions.h"
 #import "CSQScoketService.h"
 #import "Device.h"
