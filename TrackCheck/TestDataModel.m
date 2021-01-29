@@ -14,7 +14,14 @@
 {
     return @"idStr";
 }
-
+-(instancetype)init{
+    self = [super init];
+    if(self){
+        self.dataArr = [NSMutableArray array];
+        self.reportArr = [NSMutableArray array];
+    }
+    return self;
+}
 //+ (NSArray <NSString *> *)indexedProperties
 //{
 //    return @[@"height,birthDay"];

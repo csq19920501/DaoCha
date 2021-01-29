@@ -15,7 +15,11 @@
     // Initialization code
 }
 -(void)setModel:(TestDataModel *)model{
-    _addressLabel.text = [NSString stringWithFormat:@"地点:%@%@",model.station,model.roadSwitch];
+    NSString *daocha = model.roadSwitch;
+    if(![daocha containsString:@"道岔"]){
+        daocha = [NSString stringWithFormat:@"%@道岔",daocha];
+    }
+    _addressLabel.text = [NSString stringWithFormat:@"地点:%@%@",model.station,daocha];
     _deviceType.text = [NSString stringWithFormat:@"牵引点:%@",model.deviceType];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

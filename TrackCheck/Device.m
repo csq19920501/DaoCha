@@ -14,6 +14,7 @@
     if(self){
         long long currentTime = [[NSDate date] timeIntervalSince1970] ;
         _timeStr = [NSString stringWithFormat:@"%lld",currentTime];
+        _reportArr = [NSMutableArray array];
     }
     return self;
 }

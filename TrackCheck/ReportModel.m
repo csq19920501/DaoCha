@@ -12,7 +12,7 @@
 
 + (NSString *)primaryKey
 {
-    return @"idStr";
+    return @"timeLongStr";
 }
 
 @end

@@ -13,7 +13,7 @@
 //#import "DLDateSelectController.h"
 //#import "DLDateAnimation.h"
 //#import "UIViewController+DLPresent.h"
-#import "HLAlertView.h"
+
 
 #import "DLAlertDemoController.h"
 typedef enum:NSInteger{
@@ -406,6 +406,7 @@ typedef enum:NSInteger{
         }
         if(!seleLink){
             [HUD showAlertWithText:@"未选择锁闭力对应的牵引点"];
+            return;
         }
         DEVICETOOL.closeLinkDevice = seleType;
         NSUserDefaults *user = [NSUserDefaults standardUserDefaults];

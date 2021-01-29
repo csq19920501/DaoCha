@@ -47,7 +47,7 @@ typedef enum : NSUInteger {
 
 @optional
 
-
+-(void)didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellForView:(FCChartView*)chartView;
 /**
  悬浮锁定列数
  */
@@ -68,6 +68,7 @@ typedef enum : NSUInteger {
 
 
 @interface FCChartView : UIView
+@property (nonatomic,strong)UICollectionView *mainCV;
 
 - (instancetype)initWithFrame:(CGRect)frame type:(FCChartViewType)type dataSource:(id<FCChartViewDataSource>)dataSource suspendSection:(NSInteger)suspendSection;
 

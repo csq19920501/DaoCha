@@ -40,6 +40,7 @@
 @property (nonatomic ,assign)long long startTime;
 @property (weak, nonatomic) IBOutlet UILabel *testTimeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *saveBut;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *X3But;
 
 
 @end
@@ -52,7 +53,14 @@
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceChange) name:DEVICECHANGE object:nil];
     _seleJJJArr = [NSMutableArray array];
-    self.leftBarItem.title = [NSString stringWithFormat:@"%@%@",[DeviceTool shareInstance].stationStr,[DeviceTool shareInstance].roadSwitchNo];
+    
+    if(![[DeviceTool shareInstance].roadSwitchNo containsString:@"道岔"]){
+        self.leftBarItem.title = [NSString stringWithFormat:@"%@%@道岔",[DeviceTool shareInstance].stationStr,[DeviceTool shareInstance].roadSwitchNo];
+    }else{
+        self.leftBarItem.title = [NSString stringWithFormat:@"%@%@",[DeviceTool shareInstance].stationStr,[DeviceTool shareInstance].roadSwitchNo];
+    }
+    
+    
 
     DEVICETOOL.testStatus = TestNotStart;
     
@@ -76,6 +84,22 @@
     }
     
      [self initView];
+    
+    if(DEVICETOOL.isX3){
+        self.X3But.title = @"X3";
+    }else{
+        self.X3But.title = @"X1";
+    }
+}
+- (IBAction)X3click:(id)sender {
+
+    if([_X3But.title isEqualToString:@"X1"]){
+        [_X3But setTitle:@"X3"];
+        DEVICETOOL.isX3 = YES;
+    }else{
+        [_X3But setTitle:@"X1"];
+               DEVICETOOL.isX3 = NO;
+    }
 }
 -(void)initView{
     NSArray *butArr = @[_firstButton,_secondButton,_threeButton];
@@ -136,7 +160,7 @@
         [_kEchartView4 setOption:[self getOption]];
         [_kEchartView4 loadEcharts];
 //        [_kEchartView4 refreshEchartsWithOption:[self getOption]];
-        self.title = @"锁闭力测试";
+        self.title = [NSString stringWithFormat:@"%@-%@",DEVICETOOL.closeLinkDevice,@"锁闭力测试"];;
     }
 }
 -(void)viewDidLayoutSubviews{
@@ -148,18 +172,23 @@
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeView) userInfo:nil repeats:YES];
 }
 -(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
     [_timer invalidate];
     _timer = nil;
 }
 
 - (IBAction)clickLeft:(id)sender {
+    
+    
+    
     if(DEVICETOOL.testStatus == TestStarted){
         [HUD showAlertWithText: @"测试中，不能修改测试地址"];
     }else{
         
         
         
-        __weak typeof(self) weakSelf = self;
+            __weak typeof(self) weakSelf = self;
             TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"提示" message:@"是否确定修改测试地址"];
             
             TYAlertController * alertController = [TYAlertController alertControllerWithAlertView:alertView preferredStyle:TYAlertControllerStyleAlert];
@@ -182,12 +211,15 @@
                 [textField resignFirstResponder];
                 [alertController dismissViewControllerAnimated:YES];
                 
-                for (int i =0; i < DEVICETOOL.deviceArr.count; i++) {
+                      for (int i =0; i < DEVICETOOL.deviceArr.count; i++) {
                            Device *device = DEVICETOOL.deviceArr[i];
                            device.selected = NO;
                        }
+                       [DEVICETOOL removeAllData];
                        [weakSelf.seleJJJArr removeAllObjects];
                        
+                       [self viewWillDisappear:YES];//不会自动调用此方法
+                
                        if([self.navigationController.childViewControllers[0] isKindOfClass:[SetAddressViewController class]]){
                            [self.navigationController popToRootViewControllerAnimated:YES];
                        }else{
@@ -288,7 +320,22 @@
     
 }
 - (IBAction)changeTest:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    if(_saveBut.enabled){
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"您还未保存当前测试数据，若继续切换测试设备则放弃保存" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        }];
+        UIAlertAction *otherAction = [UIAlertAction actionWithTitle:@"继续" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [DEVICETOOL removeAllData];
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alertController addAction:cancelAction];
+        [alertController addAction:otherAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }else{
+        [DEVICETOOL removeAllData];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
 }
 - (IBAction)saveClick:(id)sender {
     _saveBut.enabled = NO;
@@ -322,6 +369,7 @@
                         dataModel.deviceType = device.typeStr;
                         long long currentTime = [[NSDate date] timeIntervalSince1970] ;
                         dataModel.timeLong = currentTime;
+//                        dataModel.reportArr = device.reportArr;
                         [saveArray addObject:dataModel];
                         
             }
@@ -340,6 +388,17 @@
             dataModel.deviceType = [NSString stringWithFormat:@"%@-锁闭力",DEVICETOOL.closeLinkDevice];
             long long currentTime = [[NSDate date] timeIntervalSince1970] ;
             dataModel.timeLong = currentTime;
+            
+//            Device*device ;
+//            for (Device*dev in DEVICETOOL.deviceArr) {
+//                if([dev.id intValue] == 11){
+//                    device = dev;
+//                    break;
+//                }
+//            }
+//            if(device){
+//                dataModel.reportArr = device.reportArr;
+//            }
             [[LPDBManager defaultManager] saveModels: @[dataModel]];
         }
     }
@@ -377,80 +436,17 @@
         
         if(self.chartViewBackV.hidden){
                 if(!self.kEchartView1.hidden ){
-//
-//                              BOOL loadChart = NO;
-//                              Device *device = _seleJJJArr[0];
-//                              if([device.id intValue] == 1){
-//                                  if([DeviceTool shareInstance].deviceDataArr1.count<100){
-//                                      loadChart = YES;
-//                                      NSLog(@"刚刚开始 loadchart %ld",[DeviceTool shareInstance].deviceDataArr1.count);
-//                                  }else{
-//                                      NSLog(@"刚刚开始 refresh");
-//                                  }
-//                              }else if([device.id intValue] == 2){
-//                                  if([DeviceTool shareInstance].deviceDataArr2.count<100){
-//                                      loadChart = YES;
-//                                  }
-//                              }else if([device.id intValue] == 3){
-//                                  if([DeviceTool shareInstance].deviceDataArr3.count<100){
-//                                      loadChart = YES;
-//                                  }
-//                              }
-//                    if(loadChart){
-//                        [_kEchartView1 setOption:[self irregularLine2Option:0]];
-//                        [_kEchartView1 loadEcharts];
-//                    }else{
+
                         [_kEchartView1 refreshEchartsWithOption:[self irregularLine2Option:0]];
-//                    }
-                    
                 }
                 if(!self.kEchartView2.hidden ){
 
-//                    BOOL loadChart = NO;
-//                    Device *device = _seleJJJArr[1];
-//                    if([device.id intValue] == 1){
-//                        if([DeviceTool shareInstance].deviceDataArr1.count<100){
-//                            loadChart = YES;
-//                        }
-//                    }else if([device.id intValue] == 2){
-//                        if([DeviceTool shareInstance].deviceDataArr2.count<100){
-//                            loadChart = YES;
-//                        }
-//                    }else if([device.id intValue] == 3){
-//                        if([DeviceTool shareInstance].deviceDataArr3.count<100){
-//                            loadChart = YES;
-//                        }
-//                    }
-//                    if(loadChart){
-//                                           [_kEchartView2 setOption:[self irregularLine2Option:1]];
-//                                           [_kEchartView2 loadEcharts];
-//                                       }else{
                                            [_kEchartView2 refreshEchartsWithOption:[self irregularLine2Option:1]];
-//                                       }
                     
                 }
                 if(!self.kEchartView3.hidden){
-//                    BOOL loadChart = NO;
-//                    Device *device = _seleJJJArr[2];
-//                    if([device.id intValue] == 1){
-//                        if([DeviceTool shareInstance].deviceDataArr1.count<100){
-//                            loadChart = YES;
-//                        }
-//                    }else if([device.id intValue] == 2){
-//                        if([DeviceTool shareInstance].deviceDataArr2.count<100){
-//                            loadChart = YES;
-//                        }
-//                    }else if([device.id intValue] == 3){
-//                        if([DeviceTool shareInstance].deviceDataArr3.count<100){
-//                            loadChart = YES;
-//                        }
-//                    }
-//                    if(loadChart){
-//                        [_kEchartView3 setOption:[self irregularLine2Option:2]];
-//                        [_kEchartView3 loadEcharts];
-//                    }else{
+
                         [_kEchartView3 refreshEchartsWithOption:[self irregularLine2Option:2]];
-//                    }
                     
                 }
         }else{
@@ -533,7 +529,7 @@
     }
     NSString *titleStr = [NSString stringWithFormat:@"%@%@",device.typeStr,@"曲线图"];
     
-    return [PYOption initPYOptionWithBlock:^(PYOption *option) {
+    PYOption * option =  [PYOption initPYOptionWithBlock:^(PYOption *option) {
         option.titleEqual([PYTitle initPYTitleWithBlock:^(PYTitle *title) {
             title.textEqual(titleStr)
             .subtextEqual(@"");
@@ -584,10 +580,20 @@
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
             series.symbolEqual(@"none")
 //            .symbolSizeEqual(@(0)).showAllSymbolEqual(YES)
+            .smoothEqual(YES)
             .nameEqual(@"道岔检测").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(@"average");
         }]);
     }];
+    Device *device2 ;
+    for(Device *dev in DEVICETOOL.deviceArr){
+        if([dev.id intValue] == [device.id intValue] ){
+            device2 = dev; break;
+        }
+    }
+    [DEVICETOOL changeReport:option reportArr:device2.reportArr maxCount:8];
+    return option;
 }
+
 - (PYOption *)getOption {
    
     NSMutableArray *saveDataArr;
@@ -613,7 +619,7 @@
     NSString *titleStr = [NSString stringWithFormat:@"%@%@",@"锁闭力",@"曲线图"];
     
     
-    return [PYOption initPYOptionWithBlock:^(PYOption *option) {
+    PYOption *option = [PYOption initPYOptionWithBlock:^(PYOption *option) {
         option.titleEqual([PYTitle initPYTitleWithBlock:^(PYTitle *title) {
             title.textEqual(titleStr)
             .subtextEqual(@"");
@@ -651,18 +657,35 @@
         }])
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
             series.symbolEqual(@"none")
+            .smoothEqual(YES)
             .nameEqual(@"定位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(@"average");
         }])
+//        .graphicEqual([CSQGraphic initCSQGraphicWithBlock:^(CSQGraphic * _Nonnull graphic) {
+//            graphic.typeEqual(@"text")
+//            .zEqual(@(1000))
+//            .leftEqual(@"left")
+//            .topEqual(@"top")
+//            .styleEqual(@{@"style":@{@"fill":@"#333",@"text":@"检测结果:\n\n1:定扳反 峰值:6300 均值3500",@"font":@"11px Microsoft YaHei"}});
+//        }])  //,@"type":@"text",@"z":@(100),@"right":@"right",@"top":@"top"}
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
             series.symbolEqual(@"none")
+            .smoothEqual(YES)
             .nameEqual(@"反位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr2).samplingEqual(@"average");
         }]);
     }];
+    Device *device ;
+    for(Device *dev in DEVICETOOL.deviceArr){
+        if([dev.id intValue] ==11 ){
+            device = dev; break;
+        }
+    }
+    [DEVICETOOL changeReport:option reportArr:device.reportArr maxCount:8];
+    return option;
 }
 
 - (IBAction)showSaveData:(id)sender {
-    HistoryDataViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryDataViewController"];
-    [self.navigationController pushViewController:VC animated:YES];
+//    HistoryDataViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryDataViewController"];
+//    [self.navigationController pushViewController:VC animated:YES];
 }
 - (IBAction)closeDeviceBut:(id)sender {
 }

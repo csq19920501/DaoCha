@@ -73,6 +73,7 @@ PYPropertyEqualImpTemplate(PYSeries, PYSeriesType, type);
 PYPropertyEqualImpTemplate(PYSeries, NSString *, name);
 PYPropertyEqualImpTemplate(PYSeries, PYTooltip *, tooltip);
 PYPropertyEqualImpTemplate(PYSeries, BOOL, clickable);
+//PYPropertyEqualImpTemplate(PYSeries, BOOL, smooth);
 PYPropertyEqualImpTemplate(PYSeries, PYItemStyle *, itemStyle);
 PYPropertyEqualImpTemplate(PYSeries, id, data);
 PYPropertyEqualImpTemplate(PYSeries, PYMarkPoint *, markPoint);

@@ -218,6 +218,9 @@
                 [reciveataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     long revData = (long)strtoul([obj UTF8String],0,16);  //16进制字符串转换成long
                     revData = revData - 85317;
+                    if(DEVICETOOL.isX3){
+                        revData = revData * 3;
+                    }
                     NSTimeInterval  timeinterval2 = timeinterval + idx*20;
 //                    long a = 3000 + idx;
                     [dataArr addObject:@[@(timeinterval2),@(revData)]];
@@ -545,10 +548,12 @@
                                     model.dataModel.station = DEVICETOOL.stationStr;
                                     model.dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
                                     model.dataModel.idStr = [NSString stringWithFormat:@"%lld%@",DEVICETOOL.startTime,typeStr];
-                                    model.dataModel.deviceType = typeStr;
+                                    
+                                    model.dataModel.deviceType = [NSString stringWithFormat:@"%@-%@",DEVICETOOL.closeLinkDevice,typeStr];
                                     long long currentTime = [[NSDate date] timeIntervalSince1970] ;
                                     model.dataModel.timeLong = currentTime;
-                                    model.dataModel.reportType = 5;
+                                     model.dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
+                                    model.dataModel.reportType = 8;
                                     
                                     if(mean < 0){
                                         model.dataModel.close_ding = model.startValue ;
@@ -564,6 +569,7 @@
                                      model.reportEd = YES;
                                      NSLog(@"_Din 锁闭力生成受阻锁闭力曲线报告 暂不清除model");
                                      [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
+                                     [self device:id addReport:model.dataModel];
                                  }
                                  return;
                             }else{
@@ -624,24 +630,32 @@
                                                                 model.dataModel.station = DEVICETOOL.stationStr;
                                                                 model.dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
                                                                 model.dataModel.idStr = [NSString stringWithFormat:@"%lld%@",DEVICETOOL.startTime,typeStr];
-                                                                model.dataModel.deviceType = typeStr;
+                                                                model.dataModel.deviceType = [NSString stringWithFormat:@"%@-%@",DEVICETOOL.closeLinkDevice,typeStr];
                                                                 long long currentTime = [[NSDate date] timeIntervalSince1970] ;
                                                                 model.dataModel.timeLong = currentTime;
-                                                                model.dataModel.reportType = 5;
+                                                                model.dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
                                                                 
                                                                 if(mean < 0){
                                                                     model.dataModel.close_ding = model.startValue ;
                                                                     model.dataModel.keep_ding = model.startValue + mean;
                                                                      NSLog(@"_Din  正常定扳反锁闭力生成");
+                                                                    if(model.dataModel.reportType != 6){
+                                                                        model.dataModel.reportType = 5;
+                                                                    }
                                                                 }else{
-                                                                    NSLog(@"_Din  反扳定扳定锁闭生成");
+                                                                    NSLog(@"_Din  正常反扳定锁闭生成");
                                                                     model.dataModel.close_ding = model.startValue + mean;
                                                                     model.dataModel.keep_ding = model.startValue;
+                                                                    
+                                                                    if(model.dataModel.reportType != 8){
+                                                                        model.dataModel.reportType = 7;
+                                                                    }
                                                                 }
                                                               }
                                                              if(model.reportEdFan && model.reportEdDing && !model.reportEd){
                                                                  model.reportEd = YES;
                                                                  [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
+                                                                 [self device:id addReport:model.dataModel];
                                                                  NSLog(@"_Din 正常锁闭力曲线报告 ");
                                                                  if(!model.reportBlockFan){
                                                                      NSLog(@"_Din 正常锁闭力曲线报告 且清除model");
@@ -771,17 +785,19 @@
                                     model.dataModel.station = DEVICETOOL.stationStr;
                                     model.dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
                                     model.dataModel.idStr = [NSString stringWithFormat:@"%lld%@",DEVICETOOL.startTime,typeStr];
-                                    model.dataModel.deviceType = typeStr;
+                                    model.dataModel.deviceType = [NSString stringWithFormat:@"%@-%@",DEVICETOOL.closeLinkDevice,typeStr];
                                     long long currentTime = [[NSDate date] timeIntervalSince1970] ;
                                     model.dataModel.timeLong = currentTime;
-                                    model.dataModel.reportType = 5;
-                                    
+                                    model.dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
+                                      model.dataModel.reportType = 6;
                                     if(mean < 0){
                                         model.dataModel.close_fan = model.startValue_Fan ;
                                         model.dataModel.keep_fan = model.startValue_Fan  + mean;
                                          NSLog(@"_Fan average < 70  model.blockedStable2_OK = YES 定扳反受阻空转生成");
+                                      
                                     }else{
-                                        NSLog(@"_Fan average < 70  model.blockedStable2_OK = YES 反扳定受阻空转生成");
+                                        NSLog(@"_Fan average < 70  model.blockedStable2_OK = YES 定扳反受阻空转生成");
+                                       
                                         model.dataModel.close_fan = model.startValue_Fan + mean;
                                         model.dataModel.keep_fan = model.startValue_Fan;
                                     }
@@ -790,6 +806,7 @@
                                      model.reportEd = YES;
                                      NSLog(@"_Fan 锁闭力生成受阻锁闭力曲线报告 暂不清除model");
                                      [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
+                                     [self device:id addReport:model.dataModel];
                                  }
                                  return;
                             }else{
@@ -847,17 +864,23 @@
                                                                 model.dataModel.station = DEVICETOOL.stationStr;
                                                                 model.dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
                                                                 model.dataModel.idStr = [NSString stringWithFormat:@"%lld%@",DEVICETOOL.startTime,typeStr];
-                                                                model.dataModel.deviceType = typeStr;
+                                                                model.dataModel.deviceType = [NSString stringWithFormat:@"%@-%@",DEVICETOOL.closeLinkDevice,typeStr];
                                                                 long long currentTime = [[NSDate date] timeIntervalSince1970] ;
                                                                 model.dataModel.timeLong = currentTime;
-                                                                model.dataModel.reportType = 5;
+                                                                model.dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
                                                                 
                                                                 if(mean < 0){
                                                                     model.dataModel.close_fan = model.startValue_Fan ;
                                                                     model.dataModel.keep_fan = model.startValue_Fan + mean;
-                                                                     NSLog(@"_Fan 正常定扳反锁闭力生成");
+                                                                     NSLog(@"_Fan 正常反扳定锁闭力生成");
+                                                                     if(model.dataModel.reportType != 8){
+                                                                         model.dataModel.reportType = 7;
+                                                                     }
                                                                 }else{
-                                                                    NSLog(@" _Fan 正常反扳定锁闭生成");
+                                                                    NSLog(@" _Fan 正常定扳反锁闭生成");
+                                                                    if(model.dataModel.reportType != 6){
+                                                                        model.dataModel.reportType = 5;
+                                                                    }
                                                                     model.dataModel.close_fan = model.startValue_Fan + mean;
                                                                     model.dataModel.keep_fan = model.startValue_Fan;
                                                                 }
@@ -865,6 +888,7 @@
                                                              if(model.reportEdFan && model.reportEdDing && !model.reportEd){
                                                                  model.reportEd = YES;
                                                                  [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
+                                                                 [self device:id addReport:model.dataModel];
                                                                  NSLog(@"_Fan 正常锁闭力曲线报告 ");
                                                                  if(!model.reportBlockDing){
                                                                      NSLog(@"_Fan 正常锁闭力曲线报告 且清除model");
@@ -1013,7 +1037,7 @@
                     dataModel.deviceType = typeStr;
                     long long currentTime = [[NSDate date] timeIntervalSince1970] ;
                     dataModel.timeLong = currentTime;
-                    
+                   dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
                     if(mean < model.startValue){
                         model.blocked_max = min;
                         if(DEVICETOOL.shenSuo == Shen_Ding){
@@ -1035,6 +1059,7 @@
                     }
                     dataModel.blocked_stable = mean + model.startValue;
                     [[LPDBManager defaultManager] saveModels: @[dataModel]];
+                    [self device:id addReport:dataModel];
 //                    [self setCheckNilWith:id];
                     return;
                 }
@@ -1140,7 +1165,7 @@
                                            dataModel.deviceType = typeStr;
                                            long long currentTime = [[NSDate date] timeIntervalSince1970] ;
                                            dataModel.timeLong = currentTime;
-                        
+                       dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
                                             
                         
                         long openMin = 100000;
@@ -1236,6 +1261,7 @@
                                             NSLog(@"average < 100  波动结束 !model.blockedStable2_OK  正常阻力转换生");
                                          
                                            [[LPDBManager defaultManager] saveModels: @[dataModel]];
+                                           [self device:id addReport:dataModel];
                         [self setCheckNilWith:id];
                         return;
                         
@@ -1274,6 +1300,21 @@
                        if(id == 12){
                            DEVICETOOL.checkModel4 = nil;
                        }
+}
+-(void)device:(NSInteger)id addReport:(ReportModel*)report{
+    Device *dev;
+    if(id == 12){
+        id = 11;
+    }
+    for(Device *devi in DEVICETOOL.deviceArr){
+        if([devi.id intValue] == id){
+            dev = devi;
+            break;
+        }
+    }
+    if(dev){
+        [dev.reportArr addObject:report];
+    }
 }
 -(void)changeDevice:(NSDictionary *)dic{
             DeviceTool *delegate = [DeviceTool shareInstance];

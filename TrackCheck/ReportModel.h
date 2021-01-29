@@ -12,13 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ReportModel : LPDBModel
 
+//@property (nonatomic,strong)NSString *keyStr;
 @property (nonatomic,strong)NSString *idStr;
 @property (nonatomic,strong)NSString *station;
 @property (nonatomic,strong)NSString *roadSwitch;
 @property (nonatomic,strong)NSString *deviceType;
 @property (nonatomic,assign)long long timeLong ;
-
-//事件类型  1 定扳反 2定扳反受阻 3反扳定 4反扳定受阻空转 5锁闭力   //定扳反 6闭锁力反扳定
+@property (nonatomic,strong)NSString * timeLongStr ;
+//事件类型  1 定扳反 2定扳反受阻 3反扳定 4反扳定受阻空转 5锁闭力定扳反  6锁闭力定扳反受阻  7闭锁力反扳定  8闭锁力反扳定受阻
 @property (nonatomic,assign)NSInteger reportType;
 
 @property (nonatomic,assign)NSInteger open_Top;

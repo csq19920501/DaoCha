@@ -26,6 +26,16 @@
     self = [super init];
     if (self) {
         _animation = YES;
+        _graphic = [[CSQGraphic alloc]init];
+        _graphic.type = @"text";
+        _graphic.z = @(100);
+        _graphic.right = @(12);
+        _graphic.top = @(12);
+        _graphic.style = @{
+            @"fill": @"#333",
+            @"text": @"",
+            @"font": @"15px Microsoft YaHei"
+        };
     }
     return self;
 }
@@ -51,6 +61,7 @@ PYPropertyEqualImpTemplate(PYOption, NSMutableArray *, xAxis);
 PYPropertyEqualImpTemplate(PYOption, NSMutableArray *, yAxis);
 PYPropertyEqualImpTemplate(PYOption, NSMutableArray *, series);
 PYPropertyEqualImpTemplate(PYOption, NSMutableArray *, options);
+PYPropertyEqualImpTemplate(PYOption, CSQGraphic *, graphic);
 
 PYAddMethodImpTemplate(PYOption, PYAxis, XAxis, xAxis);
 PYAddMethodImpTemplate(PYOption, PYAxis, YAxis, yAxis);

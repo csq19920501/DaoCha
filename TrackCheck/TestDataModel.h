@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)NSMutableArray *dataArr;
 @property (nonatomic,assign)long long timeLong ;
 
+@property (nonatomic,strong)NSMutableArray * reportArr;
+
 @end
 
 NS_ASSUME_NONNULL_END

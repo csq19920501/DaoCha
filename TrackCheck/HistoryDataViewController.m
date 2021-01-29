@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tabView;
 @property (nonatomic ,strong) NSMutableArray *dataArray;
 @property (nonatomic, assign) BOOL isStart;
-
+@property (nonatomic, assign) BOOL firstLoad;
 @end
 
 @implementation HistoryDataViewController
@@ -51,11 +51,15 @@
     [_seleStationBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_searchBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     _tabView.dataSetDelegate = self;
-    
+    _firstLoad = YES;
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self searchClick:nil];
+    if(_firstLoad){
+        _firstLoad = NO;
+        [self searchClick:nil];
+    }
+    
     [DEVICETOOL getSavedStationArr];
 }
 
@@ -71,6 +75,7 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     TestDataModel *model = _dataArray[indexPath.row];
     HistoryChartViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryChartViewController"];
     VC.dataModel = model;
@@ -94,27 +99,6 @@
     return [UIImage imageNamed:@"famuli_cry_zhubo"];
 }
 
-
-//- (IBAction)cancle:(id)sender {
-//    [self.startTimeTextField resignFirstResponder];
-//
-//    [self.endTimeTextField resignFirstResponder];
-//}
-//- (IBAction)sureDateAction:(id)sender {
-//    [self.startTimeTextField resignFirstResponder];
-//
-//    [self.endTimeTextField resignFirstResponder];
-//
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    dateFormatter.dateFormat = @"yyyy-MM-dd";
-//
-//    if (_isStart) {
-//        _startTimeTextField.text = [dateFormatter stringFromDate:self.datePicker.date];
-//    }else{
-//        _endTimeTextField.text = [dateFormatter stringFromDate:self.datePicker.date];
-//
-//    }
-//}
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
 
     if (textField == _startTimeTextField) {
@@ -157,7 +141,7 @@
         NSDate *startDate = [dateFormatter dateFromString:startTimeStr];
         NSTimeInterval startTimeInterval = [startDate timeIntervalSince1970];
         
-        NSString *endTimeStr = [NSString stringWithFormat:@"%@ %@",_endTimeTextField.text,@"23:059:59"];
+        NSString *endTimeStr = [NSString stringWithFormat:@"%@ %@",_endTimeTextField.text,@"23:59:59"];
         NSDate *endDate = [dateFormatter dateFromString:endTimeStr];
         NSTimeInterval endTimeInterval = [endDate timeIntervalSince1970];
         
@@ -171,7 +155,7 @@
         _dataArray = [NSMutableArray arrayWithArray:results];
         dispatch_async(dispatch_get_main_queue(), ^{
               
-              [_tabView reloadDataWithEmptyView];
+            [_tabView reloadDataWithEmptyView];
             [HUD hideUIBlockingIndicator];
         });
     });

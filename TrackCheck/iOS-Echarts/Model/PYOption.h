@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class PYAxis, PYLegend, PYTimeline, PYTitle, PYGrid, PYToolbox, PYDataZoom, PYDataRange, PYPolar, PYRoamController, PYColor, PYTooltip, PYSeries;
+@class PYAxis, PYLegend, PYTimeline, PYTitle, PYGrid, PYToolbox, PYDataZoom, PYDataRange, PYPolar, PYRoamController, PYColor, PYTooltip, PYSeries,CSQGraphic;
 
 /**
  *
@@ -33,6 +33,7 @@
 @property (nonatomic, strong) PYDataZoom *dataZoom;
 @property (nonatomic, strong) PYRoamController *roamController;
 @property (nonatomic, strong) PYGrid *grid;
+@property (nonatomic, strong) CSQGraphic *graphic;
 @property (nonatomic, strong) NSMutableArray<PYAxis *> *xAxis;
 @property (nonatomic, strong) NSMutableArray<PYAxis *> *yAxis;
 @property (nonatomic, strong) NSMutableArray<PYSeries *> *series;
@@ -40,6 +41,7 @@
 
 PYInitializerTemplate(PYOption, option);
 
+PYPropertyEqualTemplate(PYOption, CSQGraphic *, graphic);
 PYPropertyEqualTemplate(PYOption, PYColor *, backgroundColor);
 PYPropertyEqualTemplate(PYOption, NSArray *, color);
 PYPropertyEqualTemplate(PYOption, NSMutableArray *, polar);
@@ -59,6 +61,7 @@ PYPropertyEqualTemplate(PYOption, NSMutableArray *, xAxis);
 PYPropertyEqualTemplate(PYOption, NSMutableArray *, yAxis);
 PYPropertyEqualTemplate(PYOption, NSMutableArray *, series);
 PYPropertyEqualTemplate(PYOption, NSMutableArray *, options);
+
 
 PYAddMethodTemplate(PYOption, PYAxis, XAxis, xAxis);
 PYAddMethodTemplate(PYOption, PYAxis, YAxis, yAxis);

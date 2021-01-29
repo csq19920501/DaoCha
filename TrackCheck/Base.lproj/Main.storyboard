@@ -135,7 +135,6 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="endTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qt1-L7-5EI"/>
                                             <action selector="saveClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xtW-Ll-EHj"/>
                                         </connections>
                                     </button>
@@ -253,6 +252,13 @@
                                 <color key="tintColor" red="0.0109061205" green="0.70093407780000005" blue="0.99422856370000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="showSaveData:" destination="BYZ-38-t0r" id="Tkm-e9-qnU"/>
+                                    <segue destination="eJd-OE-y6I" kind="show" id="B2n-nJ-t0q"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="X1" width="45" id="SYc-qv-2QO">
+                                <color key="tintColor" red="0.0109061205" green="0.70093407780000005" blue="0.99422856370000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="X3click:" destination="BYZ-38-t0r" id="8HN-Nq-3Zc"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -260,6 +266,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="KEchartView4" destination="KIw-p6-ua1" id="kNJ-Xr-LN9"/>
+                        <outlet property="X3But" destination="SYc-qv-2QO" id="Swg-ad-ql1"/>
                         <outlet property="changeBut" destination="Mre-Af-Var" id="I7r-AF-YI6"/>
                         <outlet property="chartViewBackV" destination="Nl9-wf-EM9" id="tP4-z8-M2G"/>
                         <outlet property="endBut" destination="q6H-6l-g5c" id="wn9-wR-pap"/>
@@ -277,7 +284,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1288.28125" y="-63.281249999999993"/>
+            <point key="canvasLocation" x="1455" y="-142"/>
         </scene>
         <!--历史数据-->
         <scene sceneID="HFe-ja-mq4">
@@ -288,7 +295,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cgb-UD-LJI">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="130"/>
+                                <rect key="frame" x="0.0" y="50" width="768" height="130"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开始日期:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrq-Li-SYl">
                                         <rect key="frame" x="95.5" y="19.5" width="96" height="27"/>
@@ -388,8 +395,8 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vD-ra-sLW">
-                                <rect key="frame" x="0.0" y="130" width="768" height="1"/>
-                                <color key="backgroundColor" red="0.86285164849999996" green="0.86285164849999996" blue="0.86285164849999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="180" width="768" height="1"/>
+                                <color key="backgroundColor" red="0.01176470588" green="0.70196078429999997" blue="0.99607843139999996" alpha="0.72399400680000003" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="uZT-VQ-T3g"/>
                                 </constraints>
@@ -398,7 +405,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DFv-LG-lUK">
-                                <rect key="frame" x="0.0" y="131" width="768" height="893"/>
+                                <rect key="frame" x="0.0" y="181" width="768" height="793"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="HistoryCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HistoryCell" rowHeight="84" id="3Wy-Fq-nmQ" customClass="HistoryCell">
@@ -1190,6 +1197,9 @@
                                 <segment title="转换阻力"/>
                                 <segment title="锁闭力"/>
                             </segments>
+                            <connections>
+                                <action selector="sigmentChange:" destination="Htp-Ue-l1N" eventType="valueChanged" id="Tvp-gK-mtq"/>
+                            </connections>
                         </segmentedControl>
                     </navigationItem>
                     <connections>
@@ -1221,20 +1231,20 @@
             <objects>
                 <viewController storyboardIdentifier="HistoryChartViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5r8-ic-IHH" customClass="HistoryChartViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UlY-Mv-vTu">
-                        <rect key="frame" x="0.0" y="0.0" width="712" height="984"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0k-d9-Oap">
-                                <rect key="frame" x="0.0" y="0.0" width="712" height="80"/>
+                                <rect key="frame" x="0.0" y="50" width="768" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="牵引点:反扳闭锁力" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUZ-2i-l79">
-                                        <rect key="frame" x="284.5" y="30" width="143.5" height="20.5"/>
+                                        <rect key="frame" x="312.5" y="30" width="143.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2021-02-03 18:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0P-Na-oOV">
-                                        <rect key="frame" x="505" y="30" width="167" height="20.5"/>
+                                        <rect key="frame" x="561" y="30" width="167" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1258,7 +1268,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdk-UG-fnE">
-                                <rect key="frame" x="0.0" y="80" width="712" height="1"/>
+                                <rect key="frame" x="0.0" y="130" width="768" height="1"/>
                                 <color key="backgroundColor" red="0.86285164849999996" green="0.86285164849999996" blue="0.86285164849999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="fVf-jA-zNP"/>
@@ -1268,10 +1278,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1rv-tY-beG">
-                                <rect key="frame" x="0.0" y="81" width="712" height="853"/>
+                                <rect key="frame" x="0.0" y="131" width="768" height="843"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UsA-gg-DQR" customClass="PYZoomEchartsView">
-                                        <rect key="frame" x="0.0" y="0.0" width="712" height="853"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="843"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
                                 </subviews>

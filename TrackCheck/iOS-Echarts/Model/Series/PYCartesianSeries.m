@@ -31,7 +31,7 @@ static NSArray<PYCartesianSeriesDataFilter> *cartesianSeriesDataFilterScope;
         _barGap = @"30%";
         _barCategoryGap = @"30%";
         _showAllSymbol = NO;
-        _smooth = NO;
+        _smooth = YES;
         _dataFilter = PYCartesianSeriesDataFilterNearest;
         _large = NO;
         _largeThreshold = @(2000);

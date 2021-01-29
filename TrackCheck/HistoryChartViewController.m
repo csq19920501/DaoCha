@@ -7,12 +7,13 @@
 //
 
 #import "HistoryChartViewController.h"
-
+#import "ReportModel.h"
 @interface HistoryChartViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *deviceTypeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet PYZoomEchartsView *chartView;
+@property(nonatomic ,strong)NSArray *results;
 
 @end
 
@@ -22,11 +23,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _addressLabel.text = [NSString stringWithFormat:@"地点:%@%@",_dataModel.station,_dataModel.roadSwitch];
-        _deviceTypeLabel.text = [NSString stringWithFormat:@"牵引点:%@",_dataModel.deviceType];
+    _deviceTypeLabel.text = [NSString stringWithFormat:@"牵引点:%@",_dataModel.deviceType];
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-    //    NSNumber *timeNum = model.time;
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:_dataModel.timeLong];
         NSString *time = [dateFormatter stringFromDate:date];
         _timeLabel.text = time;
@@ -36,8 +36,15 @@
     }else{
         [_chartView setOption:[self getOption2]];
     }
- 
     [_chartView loadEcharts];
+    
+    _results = [[LPDBManager defaultManager] findModels: [ReportModel class]
+    where: @"idStr = '%@'",_dataModel.idStr];
+    if(![type containsString:@"锁闭力"]){
+           [_chartView refreshEchartsWithOption:[self getOption]];
+    }else{
+        [_chartView refreshEchartsWithOption:[self getOption2]];
+    }
 }
 - (PYOption *)getOption {
    
@@ -50,26 +57,10 @@
     NSNumber *time2 = [NSNumber numberWithLongLong:currentTime+100];
     saveDataArr = [NSMutableArray arrayWithArray:@[@[time,@(0)],@[time2,@(0)]]];
     }
-//    saveDataArr2 = [NSMutableArray arrayWithArray:[DeviceTool shareInstance].deviceDataArr5];
-   
-//    if(saveDataArr.count == 0 && DEVICETOOL.testStatus == TestStarted){
-//        long long startTime = _startTime *1000;
-//        NSNumber *time = [NSNumber numberWithLongLong:startTime];
-//        long long currentTime = [[NSDate date] timeIntervalSince1970] *1000;
-//        NSNumber *time2 = [NSNumber numberWithLongLong:currentTime+100];
-//        saveDataArr = [NSMutableArray arrayWithArray:@[@[time,@(0)],@[time2,@(0)]]];
-////        saveDataArr2 = [NSMutableArray arrayWithArray:@[@[time,@(0)],@[time2,@(0)]]];
-//    }
-//    else if(saveDataArr.count == 0 || DEVICETOOL.testStatus == TestNotStart){
-//        long long currentTime = [[NSDate date] timeIntervalSince1970] *1000;
-//           NSNumber *time = [NSNumber numberWithLongLong:currentTime];
-//           NSNumber *time2 = [NSNumber numberWithLongLong:currentTime+100];
-//        saveDataArr = [NSMutableArray arrayWithArray:@[@[time,@(0)],@[time2,@(0)]]];
-//        saveDataArr2 = [NSMutableArray arrayWithArray:@[@[time,@(0)],@[time2,@(0)]]];
-//    }
+
     NSString *titleStr = [NSString stringWithFormat:@"%@%@",_dataModel.deviceType,@"曲线图"];
 
-    return [PYOption initPYOptionWithBlock:^(PYOption *option) {
+    PYOption *option =  [PYOption initPYOptionWithBlock:^(PYOption *option) {
         option.titleEqual([PYTitle initPYTitleWithBlock:^(PYTitle *title) {
             title.textEqual(titleStr)
             .subtextEqual(@"");
@@ -107,12 +98,15 @@
         }])
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
         series.symbolEqual(@"none")
+            .smoothEqual(YES)
             .nameEqual(titleStr).typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(@"average");
         }]);
 //        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
 //        series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES).nameEqual(@"反位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr2);
 //        }]);
     }];
+    [DEVICETOOL changeReport:option reportArr:_results maxCount:10];
+    return option;
 }
 - (PYOption *)getOption2{
    
@@ -138,7 +132,7 @@
 
     NSString *titleStr = [NSString stringWithFormat:@"%@%@",_dataModel.deviceType,@"曲线图"];
 
-    return [PYOption initPYOptionWithBlock:^(PYOption *option) {
+    PYOption *option = [PYOption initPYOptionWithBlock:^(PYOption *option) {
         option.titleEqual([PYTitle initPYTitleWithBlock:^(PYTitle *title) {
             title.textEqual(titleStr)
             .subtextEqual(@"");
@@ -177,13 +171,17 @@
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
 //        series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES)
             series.symbolEqual(@"none")
+            .smoothEqual(YES)
             .nameEqual(@"定位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(@"average");
         }])
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
         series.symbolEqual(@"none")
+            .smoothEqual(YES)
             .nameEqual(@"反位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr2).samplingEqual(@"average");
         }]);
     }];
+    [DEVICETOOL changeReport:option reportArr:_results maxCount:10];
+    return option;
 }
 /*
 #pragma mark - Navigation

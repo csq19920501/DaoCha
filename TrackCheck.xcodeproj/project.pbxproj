@@ -18,15 +18,6 @@
 		B5362CB825BBC46D00AE189A /* TYShowAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CAC25BBC46C00AE189A /* TYShowAlertView.m */; };
 		B5362CB925BBC46D00AE189A /* TYBaseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CAD25BBC46C00AE189A /* TYBaseAnimation.m */; };
 		B5362CBA25BBC46D00AE189A /* TYAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CAF25BBC46C00AE189A /* TYAlertController.m */; };
-		B5362CCE25BC1B3600AE189A /* HLTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CBC25BC1B3600AE189A /* HLTextField.m */; };
-		B5362CCF25BC1B3600AE189A /* HLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CBD25BC1B3600AE189A /* HLButton.m */; };
-		B5362CD025BC1B3600AE189A /* HLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CBE25BC1B3600AE189A /* HLLabel.m */; };
-		B5362CD125BC1B3600AE189A /* HLPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CC125BC1B3600AE189A /* HLPopupView.m */; };
-		B5362CD225BC1B3600AE189A /* HLAlertModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CC425BC1B3600AE189A /* HLAlertModel.m */; };
-		B5362CD325BC1B3600AE189A /* HLAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CC625BC1B3600AE189A /* HLAlertView.m */; };
-		B5362CD425BC1B3600AE189A /* HMLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CC725BC1B3600AE189A /* HMLabel.m */; };
-		B5362CD525BC1B3600AE189A /* HLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CCA25BC1B3600AE189A /* HLImageView.m */; };
-		B5362CD625BC1B3600AE189A /* HLAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CCD25BC1B3600AE189A /* HLAction.m */; };
 		B556508425AC636E00CB61D7 /* SetAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B556508325AC636E00CB61D7 /* SetAddressViewController.m */; };
 		B556509425AC64B000CB61D7 /* UIColor+PYSearchExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B556508725AC64B000CB61D7 /* UIColor+PYSearchExtension.m */; };
 		B556509525AC64B000CB61D7 /* PYSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B556508825AC64B000CB61D7 /* PYSearchViewController.m */; };
@@ -212,6 +203,7 @@
 		B556CB7225A83E8B00523758 /* CSQScoketService.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB7125A83E8B00523758 /* CSQScoketService.m */; };
 		B556CB7525A8721800523758 /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB7425A8721800523758 /* Device.m */; };
 		B556CB7825A885A900523758 /* DeviceTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB7725A885A900523758 /* DeviceTool.m */; };
+		B59850A625C190450057FDCD /* CSQGraphic.m in Sources */ = {isa = PBXBuildFile; fileRef = B59850A525C190450057FDCD /* CSQGraphic.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -254,24 +246,6 @@
 		B5362CAE25BBC46C00AE189A /* TYAlertScaleFadeAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYAlertScaleFadeAnimation.h; sourceTree = "<group>"; };
 		B5362CAF25BBC46C00AE189A /* TYAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYAlertController.m; sourceTree = "<group>"; };
 		B5362CB025BBC46C00AE189A /* TYAlertFadeAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYAlertFadeAnimation.h; sourceTree = "<group>"; };
-		B5362CBC25BC1B3600AE189A /* HLTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLTextField.m; sourceTree = "<group>"; };
-		B5362CBD25BC1B3600AE189A /* HLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLButton.m; sourceTree = "<group>"; };
-		B5362CBE25BC1B3600AE189A /* HLLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLLabel.m; sourceTree = "<group>"; };
-		B5362CBF25BC1B3600AE189A /* HMLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLabel.h; sourceTree = "<group>"; };
-		B5362CC025BC1B3600AE189A /* HLAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLAlertView.h; sourceTree = "<group>"; };
-		B5362CC125BC1B3600AE189A /* HLPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLPopupView.m; sourceTree = "<group>"; };
-		B5362CC225BC1B3600AE189A /* HLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLImageView.h; sourceTree = "<group>"; };
-		B5362CC325BC1B3600AE189A /* HLAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLAction.h; sourceTree = "<group>"; };
-		B5362CC425BC1B3600AE189A /* HLAlertModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLAlertModel.m; sourceTree = "<group>"; };
-		B5362CC525BC1B3600AE189A /* HLTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLTextField.h; sourceTree = "<group>"; };
-		B5362CC625BC1B3600AE189A /* HLAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLAlertView.m; sourceTree = "<group>"; };
-		B5362CC725BC1B3600AE189A /* HMLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLabel.m; sourceTree = "<group>"; };
-		B5362CC825BC1B3600AE189A /* HLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLButton.h; sourceTree = "<group>"; };
-		B5362CC925BC1B3600AE189A /* HLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLLabel.h; sourceTree = "<group>"; };
-		B5362CCA25BC1B3600AE189A /* HLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLImageView.m; sourceTree = "<group>"; };
-		B5362CCB25BC1B3600AE189A /* HLPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLPopupView.h; sourceTree = "<group>"; };
-		B5362CCC25BC1B3600AE189A /* HLAlertModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLAlertModel.h; sourceTree = "<group>"; };
-		B5362CCD25BC1B3600AE189A /* HLAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLAction.m; sourceTree = "<group>"; };
 		B556508225AC636E00CB61D7 /* SetAddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetAddressViewController.h; sourceTree = "<group>"; };
 		B556508325AC636E00CB61D7 /* SetAddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetAddressViewController.m; sourceTree = "<group>"; };
 		B556508625AC64B000CB61D7 /* NSBundle+PYSearchExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+PYSearchExtension.h"; sourceTree = "<group>"; };
@@ -644,6 +618,8 @@
 		B556CB7425A8721800523758 /* Device.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
 		B556CB7625A885A900523758 /* DeviceTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceTool.h; sourceTree = "<group>"; };
 		B556CB7725A885A900523758 /* DeviceTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceTool.m; sourceTree = "<group>"; };
+		B59850A425C190440057FDCD /* CSQGraphic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSQGraphic.h; sourceTree = "<group>"; };
+		B59850A525C190450057FDCD /* CSQGraphic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSQGraphic.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -705,31 +681,6 @@
 				B5362CB025BBC46C00AE189A /* TYAlertFadeAnimation.h */,
 			);
 			path = TYAlertController;
-			sourceTree = "<group>";
-		};
-		B5362CBB25BC1B3600AE189A /* HLAlertView */ = {
-			isa = PBXGroup;
-			children = (
-				B5362CC025BC1B3600AE189A /* HLAlertView.h */,
-				B5362CBC25BC1B3600AE189A /* HLTextField.m */,
-				B5362CBD25BC1B3600AE189A /* HLButton.m */,
-				B5362CBE25BC1B3600AE189A /* HLLabel.m */,
-				B5362CBF25BC1B3600AE189A /* HMLabel.h */,
-				B5362CC125BC1B3600AE189A /* HLPopupView.m */,
-				B5362CC225BC1B3600AE189A /* HLImageView.h */,
-				B5362CC325BC1B3600AE189A /* HLAction.h */,
-				B5362CC425BC1B3600AE189A /* HLAlertModel.m */,
-				B5362CC525BC1B3600AE189A /* HLTextField.h */,
-				B5362CC625BC1B3600AE189A /* HLAlertView.m */,
-				B5362CC725BC1B3600AE189A /* HMLabel.m */,
-				B5362CC825BC1B3600AE189A /* HLButton.h */,
-				B5362CC925BC1B3600AE189A /* HLLabel.h */,
-				B5362CCA25BC1B3600AE189A /* HLImageView.m */,
-				B5362CCB25BC1B3600AE189A /* HLPopupView.h */,
-				B5362CCC25BC1B3600AE189A /* HLAlertModel.h */,
-				B5362CCD25BC1B3600AE189A /* HLAction.m */,
-			);
-			path = HLAlertView;
 			sourceTree = "<group>";
 		};
 		B556508525AC64B000CB61D7 /* PYSearch */ = {
@@ -1078,7 +1029,6 @@
 		B556CA0825A55A2400523758 = {
 			isa = PBXGroup;
 			children = (
-				B5362CBB25BC1B3600AE189A /* HLAlertView */,
 				B556CA1325A55A2400523758 /* TrackCheck */,
 				B556CA2F25A55A2700523758 /* TrackCheckTests */,
 				B556CA3A25A55A2700523758 /* TrackCheckUITests */,
@@ -1269,7 +1219,6 @@
 				B556CAC225A5CEAD00523758 /* PYTitle.m */,
 				B556CAC325A5CEAD00523758 /* PYSplitArea.h */,
 				B556CAC425A5CEAD00523758 /* PYAxis.m */,
-				B556CAC525A5CEAD00523758 /* PYOption.m */,
 				B556CAC625A5CEAD00523758 /* PYTooltip.h */,
 				B556CAC725A5CEAD00523758 /* PYAxisPointer.m */,
 				B556CAC825A5CEAD00523758 /* PYAreaStyle.m */,
@@ -1300,6 +1249,7 @@
 				B556CAE125A5CEAD00523758 /* PYGrid.h */,
 				B556CAE225A5CEAD00523758 /* PYTooltip.m */,
 				B556CAE325A5CEAD00523758 /* PYOption.h */,
+				B556CAC525A5CEAD00523758 /* PYOption.m */,
 				B556CAE425A5CEAD00523758 /* PYAxis.h */,
 				B556CAE525A5CEAD00523758 /* PYSplitArea.m */,
 				B556CAE625A5CEAD00523758 /* PYTitle.h */,
@@ -1309,6 +1259,8 @@
 				B556CAEA25A5CEAE00523758 /* PYNodes.m */,
 				B556CAEB25A5CEAE00523758 /* PYAreaStyle.h */,
 				B556CAEC25A5CEAE00523758 /* PYAxisPointer.h */,
+				B59850A425C190440057FDCD /* CSQGraphic.h */,
+				B59850A525C190450057FDCD /* CSQGraphic.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1322,6 +1274,7 @@
 				B556CA8D25A5CEAD00523758 /* PYEventRiverSeries.h */,
 				B556CA8E25A5CEAD00523758 /* PYRadarSeries.m */,
 				B556CA8F25A5CEAD00523758 /* PYPieSeries.m */,
+				B556CA9E25A5CEAD00523758 /* PYSeries.h */,
 				B556CA9025A5CEAD00523758 /* PYSeries.m */,
 				B556CA9125A5CEAD00523758 /* PYVennSeries.m */,
 				B556CA9225A5CEAD00523758 /* PYMarkPoint.m */,
@@ -1336,7 +1289,6 @@
 				B556CA9B25A5CEAD00523758 /* PYCartesianSeries.h */,
 				B556CA9C25A5CEAD00523758 /* PYTreeSeries.m */,
 				B556CA9D25A5CEAD00523758 /* PYForceSeries.h */,
-				B556CA9E25A5CEAD00523758 /* PYSeries.h */,
 				B556CA9F25A5CEAD00523758 /* PYVennSeries.h */,
 				B556CAA025A5CEAD00523758 /* PYPieSeries.h */,
 				B556CAA125A5CEAD00523758 /* PYRadarSeries.h */,
@@ -1646,8 +1598,6 @@
 				B556513825B05D1B00CB61D7 /* NSData-SQLitePersistence.m in Sources */,
 				B55651D425B166CD00CB61D7 /* DLAlertDemoController.m in Sources */,
 				B55650A825AD418800CB61D7 /* MBProgressHUD.m in Sources */,
-				B5362CD125BC1B3600AE189A /* HLPopupView.m in Sources */,
-				B5362CCF25BC1B3600AE189A /* HLButton.m in Sources */,
 				B556CB0925A5CEAE00523758 /* PYCartesianSeries.m in Sources */,
 				B55651E425B1686600CB61D7 /* UIViewController+GKCategory.m in Sources */,
 				B55650AC25AD418800CB61D7 /* HIKLoadViewItem.m in Sources */,
@@ -1666,7 +1616,6 @@
 				B556521825B7C73200CB61D7 /* ETAFNetworking.m in Sources */,
 				B556513725B05D1B00CB61D7 /* NSObject-ClassName.m in Sources */,
 				B556CB2325A5CEAE00523758 /* PYTitle.m in Sources */,
-				B5362CCE25BC1B3600AE189A /* HLTextField.m in Sources */,
 				B556513B25B05D1B00CB61D7 /* NSSet-SQLitePersistence.m in Sources */,
 				B556510325B05D0A00CB61D7 /* LPDBManager.m in Sources */,
 				B5362CB625BBC46D00AE189A /* UIView+TYAutoLayout.m in Sources */,
@@ -1682,8 +1631,6 @@
 				B556513925B05D1B00CB61D7 /* UIImage-SQLitePersistence.m in Sources */,
 				B556CA1625A55A2400523758 /* AppDelegate.m in Sources */,
 				B556516325B162C100CB61D7 /* UIButton+DLAdaptiveButton.m in Sources */,
-				B5362CD325BC1B3600AE189A /* HLAlertView.m in Sources */,
-				B5362CD025BC1B3600AE189A /* HLLabel.m in Sources */,
 				B5362CB125BBC46D00AE189A /* TYAlertView.m in Sources */,
 				B556CB2725A5CEAE00523758 /* PYAreaStyle.m in Sources */,
 				B55651C525B166CD00CB61D7 /* DLAddressAnimation.m in Sources */,
@@ -1716,7 +1663,6 @@
 				B55650AD25AD418800CB61D7 /* HIKLoadView.m in Sources */,
 				B556CA6E25A5CDD000523758 /* PYEventRiverDemoOptions.m in Sources */,
 				B556CB2625A5CEAE00523758 /* PYAxisPointer.m in Sources */,
-				B5362CD625BC1B3600AE189A /* HLAction.m in Sources */,
 				B556CB3425A5CEAE00523758 /* PYTooltip.m in Sources */,
 				B556CB2425A5CEAE00523758 /* PYAxis.m in Sources */,
 				B556CAF725A5CEAE00523758 /* PYJsonUtil.m in Sources */,
@@ -1733,10 +1679,8 @@
 				B556514625B05E2900CB61D7 /* TestDataModel.m in Sources */,
 				B556CB6F25A83E4A00523758 /* GCDAsyncSocket.m in Sources */,
 				B556520F25B1B33D00CB61D7 /* HistoryChartViewController.m in Sources */,
-				B5362CD525BC1B3600AE189A /* HLImageView.m in Sources */,
 				B556CA6925A5CDD000523758 /* PYTreemapDemoOptions.m in Sources */,
 				B556CA6D25A5CDD000523758 /* PYVennDemoOptions.m in Sources */,
-				B5362CD425BC1B3600AE189A /* HMLabel.m in Sources */,
 				B556CB1425A5CEAE00523758 /* PYTreeMapSeries.m in Sources */,
 				B556CB0C25A5CEAE00523758 /* PYSeries.m in Sources */,
 				B556CB1D25A5CEAE00523758 /* PYGrid.m in Sources */,
@@ -1760,6 +1704,7 @@
 				B556CB3825A5CEAE00523758 /* PYNodes.m in Sources */,
 				B556CB2225A5CEAE00523758 /* PYTextStyle.m in Sources */,
 				B556CA6B25A5CDD000523758 /* PYWorldCloudDemoOptions.m in Sources */,
+				B59850A625C190450057FDCD /* CSQGraphic.m in Sources */,
 				B55651C125B166CD00CB61D7 /* DLInputViewController.m in Sources */,
 				B556509925AC64B000CB61D7 /* NSBundle+PYSearchExtension.m in Sources */,
 				B5362CB925BBC46D00AE189A /* TYBaseAnimation.m in Sources */,
@@ -1789,7 +1734,6 @@
 				B55651C025B166CD00CB61D7 /* DLCustomAlertController.m in Sources */,
 				B556CB0A25A5CEAE00523758 /* PYRadarSeries.m in Sources */,
 				B556CB2A25A5CEAE00523758 /* PYPolar.m in Sources */,
-				B5362CD225BC1B3600AE189A /* HLAlertModel.m in Sources */,
 				B55650B025AD7F9A00CB61D7 /* SetDeviceViewController.m in Sources */,
 				B556CA6C25A5CDD000523758 /* PYLineDemoOptions.m in Sources */,
 				B556CB1B25A5CEAE00523758 /* PYRoamController.m in Sources */,

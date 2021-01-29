@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CheckModel.h"
+#import "Device.h"
 typedef enum:NSInteger{
     TestNotStart,
     TestStarted,
@@ -49,17 +50,19 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)CSQJOrX jOrX;
 @property (nonatomic,assign)CSQShenSuo shenSuo;
 @property(nonatomic,strong)NSArray *savedStationArr;
-@property(nonatomic,strong)CheckModel*checkModel1;
-@property(nonatomic,strong)CheckModel*checkModel2;
-@property(nonatomic,strong)CheckModel*checkModel3;
-@property(nonatomic,strong)CheckModel*checkModel4;
-@property(nonatomic,strong)CheckModel*checkModel5;
+@property(nonatomic,strong,nullable)CheckModel*checkModel1;
+@property(nonatomic,strong,nullable)CheckModel*checkModel2;
+@property(nonatomic,strong,nullable)CheckModel*checkModel3;
+@property(nonatomic,strong,nullable)CheckModel*checkModel4;
+@property(nonatomic,strong,nullable)CheckModel*checkModel5;
 
 @property (nonatomic,assign)BOOL  isDebug;
+@property (nonatomic,assign)BOOL  isX3;
 -(void)syncArr;
 -(void)removeAllData;
 -(void)getSavedStationArr;
 
+-(void)changeReport:(PYOption *)option reportArr:(NSArray*)device maxCount:(int)maxCount;
 @end
 
 NS_ASSUME_NONNULL_END

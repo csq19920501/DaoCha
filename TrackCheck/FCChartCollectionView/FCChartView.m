@@ -17,7 +17,7 @@ static NSInteger kMainCVTag = 19979754;
 /**
  主要渲染CollectionView
  */
-@property (nonatomic,strong)UICollectionView *mainCV;
+
 
 @property (nonatomic,strong)FCChartCollectionViewFlowLayout *mainLayout;
 
@@ -59,8 +59,8 @@ static NSInteger kMainCVTag = 19979754;
 #pragma mark - Public Methods
 
 - (void)reload{
-    self.suspendRow = 0;
-    self.suspendSection = 0;
+//    self.suspendRow = 0;
+//    self.suspendSection = 0;
     self.mainLayout.suspendRowNum = self.suspendRow;
     self.mainLayout.suspendSectionNum = self.suspendSection;
     [self.mainLayout reload];
@@ -102,6 +102,9 @@ static NSInteger kMainCVTag = 19979754;
     return cell;
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    [self.dataSource didSelectItemAtIndexPath:indexPath cellForView:self];
+}
 #pragma mark - FCChartViewDataSource
 
 - (CGSize)sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
