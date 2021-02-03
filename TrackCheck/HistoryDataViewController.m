@@ -131,35 +131,36 @@
     [self presentViewController:customAlertC animation:animation completion:nil];
 }
 - (IBAction)searchClick:(id)sender {
+    
     [HUD showBlocking];
+    __weak typeof(self) weakSelf = self;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    NSString *startTimeStr = [NSString stringWithFormat:@"%@ %@",_startTimeTextField.text,@"00:00:00"];
+    NSDate *startDate = [dateFormatter dateFromString:startTimeStr];
+    NSTimeInterval startTimeInterval = [startDate timeIntervalSince1970];
+    
+    NSString *endTimeStr = [NSString stringWithFormat:@"%@ %@",_endTimeTextField.text,@"23:59:59"];
+    NSDate *endDate = [dateFormatter dateFromString:endTimeStr];
+    NSTimeInterval endTimeInterval = [endDate timeIntervalSince1970];
+    
+    if(startTimeInterval > endTimeInterval){
+      
+             [HUD showAlertWithText:@"开始时间不能早于结束时间"];
+             return;
+    }
+    NSString *stationS = _seleStationBut.titleLabel.text;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     // 异步执行任务创建方法
     dispatch_async(queue, ^{
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-        NSString *startTimeStr = [NSString stringWithFormat:@"%@ %@",_startTimeTextField.text,@"00:00:00"];
-        NSDate *startDate = [dateFormatter dateFromString:startTimeStr];
-        NSTimeInterval startTimeInterval = [startDate timeIntervalSince1970];
-        
-        NSString *endTimeStr = [NSString stringWithFormat:@"%@ %@",_endTimeTextField.text,@"23:59:59"];
-        NSDate *endDate = [dateFormatter dateFromString:endTimeStr];
-        NSTimeInterval endTimeInterval = [endDate timeIntervalSince1970];
-        
-        if(startTimeInterval > endTimeInterval){
-            [HUD showAlertWithText:@"开始时间不能早于结束时间"];
-            return;
-        }
-        
         NSArray <TestDataModel *> * results = [[LPDBManager defaultManager] findModels: [TestDataModel class]
-        where: @"station = '%@' and timeLong > %@ and timeLong < %@",_seleStationBut.titleLabel.text,@(startTimeInterval),@(endTimeInterval)];
-        _dataArray = [NSMutableArray arrayWithArray:results];
+        where: @"station = '%@' and timeLong > %@ and timeLong < %@",stationS,@(startTimeInterval),@(endTimeInterval)];
+        weakSelf.dataArray = [NSMutableArray arrayWithArray:results];
         dispatch_async(dispatch_get_main_queue(), ^{
-              
-            [_tabView reloadDataWithEmptyView];
+            [weakSelf.tabView reloadDataWithEmptyView];
             [HUD hideUIBlockingIndicator];
         });
     });
-  
 }
 -(void)getDatePick{
     DLDateSelectController *dateAlert = [[DLDateSelectController alloc] init];

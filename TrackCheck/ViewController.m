@@ -550,9 +550,7 @@
 //            }])
 //            .formatterEqual(@"(function(params){var date = new Date(params.value[0]);data =  date.getHours() + \':\' + date.getMinutes()+ \':\' + date.getSeconds(); return data + \'<br/>\' + params.value[1] })");
         }])
-        .dataZoomEqual([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
-            dataZoom.showEqual(YES).startEqual(@0);
-        }])
+        
         .legendEqual([PYLegend initPYLegendWithBlock:^(PYLegend *legend) {
             legend.dataEqual(@[@"道岔检测"]);
         }])
@@ -565,7 +563,6 @@
             }])
             .axisLabelEqual([PYAxisLabel initPYAxisLabelWithBlock:^(PYAxisLabel *axisLabel) {
                 axisLabel.formatterEqual(@"(function (value, index) {let hour = new Date(value).getHours();let min = new Date(value).getMinutes();let ss = new Date(value).getSeconds();ss = ss.toString();min = min.toString(); if(min.length <2){min = '0'+min};if(ss.length <2){ss = '0'+ss};return `${hour}:${min}:${ss}`;})");
-                
             }]);
         }])
         .addYAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
@@ -577,6 +574,13 @@
 //            .minEqual(@(-1000))
 //            .maxEqual(@(4000));
         }])
+     
+        .addDataZoom([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
+            dataZoom.showEqual(YES).startEqual(@0).typeEqual(@"inside");
+        }])
+        .addDataZoom([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
+                 dataZoom.showEqual(YES).startEqual(@0).typeEqual(@"slider");
+             }])
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
             series.symbolEqual(@"none")
 //            .symbolSizeEqual(@(0)).showAllSymbolEqual(YES)
@@ -624,7 +628,7 @@
             title.textEqual(titleStr)
             .subtextEqual(@"");
         }])
-        .animationEqual(NO)
+        .animationEqual(YES)
         .gridEqual([PYGrid initPYGridWithBlock:^(PYGrid *grid) {
             grid.xEqual(@40).x2Equal(@40).y2Equal(@80).yEqual(@80);
         }])
@@ -632,8 +636,11 @@
             tooltip.triggerEqual(PYTooltipTriggerAxis);
 //            .formatterEqual(@"(function(params){var date = new Date(params.value[0]);data =  date.getHours() + \':\' + date.getMinutes()+ \':\' + date.getSeconds(); return data + \'<br/>\' + params.value[1] })");
         }])
-        .dataZoomEqual([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
-            dataZoom.showEqual(YES).startEqual(@0);
+        .addDataZoom([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
+            dataZoom.showEqual(YES).startEqual(@0).typeEqual(@"slider");
+        }])
+        .addDataZoom([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
+            dataZoom.showEqual(YES).startEqual(@0).typeEqual(@"inside");
         }])
         .legendEqual([PYLegend initPYLegendWithBlock:^(PYLegend *legend) {
             legend.dataEqual(@[@"定位锁闭力",@"反位锁闭力"]);

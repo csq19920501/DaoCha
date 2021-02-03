@@ -54,18 +54,20 @@ PYPropertyEqualImpTemplate(PYOption, PYToolbox *, toolbox);
 PYPropertyEqualImpTemplate(PYOption, PYTooltip *, tooltip);
 PYPropertyEqualImpTemplate(PYOption, PYLegend *, legend);
 PYPropertyEqualImpTemplate(PYOption, PYDataRange *, dataRange);
-PYPropertyEqualImpTemplate(PYOption, PYDataZoom *, dataZoom);
+//PYPropertyEqualImpTemplate(PYOption, PYDataZoom *, dataZoom);
 PYPropertyEqualImpTemplate(PYOption, PYRoamController *, roamController);
 PYPropertyEqualImpTemplate(PYOption, PYGrid *, grid);
 PYPropertyEqualImpTemplate(PYOption, NSMutableArray *, xAxis);
 PYPropertyEqualImpTemplate(PYOption, NSMutableArray *, yAxis);
 PYPropertyEqualImpTemplate(PYOption, NSMutableArray *, series);
+PYPropertyEqualImpTemplate(PYOption, NSMutableArray *, dataZoom);
 PYPropertyEqualImpTemplate(PYOption, NSMutableArray *, options);
 PYPropertyEqualImpTemplate(PYOption, CSQGraphic *, graphic);
 
 PYAddMethodImpTemplate(PYOption, PYAxis, XAxis, xAxis);
 PYAddMethodImpTemplate(PYOption, PYAxis, YAxis, yAxis);
 PYAddMethodImpTemplate(PYOption, PYSeries, Series, series);
+PYAddMethodImpTemplate(PYOption, PYDataZoom, DataZoom, dataZoom);
 PYAddMethodImpTemplate(PYOption, PYPolar, Polar, polar);
 PYAddMethodImpTemplate(PYOption, PYOption, Options, options);
 

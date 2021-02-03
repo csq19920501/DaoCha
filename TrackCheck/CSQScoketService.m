@@ -217,7 +217,7 @@
                 NSMutableArray *checkArr = [NSMutableArray array];
                 [reciveataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     long revData = (long)strtoul([obj UTF8String],0,16);  //16进制字符串转换成long
-                    revData = revData - 85317;
+                    revData = revData - 32768;  //  85317
                     if(DEVICETOOL.isX3){
                         revData = revData * 3;
                     }

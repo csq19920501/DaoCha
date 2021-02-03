@@ -30,13 +30,14 @@
 @property (nonatomic, strong) PYTooltip *tooltip;
 @property (nonatomic, strong) PYLegend *legend;
 @property (nonatomic, strong) PYDataRange *dataRange;
-@property (nonatomic, strong) PYDataZoom *dataZoom;
+//@property (nonatomic, strong) PYDataZoom *dataZoom;
 @property (nonatomic, strong) PYRoamController *roamController;
 @property (nonatomic, strong) PYGrid *grid;
 @property (nonatomic, strong) CSQGraphic *graphic;
 @property (nonatomic, strong) NSMutableArray<PYAxis *> *xAxis;
 @property (nonatomic, strong) NSMutableArray<PYAxis *> *yAxis;
 @property (nonatomic, strong) NSMutableArray<PYSeries *> *series;
+@property (nonatomic, strong) NSMutableArray<PYDataZoom *> *dataZoom;
 @property (nonatomic, strong) NSMutableArray<PYOption *> *options;
 
 PYInitializerTemplate(PYOption, option);
@@ -54,18 +55,20 @@ PYPropertyEqualTemplate(PYOption, PYToolbox *, toolbox);
 PYPropertyEqualTemplate(PYOption, PYTooltip *, tooltip);
 PYPropertyEqualTemplate(PYOption, PYLegend *, legend);
 PYPropertyEqualTemplate(PYOption, PYDataRange *, dataRange);
-PYPropertyEqualTemplate(PYOption, PYDataZoom *, dataZoom);
+//PYPropertyEqualTemplate(PYOption, PYDataZoom *, dataZoom);
 PYPropertyEqualTemplate(PYOption, PYRoamController *, roamController);
 PYPropertyEqualTemplate(PYOption, PYGrid *, grid);
 PYPropertyEqualTemplate(PYOption, NSMutableArray *, xAxis);
 PYPropertyEqualTemplate(PYOption, NSMutableArray *, yAxis);
 PYPropertyEqualTemplate(PYOption, NSMutableArray *, series);
+PYPropertyEqualTemplate(PYOption, NSMutableArray *, dataZoom);
 PYPropertyEqualTemplate(PYOption, NSMutableArray *, options);
 
 
 PYAddMethodTemplate(PYOption, PYAxis, XAxis, xAxis);
 PYAddMethodTemplate(PYOption, PYAxis, YAxis, yAxis);
 PYAddMethodTemplate(PYOption, PYSeries, Series, series);
+PYAddMethodTemplate(PYOption, PYDataZoom, DataZoom, dataZoom);
 PYAddMethodTemplate(PYOption, PYPolar, Polar, polar);
 PYAddMethodTemplate(PYOption, PYOption, Options, options);
 

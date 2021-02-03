@@ -57,7 +57,17 @@
     NSNumber *time2 = [NSNumber numberWithLongLong:currentTime+100];
     saveDataArr = [NSMutableArray arrayWithArray:@[@[time,@(0)],@[time2,@(0)]]];
     }
-
+//    saveDataArr = [NSMutableArray array];
+//    for (int i =0; i<_dataModel.dataArr.count; i++) {
+//        NSArray *data =_dataModel.dataArr[i];
+//        NSNumber *num = data[1];
+//        long dataLong = num.longValue;
+//        if(dataLong>100000 || dataLong<-100000){
+//            dataLong = dataLong/3 + 85317 - 32768;
+//        }
+//        [saveDataArr addObject:@[data[0],@(dataLong)]];
+//    }
+    
     NSString *titleStr = [NSString stringWithFormat:@"%@%@",_dataModel.deviceType,@"曲线图"];
 
     PYOption *option =  [PYOption initPYOptionWithBlock:^(PYOption *option) {
@@ -67,21 +77,24 @@
         }])
         .animationEqual(NO)
         .gridEqual([PYGrid initPYGridWithBlock:^(PYGrid *grid) {
-            grid.xEqual(@40).x2Equal(@40).y2Equal(@80).yEqual(@80);
+            grid.xEqual(@60).x2Equal(@40).y2Equal(@80).yEqual(@80);
         }])
         .tooltipEqual([PYTooltip initPYTooltipWithBlock:^(PYTooltip *tooltip) {
             tooltip.triggerEqual(PYTooltipTriggerAxis);
 //            .formatterEqual(@"(function(params){var date = new Date(params.value[0]);data =  date.getHours() + \':\' + date.getMinutes()+ \':\' + date.getSeconds(); return data + \'<br/>\' + params.value[1] })");
         }])
-        .dataZoomEqual([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
-            dataZoom.showEqual(YES).startEqual(@0);
+        .addDataZoom([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
+            dataZoom.showEqual(YES).startEqual(@0).typeEqual(@"slider");
+        }])
+        .addDataZoom([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
+            dataZoom.showEqual(YES).startEqual(@0).typeEqual(@"inside");
         }])
         .legendEqual([PYLegend initPYLegendWithBlock:^(PYLegend *legend) {
             legend.dataEqual(@[titleStr]);
         }])
         .addXAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
             axis.typeEqual(PYAxisTypeTime)
-            .splitNumberEqual(@8)
+            .splitNumberEqual(@6)
             .scaleEqual(YES)
             .splitLineEqual([PYAxisSplitLine initPYAxisSplitLineWithBlock:^(PYAxisSplitLine *splitLine) {
                 splitLine.showEqual(NO);
@@ -139,14 +152,17 @@
         }])
         .animationEqual(NO)
         .gridEqual([PYGrid initPYGridWithBlock:^(PYGrid *grid) {
-            grid.xEqual(@40).x2Equal(@40).y2Equal(@80).yEqual(@80);
+            grid.xEqual(@60).x2Equal(@40).y2Equal(@80).yEqual(@80);
         }])
         .tooltipEqual([PYTooltip initPYTooltipWithBlock:^(PYTooltip *tooltip) {
             tooltip.triggerEqual(PYTooltipTriggerAxis);
 //            .formatterEqual(@"(function(params){var date = new Date(params.value[0]);data =  date.getHours() + \':\' + date.getMinutes()+ \':\' + date.getSeconds(); return data + \'<br/>\' + params.value[1] })");
         }])
-        .dataZoomEqual([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
-            dataZoom.showEqual(YES).startEqual(@0);
+        .addDataZoom([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
+            dataZoom.showEqual(YES).startEqual(@0).typeEqual(@"slider");
+        }])
+        .addDataZoom([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
+            dataZoom.showEqual(YES).startEqual(@0).typeEqual(@"inside");
         }])
         .legendEqual([PYLegend initPYLegendWithBlock:^(PYLegend *legend) {
             legend.dataEqual(@[@"定位锁闭力",@"反位锁闭力"]);

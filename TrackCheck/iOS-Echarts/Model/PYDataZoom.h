@@ -17,7 +17,9 @@
  *
  */
 @interface PYDataZoom : NSObject
-
+@property (nonatomic, copy) NSString *type;
+@property (nonatomic, copy) NSString *filterMode;
+@property (nonatomic, strong) NSNumber *throttle;
 @property (nonatomic, strong) NSNumber *zlevel;
 @property (nonatomic, strong) NSNumber *z;
 @property (nonatomic, assign) BOOL show;
@@ -41,6 +43,9 @@
 
 PYInitializerTemplate(PYDataZoom, dataZoom);
 
+PYPropertyEqualTemplate(PYDataZoom, NSString *, filterMode);
+PYPropertyEqualTemplate(PYDataZoom, NSString *, type);
+PYPropertyEqualTemplate(PYDataZoom, NSNumber *, throttle);
 PYPropertyEqualTemplate(PYDataZoom, NSNumber *, zlevel);
 PYPropertyEqualTemplate(PYDataZoom, NSNumber *, z);
 PYPropertyEqualTemplate(PYDataZoom, BOOL, show);

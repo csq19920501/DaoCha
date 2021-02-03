@@ -29,13 +29,17 @@
         _showDetail = YES;
         _realtime = NO;
         _zoomLock = NO;
+        _throttle = @(1);
+        _filterMode = @"filter";
     }
     return self;
 }
 
 PYInitializerImpTemplate(PYDataZoom);
-
+PYPropertyEqualImpTemplate(PYDataZoom, NSString *, filterMode);
+PYPropertyEqualImpTemplate(PYDataZoom, NSString *, type);
 PYPropertyEqualImpTemplate(PYDataZoom, NSNumber *, zlevel);
+PYPropertyEqualImpTemplate(PYDataZoom, NSNumber *, throttle);
 PYPropertyEqualImpTemplate(PYDataZoom, NSNumber *, z);
 PYPropertyEqualImpTemplate(PYDataZoom, BOOL, show);
 PYPropertyEqualImpTemplate(PYDataZoom, PYOrient, orient);
