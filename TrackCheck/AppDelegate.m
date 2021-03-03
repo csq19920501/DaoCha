@@ -32,12 +32,12 @@
           if(currentTime - saveTime >= 8 *3600){
               NSLog(@"SetAddressViewController");
               SetAddressViewController *homeVC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]  instantiateViewControllerWithIdentifier:@"SetAddressViewController"];
-              UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:homeVC];
+              UKNavigationViewController *nav = [[UKNavigationViewController alloc]initWithRootViewController:homeVC];
               [self.window setRootViewController:nav];
           }else{
               NSLog(@"SetDeviceViewController");
               SetDeviceViewController *homeVC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]  instantiateViewControllerWithIdentifier:@"SetDeviceViewController"];
-              UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:homeVC];
+              UKNavigationViewController *nav = [[UKNavigationViewController alloc]initWithRootViewController:homeVC];
    
               [self.window setRootViewController:nav];
           }
@@ -46,22 +46,25 @@
           
       }
 
-    
-    self.scoketThread = [[NSThread alloc]initWithTarget:self selector:@selector(startSocket) object:nil];
-    [self.scoketThread start];
-    
+   
+    [self preSocke];
     long revData = (long)strtoul([@"8000" UTF8String],0,16);  //16进制字符串转换成long
     NSLog(@"%ld",revData);
 
      [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     return YES;
 }
-
+-(void)preSocke{
+    [self.scoketThread cancel];
+    self.scoketThread = nil;
+    self.scoketThread = [[NSThread alloc]initWithTarget:self selector:@selector(startSocket) object:nil];
+       [self.scoketThread start];
+}
 -(void)startSocket{
     CSQScoketService *socketSerview = [CSQScoketService shareInstance];
-               //开始服务
+    //开始服务
     [socketSerview start];
-               
+        
     [[NSRunLoop currentRunLoop]addPort:[NSPort port] forMode:NSDefaultRunLoopMode];
     [[NSRunLoop currentRunLoop]run];//目的让服务器不停止//循环运行
 }

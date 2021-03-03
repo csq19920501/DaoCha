@@ -236,29 +236,20 @@
                     </view>
                     <navigationItem key="navigationItem" title="阻力转换" id="LF3-sc-4ka">
                         <barButtonItem key="leftBarButtonItem" title="杭州东站108岔路" id="DzU-rj-7hf">
-                            <color key="tintColor" red="0.0109061205" green="0.70093407780000005" blue="0.99422856370000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="clickLeft:" destination="BYZ-38-t0r" id="xXq-dg-ucK"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem title="报表" id="bMW-UR-TXc">
-                                <color key="tintColor" red="0.0109061205" green="0.70093407780000005" blue="0.99422856370000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <segue destination="Htp-Ue-l1N" kind="show" id="1y8-sS-i2f"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="存档" id="4DQ-BZ-A5B">
-                                <color key="tintColor" red="0.0109061205" green="0.70093407780000005" blue="0.99422856370000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="showSaveData:" destination="BYZ-38-t0r" id="Tkm-e9-qnU"/>
                                     <segue destination="eJd-OE-y6I" kind="show" id="B2n-nJ-t0q"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="X1" width="45" id="SYc-qv-2QO">
-                                <color key="tintColor" red="0.0109061205" green="0.70093407780000005" blue="0.99422856370000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="X3click:" destination="BYZ-38-t0r" id="8HN-Nq-3Zc"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -266,7 +257,6 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="KEchartView4" destination="KIw-p6-ua1" id="kNJ-Xr-LN9"/>
-                        <outlet property="X3But" destination="SYc-qv-2QO" id="Swg-ad-ql1"/>
                         <outlet property="changeBut" destination="Mre-Af-Var" id="I7r-AF-YI6"/>
                         <outlet property="chartViewBackV" destination="Nl9-wf-EM9" id="tP4-z8-M2G"/>
                         <outlet property="endBut" destination="q6H-6l-g5c" id="wn9-wR-pap"/>
@@ -405,7 +395,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DFv-LG-lUK">
-                                <rect key="frame" x="0.0" y="181" width="768" height="793"/>
+                                <rect key="frame" x="0.0" y="181" width="768" height="843"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="HistoryCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HistoryCell" rowHeight="84" id="3Wy-Fq-nmQ" customClass="HistoryCell">
@@ -724,7 +714,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="K8Y-3D-fsy"/>
                     </view>
-                    <navigationItem key="navigationItem" title="测试地点设置" largeTitleDisplayMode="always" id="NAG-T7-czQ"/>
+                    <navigationItem key="navigationItem" title="测试地点设置" largeTitleDisplayMode="always" id="NAG-T7-czQ">
+                        <rightBarButtonItems>
+                            <barButtonItem title="报表" id="sb0-cQ-nul">
+                                <connections>
+                                    <segue destination="Htp-Ue-l1N" kind="show" id="zNW-Wz-veH"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="存档" id="5yx-n0-cwk">
+                                <connections>
+                                    <segue destination="eJd-OE-y6I" kind="show" id="haj-Bh-83x"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
                         <outlet property="daoChaTF" destination="gob-CA-iVb" id="xjj-93-Ctk"/>
                         <outlet property="daoChaTagsView" destination="PeP-Ce-m7W" id="KsL-xq-stW"/>
@@ -739,7 +742,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDb-oZ-mel" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-40.625" y="-63.281249999999993"/>
+            <point key="canvasLocation" x="-81" y="-16"/>
         </scene>
         <!--Set Device View Controller-->
         <scene sceneID="K01-OU-OLC">
@@ -1124,6 +1127,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="6ta-Vo-11U">
                         <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="Tun-N5-DYc">
+                            <connections>
+                                <action selector="clickLeft:" destination="wei-fa-z34" id="z7h-pS-8Gg"/>
+                            </connections>
+                        </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="emY-gY-ttd">
                             <rect key="frame" x="311.5" y="9" width="145" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1135,15 +1143,27 @@
                                 <action selector="sigmentChange:" destination="wei-fa-z34" eventType="valueChanged" id="NtH-BD-lkZ"/>
                             </connections>
                         </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="oqd-Cn-4l5">
-                            <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="FPd-DV-oBd">
-                                <rect key="frame" x="697" y="9.5" width="51" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <rightBarButtonItems>
+                            <barButtonItem title="报表" id="eYk-h5-dsQ">
                                 <connections>
-                                    <action selector="switchDebug:" destination="wei-fa-z34" eventType="valueChanged" id="Urn-e3-wIh"/>
+                                    <segue destination="Htp-Ue-l1N" kind="show" id="52R-ZO-lWM"/>
                                 </connections>
-                            </switch>
-                        </barButtonItem>
+                            </barButtonItem>
+                            <barButtonItem title="存档" id="tEo-OA-P3J">
+                                <connections>
+                                    <segue destination="eJd-OE-y6I" kind="show" id="mC2-eA-dA6"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="oqd-Cn-4l5">
+                                <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="FPd-DV-oBd">
+                                    <rect key="frame" x="608" y="9.5" width="51" height="31"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <connections>
+                                        <action selector="switchDebug:" destination="wei-fa-z34" eventType="valueChanged" id="Urn-e3-wIh"/>
+                                    </connections>
+                                </switch>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="but1" destination="PrC-eF-8vv" id="saY-7X-2X6"/>
@@ -1156,6 +1176,7 @@
                         <outlet property="debugSwitch" destination="FPd-DV-oBd" id="suz-9S-Yls"/>
                         <outlet property="layerLabel1" destination="AId-H2-Dvc" id="cCU-pb-d7e"/>
                         <outlet property="layerLabel2" destination="KDk-o8-lfa" id="ZiX-8B-8wu"/>
+                        <outlet property="leftBarItem" destination="Tun-N5-DYc" id="SRr-fm-62O"/>
                         <outlet property="sigmentController" destination="emY-gY-ttd" id="o0c-bA-1AL"/>
                         <outlet property="sigmet2BackView" destination="N7B-Gh-sgW" id="dJ0-aw-9qE"/>
                         <outlet property="sureBut" destination="mUy-0w-maJ" id="YVy-ic-02U"/>
@@ -1175,7 +1196,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FzO-eR-vRv">
-                                <rect key="frame" x="0.0" y="50" width="768" height="924"/>
+                                <rect key="frame" x="0.0" y="50" width="768" height="974"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                         </subviews>
@@ -1201,6 +1222,11 @@
                                 <action selector="sigmentChange:" destination="Htp-Ue-l1N" eventType="valueChanged" id="Tvp-gK-mtq"/>
                             </connections>
                         </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" title="导出" id="S5Q-Fb-75S">
+                            <connections>
+                                <action selector="export:" destination="Htp-Ue-l1N" id="Pm3-dc-Ttf"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="safeView" destination="FzO-eR-vRv" id="0x9-PA-YmU"/>
@@ -1208,7 +1234,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a5h-SW-8bU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1309" y="-791"/>
+            <point key="canvasLocation" x="888" y="-908"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tQs-P5-1ml">
@@ -1330,4 +1356,8 @@
         <image name="未勾选" width="45" height="45"/>
         <image name="选择-勾选" width="45" height="45"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="52R-ZO-lWM"/>
+        <segue reference="mC2-eA-dA6"/>
+    </inferredMetricsTieBreakers>
 </document>

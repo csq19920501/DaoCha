@@ -52,7 +52,16 @@
     [_searchBut setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     _tabView.dataSetDelegate = self;
     _firstLoad = YES;
+    
+//    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backBarButtonItemAction)];
+//       self.navigationItem.leftBarButtonItem = backBarButtonItem;
+        
 }
+
+//    - (void)backBarButtonItemAction
+//    {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     if(_firstLoad){
@@ -157,6 +166,7 @@
         where: @"station = '%@' and timeLong > %@ and timeLong < %@",stationS,@(startTimeInterval),@(endTimeInterval)];
         weakSelf.dataArray = [NSMutableArray arrayWithArray:results];
         dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tabView reloadData];//为什么重复添加reload 下面方法刷新太慢
             [weakSelf.tabView reloadDataWithEmptyView];
             [HUD hideUIBlockingIndicator];
         });

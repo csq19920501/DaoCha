@@ -10,12 +10,12 @@
 #import "FCChartView.h"
 #import "FCChartCollectionViewCell.h"
 #import "ReportModel.h"
-
+#import "xlsxwriter.h"
 #import "DLCustomAlertController.h"
 #import "DLDateSelectController.h"
 #import "DLDateAnimation.h"
 
-@interface ReportViewController ()<FCChartViewDataSource,UITextViewDelegate>
+@interface ReportViewController ()<FCChartViewDataSource,UITextViewDelegate,UIDocumentPickerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *safeView;
 @property (nonatomic,strong)FCChartView *chartV;
 @property (nonatomic,strong)FCChartView *chartV2;
@@ -33,8 +33,26 @@
 @property (nonatomic ,strong) UITextView *stationV;
 @property (nonatomic ,strong) UITextView *stationV3;
 @property (nonatomic ,strong) UITextView *timeV;
+
+// 已加载到的行数
+@property (nonatomic, assign) int rowNum;
+@property (nonatomic, strong) UIDocumentPickerViewController *documentPickerVC;
 @end
 
+static lxw_workbook  *workbook;
+static lxw_worksheet *worksheet;
+
+static lxw_format *titleformat;// 各表格标题栏的格式
+static lxw_format *leftcontentformat;// 最左侧一列内容的样式
+static lxw_format *contentformat;// 内容的样式
+static lxw_format *rightcontentformat;// 最右侧一列内容的样式
+static lxw_format *leftsumformat;// 最左侧一列小计的样式
+static lxw_format *sumformat;// 小计的样式
+static lxw_format *rightsumformat;// 最右侧一列小计的样式
+
+static lxw_format *headerFormat;// 最右侧一列小计的样式
+static lxw_format *nameFormat;// 最右侧一列小计的样式
+static int width = 15;
 @implementation ReportViewController
 
 - (void)viewDidLoad {
@@ -47,8 +65,47 @@
        dateFormatter.dateFormat = @"yyyy-MM-dd";
     _timeStr = [dateFormatter stringFromDate:[NSDate date]];
     _stationStr = DEVICETOOL.stationStr;
+//    [self setupFormat];
+    
+//    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backBarButtonItemAction)];
+//    self.navigationItem.leftBarButtonItem = backBarButtonItem;
     
 }
+
+//- (void)backBarButtonItemAction
+//{
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
+- (IBAction)export:(id)sender {
+//    if(_dataArray1.count == 0 && _dataArray2.count == 0 && _dataArray3.count == 0){
+//        [HUD showAlertWithText:@"查询结果无报告"];
+//        return;
+//    }
+    
+        self.rowNum = 0;
+        // 文件保存的路径
+        NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *filename = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"report_%@_%@.xlsx",_stationStr,_timeStr]];
+        NSLog(@"filename_path:%@",filename);
+        workbook  = workbook_new([filename UTF8String]);// 创建新xlsx文件，路径需要转成c字符串
+        worksheet = workbook_add_worksheet(workbook, NULL);// 创建sheet
+        [self setupFormat];
+        
+        [self creatReport];
+        [self creatReport2];
+        [self creatReport3];
+        
+        workbook_close(workbook);
+        
+        UIDocumentPickerViewController *documentPickerVC = [[UIDocumentPickerViewController alloc] initWithURL:[NSURL fileURLWithPath:filename] inMode:UIDocumentPickerModeExportToService];
+        // 设置代理
+        documentPickerVC.delegate = self;
+        // 设置模态弹出方式
+        documentPickerVC.modalPresentationStyle = UIModalPresentationFormSheet;
+        [self presentViewController:documentPickerVC animated:YES completion:nil];
+    
+}
+
 - (void)searchClick:(id)sender {
     [HUD showBlocking];
     [_dataArray1 removeAllObjects];
@@ -236,7 +293,7 @@
                     ){
                 cell.text = @"反位";
             }
-            
+            cell.textColor = [UIColor blackColor];
         }else{
             if (indexPath.section%2) {
                 cell.textColor = [UIColor redColor];
@@ -440,6 +497,7 @@
         else if(indexPath.section == section + 3 && indexPath.item == 12){
             cell.text = @"稳态值";
         }
+        cell.textColor = [UIColor blackColor];
     }else{
         
             if (indexPath.section%2) {
@@ -804,7 +862,7 @@
 - (FCChartView *)chartV{
     
     if (!_chartV) {
-        NSInteger allHeight = self.safeView.frame.size.height;
+        NSInteger allHeight = self.safeView.frame.size.height ;
         NSInteger a = (int)(allHeight - 240)/40;
         NSInteger bodyHeight = a/2*40;
         _chartV = [[FCChartView alloc] initWithFrame:CGRectMake(0, 0, self.safeView.frame.size.width, bodyHeight + 150) type:FCChartViewTypeOnlySectionFixation dataSource:self suspendSection:4];
@@ -818,11 +876,11 @@
 - (FCChartView *)chartV2{
    
     if (!_chartV2) {
-        NSInteger allHeight = self.safeView.frame.size.height;
+        NSInteger allHeight = self.safeView.frame.size.height ;
            NSInteger a = (int)(allHeight - 240)/40;
-           NSInteger bodyHeight = a/2*40;
+           NSInteger bodyHeight = a/2*40 ;
         
-        _chartV2 = [[FCChartView alloc] initWithFrame:CGRectMake(0, bodyHeight + 150, self.safeView.frame.size.width, bodyHeight + 90) type:FCChartViewTypeOnlySectionFixation dataSource:self suspendSection:3];
+        _chartV2 = [[FCChartView alloc] initWithFrame:CGRectMake(0, bodyHeight + 150, self.safeView.frame.size.width, bodyHeight + 90 + 40) type:FCChartViewTypeOnlySectionFixation dataSource:self suspendSection:3];
 //        _chartV2.suspendSection = 3;
         [_chartV2 registerClass:[FCChartCollectionViewCell class]];
     }
@@ -832,10 +890,10 @@
    
     if (!_chartV3) {
         NSInteger allHeight = self.safeView.frame.size.height;
-           NSInteger a = (int)(allHeight - 240)/40;
-           NSInteger bodyHeight = a/2*40;
+           NSInteger a = (int)(allHeight - 150)/40;
+           NSInteger bodyHeight = a*40;
         
-        _chartV3 = [[FCChartView alloc] initWithFrame:CGRectMake(0, 0, self.safeView.frame.size.width,allHeight) type:FCChartViewTypeOnlySectionFixation dataSource:self suspendSection:4];
+        _chartV3 = [[FCChartView alloc] initWithFrame:CGRectMake(0, 0, self.safeView.frame.size.width,bodyHeight + 150) type:FCChartViewTypeOnlySectionFixation dataSource:self suspendSection:4];
 //        _chartV2.suspendSection = 3;
         [_chartV3 registerClass:[FCChartCollectionViewCell class]];
     }
@@ -880,6 +938,310 @@
         [textView setContentInset:offset];
         
     }
+}
+
+// 单元格样式
+-(void)setupFormat{
+    titleformat = workbook_add_format(workbook);
+    format_set_bold(titleformat);
+    format_set_font_size(titleformat, 10);
+    format_set_align(titleformat, LXW_ALIGN_CENTER);
+    format_set_align(titleformat, LXW_ALIGN_VERTICAL_CENTER);//垂直居中
+    format_set_border(titleformat, LXW_BORDER_MEDIUM);// 边框（四周）：中宽边框
+    
+    leftcontentformat = workbook_add_format(workbook);
+    format_set_font_size(leftcontentformat, 10);
+    format_set_left(leftcontentformat, LXW_BORDER_MEDIUM);// 左边框：中宽边框
+    format_set_bottom(leftcontentformat, LXW_BORDER_THIN);// 下边框：双线边框
+    format_set_align(leftcontentformat, LXW_ALIGN_CENTER);
+    
+    contentformat = workbook_add_format(workbook);
+    format_set_font_size(contentformat, 10);
+    format_set_left(contentformat, LXW_BORDER_THIN);// 左边框：双线边框
+    format_set_bottom(contentformat, LXW_BORDER_THIN);// 下边框：双线边框
+    format_set_right(contentformat, LXW_BORDER_THIN);// 右边框：双线边框
+    format_set_align(contentformat, LXW_ALIGN_CENTER);
+    
+    rightcontentformat = workbook_add_format(workbook);
+    format_set_font_size(rightcontentformat, 10);
+    format_set_bottom(rightcontentformat, LXW_BORDER_THIN);// 下边框：双线边框
+    format_set_right(rightcontentformat, LXW_BORDER_MEDIUM);// 右边框：中宽边框
+    format_set_num_format(rightcontentformat, "￥#,##0.00");
+    format_set_align(rightcontentformat, LXW_ALIGN_CENTER);
+    
+    leftsumformat = workbook_add_format(workbook);
+    format_set_font_size(leftsumformat, 10);
+    format_set_left(leftsumformat, LXW_BORDER_MEDIUM);// 左边框：中宽边框
+    format_set_bottom(leftsumformat, LXW_BORDER_MEDIUM);// 下边框：中宽边框
+    
+    sumformat = workbook_add_format(workbook);
+    format_set_font_size(sumformat, 10);
+    format_set_align(sumformat, LXW_ALIGN_RIGHT);// 右对齐
+    format_set_left(sumformat, LXW_BORDER_DOUBLE);// 左边框：双线边框
+    format_set_bottom(sumformat, LXW_BORDER_MEDIUM);// 下边框：中宽边框
+    format_set_right(sumformat, LXW_BORDER_DOUBLE);// 右边框：双线边框
+    
+    rightsumformat = workbook_add_format(workbook);
+    format_set_font_size(rightsumformat, 10);
+    format_set_align(rightsumformat, LXW_ALIGN_RIGHT);// 右对齐
+    format_set_bottom(rightsumformat, LXW_BORDER_MEDIUM);// 下边框：中宽边框
+    format_set_right(rightsumformat, LXW_BORDER_MEDIUM);// 右边框：中宽边框
+    format_set_num_format(rightsumformat, "￥#,##0.00");
+    
+    // 这个表格header标题格式
+    headerFormat = workbook_add_format(workbook);
+    format_set_font_size(headerFormat, 12);
+    format_set_bold(headerFormat);
+    format_set_align(headerFormat, LXW_ALIGN_CENTER);//水平居中
+    format_set_align(headerFormat, LXW_ALIGN_VERTICAL_CENTER);//垂直居中
+    
+    // 姓名、报销日期格式
+    nameFormat = workbook_add_format(workbook);
+    format_set_font_size(nameFormat, 10);
+    format_set_bold(nameFormat);
+}
+
+-(void)creatReport{
+    // 设置列宽
+        worksheet_set_column(worksheet, 0, 0, width, NULL);// B、C两列宽度
+        worksheet_set_column(worksheet, 1, 10, width * 0.5, NULL);// D列宽度
+        worksheet_set_column(worksheet, 11, 12, width * 0.8, NULL);// D列宽度
+        
+    //    worksheet_write_string(worksheet, self.rowNum, 2, "月报销申请表", headerFormat);
+        worksheet_merge_range(worksheet, self.rowNum, 0, self.rowNum, 12, [[NSString stringWithFormat:@"%@道岔转换力定扳反测试表",_stationStr] cStringUsingEncoding:NSUTF8StringEncoding], headerFormat);
+        worksheet_merge_range(worksheet, ++self.rowNum, 11, self.rowNum, 12, [_timeStr cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+        worksheet_merge_range(worksheet, ++self.rowNum, 0, self.rowNum+2, 0, "时间(时分秒)", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 1, self.rowNum+2, 1, "道岔号", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 2, self.rowNum+2, 2, "牵引号", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 3, self.rowNum, 10, "定扳反(正常转换)", titleformat);
+        
+        worksheet_merge_range(worksheet, self.rowNum, 11, self.rowNum+1, 12, "定扳反(受阻空转)(KN)", titleformat);
+        
+        worksheet_merge_range(worksheet, ++self.rowNum, 3, self.rowNum, 4, "解锁段(KN)", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 5, self.rowNum, 6, "转换段(KN)", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 7, self.rowNum, 8, "闭锁段(KN)", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 9, self.rowNum, 10, "全段(KN)", titleformat);
+        
+        worksheet_write_string(worksheet, ++self.rowNum, 3, "峰值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 4, "均值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 5, "峰值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 6, "均值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 7, "峰值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 8, "均值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 9, "峰值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 10, "均值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 11, "峰值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 12, "稳态值", titleformat);
+        
+        for (int i = 0; i < _dataArray1.count; i++) {
+            ReportModel *report = _dataArray[i];
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            dateFormatter.dateFormat = @"HH:mm:ss";
+            NSString *startDate = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:report.timeLong]];
+            startDate = @"timeLong";
+            worksheet_write_string(worksheet, ++self.rowNum, 0, [startDate cStringUsingEncoding:NSUTF8StringEncoding], leftcontentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 1,  [report.roadSwitch cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 2,  [report.deviceType cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+             worksheet_write_string(worksheet, self.rowNum, 3,  [[self changeStr:report.open_Top] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 4,  [[self changeStr:report.open_mean] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 5,  [[self changeStr:report.transform_Top] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 6,  [[self changeStr:report.transform_mean] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 7,  [[self changeStr:report.close_Top] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 8,  [[self changeStr:report.close_mean] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 9,  [[self changeStr:report.all_Top] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 10,  [[self changeStr:report.all_mean] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 11,  [[self changeStr:report.blocked_Top] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 12,  [[self changeStr:report.blocked_stable] cStringUsingEncoding:NSUTF8StringEncoding], rightcontentformat);
+            
+            
+    //        worksheet_write_number(worksheet, self.rowNum, 3, [dic[@"money"] doubleValue], rightcontentformat);
+        }
+    worksheet_write_string(worksheet, ++self.rowNum, 0, "", NULL);//空白行
+    worksheet_write_string(worksheet, ++self.rowNum, 0, "", NULL);//空白行
+}
+
+-(void)creatReport2{
+    // 设置列宽
+        worksheet_set_column(worksheet, 0, 0, width, NULL);// B、C两列宽度
+        worksheet_set_column(worksheet, 1, 10, width * 0.5, NULL);// D列宽度
+        worksheet_set_column(worksheet, 11, 12, width * 0.8, NULL);// D列宽度
+        
+        worksheet_merge_range(worksheet, self.rowNum, 0, self.rowNum, 12, [[NSString stringWithFormat:@"%@道岔转换力反扳定测试表",_stationStr] cStringUsingEncoding:NSUTF8StringEncoding], headerFormat);
+        worksheet_merge_range(worksheet, ++self.rowNum, 11, self.rowNum, 12, [_timeStr cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+        worksheet_merge_range(worksheet, ++self.rowNum, 0, self.rowNum+2, 0, "时间(时分秒)", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 1, self.rowNum+2, 1, "道岔号", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 2, self.rowNum+2, 2, "牵引号", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 3, self.rowNum, 10, "反扳定(正常转换)", titleformat);
+        
+        worksheet_merge_range(worksheet, self.rowNum, 11, self.rowNum+1, 12, "反扳定(受阻空转)(KN)", titleformat);
+        
+        worksheet_merge_range(worksheet, ++self.rowNum, 3, self.rowNum, 4, "解锁段(KN)", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 5, self.rowNum, 6, "转换段(KN)", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 7, self.rowNum, 8, "闭锁段(KN)", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 9, self.rowNum, 10, "全段(KN)", titleformat);
+        
+        worksheet_write_string(worksheet, ++self.rowNum, 3, "峰值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 4, "均值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 5, "峰值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 6, "均值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 7, "峰值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 8, "均值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 9, "峰值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 10, "均值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 11, "峰值", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 12, "稳态值", titleformat);
+        
+        for (int i = 0; i < _dataArray2.count; i++) {
+            ReportModel *report = _dataArray[i];
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            dateFormatter.dateFormat = @"HH:mm:ss";
+            NSString *startDate = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:report.timeLong]];
+            startDate = @"timeLong";
+            worksheet_write_string(worksheet, ++self.rowNum, 0, [startDate cStringUsingEncoding:NSUTF8StringEncoding], leftcontentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 1,  [report.roadSwitch cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 2,  [report.deviceType cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+             worksheet_write_string(worksheet, self.rowNum, 3,  [[self changeStr:report.open_Top] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 4,  [[self changeStr:report.open_mean] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum,5,  [[self changeStr:report.transform_Top] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 6,  [[self changeStr:report.transform_mean] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 7,  [[self changeStr:report.close_Top] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+
+            worksheet_write_string(worksheet, self.rowNum, 8,  [[self changeStr:report.close_mean] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 9,  [[self changeStr:report.all_Top] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 10,  [[self changeStr:report.all_mean] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 11,  [[self changeStr:report.blocked_Top] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 12,  [[self changeStr:report.blocked_stable] cStringUsingEncoding:NSUTF8StringEncoding], rightcontentformat);
+            
+            
+    //        worksheet_write_number(worksheet, self.rowNum, 3, [dic[@"money"] doubleValue], rightcontentformat);
+        }
+    worksheet_write_string(worksheet, ++self.rowNum, 0, "", NULL);//空白行
+    worksheet_write_string(worksheet, ++self.rowNum, 0, "", NULL);//空白行
+}
+
+-(void)creatReport3{
+    // 设置列宽
+    int a = 1;
+        worksheet_set_column(worksheet, 1-a, 1-a, width, NULL);// B、C两列宽度
+        worksheet_set_column(worksheet, 2-a, 11-a, width * 0.5, NULL);// D列宽度
+      
+        
+        worksheet_merge_range(worksheet, self.rowNum, 1-a, self.rowNum, 11-a, [[NSString stringWithFormat:@"%@道岔锁闭力测试表",_stationStr] cStringUsingEncoding:NSUTF8StringEncoding], headerFormat);
+        worksheet_merge_range(worksheet, ++self.rowNum, 10-a, self.rowNum, 11-a, [_timeStr cStringUsingEncoding:NSUTF8StringEncoding], nameFormat);
+        worksheet_merge_range(worksheet, ++self.rowNum, 1-a, self.rowNum+2, 1-a, "时间(时分秒)", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 2-a, self.rowNum+2, 2-a, "道岔号", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 3-a, self.rowNum+2, 3-a, "牵引号", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 4-a, self.rowNum, 7-a, "定扳反", titleformat);
+        
+        worksheet_merge_range(worksheet, self.rowNum, 8-a, self.rowNum, 11-a, "反扳定", titleformat);
+        
+        worksheet_merge_range(worksheet, ++self.rowNum, 4-a, self.rowNum, 5-a, "锁闭力(KN)", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 6-a, self.rowNum, 7-a, "保持力(KN)", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 8-a, self.rowNum, 9-a, "锁闭力(KN)", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 10-a, self.rowNum, 11-a, "保持力(KN)", titleformat);
+        
+        worksheet_write_string(worksheet, ++self.rowNum, 4-a, "定位", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 5-a, "反位", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 6-a, "定位", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 7-a, "反位", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 8-a, "定位", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 9-a, "反位", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 10-a, "定位", titleformat);
+        worksheet_write_string(worksheet, self.rowNum, 11-a, "反位", titleformat);
+ 
+        
+        for (int i = 0; i < _dataArray.count; i++) {
+            ReportModel *report = _dataArray3[i];
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            dateFormatter.dateFormat = @"HH:mm:ss";
+            NSString *startDate = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:report.timeLong]];
+            startDate = @"timeLong";
+            worksheet_write_string(worksheet, ++self.rowNum, 1-a, [startDate cStringUsingEncoding:NSUTF8StringEncoding], leftcontentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 2-a,  [report.roadSwitch cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            worksheet_write_string(worksheet, self.rowNum, 3-a,  [report.deviceType cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            
+            if(report.reportType == 5 || report.reportType == 6){
+                worksheet_write_string(worksheet, self.rowNum, 4-a,  [[self changeStr:report.close_ding] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            }else{
+                worksheet_write_string(worksheet, self.rowNum, 4-a, "", contentformat);
+            }
+            
+            if(report.reportType == 5 || report.reportType == 6){
+                worksheet_write_string(worksheet, self.rowNum, 5-a,  [[self changeStr:report.close_fan] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            }else{
+                worksheet_write_string(worksheet, self.rowNum, 5-a, "", contentformat);
+            }
+            
+            if(report.reportType == 5 || report.reportType == 6){
+                worksheet_write_string(worksheet, self.rowNum, 6-a,  [[self changeStr:report.keep_ding] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            }else{
+                worksheet_write_string(worksheet, self.rowNum, 6-a, "", contentformat);
+            }
+            
+            if(report.reportType == 5 || report.reportType == 6){
+                worksheet_write_string(worksheet, self.rowNum, 7-a,  [[self changeStr:report.keep_fan] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            }else{
+                worksheet_write_string(worksheet, self.rowNum, 7-a, "", contentformat);
+            }
+            
+            if(report.reportType == 7 || report.reportType == 8){
+                worksheet_write_string(worksheet, self.rowNum, 8-a,  [[self changeStr:report.close_ding] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            }else{
+                worksheet_write_string(worksheet, self.rowNum, 8-a, "", contentformat);
+            }
+            
+            if(report.reportType == 7 || report.reportType == 8){
+                worksheet_write_string(worksheet, self.rowNum, 9-a,  [[self changeStr:report.close_fan] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            }else{
+                worksheet_write_string(worksheet, self.rowNum, 9-a, "", contentformat);
+            }
+            if(report.reportType == 7 || report.reportType == 8){
+                worksheet_write_string(worksheet, self.rowNum, 10-a,  [[self changeStr:report.keep_ding] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            }else{
+                worksheet_write_string(worksheet, self.rowNum, 10-a, "", contentformat);
+            }
+            
+            if(report.reportType == 7 || report.reportType == 8){
+                worksheet_write_string(worksheet, self.rowNum, 11-a,  [[self changeStr:report.keep_fan] cStringUsingEncoding:NSUTF8StringEncoding], contentformat);
+            }else{
+                worksheet_write_string(worksheet, self.rowNum, 11-a, "", contentformat);
+            }
+            
+    //        worksheet_write_number(worksheet, self.rowNum, 3, [dic[@"money"] doubleValue], rightcontentformat);
+        }
+    worksheet_write_string(worksheet, ++self.rowNum, 0, "", NULL);//空白行
+    worksheet_write_string(worksheet, ++self.rowNum, 0, "", NULL);//空白行
+}
+-(NSString *)changeStr:(NSInteger)nsint{
+    return  nsint!=0?[NSString stringWithFormat:@"%.3f",nsint/1000.0]:@"";
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

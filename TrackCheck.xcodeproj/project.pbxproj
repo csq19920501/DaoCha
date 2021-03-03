@@ -203,6 +203,7 @@
 		B556CB7225A83E8B00523758 /* CSQScoketService.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB7125A83E8B00523758 /* CSQScoketService.m */; };
 		B556CB7525A8721800523758 /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB7425A8721800523758 /* Device.m */; };
 		B556CB7825A885A900523758 /* DeviceTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB7725A885A900523758 /* DeviceTool.m */; };
+		B55829D025EF544B000AD684 /* UKNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B55829CE25EF544A000AD684 /* UKNavigationViewController.m */; };
 		B59850A625C190450057FDCD /* CSQGraphic.m in Sources */ = {isa = PBXBuildFile; fileRef = B59850A525C190450057FDCD /* CSQGraphic.m */; };
 /* End PBXBuildFile section */
 
@@ -618,6 +619,8 @@
 		B556CB7425A8721800523758 /* Device.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
 		B556CB7625A885A900523758 /* DeviceTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceTool.h; sourceTree = "<group>"; };
 		B556CB7725A885A900523758 /* DeviceTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceTool.m; sourceTree = "<group>"; };
+		B55829CE25EF544A000AD684 /* UKNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKNavigationViewController.m; sourceTree = "<group>"; };
+		B55829CF25EF544B000AD684 /* UKNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKNavigationViewController.h; sourceTree = "<group>"; };
 		B59850A425C190440057FDCD /* CSQGraphic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSQGraphic.h; sourceTree = "<group>"; };
 		B59850A525C190450057FDCD /* CSQGraphic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSQGraphic.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -796,6 +799,8 @@
 		B556515125B160F900CB61D7 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				B55829CF25EF544B000AD684 /* UKNavigationViewController.h */,
+				B55829CE25EF544A000AD684 /* UKNavigationViewController.m */,
 				B556521625B7C73200CB61D7 /* ETAFNetworking.h */,
 				B556521725B7C73200CB61D7 /* ETAFNetworking.m */,
 				B55651D525B1681300CB61D7 /* Base */,
@@ -1711,6 +1716,7 @@
 				B556CB3925A5CEAE00523758 /* WKEchartsView.m in Sources */,
 				B55651C725B166CD00CB61D7 /* DLNameLabelCell.m in Sources */,
 				B55651C825B166CD00CB61D7 /* DLAddressSelectCell.m in Sources */,
+				B55829D025EF544B000AD684 /* UKNavigationViewController.m in Sources */,
 				B556CB5925A728CB00523758 /* ReportViewController.m in Sources */,
 				B556CB3025A5CEAE00523758 /* PYNoDataLoadingOption.m in Sources */,
 				B55651E325B1686600CB61D7 /* UIScrollView+GKCategory.m in Sources */,
@@ -1922,9 +1928,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TrackCheck/xlsx",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ethome.ipad.TrackCheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Debug;
 		};
@@ -1943,10 +1954,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TrackCheck/xlsx",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ethome.ipad.TrackCheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Release;
 		};

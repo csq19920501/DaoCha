@@ -11,6 +11,8 @@
 @property (strong, nonatomic) UIWindow *window;
 //@property(nonatomic,strong)NSMutableArray *deviceArr;
 @property(nonatomic,strong)NSThread *scoketThread;
+
+-(void)preSocke;
 @end
 
 //     __weak typeof(self) weakSelf = self;

@@ -15,9 +15,11 @@
 
 @interface CSQScoketService ()<GCDAsyncSocketDelegate>
 @property (strong, nonatomic) GCDAsyncSocket *socket;
-@property (strong, nonatomic) NSMutableArray *clientSockets;//保存客户端scoket
 
+@property (assign, nonatomic) int socketNum;
 //@property(strong,nonatomic) GCDAsyncSocket *testSocket;
+@property (strong,nonatomic)NSMutableDictionary *socketDic;
+
 @end
 @implementation CSQScoketService
 
@@ -27,6 +29,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         tcpSocket = [[CSQScoketService alloc] init];
+
     });
     return tcpSocket;
 }
@@ -42,8 +45,9 @@
 - (void)start
 {
     //1.创建scoket对象
+    _clientSockets = [[NSMutableArray alloc]init];
+    _socketDic = [NSMutableDictionary dictionary];
     GCDAsyncSocket *serviceScoket = [[GCDAsyncSocket alloc]initWithDelegate:self delegateQueue:dispatch_get_global_queue(0, 0)];
-
     //2.绑定端口(5288)
    //端口任意，但遵循有效端口原则范围：0~65535，其中0~1024由系统使用或者保留端口，开发中建议使用1024以上的端口
     NSError *error = nil;
@@ -59,7 +63,53 @@
         NSLog(@"开启失败");
     }
     self.socket = serviceScoket;
+    _socketNum = 0;
+    if(!DEVICETOOL.isDebug){
+        [self.timer invalidate];
+        self.timer = nil;
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(manangeSocket) userInfo:nil repeats:YES];
+    }
 }
+-(void)manangeSocket{
+    NSArray *socketA = [self.clientSockets copy];
+    for (GCDAsyncSocket *socket in socketA) {
+        NSLog(@"socket = %@",[NSString stringWithFormat:@"%@",socket]);
+        NSNumber* number = [_socketDic valueForKey:[NSString stringWithFormat:@"%@",socket]];
+        int num = number.intValue;
+        num++;
+        if(num>3){
+            NSLog(@"num>3删掉socket%@",socket);
+            [self.clientSockets removeObject:socket];
+        }else{
+            [_socketDic setValue:[NSNumber numberWithInt:num] forKeyPath:[NSString stringWithFormat:@"%@",socket]];
+        }
+    }
+    
+    NSLog(@"_socketDic = %@",_socketDic);
+    
+    if(self.clientSockets.count==0){
+        _socketNum ++;
+        if(_socketNum>5){
+            dispatch_async(dispatch_get_main_queue(), ^{
+//                AppDelegate *delete =  (AppDelegate *)[UIApplication sharedApplication].delegate;
+                NSLog(@"重启 socket服务");
+//                [delete preSocke];
+                NSError *error = nil;
+                [self.socket disconnect];
+                [self.socket acceptOnPort:5288 error:&error];
+                if (error == nil)
+                {
+                    NSLog(@"重新开启成功");
+                }
+                else
+                {
+                    NSLog(@"重新开启失败%@",error);
+                }
+            });
+        }
+    }
+}
+
 -(void)addDebugDevice{
     NSDictionary *deviceDict = @{
         @"id":@"1",
@@ -84,20 +134,27 @@
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket
 {
     //sock 服务端的socket
-    //newSocket 客户端连接的socket
     NSLog(@"新增链接%@----%@",sock, newSocket);
 
     //1.保存连接的客户端socket(否则newSocket释放掉后链接会自动断开)
     [self.clientSockets addObject:newSocket];
     [newSocket readDataWithTimeout:-1 tag:0];
 }
-
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(nullable NSError *)err{
+    NSLog(@"断开链接%@----%@",sock, err);
+    NSLog(@"断开链接localizedDescription---%@", err.localizedDescription);
+    [self.clientSockets removeObject:sock];
+}
 //接收到客户端数据
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
     //1.接受到用户数据
+    
+    [_socketDic setValue:@(0) forKeyPath:[NSString stringWithFormat:@"%@",sock]];
+     
     NSString *str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-    NSLog(@"recv:%@",str);
+//    NSLog(@"recv:%@",str);
+    NSLog(@"新增数据%@----%@",[NSString stringWithFormat:@"%@",sock], str);
     NSDictionary *dic = str.mj_JSONObject;
     NSString *cmd = dic[@"cmd"];
     
@@ -114,7 +171,9 @@
             return;
         }
         if(!DEVICETOOL.isDebug){
-             [self getData:dic];
+            if(DEVICETOOL.testStatus == TestStarted){
+                   [self getData:dic];
+            }
         }
     }
     else if([cmd isEqualToString:@"ping"]){
@@ -218,9 +277,9 @@
                 [reciveataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     long revData = (long)strtoul([obj UTF8String],0,16);  //16进制字符串转换成long
                     revData = revData - 32768;  //  85317
-                    if(DEVICETOOL.isX3){
-                        revData = revData * 3;
-                    }
+//                    if(DEVICETOOL.isX3){
+//                        revData = revData * 3;
+//                    }
                     NSTimeInterval  timeinterval2 = timeinterval + idx*20;
 //                    long a = 3000 + idx;
                     [dataArr addObject:@[@(timeinterval2),@(revData)]];
@@ -415,8 +474,6 @@
     }
     [self check56Data:testArr withModel:DEVICETOOL.checkModel4 withTypeStr:@"锁闭力" withId:11];
     
-   
-
     NSMutableArray *testArr2 = [NSMutableArray array];
     if(_testCount + 50 < self.testArray2.count){
         for (long a = _testCount; a< _testCount + 50; a++) {
@@ -1429,6 +1486,9 @@
 //    NSLog(@"===========>写入成功");
 //
 //}
-
+-(void)dealloc{
+    [self.timer invalidate];
+    self.timer = nil;
+}
 @end
 

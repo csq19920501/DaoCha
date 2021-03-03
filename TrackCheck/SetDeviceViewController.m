@@ -10,11 +10,7 @@
 #import "ViewController.h"
 #import "SceneDelegate.h"
 #import "CSQScoketService.h"
-//#import "DLDateSelectController.h"
-//#import "DLDateAnimation.h"
-//#import "UIViewController+DLPresent.h"
-
-
+#import "SetAddressViewController.h"
 #import "DLAlertDemoController.h"
 typedef enum:NSInteger{
     None,
@@ -41,6 +37,9 @@ typedef enum:NSInteger{
 @property (weak, nonatomic) IBOutlet UISegmentedControl *sigmentController;
 @property(nonatomic,assign)CSQROrL rOrL;
 @property (nonatomic ,strong)TYAlertController *alertController;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *leftBarItem;
+
+
 @end
 
 @implementation SetDeviceViewController
@@ -58,6 +57,12 @@ typedef enum:NSInteger{
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    if(![[DeviceTool shareInstance].roadSwitchNo containsString:@"道岔"]){
+        self.leftBarItem.title = [NSString stringWithFormat:@"%@%@道岔",[DeviceTool shareInstance].stationStr,[DeviceTool shareInstance].roadSwitchNo];
+    }else{
+        self.leftBarItem.title = [NSString stringWithFormat:@"%@%@",[DeviceTool shareInstance].stationStr,[DeviceTool shareInstance].roadSwitchNo];
+    }
     
     _debugSwitch.on = DEVICETOOL.isDebug;
     NSArray * array = @[@"101",@"102",@"106",@"201",@"202",@"203",@"301",@"302",@"303",@"901",@"902",@"903",@"904",@"905",@"906",@"907",@"908",@"909",@"910",];
@@ -92,6 +97,29 @@ typedef enum:NSInteger{
         _sigmentController.selectedSegmentIndex = 1;
     }
 }
+- (IBAction)clickLeft:(id)sender {
+    if([self.navigationController.childViewControllers[0] isKindOfClass:[SetAddressViewController class]]){
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }else{
+        UIWindow*  window;
+        if (@available(iOS 13.0, *)) {
+          window = [UIApplication sharedApplication].windows[0];
+            
+            NSArray *array =[[[UIApplication sharedApplication] connectedScenes] allObjects];
+            UIWindowScene* windowScene = (UIWindowScene*)array[0];
+            SceneDelegate * delegate = (SceneDelegate *)windowScene.delegate;
+            window = delegate.window;
+
+        } else {
+          window = [UIApplication sharedApplication].delegate.window;
+        }
+        
+        SetAddressViewController *VC= [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"SetAddressViewController"];
+        UKNavigationViewController *nav = [[UKNavigationViewController alloc]initWithRootViewController:VC];
+        [window setRootViewController:nav];
+    }
+}
+
 - (IBAction)changeLinkType:(id)sender {
     UIButton *but = (UIButton *)sender;
     if(!but.selected){
@@ -181,8 +209,16 @@ typedef enum:NSInteger{
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [DEVICETOOL.deviceArr removeAllObjects];
     [self changeView];
+    
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeView) userInfo:nil repeats:YES];
+    
+    NSArray * array = @[@"201",@"202",@"203",@"301",@"302",@"303",];
+    for (NSString * a in array) {
+        UIButton *but =(UIButton *)[self.view viewWithTag:[a intValue]];
+        but.selected = NO;
+    }
     
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSString* linkType = [user stringForKey:[NSString stringWithFormat:@"%@%@CLOSE",DEVICETOOL.stationStr,DEVICETOOL.roadSwitchNo]];
@@ -194,8 +230,6 @@ typedef enum:NSInteger{
             but.selected = NO;
         }
     }
-    
-   
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -500,6 +534,9 @@ typedef enum:NSInteger{
         _closeDeviceBut.alpha = 1;
         _closeDeviceBut.enabled = YES;
     }
+    
+    
+    
 }
 -(void)getDatePick{
 //    DLDateSelectController *dateAlert = [[DLDateSelectController alloc] init];

@@ -19,7 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSArray *testArray;
 @property (strong, nonatomic) NSArray *testArray2;
 @property (assign, nonatomic) NSInteger testCount;
-@property (assign, nonatomic) NSTimer * timer;
+@property (assign, nonatomic,nullable) NSTimer * timer;
+@property (strong, nonatomic) NSMutableArray *clientSockets;//保存客户端scoket
 -(void)stopTest1234;
 -(void)test1234_;
 -(void)test1234;

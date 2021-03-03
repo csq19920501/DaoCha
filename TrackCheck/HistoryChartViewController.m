@@ -45,7 +45,15 @@
     }else{
         [_chartView refreshEchartsWithOption:[self getOption2]];
     }
+    
+//    UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backBarButtonItemAction)];
+//    self.navigationItem.leftBarButtonItem = backBarButtonItem;
 }
+
+//- (void)backBarButtonItemAction
+//{
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 - (PYOption *)getOption {
    
     NSMutableArray *saveDataArr;

@@ -1,6 +1,7 @@
 #import "SceneDelegate.h"
 #import "SetAddressViewController.h"
 #import "SetDeviceViewController.h"
+
 @interface SceneDelegate ()
 
 @end
@@ -28,12 +29,12 @@
         if(currentTime - saveTime >= 8 *3600){
             NSLog(@"SetAddressViewController");
             SetAddressViewController *homeVC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]  instantiateViewControllerWithIdentifier:@"SetAddressViewController"];
-            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:homeVC];
+            UKNavigationViewController *nav = [[UKNavigationViewController alloc]initWithRootViewController:homeVC];
             [self.window setRootViewController:nav];
         }else{
             NSLog(@"SetDeviceViewController");
             SetDeviceViewController *homeVC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]  instantiateViewControllerWithIdentifier:@"SetDeviceViewController"];
-            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:homeVC];
+            UKNavigationViewController *nav = [[UKNavigationViewController alloc]initWithRootViewController:homeVC];
             [self.window setRootViewController:nav];
         }
         [self.window makeKeyAndVisible];

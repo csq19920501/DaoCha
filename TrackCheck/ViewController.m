@@ -53,15 +53,13 @@
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceChange) name:DEVICECHANGE object:nil];
     _seleJJJArr = [NSMutableArray array];
-    
+
     if(![[DeviceTool shareInstance].roadSwitchNo containsString:@"道岔"]){
         self.leftBarItem.title = [NSString stringWithFormat:@"%@%@道岔",[DeviceTool shareInstance].stationStr,[DeviceTool shareInstance].roadSwitchNo];
     }else{
         self.leftBarItem.title = [NSString stringWithFormat:@"%@%@",[DeviceTool shareInstance].stationStr,[DeviceTool shareInstance].roadSwitchNo];
     }
     
-    
-
     DEVICETOOL.testStatus = TestNotStart;
     
     NSArray *butArr2 = @[_changeBut,_startBut,_endBut,_saveBut];
@@ -90,15 +88,17 @@
     }else{
         self.X3But.title = @"X1";
     }
+//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+//    self.navigationItem.backBarButtonItem = backItem;
 }
 - (IBAction)X3click:(id)sender {
-
+    return;
     if([_X3But.title isEqualToString:@"X1"]){
         [_X3But setTitle:@"X3"];
         DEVICETOOL.isX3 = YES;
     }else{
         [_X3But setTitle:@"X1"];
-               DEVICETOOL.isX3 = NO;
+        DEVICETOOL.isX3 = NO;
     }
 }
 -(void)initView{
@@ -237,7 +237,7 @@
                            }
                            
                            SetAddressViewController *VC= [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"SetAddressViewController"];
-                           UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:VC];
+                           UKNavigationViewController *nav = [[UKNavigationViewController alloc]initWithRootViewController:VC];
                            [window setRootViewController:nav];
                        }
                 
@@ -502,6 +502,9 @@
 //        }];
 //}
 - (PYOption *)irregularLine2Option:(NSInteger)no {
+    
+    BOOL setMax = YES;
+    
     if(no>=_seleJJJArr.count){
         return nil;
     }
@@ -514,7 +517,35 @@
     }else if([device.id intValue] == 3){
         saveDataArr = [NSMutableArray arrayWithArray:[DeviceTool shareInstance].deviceDataArr3];
     }
-   
+//    if(saveDataArr.count < 1000){
+        for (NSArray *arr in saveDataArr) {
+            NSNumber *num = arr[1];
+            if(num.intValue >500 || num.intValue < -500){
+                setMax = NO;
+                break;
+            }
+        }
+//    }
+    PYAxis * yAxis ;
+    if(setMax){
+      yAxis= [PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
+                    axis.typeEqual(PYAxisTypeValue).scaleEqual(YES).boundaryGapEqual(@[@"2.5%",@"2.5%"])
+                    .minEqual(@(-500))
+                    .maxEqual(@(500));
+      }];
+    }else{
+        yAxis=[PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
+                    axis.typeEqual(PYAxisTypeValue).scaleEqual(YES).boundaryGapEqual(@[@"2.5%",@"2.5%"]);
+        //             .nameEqual(@"KN")
+        //            .axisLabelEqual([PYAxisLabel initPYAxisLabelWithBlock:^(PYAxisLabel *axisLabel) {
+        //                axisLabel.formatterEqual(@"(function (value, index) {let y = value/1000;return `${y}`;})");
+        //            }]);
+        //            .minEqual(@(-8000))
+        //            .maxEqual(@(8000));
+        }];
+    }
+    
+    
     if(saveDataArr.count == 0 && DEVICETOOL.testStatus == TestStarted){
         long long startTime = _startTime *1000;
         NSNumber *time = [NSNumber numberWithLongLong:startTime];
@@ -536,7 +567,7 @@
         }])
         .animationEqual(NO)
         .gridEqual([PYGrid initPYGridWithBlock:^(PYGrid *grid) {
-            grid.xEqual(@40).x2Equal(@40).y2Equal(@80).yEqual(@80);
+            grid.xEqual(@50).x2Equal(@30).y2Equal(@80).yEqual(@80);
         }])
         .tooltipEqual([PYTooltip initPYTooltipWithBlock:^(PYTooltip *tooltip) {
             tooltip.triggerEqual(PYTooltipTriggerAxis);
@@ -565,15 +596,7 @@
                 axisLabel.formatterEqual(@"(function (value, index) {let hour = new Date(value).getHours();let min = new Date(value).getMinutes();let ss = new Date(value).getSeconds();ss = ss.toString();min = min.toString(); if(min.length <2){min = '0'+min};if(ss.length <2){ss = '0'+ss};return `${hour}:${min}:${ss}`;})");
             }]);
         }])
-        .addYAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
-            axis.typeEqual(PYAxisTypeValue).scaleEqual(YES).boundaryGapEqual(@[@"2.5%",@"2.5%"]);
-//             .nameEqual(@"KN")
-//            .axisLabelEqual([PYAxisLabel initPYAxisLabelWithBlock:^(PYAxisLabel *axisLabel) {
-//                axisLabel.formatterEqual(@"(function (value, index) {let y = value/1000;return `${y}`;})");
-//            }]);
-//            .minEqual(@(-1000))
-//            .maxEqual(@(4000));
-        }])
+        .addYAxis(yAxis)
      
         .addDataZoom([PYDataZoom initPYDataZoomWithBlock:^(PYDataZoom *dataZoom) {
             dataZoom.showEqual(YES).startEqual(@0).typeEqual(@"inside");
@@ -599,13 +622,41 @@
 }
 
 - (PYOption *)getOption {
-   
+    BOOL setMax = YES;
     NSMutableArray *saveDataArr;
     NSMutableArray *saveDataArr2;
     
     saveDataArr = [NSMutableArray arrayWithArray:[DeviceTool shareInstance].deviceDataArr4];
     saveDataArr2 = [NSMutableArray arrayWithArray:[DeviceTool shareInstance].deviceDataArr5];
    
+//    if(saveDataArr.count < 1000){
+         for (NSArray *arr in saveDataArr) {
+                   NSNumber *num = arr[1];
+                   if(num.intValue >500 || num.intValue < -500){
+                       setMax = NO;
+                       break;
+                   }
+               }
+//    }
+    PYAxis * yAxis ;
+    if(setMax){
+      yAxis= [PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
+                    axis.typeEqual(PYAxisTypeValue).scaleEqual(YES).boundaryGapEqual(@[@"2.5%",@"2.5%"])
+                    .minEqual(@(-500))
+                    .maxEqual(@(500));
+      }];
+    }else{
+        yAxis=[PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
+                    axis.typeEqual(PYAxisTypeValue).scaleEqual(YES).boundaryGapEqual(@[@"2.5%",@"2.5%"]);
+        //             .nameEqual(@"KN")
+        //            .axisLabelEqual([PYAxisLabel initPYAxisLabelWithBlock:^(PYAxisLabel *axisLabel) {
+        //                axisLabel.formatterEqual(@"(function (value, index) {let y = value/1000;return `${y}`;})");
+        //            }]);
+        //            .minEqual(@(-8000))
+        //            .maxEqual(@(8000));
+        }];
+    }
+    
     if(saveDataArr.count == 0 && DEVICETOOL.testStatus == TestStarted){
         long long startTime = _startTime *1000;
         NSNumber *time = [NSNumber numberWithLongLong:startTime];
@@ -657,11 +708,7 @@
                 
             }]);
         }])
-        .addYAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
-            axis.typeEqual(PYAxisTypeValue).scaleEqual(YES).boundaryGapEqual(@[@"2.5%",@"2.5%"]);
-//            .minEqual(@(-1000))
-//            .maxEqual(@(4000));
-        }])
+        .addYAxis(yAxis)
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
             series.symbolEqual(@"none")
             .smoothEqual(YES)
