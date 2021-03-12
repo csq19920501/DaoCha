@@ -63,12 +63,26 @@
     
     [self setSele];
 //    [self pushAlertView:^(BOOL retu){}];
-        
-    
 }
 -(void)viewDidAppear:(BOOL)animated{
     [self setStationTagesView];
     [self setDaoChaTagesView];
+    
+    NSArray  *array = @[@(502),@(503),@(504)];
+       for (NSNumber *a in array) {
+           UIButton *but = [self.view viewWithTag:a.integerValue];
+           but.selected = NO;
+       }
+       if(DEVICETOOL.testMaxCount == 180){
+           UIButton *but = [self.view viewWithTag:502];
+           but.selected = YES;
+       }else if(DEVICETOOL.testMaxCount == 240){
+           UIButton *but = [self.view viewWithTag:503];
+           but.selected = YES;
+       }else if(DEVICETOOL.testMaxCount == 300){
+           UIButton *but = [self.view viewWithTag:504];
+           but.selected = YES;
+       }
 }
 -(void)viewDidLayoutSubviews{
     
@@ -133,11 +147,16 @@
         _shen_Fan.selected = NO;
         DEVICETOOL.shenSuo = NoSet;
     }
+    if(DEVICETOOL.shenSuo == Shen_Fan){
+        DEVICETOOL.shenSuo = Shen_Ding;
+    }else if(DEVICETOOL.shenSuo == Shen_Ding){
+        DEVICETOOL.shenSuo = Shen_Fan;
+    }
 }
 
 -(void)pushAlertView:(void (^)(BOOL))re{
     __weak typeof(self) weakSelf = self;
-    TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"提示" message:@"请输入'修改',确认修改操作"];
+    TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"提示" message:@"请输入'1111',确认修改操作"];
     
     self.alertController = [TYAlertController alertControllerWithAlertView:alertView preferredStyle:TYAlertControllerStyleAlert];
     
@@ -162,9 +181,9 @@
         
         [textField resignFirstResponder];
         
-        if (![textField.text isEqualToString:@"修改"] ){
+        if (![textField.text isEqualToString:@"1111"] ){
             dispatch_async(dispatch_get_main_queue(), ^{
-                [HUD showAlertWithText:@"请输入'修改'，确认修改操作"];
+                [HUD showAlertWithText:@"请输入'1111'，确认修改操作"];
             });
             if(re){
                 re(NO);
@@ -180,7 +199,7 @@
     
     [alertView addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         
-        textField.placeholder = @"请输入'修改'";
+        textField.placeholder = @"请输入'1111'";
         
         textField.keyboardType = UIKeyboardTypeNumberPad;
         
@@ -396,6 +415,29 @@
     }
     return _colorPol;
 }
+- (IBAction)changeMaxTestCount:(id)sender {
+    
+    UIButton *but2 = (UIButton*)sender;
+       NSArray  *array = @[@(502),@(503),@(504)];
+       for (NSNumber *a in array) {
+           UIButton *but = [self.view viewWithTag:a.integerValue];
+           but.selected = NO;
+       }
+    but2.selected = YES;
+    NSUserDefaults* users = [NSUserDefaults standardUserDefaults];
+    if(but2.tag == 502){
+        [users setValue:@(180) forKey:@"maxCount"];
+        DEVICETOOL.testMaxCount = 180;
+    }else  if(but2.tag == 503){
+           [users setValue:@(240) forKey:@"maxCount"];
+        DEVICETOOL.testMaxCount = 240;
+    }else  if(but2.tag == 504){
+           [users setValue:@(300) forKey:@"maxCount"];
+        DEVICETOOL.testMaxCount = 300;
+    }
+}
+
+
 /*
 #pragma mark - Navigation
 

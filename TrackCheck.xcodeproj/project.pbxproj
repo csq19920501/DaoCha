@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B17C4971D66A221FCEA9C513 /* libPods-TrackCheck.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A37D2DEF2B065C598A77A1 /* libPods-TrackCheck.a */; };
 		B5362CB125BBC46D00AE189A /* TYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362C9E25BBC46C00AE189A /* TYAlertView.m */; };
 		B5362CB225BBC46D00AE189A /* UIView+TYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CA225BBC46C00AE189A /* UIView+TYAlertView.m */; };
 		B5362CB325BBC46D00AE189A /* TYAlertScaleFadeAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B5362CA325BBC46C00AE189A /* TYAlertScaleFadeAnimation.m */; };
@@ -204,7 +203,10 @@
 		B556CB7525A8721800523758 /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB7425A8721800523758 /* Device.m */; };
 		B556CB7825A885A900523758 /* DeviceTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B556CB7725A885A900523758 /* DeviceTool.m */; };
 		B55829D025EF544B000AD684 /* UKNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B55829CE25EF544A000AD684 /* UKNavigationViewController.m */; };
+		B55829D125F0BE11000AD684 /* libPods-TrackCheck.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A37D2DEF2B065C598A77A1 /* libPods-TrackCheck.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		B591261F25F624B600DEC727 /* CSQVisualMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B591261E25F624B600DEC727 /* CSQVisualMap.m */; };
 		B59850A625C190450057FDCD /* CSQGraphic.m in Sources */ = {isa = PBXBuildFile; fileRef = B59850A525C190450057FDCD /* CSQGraphic.m */; };
+		B5DCF46925F1F9FC008F60D6 /* ReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5DCF46825F1F9FC008F60D6 /* ReportCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -621,8 +623,12 @@
 		B556CB7725A885A900523758 /* DeviceTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceTool.m; sourceTree = "<group>"; };
 		B55829CE25EF544A000AD684 /* UKNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKNavigationViewController.m; sourceTree = "<group>"; };
 		B55829CF25EF544B000AD684 /* UKNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKNavigationViewController.h; sourceTree = "<group>"; };
+		B591261D25F624B600DEC727 /* CSQVisualMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSQVisualMap.h; sourceTree = "<group>"; };
+		B591261E25F624B600DEC727 /* CSQVisualMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSQVisualMap.m; sourceTree = "<group>"; };
 		B59850A425C190440057FDCD /* CSQGraphic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSQGraphic.h; sourceTree = "<group>"; };
 		B59850A525C190450057FDCD /* CSQGraphic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSQGraphic.m; sourceTree = "<group>"; };
+		B5DCF46725F1F9FC008F60D6 /* ReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportCell.h; sourceTree = "<group>"; };
+		B5DCF46825F1F9FC008F60D6 /* ReportCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReportCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -630,7 +636,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B17C4971D66A221FCEA9C513 /* libPods-TrackCheck.a in Frameworks */,
+				B55829D125F0BE11000AD684 /* libPods-TrackCheck.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1100,6 +1106,8 @@
 				B556521125B5647700CB61D7 /* ReportModel.m */,
 				B556521325B5925500CB61D7 /* CheckModel.h */,
 				B556521425B5925600CB61D7 /* CheckModel.m */,
+				B5DCF46725F1F9FC008F60D6 /* ReportCell.h */,
+				B5DCF46825F1F9FC008F60D6 /* ReportCell.m */,
 				B556CA1D25A55A2400523758 /* Main.storyboard */,
 				B556CA2025A55A2700523758 /* Assets.xcassets */,
 				B556CA2225A55A2700523758 /* LaunchScreen.storyboard */,
@@ -1266,6 +1274,8 @@
 				B556CAEC25A5CEAE00523758 /* PYAxisPointer.h */,
 				B59850A425C190440057FDCD /* CSQGraphic.h */,
 				B59850A525C190450057FDCD /* CSQGraphic.m */,
+				B591261D25F624B600DEC727 /* CSQVisualMap.h */,
+				B591261E25F624B600DEC727 /* CSQVisualMap.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1601,6 +1611,7 @@
 				B556509A25AC64B000CB61D7 /* UIView+PYSearchExtension.m in Sources */,
 				B55650AB25AD418800CB61D7 /* HIKLoadPercentView.m in Sources */,
 				B556513825B05D1B00CB61D7 /* NSData-SQLitePersistence.m in Sources */,
+				B5DCF46925F1F9FC008F60D6 /* ReportCell.m in Sources */,
 				B55651D425B166CD00CB61D7 /* DLAlertDemoController.m in Sources */,
 				B55650A825AD418800CB61D7 /* MBProgressHUD.m in Sources */,
 				B556CB0925A5CEAE00523758 /* PYCartesianSeries.m in Sources */,
@@ -1617,6 +1628,7 @@
 				B556CB1725A5CEAE00523758 /* PYMarkLine.m in Sources */,
 				B556CB2125A5CEAE00523758 /* PYLinks.m in Sources */,
 				B556CB3B25A5CEAE00523758 /* PYEchartsView.m in Sources */,
+				B591261F25F624B600DEC727 /* CSQVisualMap.m in Sources */,
 				B55651EF25B1689600CB61D7 /* UIViewController+GKNavigationController.m in Sources */,
 				B556521825B7C73200CB61D7 /* ETAFNetworking.m in Sources */,
 				B556513725B05D1B00CB61D7 /* NSObject-ClassName.m in Sources */,
@@ -1908,6 +1920,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1917,6 +1930,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 282EC67EE51632C9D1B2E328 /* Pods-TrackCheck.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 89CTY2D5G8;
@@ -1930,8 +1944,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/TrackCheck/xlsx",
+					"\"${PODS_ROOT}/**\"/**",
+					"\"$PODS_CONFIGURATION_BUILD_DIR\"\n/**",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ethome.ipad.TrackCheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1943,6 +1959,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A129EEB72E0506FF9D93C4FD /* Pods-TrackCheck.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 89CTY2D5G8;
@@ -1956,7 +1973,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/TrackCheck/xlsx",
+					"\"${PODS_ROOT}/Target Support Files\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR\"",
+					"/**",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ethome.ipad.TrackCheck;

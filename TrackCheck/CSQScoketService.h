@@ -25,6 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)test1234_;
 -(void)test1234;
 -(void)addDebugDevice;
+-(void)stopSample;
+-(void)startSample;
+-(void)getVersion;
++(void)deallocSocket;
 @end
 
 NS_ASSUME_NONNULL_END

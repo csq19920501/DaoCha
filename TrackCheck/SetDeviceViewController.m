@@ -155,7 +155,7 @@ typedef enum:NSInteger{
 }
 -(void)pushAlertView:(void (^)(BOOL))re{
     __weak typeof(self) weakSelf = self;
-    TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"提示" message:@"请输入'修改',确认修改操作"];
+    TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"提示" message:@"请输入'1111',确认修改操作"];
     
     _alertController = [TYAlertController alertControllerWithAlertView:alertView preferredStyle:TYAlertControllerStyleAlert];
     
@@ -178,10 +178,10 @@ typedef enum:NSInteger{
         
         [textField resignFirstResponder];
         
-        if (![textField.text isEqualToString:@"修改"] ){
+        if (![textField.text isEqualToString:@"1111"] ){
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [HUD showAlertWithText:@"请输入'修改'，确认修改操作"];
+                [HUD showAlertWithText:@"请输入'1111'，确认修改操作"];
             });
             if(re){
                 re(NO);
@@ -197,7 +197,7 @@ typedef enum:NSInteger{
     
     [alertView addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         
-        textField.placeholder = @"请输入'修改'";
+        textField.placeholder = @"请输入'1111'";
         
         textField.keyboardType = UIKeyboardTypeNumberPad;
         
@@ -211,6 +211,8 @@ typedef enum:NSInteger{
     [super viewWillAppear:animated];
     [DEVICETOOL.deviceArr removeAllObjects];
     [self changeView];
+    [[CSQScoketService shareInstance]getVersion];
+    
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeView) userInfo:nil repeats:YES];
     
@@ -445,8 +447,24 @@ typedef enum:NSInteger{
         DEVICETOOL.closeLinkDevice = seleType;
         NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
         [user setObject:seleType forKey:[NSString stringWithFormat:@"%@%@CLOSE",DEVICETOOL.stationStr,DEVICETOOL.roadSwitchNo]];
+        NSString *idStr  = [DEVICETOOL getLinkDevice];
+//        if([DEVICETOOL.closeLinkDevice isEqualToString:@"J1"] || [DEVICETOOL.closeLinkDevice isEqualToString:@"X1"] || [DEVICETOOL.closeLinkDevice isEqualToString:@"J4"]){
+//            idStr = @"1";
+//        }else if([DEVICETOOL.closeLinkDevice isEqualToString:@"J2"] || [DEVICETOOL.closeLinkDevice isEqualToString:@"X2"] || [DEVICETOOL.closeLinkDevice isEqualToString:@"J5"]){
+//            idStr = @"2";
+//        }else if([DEVICETOOL.closeLinkDevice isEqualToString:@"J3"] || [DEVICETOOL.closeLinkDevice isEqualToString:@"X3"] || [DEVICETOOL.closeLinkDevice isEqualToString:@"J6"]){
+//            idStr = @"3";
+//        }
+        for (int i =0; i < DEVICETOOL.deviceArr.count; i++) {
+            Device *device = DEVICETOOL.deviceArr[i];
+            if([device.id isEqualToString: @"11"] || [device.id isEqualToString:@"12"]){
+                device.selected = YES;
+            }else if( [device.id isEqualToString:idStr]){
+                device.selected = YES;
+                device.typeStr = DEVICETOOL.closeLinkDevice;
+            }
+        }
     }
-    
     ViewController *setDeviceVC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"ViewController"];
     [self.navigationController pushViewController:setDeviceVC animated:YES];
 }
@@ -536,8 +554,9 @@ typedef enum:NSInteger{
     }
     
     
-    
 }
+
+
 -(void)getDatePick{
 //    DLDateSelectController *dateAlert = [[DLDateSelectController alloc] init];
 //    DLDateAnimation*  animation = [[DLDateAnimation alloc] init];

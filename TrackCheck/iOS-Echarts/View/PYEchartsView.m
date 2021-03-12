@@ -12,6 +12,7 @@
 #import "PYOption.h"
 #import "PYJsonUtil.h"
 #import "PYLoadingOption.h"
+#import <JavaScriptCore/JavaScriptCore.h>
 
 @interface PYEchartsView() {
     NSString *bundlePath;
@@ -295,7 +296,9 @@
             js = [NSString stringWithFormat:@"%@(%@)", @"loadEcharts", jsonStr];
         }
         [webView stringByEvaluatingJavaScriptFromString:js];
+        
         [self setTheme:_theme];
+        
         for (NSString * name in actionHandleBlocks.allKeys) {
             PYLog(@"%@", [NSString stringWithFormat:@"addEchartActionHandler('%@')",name]);
             [self callJsMethods:[NSString stringWithFormat:@"addEchartActionHandler('%@')",name]];//
@@ -309,6 +312,55 @@
         
         // Disable callout
         [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
+        
+//        JSContext *content = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+//
+//        //此处的getMessage和JS方法中的getMessage名称一致.
+//         NSLog(@"grapClick=======%@",content);
+//
+//        content[@"onclick"] = ^() {
+//            NSArray *arguments = [JSContext currentArguments];
+//            for (JSValue *jsValue in arguments) {
+//                NSLog(@"onclick=======%@",jsValue);
+//                NSLog(@"onclick=======%@",jsValue.toString);
+////                NSLog(@"report=======%@",jsValue.toDictionary);
+//                NSLog(@"onclick=======%d",jsValue.toInt32);
+//                NSLog(@"report=======%@",jsValue.toObject);
+//                NSDictionary *userInfo = @{@"onclick":jsValue.toString};
+//                [[NSNotificationCenter defaultCenter]postNotificationName:@"reportClick" object:nil userInfo:userInfo];
+//            }
+//        };
+//
+//        content[@"add"] = ^() {
+//
+//                    NSArray *arguments = [JSContext currentArguments];
+//                    for (JSValue *jsValue in arguments) {
+//                        NSLog(@"onclick===add====%@",jsValue);
+//                        NSLog(@"onclick====add===%@",jsValue.toString);
+//        //                NSLog(@"report===add====%@",jsValue.toDictionary);
+//                        NSLog(@"onclick====add===%d",jsValue.toInt32);
+//        //                NSLog(@"report=======%@",jsValue.toObject);
+//                        NSDictionary *userInfo = @{@"onclick":jsValue.toString};
+//                        [[NSNotificationCenter defaultCenter]postNotificationName:@"reportClick" object:nil userInfo:userInfo];
+//                    }
+//                };
+//
+//        content[@"report"] = ^() {
+//            NSArray *arguments = [JSContext currentArguments];
+//
+//
+//            for (JSValue *jsValue in arguments) {
+//                NSLog(@"report=======%@",jsValue);
+//                NSLog(@"report=======%@",jsValue.toString);
+//                NSLog(@"report=======%@",jsValue.toDictionary);
+//                NSLog(@"report=======%d",jsValue.toInt32);
+//                NSLog(@"report=======%@",jsValue.toObject);
+//
+//                NSDictionary *userInfo = @{@"onclick":jsValue.toString};
+//                [[NSNotificationCenter defaultCenter]postNotificationName:@"reportClick" object:nil userInfo:userInfo];
+//            }
+//        };
+        
     } else {
         __weak __typeof(self) weakSelf = self;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

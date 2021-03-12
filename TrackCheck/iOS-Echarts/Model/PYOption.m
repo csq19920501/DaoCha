@@ -18,7 +18,7 @@
 #import "PYPolar.h"
 #import "PYRoamController.h"
 #import "PYColor.h"
-
+#import "CSQVisualMap.h"
 @implementation PYOption
 
 - (instancetype)init
@@ -27,6 +27,7 @@
     if (self) {
         _animation = YES;
         _graphic = [[CSQGraphic alloc]init];
+//        _visualMap = [[CSQVisualMap alloc]init];
         _graphic.type = @"text";
         _graphic.z = @(100);
         _graphic.right = @(12);
@@ -63,6 +64,10 @@ PYPropertyEqualImpTemplate(PYOption, NSMutableArray *, series);
 PYPropertyEqualImpTemplate(PYOption, NSMutableArray *, dataZoom);
 PYPropertyEqualImpTemplate(PYOption, NSMutableArray *, options);
 PYPropertyEqualImpTemplate(PYOption, CSQGraphic *, graphic);
+PYPropertyEqualImpTemplate(PYOption, id, visualMap);
+//PYPropertyEqualImpTemplate(PYOption, CSQVisualMap *, visualMap);
+
+
 
 PYAddMethodImpTemplate(PYOption, PYAxis, XAxis, xAxis);
 PYAddMethodImpTemplate(PYOption, PYAxis, YAxis, yAxis);

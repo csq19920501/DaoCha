@@ -13,8 +13,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *deviceTypeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet PYZoomEchartsView *chartView;
-@property(nonatomic ,strong)NSArray *results;
 
+@property(nonatomic ,strong)NSArray *results;
 @end
 
 @implementation HistoryChartViewController
@@ -76,6 +76,28 @@
 //        [saveDataArr addObject:@[data[0],@(dataLong)]];
 //    }
     
+    NSDictionary *visualMapD = @{@"show":@(NO),@"dimension":@(0),@"pieces":@[@{@"lte":@(1614835094000),@"color":blueColor},@{@"gt":@(1614835095000),@"color":blueColor}]};
+        if(_dataModel.colorArr.count != 0){
+            NSMutableArray *pieces = [NSMutableArray array];
+            NSNumber* saveCount = @(0);
+            for (int a = 0; a<_dataModel.colorArr.count; a++) {
+                NSArray *piece = _dataModel.colorArr[a];
+                if(a==0){
+                    [pieces addObject:@{@"lte":piece[0],@"color":blueColor}];
+                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":redColor}];
+                    saveCount = piece[1];
+                }else{
+                    [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":blueColor}];
+                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":redColor}];
+                    saveCount = piece[1];
+                }
+                if(a == _dataModel.colorArr.count-1){
+                     [pieces addObject:@{@"gt":saveCount,@"color":blueColor}];
+                }
+            }
+            visualMapD =  @{@"show":@(NO),@"dimension":@(0),@"pieces":pieces};
+        }
+    
     NSString *titleStr = [NSString stringWithFormat:@"%@%@",_dataModel.deviceType,@"曲线图"];
 
     PYOption *option =  [PYOption initPYOptionWithBlock:^(PYOption *option) {
@@ -120,19 +142,21 @@
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
         series.symbolEqual(@"none")
             .smoothEqual(YES)
-            .nameEqual(titleStr).typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(@"average");
+            .nameEqual(titleStr).typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(@"lttb");
         }]);
 //        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
 //        series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES).nameEqual(@"反位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr2);
 //        }]);
     }];
     [DEVICETOOL changeReport:option reportArr:_results maxCount:10];
+    option.visualMap = visualMapD;
     return option;
 }
 - (PYOption *)getOption2{
    
     NSMutableArray *saveDataArr;
     NSMutableArray *saveDataArr2;
+    NSMutableArray *saveDataArr3;
     if(_dataModel.dataArr.count>0){
         saveDataArr = [NSMutableArray arrayWithArray:_dataModel.dataArr[0]];
         if(saveDataArr.count == 0){
@@ -149,8 +173,80 @@
            NSNumber *time2 = [NSNumber numberWithLongLong:currentTime+100];
            saveDataArr2 = [NSMutableArray arrayWithArray:@[@[time,@(0)],@[time2,@(0)]]];
            }
+    }if(_dataModel.dataArr.count>2){
+           saveDataArr3 = [NSMutableArray arrayWithArray:_dataModel.dataArr[2]];
+           if(saveDataArr3.count == 0){
+           long long currentTime = [[NSDate date] timeIntervalSince1970] *1000;
+           NSNumber *time = [NSNumber numberWithLongLong:currentTime];
+           NSNumber *time2 = [NSNumber numberWithLongLong:currentTime+100];
+           saveDataArr3 = [NSMutableArray arrayWithArray:@[@[time,@(0)],@[time2,@(0)]]];
+           }
     }
 
+    NSDictionary *visualMapDCHange = @{@"show":@(NO),@"dimension":@(0),@"pieces":@[@{@"lte":@(1614835094000),@"color":blueColor},@{@"gt":@(1614835095000),@"color":blueColor}]};
+        if(_dataModel.colorArr.count != 0){
+            NSMutableArray *pieces = [NSMutableArray array];
+            NSNumber* saveCount = @(0);
+            for (int a = 0; a<_dataModel.colorArr.count; a++) {
+                NSArray *piece = _dataModel.colorArr[a];
+                if(a==0){
+                    [pieces addObject:@{@"lte":piece[0],@"color":@"#4B8CF5"}];
+                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":@"#E71D1C"}];
+                    saveCount = piece[1];
+                }else{
+                    [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":@"#4B8CF5"}];
+                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":@"#E71D1C"}];
+                    saveCount = piece[1];
+                }
+                if(a == _dataModel.colorArr.count-1){
+                     [pieces addObject:@{@"gt":saveCount,@"color":@"#4B8CF5"}];
+                }
+            }
+            visualMapDCHange =  @{@"show":@(NO),@"dimension":@(0),@"pieces":pieces};
+        }
+    NSDictionary *visualMapDClose1 = @{@"show":@(NO),@"dimension":@(0),@"pieces":@[@{@"lte":@(1614835094000),@"color":blueColor},@{@"gt":@(1614835095000),@"color":blueColor}]};
+    if(_dataModel.fanColorArr.count != 0){
+        NSMutableArray *pieces = [NSMutableArray array];
+        NSNumber* saveCount = @(0);
+        for (int a = 0; a<_dataModel.fanColorArr.count; a++) {
+            NSArray *piece = _dataModel.fanColorArr[a];
+            if(a==0){
+                [pieces addObject:@{@"lte":piece[0],@"color":@"#4B8CF5"}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":@"#E71D1C"}];
+                saveCount = piece[1];
+            }else{
+                [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":@"#4B8CF5"}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":@"#E71D1C"}];
+                saveCount = piece[1];
+            }
+            if(a == _dataModel.fanColorArr.count-1){
+                 [pieces addObject:@{@"gt":saveCount,@"color":@"#4B8CF5"}];
+            }
+        }
+        visualMapDClose1 =  @{@"show":@(NO),@"dimension":@(0),@"pieces":pieces};
+    }
+    NSDictionary *visualMapDClose2 = @{@"show":@(NO),@"dimension":@(0),@"pieces":@[@{@"lte":@(1614835094000),@"color":blueColor},@{@"gt":@(1614835095000),@"color":blueColor}]};
+    if(_dataModel.close_transArr.count != 0){
+        NSMutableArray *pieces = [NSMutableArray array];
+        NSNumber* saveCount = @(0);
+        for (int a = 0; a<_dataModel.close_transArr.count; a++) {
+            NSArray *piece = _dataModel.close_transArr[a];
+            if(a==0){
+                [pieces addObject:@{@"lte":piece[0],@"color":@"#4B8CF5"}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":@"#E71D1C"}];
+                saveCount = piece[1];
+            }else{
+                [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":@"#4B8CF5"}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":@"#E71D1C"}];
+                saveCount = piece[1];
+            }
+            if(a == _dataModel.close_transArr.count-1){
+                 [pieces addObject:@{@"gt":saveCount,@"color":@"#4B8CF5"}];
+            }
+        }
+        visualMapDClose2 =  @{@"show":@(NO),@"dimension":@(0),@"pieces":pieces};
+    }
+    
     NSString *titleStr = [NSString stringWithFormat:@"%@%@",_dataModel.deviceType,@"曲线图"];
 
     PYOption *option = [PYOption initPYOptionWithBlock:^(PYOption *option) {
@@ -173,7 +269,7 @@
             dataZoom.showEqual(YES).startEqual(@0).typeEqual(@"inside");
         }])
         .legendEqual([PYLegend initPYLegendWithBlock:^(PYLegend *legend) {
-            legend.dataEqual(@[@"定位锁闭力",@"反位锁闭力"]);
+            legend.dataEqual(@[@"定位锁闭力",@"反位锁闭力",@"转换阻力"]);
         }])
         .addXAxis([PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
             axis.typeEqual(PYAxisTypeTime)
@@ -193,18 +289,25 @@
 //            .maxEqual(@(4000));
         }])
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
-//        series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES)
+//        series.symbolSizeEqual(@(0)).showAllSymbolEqual(YES) 闭锁
             series.symbolEqual(@"none")
             .smoothEqual(YES)
-            .nameEqual(@"定位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(@"average");
+            .nameEqual(@"定位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(@"lttb");
         }])
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
         series.symbolEqual(@"none")
             .smoothEqual(YES)
-            .nameEqual(@"反位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr2).samplingEqual(@"average");
+            .nameEqual(@"反位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr2).samplingEqual(@"lttb");
+        }])
+        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
+        series.symbolEqual(@"none")
+            .smoothEqual(YES)
+            .nameEqual(@"转换阻力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr3).samplingEqual(@"lttb");
         }]);
+        
     }];
     [DEVICETOOL changeReport:option reportArr:_results maxCount:10];
+    option.visualMap = @[visualMapDClose1,visualMapDClose2,visualMapDCHange];
     return option;
 }
 /*

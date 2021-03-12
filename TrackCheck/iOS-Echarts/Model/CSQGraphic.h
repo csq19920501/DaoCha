@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CSQGraphic : NSObject
 @property (nonatomic, strong) NSNumber *z;
 @property (nonatomic, copy) NSString * type;
+@property (nonatomic, strong) id onclick;
 @property (nonatomic, strong) id left;
 @property (nonatomic, strong) id top;
 @property (nonatomic, strong) id right;
@@ -29,6 +30,7 @@ PYPropertyEqualTemplate(CSQGraphic,id, left);
 PYPropertyEqualTemplate(CSQGraphic, id, right);
 PYPropertyEqualTemplate(CSQGraphic, id, style);
 PYPropertyEqualTemplate(CSQGraphic, NSNumber *, z);
+PYPropertyEqualTemplate(CSQGraphic, id, onclick);
 
 @end
 

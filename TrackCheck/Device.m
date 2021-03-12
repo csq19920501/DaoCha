@@ -15,6 +15,9 @@
         long long currentTime = [[NSDate date] timeIntervalSince1970] ;
         _timeStr = [NSString stringWithFormat:@"%lld",currentTime];
         _reportArr = [NSMutableArray array];
+        _colorArr = [NSMutableArray array];
+        _percent = @"0";
+        _vol = @"0";
     }
     return self;
 }

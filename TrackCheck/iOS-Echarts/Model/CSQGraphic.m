@@ -35,5 +35,5 @@ PYPropertyEqualImpTemplate(CSQGraphic, id, left);
 PYPropertyEqualImpTemplate(CSQGraphic, id, right);
 PYPropertyEqualImpTemplate(CSQGraphic, id, style);
 PYPropertyEqualImpTemplate(CSQGraphic, NSNumber *, z);
-
+PYPropertyEqualImpTemplate(CSQGraphic, id, onclick);
 @end

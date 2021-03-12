@@ -30,10 +30,19 @@
 @property (nonatomic ,strong) NSMutableArray *dataArray1;
 @property (nonatomic ,strong) NSMutableArray *dataArray2;
 @property (nonatomic ,strong) NSMutableArray *dataArray3;
+
+@property (nonatomic ,strong) NSMutableArray *dataArray1Sele;
+@property (nonatomic ,strong) NSMutableArray *dataArray2Sele;
+@property (nonatomic ,strong) NSMutableArray *dataArray3Sele;
+
 @property (nonatomic ,strong) UITextView *stationV;
 @property (nonatomic ,strong) UITextView *stationV3;
 @property (nonatomic ,strong) UITextView *timeV;
-
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *checkBar;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *importBar;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *getAllBar;
+@property (nonatomic,assign)BOOL isEdit;
+@property (nonatomic,assign)BOOL isShowEdit;
 // 已加载到的行数
 @property (nonatomic, assign) int rowNum;
 @property (nonatomic, strong) UIDocumentPickerViewController *documentPickerVC;
@@ -71,11 +80,99 @@ static int width = 15;
 //    self.navigationItem.leftBarButtonItem = backBarButtonItem;
     
 }
+- (IBAction)check:(id)sender {
+    if(!_isShowEdit){
+        if(!_isEdit){
+            _isEdit = YES;
+            [_checkBar setTitle:@"取消"];
+            [_getAllBar setTitle:@"确定"];
+            _getAllBar.enabled = YES;
+            [_importBar setTitle:@""];
+            _importBar.enabled = NO;
+        }else{
+            _isEdit = NO;
+            [_checkBar setTitle:@"对比"];
+            _getAllBar.enabled = NO;
+            [_getAllBar setTitle:@""];
+            
+            for (ReportModel *model in _dataArray1) {
+                model.isSelected = NO;
+            }
+            for (ReportModel *model in _dataArray2) {
+                model.isSelected = NO;
+            }
+            for (ReportModel *model in _dataArray3) {
+                model.isSelected = NO;
+            }
+            [_chartV reload];
+            [_chartV2 reload];
+            [_chartV3 reload];
+            
+            [_importBar setTitle:@"导出"];
+            _importBar.enabled = YES;
+        }
+    }else{
+        _isShowEdit = NO;
+        _isEdit = NO;
+         [_checkBar setTitle:@"对比"];
+        
+        
+        for (ReportModel *model in _dataArray1) {
+            model.isSelected = NO;
+        }
+        for (ReportModel *model in _dataArray2) {
+            model.isSelected = NO;
+        }
+        for (ReportModel *model in _dataArray3) {
+            model.isSelected = NO;
+        }
+        [_chartV reload];
+        [_chartV2 reload];
+        [_chartV3 reload];
+        
+         [_importBar setTitle:@"导出"];
+        _importBar.enabled = YES;
+    }
+    
+}
 
 //- (void)backBarButtonItemAction
 //{
 //    [self.navigationController popViewControllerAnimated:YES];
 //}
+- (IBAction)getAll:(id)sender {
+    _isShowEdit = YES;
+    _isEdit = NO;
+    _getAllBar.enabled = NO;
+    [_getAllBar setTitle:@""];
+    
+    _dataArray1Sele = [NSMutableArray array];
+    for (ReportModel *model in _dataArray1) {
+        if(model.isSelected){
+            [_dataArray1Sele addObject:model];
+        }
+    }
+    
+    _dataArray2Sele = [NSMutableArray array];
+    for (ReportModel *model in _dataArray2) {
+        if(model.isSelected){
+            [_dataArray2Sele addObject:model];
+        }
+    }
+    
+    _dataArray3Sele = [NSMutableArray array];
+    for (ReportModel *model in _dataArray3) {
+        if(model.isSelected){
+            [_dataArray3Sele addObject:model];
+        }
+    }
+    [_chartV reload];
+     [_chartV2 reload];
+     [_chartV3 reload];
+}
+
+
+
 - (IBAction)export:(id)sender {
 //    if(_dataArray1.count == 0 && _dataArray2.count == 0 && _dataArray3.count == 0){
 //        [HUD showAlertWithText:@"查询结果无报告"];
@@ -181,17 +278,44 @@ static int width = 15;
     }
 }
 -(void)didSelectItemAtIndexPath:(NSIndexPath *)indexPath cellForView:(FCChartView*)chartView{
-    if(chartView == _chartV){
-        if(indexPath.section == 0  && indexPath.row == 11){
-            [self getDatePick];
-        }
-    }else if(chartView == _chartV3){
-       
-            if(indexPath.section == 0  && indexPath.row == 9){
-                [self getDatePick];
-            }
-       
+    if(!_isEdit && !_isShowEdit){
+        if(chartView == _chartV){
+              if(indexPath.section == 0  && indexPath.row == 11){
+                  [self getDatePick];
+              }
+          }else if(chartView == _chartV3){
+             
+                  if(indexPath.section == 0  && indexPath.row == 9){
+                      [self getDatePick];
+                  }
+              
+          }
     }
+    
+    if(!_isShowEdit && _isEdit){
+        if(chartView == _chartV){
+            if(indexPath.section >= 4 && indexPath.section - 4 < _dataArray1.count){
+                ReportModel * report = _dataArray1[indexPath.section - 4];
+                report.isSelected = !report.isSelected;
+                [_chartV reloadSection:indexPath];
+            }
+        }else if(chartView == _chartV3){
+
+            if(indexPath.section >= 4 && indexPath.section - 4 < _dataArray3.count){
+                ReportModel * report = _dataArray3[indexPath.section - 4];
+                report.isSelected = !report.isSelected;
+                [_chartV3 reloadSection:indexPath];
+            }
+        }
+        else if(chartView == _chartV2){
+            if(indexPath.section >= 3 && indexPath.section - 3 < _dataArray2.count){
+                ReportModel * report = _dataArray2[indexPath.section - 3];
+                report.isSelected = !report.isSelected;
+                [_chartV2 reloadSection:indexPath];
+            }
+        }
+    }
+    NSLog(@"select %ld-- %d",(long)indexPath.row,indexPath.section);
 }
 - (__kindof UICollectionViewCell *)collectionViewCell:(UICollectionViewCell *)collectionViewCell collectionViewType:(FCChartCollectionViewType)type cellForItemAtIndexPath:(NSIndexPath *)indexPath cellForView:(FCChartView*)chartView{
     FCChartCollectionViewCell *cell = (FCChartCollectionViewCell *)collectionViewCell;
@@ -295,18 +419,31 @@ static int width = 15;
             }
             cell.textColor = [UIColor blackColor];
         }else{
-            if (indexPath.section%2) {
-                cell.textColor = [UIColor redColor];
-            }else{
-                cell.textColor = [UIColor blackColor];
-            }
-          
+//            if (indexPath.section%2) {
+//                cell.textColor = [UIColor redColor];
+//            }else{
+//                cell.textColor = [UIColor blackColor];
+//            }
+            
+            
             ReportModel *report;
-            if(indexPath.section < _dataArray3.count){
-                report = _dataArray3[indexPath.section];
+            if(!_isShowEdit){
+                if(indexPath.section < _dataArray3.count){
+                    report = _dataArray3[indexPath.section];
+                }
+            }else{
+                if(indexPath.section < _dataArray3Sele.count){
+                    report = _dataArray3Sele[indexPath.section];
+                }
             }
-           
+            
             if(report){
+                if(report.isSelected){
+                    cell.backgroundColor = BLUECOLOR;
+                }else{
+                    cell.backgroundColor = [UIColor whiteColor];
+                }
+                
                  NSLog(@"report.reportType = %ld report..close_fan = %ld ,report.close_ding = %ld",report.reportType,report.close_fan,report.close_ding);
                 switch (indexPath.row) {
                     case 0:
@@ -474,7 +611,7 @@ static int width = 15;
             cell.text = @"转换段(KN)";
         }
         else if(indexPath.section == section + 2 && indexPath.item == 7){
-            cell.text = @"闭锁段(KN)";
+            cell.text = @"锁闭段(KN)";
         }
         else if(indexPath.section == section + 2 && indexPath.item == 9){
             cell.text = @"全段(KN)";
@@ -500,23 +637,45 @@ static int width = 15;
         cell.textColor = [UIColor blackColor];
     }else{
         
-            if (indexPath.section%2) {
-                cell.textColor = [UIColor redColor];
-            }else{
-                cell.textColor = [UIColor blackColor];
-            }
+//            if (indexPath.section%2) {
+//                cell.textColor = [UIColor redColor];
+//            }else{
+//                cell.textColor = [UIColor blackColor];
+//            }
+            
+        
             if(chartView == _chartV || chartView == _chartV2){
             ReportModel *report;
             if(chartView == _chartV){
-                if(indexPath.section < _dataArray1.count){
-                    report = _dataArray1[indexPath.section];
+                if(!_isShowEdit){
+                    if(indexPath.section < _dataArray1.count){
+                        report = _dataArray1[indexPath.section];
+                    }
+                }else{
+                    if(indexPath.section < _dataArray1Sele.count){
+                        report = _dataArray1Sele[indexPath.section];
+                    }
                 }
+                
             }else if(chartView == _chartV2){
-                if(indexPath.section < _dataArray2.count){
-                    report = _dataArray2[indexPath.section];
+                if(!_isShowEdit){
+                    if(indexPath.section < _dataArray2.count){
+                        report = _dataArray2[indexPath.section];
+                    }
+                }else{
+                    if(indexPath.section < _dataArray2Sele.count){
+                        report = _dataArray2Sele[indexPath.section];
+                    }
                 }
+                
             }
             if(report){
+                
+                if(report.isSelected){
+                    cell.backgroundColor = BLUECOLOR;
+                }else{
+                    cell.backgroundColor = [UIColor whiteColor];
+                }
                 switch (indexPath.row) {
                     case 0:
                         {
@@ -610,11 +769,26 @@ static int width = 15;
 
 - (NSInteger)numberOfSectionsInChartView:(FCChartView *)chartView{
     if(chartView == _chartV){
-        return _dataArray1.count <9?9 + 4:_dataArray1.count + 4;
+        if(!_isShowEdit){
+            return _dataArray1.count <9?9 + 4:_dataArray1.count + 4;
+        }else{
+            return _dataArray1Sele.count <9?9 + 4:_dataArray1Sele.count + 4;
+        }
+        
     }else if(chartView == _chartV2){
-        return _dataArray2.count <9?9+3:_dataArray2.count+3;
+        if(!_isShowEdit){
+            return _dataArray2.count <9?9+3:_dataArray2.count+3;
+        }else{
+            return _dataArray2Sele.count <9?9+3:_dataArray2Sele.count+3;
+        }
+        
     }else{
-        return _dataArray3.count <21?21+4:_dataArray3.count+4;
+        if(!_isShowEdit){
+            return _dataArray3.count <21?21+4:_dataArray3.count+4;
+        }else{
+            return _dataArray3Sele.count <21?21+4:_dataArray3Sele.count+4;
+        }
+        
     }
 //    return 20;
 }
@@ -880,7 +1054,7 @@ static int width = 15;
            NSInteger a = (int)(allHeight - 240)/40;
            NSInteger bodyHeight = a/2*40 ;
         
-        _chartV2 = [[FCChartView alloc] initWithFrame:CGRectMake(0, bodyHeight + 150, self.safeView.frame.size.width, bodyHeight + 90 + 40) type:FCChartViewTypeOnlySectionFixation dataSource:self suspendSection:3];
+        _chartV2 = [[FCChartView alloc] initWithFrame:CGRectMake(0, bodyHeight + 150, self.safeView.frame.size.width, bodyHeight + 90 ) type:FCChartViewTypeOnlySectionFixation dataSource:self suspendSection:3];
 //        _chartV2.suspendSection = 3;
         [_chartV2 registerClass:[FCChartCollectionViewCell class]];
     }
@@ -1019,7 +1193,7 @@ static int width = 15;
         
         worksheet_merge_range(worksheet, ++self.rowNum, 3, self.rowNum, 4, "解锁段(KN)", titleformat);
         worksheet_merge_range(worksheet, self.rowNum, 5, self.rowNum, 6, "转换段(KN)", titleformat);
-        worksheet_merge_range(worksheet, self.rowNum, 7, self.rowNum, 8, "闭锁段(KN)", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 7, self.rowNum, 8, "锁闭段(KN)", titleformat);
         worksheet_merge_range(worksheet, self.rowNum, 9, self.rowNum, 10, "全段(KN)", titleformat);
         
         worksheet_write_string(worksheet, ++self.rowNum, 3, "峰值", titleformat);
@@ -1090,7 +1264,7 @@ static int width = 15;
         
         worksheet_merge_range(worksheet, ++self.rowNum, 3, self.rowNum, 4, "解锁段(KN)", titleformat);
         worksheet_merge_range(worksheet, self.rowNum, 5, self.rowNum, 6, "转换段(KN)", titleformat);
-        worksheet_merge_range(worksheet, self.rowNum, 7, self.rowNum, 8, "闭锁段(KN)", titleformat);
+        worksheet_merge_range(worksheet, self.rowNum, 7, self.rowNum, 8, "锁闭段(KN)", titleformat);
         worksheet_merge_range(worksheet, self.rowNum, 9, self.rowNum, 10, "全段(KN)", titleformat);
         
         worksheet_write_string(worksheet, ++self.rowNum, 3, "峰值", titleformat);

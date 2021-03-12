@@ -15,6 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 //@property(nonatomic,copy)NSString * typeNum;
 @property(nonatomic,copy)NSString * typeStr;
 @property(nonatomic,copy)NSString * version;
+
+@property(nonatomic,copy)NSString * vol;
+@property(nonatomic,copy)NSString * percent;
+@property(nonatomic,copy)NSString * charging;
+
 @property(nonatomic,assign)BOOL  selected;
 @property(nonatomic,assign)BOOL  fitstAdd;
 @property(nonatomic,assign)BOOL  offline;
@@ -22,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy)NSString * timeStr;
 
 @property (nonatomic,strong)NSMutableArray * reportArr;
+
+@property (nonatomic,strong)NSMutableArray * colorArr;
+@property (nonatomic,strong)NSMutableArray * fanColorArr;
 @end
 
 NS_ASSUME_NONNULL_END

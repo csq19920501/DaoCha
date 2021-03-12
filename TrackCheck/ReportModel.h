@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,assign)NSInteger keep_ding;
 @property (nonatomic,assign)NSInteger keep_fan;
-
+@property (nonatomic,assign)BOOL isSelected;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -70,7 +70,10 @@ static NSInteger kMainCVTag = 19979754;
 - (void)registerClass:(nullable Class)cellClass{
     [self.mainCV registerClass:cellClass forCellWithReuseIdentifier:kMainCVDefaultCellIdentifier];
 }
-
+-(void)reloadSection:(NSIndexPath*)indexP{
+    NSIndexSet * set = [NSIndexSet indexSetWithIndex:indexP.section];
+    [self.mainCV reloadSections:set];
+}
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{

@@ -50,7 +50,7 @@ FOUNDATION_EXPORT PYSeriesType const PYSeriesTypeTree;
 @property (nonatomic, strong) id data;
 @property (nonatomic, strong) PYMarkPoint *markPoint;
 @property (nonatomic, strong) PYMarkLine *markLine;
-
+//@property (nonatomic, strong) id visualMap;
 PYInitializerTemplate(PYSeries, series);
 
 PYPropertyEqualTemplate(PYSeries, NSNumber *, zlevel);
@@ -63,6 +63,7 @@ PYPropertyEqualTemplate(PYSeries, BOOL, clickable);
 //PYPropertyEqualTemplate(PYSeries, BOOL, smooth);
 PYPropertyEqualTemplate(PYSeries, PYItemStyle *, itemStyle);
 PYPropertyEqualTemplate(PYSeries, id, data);
+//PYPropertyEqualTemplate(PYSeries, id, visualMap);
 PYPropertyEqualTemplate(PYSeries, PYMarkPoint *, markPoint);
 PYPropertyEqualTemplate(PYSeries, PYMarkLine *, markLine);
 

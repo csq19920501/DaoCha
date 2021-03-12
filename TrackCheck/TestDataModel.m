@@ -19,6 +19,9 @@
     if(self){
         self.dataArr = [NSMutableArray array];
         self.reportArr = [NSMutableArray array];
+        self.colorArr = [NSMutableArray array];
+        self.fanColorArr = [NSMutableArray array];
+        self.close_transArr = [NSMutableArray array];
     }
     return self;
 }

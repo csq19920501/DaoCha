@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong)NSMutableArray * reportArr;
 
+@property (nonatomic,strong)NSMutableArray *colorArr;
+@property (nonatomic,strong)NSMutableArray *fanColorArr;
+@property (nonatomic,strong)NSMutableArray *close_transArr;//锁闭力测试时对应的转换阻力 报告区间
 @end
 
 NS_ASSUME_NONNULL_END

@@ -76,6 +76,7 @@ PYPropertyEqualImpTemplate(PYSeries, BOOL, clickable);
 //PYPropertyEqualImpTemplate(PYSeries, BOOL, smooth);
 PYPropertyEqualImpTemplate(PYSeries, PYItemStyle *, itemStyle);
 PYPropertyEqualImpTemplate(PYSeries, id, data);
+//PYPropertyEqualImpTemplate(PYSeries, id, visualMap);
 PYPropertyEqualImpTemplate(PYSeries, PYMarkPoint *, markPoint);
 PYPropertyEqualImpTemplate(PYSeries, PYMarkLine *, markLine);
 PYPropertyEqualImpTemplate(PYSeries, NSString *, sampling);

@@ -33,6 +33,7 @@ static NSArray<PYLineStyleType> *lineStyleTypeScope;
     if (self) {
         _type = PYLineStyleTypeSolid;
 //        _shadowColor = [[PYColor alloc] init];
+        
         _shadowBlur = @(0);
         _shadowOffsetX = @(0);
         _shadowOffsetY = @(0);

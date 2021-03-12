@@ -23,7 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)long  min;
 @property (nonatomic,assign)long  min_Fan;
 
-@property (nonatomic,strong)NSMutableArray* dataArr;
+@property (nonatomic,strong)NSMutableArray* dataArr; //只包含力大小
+@property (nonatomic,strong)NSMutableArray* timeArr; //只包含时间值
+@property (nonatomic,strong)NSMutableArray* fanTimeArr; //只包含时间值
+@property (nonatomic,strong)NSMutableArray* dataBlockArr;
 @property (nonatomic,strong)NSMutableArray* dataArr_Fan;
 
 @property (nonatomic,assign)BOOL  step1_OK;
@@ -31,6 +34,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)long  step1_max;
 @property (nonatomic,assign)long  step1_min;
 @property (nonatomic,assign)long  step1_average;
+
+@property (nonatomic,assign)BOOL  stable_1;
+@property (nonatomic,assign)BOOL  stable_2;
+@property (nonatomic,assign)BOOL  stable_3;
 
 @property (nonatomic,assign)BOOL  step2_OK;
 @property (nonatomic,assign)long  step2_mean;
@@ -56,6 +63,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)BOOL  blockedStable1_OK;    //受阻稳定
 @property (nonatomic,assign)BOOL  blockedStable2_OK;
 @property (nonatomic,assign)BOOL  blockedStable3_OK;
+@property (nonatomic,assign)BOOL  blockedStable4_OK;
+@property (nonatomic,assign)BOOL  blockedStable5_OK;
+
 
 @property (nonatomic,assign)BOOL  blockedChange1_OK_Fan;  //受阻上升
 @property (nonatomic,assign)BOOL  blockedChange2_OK_Fan;  //受阻下降

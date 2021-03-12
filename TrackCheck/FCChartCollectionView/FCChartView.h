@@ -73,7 +73,7 @@ typedef enum : NSUInteger {
 - (instancetype)initWithFrame:(CGRect)frame type:(FCChartViewType)type dataSource:(id<FCChartViewDataSource>)dataSource suspendSection:(NSInteger)suspendSection;
 
 - (void)registerClass:(nullable Class)cellClass;
-
+-(void)reloadSection:(NSIndexPath*_Nonnull)indexP;
 @property (nonatomic,weak)id <FCChartViewDataSource> _Nullable dataSource;
 
 

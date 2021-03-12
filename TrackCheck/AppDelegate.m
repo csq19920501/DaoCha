@@ -23,7 +23,6 @@
     if (@available(iOS 13.0, *)) {
     
       } else {
-        
           self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
           NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
           long long currentTime = [[NSDate date] timeIntervalSince1970];
@@ -43,24 +42,23 @@
           }
           self.window.backgroundColor = [UIColor whiteColor];
           [self.window makeKeyAndVisible];
-          
       }
-
-   
     [self preSocke];
     long revData = (long)strtoul([@"8000" UTF8String],0,16);  //16进制字符串转换成long
     NSLog(@"%ld",revData);
 
-     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     return YES;
 }
 -(void)preSocke{
+    NSLog(@"重启socket");
     [self.scoketThread cancel];
     self.scoketThread = nil;
     self.scoketThread = [[NSThread alloc]initWithTarget:self selector:@selector(startSocket) object:nil];
-       [self.scoketThread start];
+    [self.scoketThread start];
 }
 -(void)startSocket{
+//    [CSQScoketService deallocSocket];
     CSQScoketService *socketSerview = [CSQScoketService shareInstance];
     //开始服务
     [socketSerview start];

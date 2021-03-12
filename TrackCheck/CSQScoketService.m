@@ -12,7 +12,8 @@
 #import "ReportModel.h"
 #import "ETAFNetworking.h"
 //#import "TcpManager.h"
-
+static CSQScoketService *tcpSocket =nil;
+static dispatch_once_t onceToken;
 @interface CSQScoketService ()<GCDAsyncSocketDelegate>
 @property (strong, nonatomic) GCDAsyncSocket *socket;
 
@@ -25,15 +26,18 @@
 
 + (CSQScoketService *)shareInstance{
     
-    static CSQScoketService *tcpSocket =nil;
-    static dispatch_once_t onceToken;
+   
     dispatch_once(&onceToken, ^{
         tcpSocket = [[CSQScoketService alloc] init];
 
     });
     return tcpSocket;
 }
-
++(void)deallocSocket{
+    tcpSocket=nil;
+    onceToken=0l;
+    NSLog(@"销毁单例");
+}
 - (NSMutableArray *)clientSockets
 {
     if (_clientSockets == nil) {
@@ -67,12 +71,13 @@
     if(!DEVICETOOL.isDebug){
         [self.timer invalidate];
         self.timer = nil;
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(manangeSocket) userInfo:nil repeats:YES];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(manangeSocket) userInfo:nil repeats:YES];
     }
 }
 -(void)manangeSocket{
     NSArray *socketA = [self.clientSockets copy];
     for (GCDAsyncSocket *socket in socketA) {
+        NSLog(@"self.clientSockets.count = %d",self.clientSockets.count);
         NSLog(@"socket = %@",[NSString stringWithFormat:@"%@",socket]);
         NSNumber* number = [_socketDic valueForKey:[NSString stringWithFormat:@"%@",socket]];
         int num = number.intValue;
@@ -85,14 +90,12 @@
         }
     }
     
-    NSLog(@"_socketDic = %@",_socketDic);
-    
     if(self.clientSockets.count==0){
         _socketNum ++;
         if(_socketNum>5){
+            _socketNum = 0;
             dispatch_async(dispatch_get_main_queue(), ^{
 //                AppDelegate *delete =  (AppDelegate *)[UIApplication sharedApplication].delegate;
-                NSLog(@"重启 socket服务");
 //                [delete preSocke];
                 NSError *error = nil;
                 [self.socket disconnect];
@@ -141,7 +144,7 @@
     [newSocket readDataWithTimeout:-1 tag:0];
 }
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(nullable NSError *)err{
-    NSLog(@"断开链接%@----%@",sock, err);
+//    NSLog(@"断开链接%@----%@",sock, err);
     NSLog(@"断开链接localizedDescription---%@", err.localizedDescription);
     [self.clientSockets removeObject:sock];
 }
@@ -163,7 +166,7 @@
         NSDictionary *dict =  @{@"cmd":@"push_msg_ack",@"packnum":@"0"};
         dataStr = dict.mj_JSONString;
         
-         [self  changeDevice:dic];
+//         [self  changeDevice:dic];
     
         if( DEVICETOOL.testStatus != TestStarted){
             [sock writeData:[dataStr dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
@@ -175,31 +178,68 @@
                    [self getData:dic];
             }
         }
-    }
-    else if([cmd isEqualToString:@"ping"]){
-        NSDictionary *dict =  @{@"cmd":@"pong"};
-        dataStr = dict.mj_JSONString;
-        
     }else if([cmd isEqualToString:@"time"]){
         long long currentTime = [[NSDate date] timeIntervalSince1970];
         NSNumber *time = [NSNumber numberWithLongLong:currentTime];
         NSDictionary *dict =  @{@"cmd":@"time_ack",@"timestamp":time};
         dataStr = dict.mj_JSONString;
-
+        [self  changeDevice:dic];
+    }
+    else if([cmd isEqualToString:@"ping"]){
+        NSDictionary *dict =  @{@"cmd":@"pong"};
+        
+        for (int i =0; i < DEVICETOOL.deviceArr.count; i++) {
+            Device *device = DEVICETOOL.deviceArr[i];
+            if([device.id isEqualToString:dic[@"id"]]){
+                device.percent = dic[@"percent"];
+                device.vol = dic[@"vol"];
+                device.charging = dic[@"charging"];
+            }
+        }
+        dataStr = dict.mj_JSONString;
+        [self  changeDevice:dic];
     }else if([cmd isEqualToString:@"push_info"]){
         NSDictionary *dict =  @{@"cmd":@"push_info_ack"};
         dataStr = dict.mj_JSONString;
         
         [self  changeDevice:dic];
-        
-    }else if([cmd isEqualToString:@"version"]){
-        long long currentTime = [[NSDate date] timeIntervalSince1970];
-        NSNumber *time = [NSNumber numberWithLongLong:currentTime];
-        NSDictionary *dict =  @{@"cmd":@"version_ack",@"timestamp":time};
-        dataStr = dict.mj_JSONString;
+    }else if([cmd isEqualToString:@"version_ack"]){
+//        long long currentTime = [[NSDate date] timeIntervalSince1970];
+//        NSNumber *time = [NSNumber numberWithLongLong:currentTime];
+//        NSDictionary *dict =  @{@"cmd":@"version_ack",@"timestamp":time};
+//        dataStr = dict.mj_JSONString;
+        [self  changeDevice:dic];
     }
     [sock writeData:[dataStr dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
     [sock readDataWithTimeout:-1 tag:0];
+}
+-(void)startSample{
+    for (GCDAsyncSocket *sock in self.clientSockets) {
+        NSString *dataStr = nil;
+        NSDictionary *dict =  @{@"cmd":@"sample",@"flag":@"1"};
+        dataStr = dict.mj_JSONString;
+        [sock writeData:[dataStr dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+        [sock readDataWithTimeout:-1 tag:0];
+    }
+}
+-(void)stopSample{
+    for (GCDAsyncSocket *sock in self.clientSockets) {
+        NSString *dataStr = nil;
+        NSDictionary *dict =  @{@"cmd":@"sample",@"flag":@"0"};
+        dataStr = dict.mj_JSONString;
+        [sock writeData:[dataStr dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+        [sock readDataWithTimeout:-1 tag:0];
+    }
+}
+-(void)getVersion{
+    for (GCDAsyncSocket *sock in self.clientSockets) {
+        NSString *dataStr = nil;
+        NSDictionary *dict =  @{@"cmd":@"version"};
+        dataStr = dict.mj_JSONString;
+        [sock writeData:[dataStr dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+        [sock readDataWithTimeout:-1 tag:0];
+        NSLog(@"发送version指令");
+    }
 }
 -(void)getData:(NSDictionary*)dic{
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -216,13 +256,32 @@
                 NSString * idStr = dic[@"id"];
                 
                 if(DEVICETOOL.seleLook == ONE){
+
                     if([idStr intValue] == 11 || [idStr intValue] == 12){
                         return ;
                     }
                 }else if(DEVICETOOL.seleLook == TWO){
-                    if([idStr intValue] == 1 || [idStr intValue] == 2 || [idStr intValue] == 3){
-                        return ;
-                    }
+                    
+                    if([idStr intValue] == 11 || [idStr intValue] == 12){
+                    NSLog(@"[idStr intValue] = %d",[idStr intValue]);
+                    }else{
+                    
+                    if([DEVICETOOL.closeLinkDevice isEqualToString:@"J1"] || [DEVICETOOL.closeLinkDevice isEqualToString:@"X1"] || [DEVICETOOL.closeLinkDevice isEqualToString:@"J4"]){
+                          if([idStr intValue] != 1 ){
+                              return ;
+                          }
+                       }else if([DEVICETOOL.closeLinkDevice isEqualToString:@"J2"] || [DEVICETOOL.closeLinkDevice isEqualToString:@"X2"] || [DEVICETOOL.closeLinkDevice isEqualToString:@"J5"]){
+                           if([idStr intValue] != 2){
+                               return ;
+                           }
+                          
+                       }else if([DEVICETOOL.closeLinkDevice isEqualToString:@"J3"] || [DEVICETOOL.closeLinkDevice isEqualToString:@"X3"] || [DEVICETOOL.closeLinkDevice isEqualToString:@"J6"]){
+                           if([idStr intValue] != 3 ){
+                               return ;
+                           }
+                       }
+                       }
+                    
                 }
                 
                 NSString *typeStr ;
@@ -237,6 +296,7 @@
                 
                 NSMutableArray *dataArr = nil;
                 CheckModel *checkModel ;
+                NSLog(@"[idStr intValue] = %d",[idStr intValue]);
                 switch ([idStr intValue]) {
                     case 1:{
                         dataArr = [DeviceTool shareInstance].deviceDataArr1;
@@ -259,12 +319,14 @@
                         {
                             dataArr = [DeviceTool shareInstance].deviceDataArr4;
                             checkModel = DEVICETOOL.checkModel4;
+                            NSLog(@"添加11数据");
                         }
                         break;
                     case 12:
                         {
                             dataArr = [DeviceTool shareInstance].deviceDataArr5;
                             checkModel = DEVICETOOL.checkModel5;
+                            NSLog(@"添加12数据");
                         }
                         break;
                     default:
@@ -274,6 +336,7 @@
                 NSString *dataStr = dic[@"data"];
                 NSArray *reciveataArr = [dataStr componentsSeparatedByString:@","];
                 NSMutableArray *checkArr = [NSMutableArray array];
+                NSMutableArray *timeArr = [NSMutableArray array];
                 [reciveataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     long revData = (long)strtoul([obj UTF8String],0,16);  //16进制字符串转换成long
                     revData = revData - 32768;  //  85317
@@ -288,6 +351,8 @@
 //                    [[DeviceTool shareInstance].deviceDataArr4 addObject:@[@(timeinterval2),@(a)]];
 //                    [[DeviceTool shareInstance].deviceDataArr5 addObject:@[@(timeinterval2),@(a)]];
                     [checkArr addObject:@(revData)];
+                    [timeArr addObject:@(timeinterval2)];
+
                 }];
                 
                 switch ([idStr intValue]) {
@@ -295,7 +360,7 @@
                         if(!DEVICETOOL.checkModel1){
                             DEVICETOOL.checkModel1 = [[CheckModel alloc]init];
                         }
-                        [self checkData:checkArr withModel:DEVICETOOL.checkModel1 withTypeStr:typeStr  withId:[idStr intValue]];
+                        [self checkData:checkArr withModel:DEVICETOOL.checkModel1 withTypeStr:typeStr  withId:[idStr intValue] withTimeArr:timeArr];
                     }
                         break;
                     case 2:
@@ -304,7 +369,7 @@
                             if(!DEVICETOOL.checkModel2){
                                 DEVICETOOL.checkModel2 = [[CheckModel alloc]init];
                             }
-                            [self checkData:checkArr withModel:DEVICETOOL.checkModel2 withTypeStr:typeStr withId:[idStr intValue]];
+                            [self checkData:checkArr withModel:DEVICETOOL.checkModel2 withTypeStr:typeStr withId:[idStr intValue] withTimeArr:timeArr];
                         }
                         break;
                     case 3:
@@ -312,7 +377,7 @@
                             if(!DEVICETOOL.checkModel3){
                                 DEVICETOOL.checkModel3 = [[CheckModel alloc]init];
                             }
-                             [self checkData:checkArr withModel:DEVICETOOL.checkModel3 withTypeStr:typeStr withId:[idStr intValue]];
+                             [self checkData:checkArr withModel:DEVICETOOL.checkModel3 withTypeStr:typeStr withId:[idStr intValue] withTimeArr:timeArr];
                         }
                         break;
                     case 11:
@@ -320,7 +385,9 @@
                             if(!DEVICETOOL.checkModel4){
                                 DEVICETOOL.checkModel4 = [[CheckModel alloc]init];
                             }
-                            [self check56Data:checkArr withModel:DEVICETOOL.checkModel4 withTypeStr:@"锁闭力" withId:[idStr intValue]] ;
+                        
+                        
+                            [self check56Data:checkArr withModel:DEVICETOOL.checkModel4 withTypeStr:@"锁闭力" withId:[idStr intValue] withTimeArr:timeArr];
                         }
                         break;
                     case 12:
@@ -328,7 +395,7 @@
                             if(!DEVICETOOL.checkModel4){
                                 DEVICETOOL.checkModel4 = [[CheckModel alloc]init];
                             }
-                            [self check56Data:checkArr withModel:DEVICETOOL.checkModel4 withTypeStr:@"锁闭力" withId:[idStr intValue]];
+                            [self check56Data:checkArr withModel:DEVICETOOL.checkModel4 withTypeStr:@"锁闭力" withId:[idStr intValue] withTimeArr:timeArr];
                         }
                         break;
                     default:
@@ -357,9 +424,9 @@
     NSString *url = @"http://118.31.39.28:21006/getresistance.cpp?starttime=2021-01-20%2002:51:00&endtime=2021-01-20%2002:51:20&IMEI=860588048931334&name=%E6%99%AE%E5%AE%8914%E5%8F%B7%E5%B2%94%E5%BF%83&idx=0&timestamp=1611107677743&idxname=X2";
     NSString *url2 = @"http://202.107.226.68:21006/getresistance.cpp?starttime=2021-01-10%2010:15:38&endtime=2021-01-10%2010:20:07&IMEI=860588048955283&name=%E5%9F%BA%E5%9C%B021%E5%8F%B7%E5%B2%94%E5%B0%96&idx=0&timestamp=1611139739392&idxname=J1";  //阻力转换
     
-     NSString *url3 = @"http://202.107.226.68:21006/getresistance.cpp?starttime=2021-01-10%2010:15:38&endtime=2021-01-10%2010:20:07&IMEI=860588048955283&name=%E5%9F%BA%E5%9C%B021%E5%8F%B7%E5%B2%94%E5%B0%96&idx=0&timestamp=1611139739392&idxname=J1";  //多时间
+     NSString *url3 = @"http://202.107.226.68:21006/getresistance.cpp?starttime=2021-03-04%2013:18:10&endtime=2021-03-04%2013:20:20&IMEI=860588048955283&name=%E5%9F%BA%E5%9C%B021%E5%8F%B7%E5%B2%94%E5%B0%96&idx=0&timestamp=1611139739392&idxname=J1";  //多时间
     
-    [ETAFNetworking getLMK_AFNHttpSrt:url2 andTimeout:8.f andParam:nil success:^(id responseObject) {
+    [ETAFNetworking getLMK_AFNHttpSrt:url3 andTimeout:8.f andParam:nil success:^(id responseObject) {
         NSArray *series = responseObject[@"series"];
         if(series.count>2){
             weakSelf.testArray = series[2][@"data"];
@@ -392,7 +459,6 @@
         if(series.count>2){
             weakSelf.testArray = series[1][@"data"];
             weakSelf.testArray2 = series[0][@"data"];
-
             
             NSLog(@"获取到的历史数据数量%ld  %@ %@ ",weakSelf.testArray.count,series[1][@"name"],series[1][@"data"]);
              self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(testTimer56) userInfo:nil repeats:YES];
@@ -421,10 +487,12 @@
     }
 
     NSMutableArray *testArr = [NSMutableArray array];
+    NSMutableArray *timeArr = [NSMutableArray array];
     if(_testCount + 50 < self.testArray.count){
         for (long a = _testCount; a< _testCount + 50; a++) {
             NSArray *data = self.testArray[a];
             [testArr addObject:data[1]];
+            [timeArr addObject:data[0]];
             [DEVICETOOL.deviceDataArr1 addObject:data];
         }
     }else{
@@ -434,12 +502,13 @@
             long long dataLong = [dataStr longLongValue];
             NSNumber *num = [NSNumber numberWithLongLong:dataLong];
             [testArr addObject:num];
+             [timeArr addObject:data[0]];
             [DEVICETOOL.deviceDataArr1 addObject:data];
         }
         [self.timer invalidate];
         self.timer = nil;
     }
-    [self checkData:testArr withModel:DEVICETOOL.checkModel1 withTypeStr:@"J1" withId:1];
+    [self checkData:testArr withModel:DEVICETOOL.checkModel1 withTypeStr:@"J1" withId:1 withTimeArr:timeArr];
     _testCount = _testCount + 50;
     
 }
@@ -452,12 +521,13 @@
         NSLog(@"_Din _Fab 生成DEVICETOOL.checkModel1");
         DEVICETOOL.checkModel4 = [[CheckModel alloc]init];
     }
-
+ NSMutableArray *timeArr = [NSMutableArray array];
     NSMutableArray *testArr = [NSMutableArray array];
     if(_testCount + 50 < self.testArray.count){
         for (long a = _testCount; a< _testCount + 50; a++) {
             NSArray *data = self.testArray[a];
             [testArr addObject:data[1]];
+             [timeArr addObject:data[0]];
             [DEVICETOOL.deviceDataArr4 addObject:data];
         }
     }else{
@@ -467,18 +537,21 @@
             long long dataLong = [dataStr longLongValue];
             NSNumber *num = [NSNumber numberWithLongLong:dataLong];
             [testArr addObject:num];
+             [timeArr addObject:data[0]];
             [DEVICETOOL.deviceDataArr4 addObject:data];
         }
         [self.timer invalidate];
         self.timer = nil;
     }
-    [self check56Data:testArr withModel:DEVICETOOL.checkModel4 withTypeStr:@"锁闭力" withId:11];
+    [self check56Data:testArr withModel:DEVICETOOL.checkModel4 withTypeStr:@"锁闭力" withId:11 withTimeArr:timeArr];
     
     NSMutableArray *testArr2 = [NSMutableArray array];
+    NSMutableArray *timeArr2 = [NSMutableArray array];
     if(_testCount + 50 < self.testArray2.count){
         for (long a = _testCount; a< _testCount + 50; a++) {
             NSArray *data = self.testArray2[a];
             [testArr2 addObject:data[1]];
+            [timeArr2 addObject:data[0]];
             [DEVICETOOL.deviceDataArr5 addObject:data];
         }
     }else{
@@ -488,18 +561,21 @@
             long long dataLong = [dataStr longLongValue];
             NSNumber *num = [NSNumber numberWithLongLong:dataLong];
             [testArr2 addObject:num];
+            [timeArr2 addObject:data[0]];
             [DEVICETOOL.deviceDataArr5 addObject:data];
         }
         [self.timer invalidate];
         self.timer = nil;
     }
-    [self check56Data:testArr2 withModel:DEVICETOOL.checkModel4 withTypeStr:@"锁闭力" withId:12];
+    [self check56Data:testArr2 withModel:DEVICETOOL.checkModel4 withTypeStr:@"锁闭力" withId:12 withTimeArr:timeArr2];
     
     _testCount = _testCount + 50;
     
 }
 //检测56类型
--(void)check56Data:(NSArray <NSNumber*>*)dataArr withModel:(CheckModel*)model withTypeStr:(NSString*)typeStr withId:(NSInteger)id{
+-(void)check56Data:(NSArray <NSNumber*>*)dataArr withModel:(CheckModel*)model withTypeStr:(NSString*)typeStr withId:(NSInteger)id withTimeArr:(NSArray*)timeArr{
+    
+    
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     // 异步执行任务创建方法
         dispatch_async(queue, ^{
@@ -583,9 +659,11 @@
                                 model.closeDingChange_OK = YES;
                             }
                             [model.dataArr addObjectsFromArray:dataArr];
+                            [model.timeArr addObjectsFromArray:timeArr];
                         }else{
                             if(mean  > 3500 || mean  < -3500){
                                 [model.dataArr addObjectsFromArray:dataArr];
+                                [model.timeArr addObjectsFromArray:timeArr];
                                 if(!model.blockedStable1_OK){
                                     model.blockedStable1_OK = YES;
                                     NSLog(@"_Din average < 30  model.blockedStable1_OK = YES");
@@ -626,7 +704,7 @@
                                      model.reportEd = YES;
                                      NSLog(@"_Din 锁闭力生成受阻锁闭力曲线报告 暂不清除model");
                                      [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
-                                     [self device:id addReport:model.dataModel];
+                                     [self device:id addReport:model.dataModel withModel:model];
                                  }
                                  return;
                             }else{
@@ -676,7 +754,7 @@
                                                             }
                                         
                                                             if(allMax - allMin > 3500 || allMax - allMin < -3500){
-                                                                NSLog(@"_Din 检测到allMax - allMin > 2500 || allMax - allMin < -2500 舍弃掉");
+                                                                NSLog(@"_Din 检测到allMax - allMin > 3500 || allMax - allMin < -3500 舍弃掉");
                                                                 [self setCheckNilWith:id];
                                                                 return;
                                                             }
@@ -712,7 +790,7 @@
                                                              if(model.reportEdFan && model.reportEdDing && !model.reportEd){
                                                                  model.reportEd = YES;
                                                                  [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
-                                                                 [self device:id addReport:model.dataModel];
+                                                                 [self device:id addReport:model.dataModel withModel:model];
                                                                  NSLog(@"_Din 正常锁闭力曲线报告 ");
                                                                  if(!model.reportBlockFan){
                                                                      NSLog(@"_Din 正常锁闭力曲线报告 且清除model");
@@ -820,9 +898,11 @@
                                 model.closeFanChange_OK = YES;
                             }
                             [model.dataArr_Fan addObjectsFromArray:dataArr];
+                            [model.fanTimeArr addObjectsFromArray:timeArr];
                         }else{
                             if(mean  > 3500 || mean  < -3500){
                                 [model.dataArr_Fan addObjectsFromArray:dataArr];
+                                [model.fanTimeArr addObjectsFromArray:timeArr];
                                 if(!model.blockedStable1_OK_Fan){
                                     model.blockedStable1_OK_Fan = YES;
                                     NSLog(@"_Fan average < 70  model.blockedStable1_OK = YES");
@@ -863,7 +943,7 @@
                                      model.reportEd = YES;
                                      NSLog(@"_Fan 锁闭力生成受阻锁闭力曲线报告 暂不清除model");
                                      [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
-                                     [self device:id addReport:model.dataModel];
+                                     [self device:id addReport:model.dataModel withModel:model];
                                  }
                                  return;
                             }else{
@@ -945,7 +1025,7 @@
                                                              if(model.reportEdFan && model.reportEdDing && !model.reportEd){
                                                                  model.reportEd = YES;
                                                                  [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
-                                                                 [self device:id addReport:model.dataModel];
+                                                                 [self device:id addReport:model.dataModel withModel:model];
                                                                  NSLog(@"_Fan 正常锁闭力曲线报告 ");
                                                                  if(!model.reportBlockDing){
                                                                      NSLog(@"_Fan 正常锁闭力曲线报告 且清除model");
@@ -977,7 +1057,7 @@
         });
 };
 //检测1234类型
--(void)checkData:(NSArray <NSNumber*>*)dataArr withModel:(CheckModel*)model withTypeStr:(NSString*)typeStr withId:(NSInteger)id{
+-(void)checkData:(NSArray <NSNumber*>*)dataArr withModel:(CheckModel*)model withTypeStr:(NSString*)typeStr withId:(NSInteger)id withTimeArr:(NSArray*)timeArr{
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     // 异步执行任务创建方法
     dispatch_async(queue, ^{
@@ -1070,22 +1150,39 @@
                                NSLog(@"average > 70  model.step4_OK = YES");
                            }
             }
+      
             [model.dataArr addObjectsFromArray:dataArr];
+            [model.timeArr addObjectsFromArray:timeArr];
+            NSLog(@"分段 dataArr.count = %ld ",model.dataArr.count);
         }else{
             if(mean  > 2000 || mean  < -2000){
                 [model.dataArr addObjectsFromArray:dataArr];
+                [model.timeArr addObjectsFromArray:timeArr];
                 if(!model.blockedStable1_OK){
                     model.blockedStable1_OK = YES;
                     NSLog(@"average < 70  model.blockedStable1_OK = YES");
+                    [model.dataBlockArr addObject:[NSNumber numberWithLong:mean]];
+               
                 }
                else if(!model.blockedStable2_OK){
                     model.blockedStable2_OK = YES;
+                   [model.dataBlockArr addObject:[NSNumber numberWithLong:mean]];
                     NSLog(@"average < 70  model.blockedStable2_OK = YES");
                 }
                 else if(!model.blockedStable3_OK){
-                   
                     model.blockedStable3_OK = YES;
-
+                    [model.dataBlockArr addObject:[NSNumber numberWithLong:mean]];
+                    NSLog(@"average < 70  model.blockedStable2_OK = YES");
+                }
+                else if(!model.blockedStable4_OK){
+                    model.blockedStable4_OK = YES;
+                    [model.dataBlockArr addObject:[NSNumber numberWithLong:mean]];
+                    NSLog(@"average < 70  model.blockedStable2_OK = YES");
+                }
+                else if(!model.blockedStable5_OK){
+                   
+                    model.blockedStable5_OK = YES;
+                     [model.dataBlockArr addObject:[NSNumber numberWithLong:mean]];
                     //受阻空转生成
                     ReportModel *dataModel = [[ReportModel alloc]init];
                     dataModel.station = DEVICETOOL.stationStr;
@@ -1114,9 +1211,15 @@
                         dataModel.blocked_Top = model.max + model.startValue;
                         NSLog(@"average < 70  model.blockedStable2_OK = YES 反扳定受阻空转生成");
                     }
-                    dataModel.blocked_stable = mean + model.startValue;
+                    long meanAll = 0;
+                    for(NSNumber *num in model.dataBlockArr){
+                        meanAll += num.longValue;
+                    }
+                    meanAll = meanAll/(int)model.dataBlockArr.count;
+                    
+                    dataModel.blocked_stable = mean;//meanAll + model.startValue;
                     [[LPDBManager defaultManager] saveModels: @[dataModel]];
-                    [self device:id addReport:dataModel];
+                    [self device:id addReport:dataModel withModel:model];
 //                    [self setCheckNilWith:id];
                     return;
                 }
@@ -1150,13 +1253,14 @@
                                                 }
                                             }
                                             long  allMean = (long)allSun/(int)model.dataArr.count;
-                                            long openInt = (long)(dataArr.count * (1./5.5));
-                                            long transformInt = (long)(dataArr.count * (3.5/5.5));
-                                            long closeInt = dataArr.count - openInt - transformInt;
-                                             
+                                            long openInt = (long)(model.dataArr.count * (1./5.5));
+                                            long transformInt = (long)(model.dataArr.count * (3.5/5.5));
+                                            long closeInt = model.dataArr.count - openInt - transformInt;
+                        
+                        NSLog(@"分段 dataArr.count = %ld openInt = %ld transformInt=%ld",dataArr.count,openInt,transformInt);
                         NSLog(@"检测到扳动 allMean = %ld allMin = %ld allMax=%ld",allMean,allMin,allMax);
                         
-                                              long halfMean;
+                                               long halfMean;
                                                long halfSum = 0;
                         if(!model.blockedError){
                             for(long i =0; i<model.dataArr.count/2;i++){
@@ -1195,8 +1299,6 @@
                                 return;
                             }
                         }
-                                               
-                                             
                         
                                             if(halfMean < model.startValue){
                                                 NSLog(@"检测到定扳反 halfMean=%ld model.startValue = %ld ",halfMean,model.startValue);
@@ -1228,6 +1330,7 @@
                         long openMin = 100000;
                         long openMax = -100000;
                         long openSun = 0;
+                        
                         for(long i =0; i<openInt;i++){
                             NSNumber *number = model.dataArr[i];
                             long num = number.longValue ;
@@ -1239,6 +1342,7 @@
                                 openMax = num;
                             }
                         }
+                        
                         long  openMean = (long)openSun/openInt;
                         long transformMin = 100000;
                         long transformMax = -100000;
@@ -1260,7 +1364,7 @@
                         long closeMin = 100000;
                         long closeMax = -100000;
                         long closeSun = 0;
-                        for(long i =openInt + transformInt; i<dataArr.count;i++){
+                        for(long i =openInt + transformInt; i<model.dataArr.count;i++){
                             NSNumber *number = model.dataArr[i];
                             long num = number.longValue ;
                             closeSun += num;
@@ -1272,10 +1376,7 @@
                             }
                         }
                         long  closeMean = (long)closeSun/closeInt;
-                        
-//                        long beforeAfterMean = (openMean + closeMean )/2;
-                        
-                       
+
                         
                                            if(halfMean < model.startValue){
                                                if(DEVICETOOL.shenSuo == Shen_Ding){
@@ -1312,21 +1413,29 @@
                                                
                                                dataModel.close_Top = closeMax;
                                                dataModel.close_mean = closeMean;
+                                               
                                                NSLog(@" 扳动类型%ld halfMean= %ld  model.startValue= %ld",dataModel.reportType, halfMean,model.startValue);
                                            }
                                             
                                             NSLog(@"average < 100  波动结束 !model.blockedStable2_OK  正常阻力转换生");
                                          
                                            [[LPDBManager defaultManager] saveModels: @[dataModel]];
-                                           [self device:id addReport:dataModel];
+                                           [self device:id addReport:dataModel withModel:model];
                         [self setCheckNilWith:id];
                         return;
-                        
                     }
                 }else{
                     if(model.step1_OK){
-                        NSLog(@"小波动 舍弃掉");
-                        [self setCheckNilWith:id];
+                        if(!model.stable_1){
+                            model.stable_1 = YES;
+                        }else if(!model.stable_2){
+                            model.stable_2 = YES;
+                        }
+                        else if(!model.stable_3){
+                            model.stable_3 = YES;
+                            NSLog(@"小波动 舍弃掉");
+                            [self setCheckNilWith:id];
+                        }
                     }
                     return;
                 }
@@ -1358,20 +1467,60 @@
                            DEVICETOOL.checkModel4 = nil;
                        }
 }
--(void)device:(NSInteger)id addReport:(ReportModel*)report{
-    Device *dev;
-    if(id == 12){
-        id = 11;
+-(void)device:(NSInteger)id addReport:(ReportModel*)report withModel:(CheckModel*)checkModel{
+    
+    NSArray *arr ;
+    if(id == 1){
+        arr = [NSArray arrayWithArray:DEVICETOOL.deviceDataArr1];
+    }else if(id == 2){
+        arr = [NSArray arrayWithArray:DEVICETOOL.deviceDataArr2];
     }
+    else if(id == 3){
+        arr = [NSArray arrayWithArray:DEVICETOOL.deviceDataArr3];
+    }else if(id == 11){
+        arr = [NSArray arrayWithArray:DEVICETOOL.deviceDataArr4];
+    }else if(id == 12){
+        arr = [NSArray arrayWithArray:DEVICETOOL.deviceDataArr5];
+    }
+    
+    Device *dev;
+   
     for(Device *devi in DEVICETOOL.deviceArr){
-        if([devi.id intValue] == id){
+        NSInteger devID = id;
+        if(devID == 12){
+               devID = 11;
+           }
+        if([devi.id intValue] == devID){
             dev = devi;
             break;
         }
     }
     if(dev){
         [dev.reportArr addObject:report];
+        
+        NSNumber *startT = checkModel.timeArr[0];
+        startT = [NSNumber numberWithLongLong:(startT.longLongValue-500)];
+        
+        NSNumber *endT = checkModel.timeArr.lastObject;
+        endT = [NSNumber numberWithLongLong:(endT.longLongValue+500)];
+        
+        if(id == 12){
+            [dev.fanColorArr addObject:@[startT,endT]];
+        }else{
+            [dev.colorArr addObject:@[startT,endT]];
+        }
+        
+//        for(long i = 0; i < arr.count;i ++){
+//            NSArray *data = arr[i];
+//            NSNumber *timeN = data[0];
+//            if(timeN == startT){
+//              [dev.colorArr addObject:@[[NSNumber numberWithLong:i],[NSNumber numberWithLong:i+checkModel.timeArr.count]]];
+//               NSLog(@"dev.colorArr = %@",dev.colorArr);
+//
+//            }
+//        }
     }
+
 }
 -(void)changeDevice:(NSDictionary *)dic{
             DeviceTool *delegate = [DeviceTool shareInstance];
@@ -1403,7 +1552,7 @@
 //                        newDevice.typeStr = delegate.deviceNameArr[2];
 //                        break;
                     case 11:
-                        newDevice.typeStr = @"定位锁闭锁力";
+                        newDevice.typeStr = @"定位锁闭力";
                         break;
                     case 12:
                         newDevice.typeStr = @"反位锁闭力";

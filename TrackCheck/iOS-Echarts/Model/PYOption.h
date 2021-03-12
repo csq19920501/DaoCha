@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class PYAxis, PYLegend, PYTimeline, PYTitle, PYGrid, PYToolbox, PYDataZoom, PYDataRange, PYPolar, PYRoamController, PYColor, PYTooltip, PYSeries,CSQGraphic;
+@class PYAxis, PYLegend, PYTimeline, PYTitle, PYGrid, PYToolbox, PYDataZoom, PYDataRange, PYPolar, PYRoamController, PYColor, PYTooltip, PYSeries,CSQGraphic,CSQVisualMap;
 
 /**
  *
@@ -39,10 +39,13 @@
 @property (nonatomic, strong) NSMutableArray<PYSeries *> *series;
 @property (nonatomic, strong) NSMutableArray<PYDataZoom *> *dataZoom;
 @property (nonatomic, strong) NSMutableArray<PYOption *> *options;
-
+//@property (nonatomic, strong) CSQVisualMap *visualMap;
+@property (nonatomic, strong) id visualMap;
 PYInitializerTemplate(PYOption, option);
 
 PYPropertyEqualTemplate(PYOption, CSQGraphic *, graphic);
+PYPropertyEqualTemplate(PYOption, id, visualMap);
+//PYPropertyEqualTemplate(PYOption, CSQVisualMap *, visualMap);
 PYPropertyEqualTemplate(PYOption, PYColor *, backgroundColor);
 PYPropertyEqualTemplate(PYOption, NSArray *, color);
 PYPropertyEqualTemplate(PYOption, NSMutableArray *, polar);
