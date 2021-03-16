@@ -38,6 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)BOOL  stable_1;
 @property (nonatomic,assign)BOOL  stable_2;
 @property (nonatomic,assign)BOOL  stable_3;
+@property (nonatomic,assign)BOOL  stableFan_1;
+@property (nonatomic,assign)BOOL  stableFan_2;
+@property (nonatomic,assign)BOOL  stableFan_3;
 
 @property (nonatomic,assign)BOOL  step2_OK;
 @property (nonatomic,assign)long  step2_mean;

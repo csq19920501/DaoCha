@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong)NSMutableArray * colorArr;
 @property (nonatomic,strong)NSMutableArray * fanColorArr;
+@property (nonatomic,strong)NSMutableArray *close_transArr;
 @end
 
 NS_ASSUME_NONNULL_END

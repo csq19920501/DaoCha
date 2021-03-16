@@ -11,6 +11,7 @@
 #import "CheckModel.h"
 #import "ReportModel.h"
 #import "ETAFNetworking.h"
+#import "TestDataModel.h"
 //#import "TcpManager.h"
 static CSQScoketService *tcpSocket =nil;
 static dispatch_once_t onceToken;
@@ -34,6 +35,10 @@ static dispatch_once_t onceToken;
     return tcpSocket;
 }
 +(void)deallocSocket{
+    [tcpSocket.timer invalidate];
+    tcpSocket.timer = nil;
+    [tcpSocket.clientSockets removeAllObjects];
+    [tcpSocket.socket disconnect];
     tcpSocket=nil;
     onceToken=0l;
     NSLog(@"销毁单例");
@@ -60,11 +65,11 @@ static dispatch_once_t onceToken;
     //3.开启服务(实质第二步绑定端口的同时默认开启服务)
     if (error == nil)
     {
-        NSLog(@"开启成功");
+        NSLog(@"start开启成功");
     }
     else
     {
-        NSLog(@"开启失败");
+        NSLog(@"start开启失败%@",error);
     }
     self.socket = serviceScoket;
     _socketNum = 0;
@@ -82,7 +87,7 @@ static dispatch_once_t onceToken;
         NSNumber* number = [_socketDic valueForKey:[NSString stringWithFormat:@"%@",socket]];
         int num = number.intValue;
         num++;
-        if(num>3){
+        if(num>4){
             NSLog(@"num>3删掉socket%@",socket);
             [self.clientSockets removeObject:socket];
         }else{
@@ -90,26 +95,28 @@ static dispatch_once_t onceToken;
         }
     }
     
-    if(self.clientSockets.count==0){
+    if(self.clientSockets.count==0 || self.clientSockets.count>4){
         _socketNum ++;
-        if(_socketNum>5){
+        if(_socketNum>2){
             _socketNum = 0;
             dispatch_async(dispatch_get_main_queue(), ^{
-//                AppDelegate *delete =  (AppDelegate *)[UIApplication sharedApplication].delegate;
-//                [delete preSocke];
-                NSError *error = nil;
-                [self.socket disconnect];
-                [self.socket acceptOnPort:5288 error:&error];
-                if (error == nil)
-                {
-                    NSLog(@"重新开启成功");
-                }
-                else
-                {
-                    NSLog(@"重新开启失败%@",error);
-                }
+                AppDelegate *delete =  (AppDelegate *)[UIApplication sharedApplication].delegate;
+                [delete preSocke];
+//                NSError *error = nil;
+//                [self.socket disconnect];
+//                [self.socket acceptOnPort:5288 error:&error];
+//                if (error == nil)
+//                {
+//                    NSLog(@"重新开启成功");
+//                }
+//                else
+//                {
+//                    NSLog(@"重新开启失败%@",error);
+//                }
             });
         }
+    }else{
+        _socketNum = 0;
     }
 }
 
@@ -421,26 +428,56 @@ static dispatch_once_t onceToken;
     
     _testCount = 0;
     __weak typeof(self) weakSelf = self;
-    NSString *url = @"http://118.31.39.28:21006/getresistance.cpp?starttime=2021-01-20%2002:51:00&endtime=2021-01-20%2002:51:20&IMEI=860588048931334&name=%E6%99%AE%E5%AE%8914%E5%8F%B7%E5%B2%94%E5%BF%83&idx=0&timestamp=1611107677743&idxname=X2";
-    NSString *url2 = @"http://202.107.226.68:21006/getresistance.cpp?starttime=2021-01-10%2010:15:38&endtime=2021-01-10%2010:20:07&IMEI=860588048955283&name=%E5%9F%BA%E5%9C%B021%E5%8F%B7%E5%B2%94%E5%B0%96&idx=0&timestamp=1611139739392&idxname=J1";  //阻力转换
+//    NSString *url = @"http://118.31.39.28:21006/getresistance.cpp?starttime=2021-01-20%2002:51:00&endtime=2021-01-20%2002:51:20&IMEI=860588048931334&name=%E6%99%AE%E5%AE%8914%E5%8F%B7%E5%B2%94%E5%BF%83&idx=0&timestamp=1611107677743&idxname=X2";
+//    NSString *url2 = @"http://202.107.226.68:21006/getresistance.cpp?starttime=2021-01-10%2010:15:38&endtime=2021-01-10%2010:20:07&IMEI=860588048955283&name=%E5%9F%BA%E5%9C%B021%E5%8F%B7%E5%B2%94%E5%B0%96&idx=0&timestamp=1611139739392&idxname=J1";  //阻力转换
+//
+//     NSString *url3 = @"http://202.107.226.68:21006/getresistance.cpp?starttime=2021-03-04%2013:18:10&endtime=2021-03-04%2013:20:20&IMEI=860588048955283&name=%E5%9F%BA%E5%9C%B021%E5%8F%B7%E5%B2%94%E5%B0%96&idx=0&timestamp=1611139739392&idxname=J1";  //多时间
+//
+//    [ETAFNetworking getLMK_AFNHttpSrt:url3 andTimeout:8.f andParam:nil success:^(id responseObject) {
+//        NSArray *series = responseObject[@"series"];
+//        if(series.count>2){
+//            weakSelf.testArray = series[2][@"data"];
+//            NSLog(@"获取到的历史数据数量%ld  %@ %@ ",weakSelf.testArray.count,series[2][@"name"],series[2][@"data"]);
+//             self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(testTimer) userInfo:nil repeats:YES];
+//        }
+//    } failure:^(NSError *error) {
+//
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [HUD hideUIBlockingIndicator];
+//        });
+//
+//
+//    } WithHud:NO AndTitle:nil];
     
-     NSString *url3 = @"http://202.107.226.68:21006/getresistance.cpp?starttime=2021-03-04%2013:18:10&endtime=2021-03-04%2013:20:20&IMEI=860588048955283&name=%E5%9F%BA%E5%9C%B021%E5%8F%B7%E5%B2%94%E5%B0%96&idx=0&timestamp=1611139739392&idxname=J1";  //多时间
+   NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    NSString *startTimeStr = [NSString stringWithFormat:@"%@ %@",@"2021-03-13",@"12:35:00"];
+    NSDate *startDate = [dateFormatter dateFromString:startTimeStr];
+    NSTimeInterval startTimeInterval = [startDate timeIntervalSince1970];
     
-    [ETAFNetworking getLMK_AFNHttpSrt:url3 andTimeout:8.f andParam:nil success:^(id responseObject) {
-        NSArray *series = responseObject[@"series"];
-        if(series.count>2){
-            weakSelf.testArray = series[2][@"data"];
-            NSLog(@"获取到的历史数据数量%ld  %@ %@ ",weakSelf.testArray.count,series[2][@"name"],series[2][@"data"]);
-             self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(testTimer) userInfo:nil repeats:YES];
-        }
-    } failure:^(NSError *error) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [HUD hideUIBlockingIndicator];
-        });
-       
+    NSString *endTimeStr = [NSString stringWithFormat:@"%@ %@",@"2021-03-13",@"23:59:59"];
+    NSDate *endDate = [dateFormatter dateFromString:endTimeStr];
+    NSTimeInterval endTimeInterval = [endDate timeIntervalSince1970];
 
-    } WithHud:NO AndTitle:nil];
+    NSString *stationS = DEVICETOOL.stationStr;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    // 异步执行任务创建方法
+    dispatch_async(queue, ^{
+        NSArray <TestDataModel *> * results = [[LPDBManager defaultManager] findModels: [TestDataModel class]
+        where: @"station = '%@' and timeLong > %@ and timeLong < %@",stationS,@(startTimeInterval),@(endTimeInterval)];
+      
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(results.count != 0){
+                TestDataModel *dataModel = results[2];
+                    weakSelf.testArray = dataModel.dataArr;
+//                    weakSelf.testArray2 = dataModel.dataArr[1];
+//                    weakSelf.testArray3 = dataModel.dataArr[2];
+                    NSLog(@"获取到的历史数据数量%ld  %@  ",weakSelf.testArray.count,dataModel.dataArr);
+                     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(testTimer) userInfo:nil repeats:YES];
+                
+            }
+        });
+    });
     
 }
 -(void)test1234{
@@ -448,28 +485,59 @@ static dispatch_once_t onceToken;
     _testCount = 0;
     __weak typeof(self) weakSelf = self;
 
-    NSString *url2 = @"http://202.107.226.68:21006/getresistance.cpp?starttime=2021-01-10%2010:15:38&endtime=2021-01-10%2010:20:07&IMEI=860588048955283&name=%E5%9F%BA%E5%9C%B021%E5%8F%B7%E5%B2%94%E5%B0%96&idx=0&timestamp=1611139739392&idxname=J1";  //阻力转换
+//    NSString *url2 = @"http://202.107.226.68:21006/getresistance.cpp?starttime=2021-01-10%2010:15:38&endtime=2021-01-10%2010:20:07&IMEI=860588048955283&name=%E5%9F%BA%E5%9C%B021%E5%8F%B7%E5%B2%94%E5%B0%96&idx=0&timestamp=1611139739392&idxname=J1";  //阻力转换
+//
+////     NSString *url3 = @"http://202.107.226.68:21006/getresistance.cpp?starttime=2021-01-10%2010:02:00&endtime=2021-01-10%2010:03:00&IMEI=860588048955283&name=%E5%9F%BA%E5%9C%B021%E5%8F%B7%E5%B2%94%E5%B0%96&idx=0&timestamp=1611139739392&idxname=J1";  //多时间
+//
+//     NSString *url3 = @"http://202.107.226.68:21006/getresistance.cpp?starttime=2021-01-10%2010:15:38&endtime=2021-01-10%2023:20:08&IMEI=860588048955283&name=%E5%9F%BA%E5%9C%B021%E5%8F%B7%E5%B2%94%E5%B0%96&idx=0&timestamp=1611139739392&idxname=J1";  //多时间
+//
+//    [ETAFNetworking getLMK_AFNHttpSrt:url3 andTimeout:8.f andParam:nil success:^(id responseObject) {
+//        NSArray *series = responseObject[@"series"];
+//        if(series.count>2){
+//            weakSelf.testArray = series[1][@"data"];
+//            weakSelf.testArray2 = series[0][@"data"];
+//
+//            NSLog(@"获取到的历史数据数量%ld  %@ %@ ",weakSelf.testArray.count,series[1][@"name"],series[1][@"data"]);
+//             self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(testTimer56) userInfo:nil repeats:YES];
+//        }
+//    } failure:^(NSError *error) {
+//
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [HUD hideUIBlockingIndicator];
+//        });
+//    } WithHud:NO AndTitle:nil];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    NSString *startTimeStr = [NSString stringWithFormat:@"%@ %@",@"2021-03-13",@"00:00:00"];
+    NSDate *startDate = [dateFormatter dateFromString:startTimeStr];
+    NSTimeInterval startTimeInterval = [startDate timeIntervalSince1970];
     
-//     NSString *url3 = @"http://202.107.226.68:21006/getresistance.cpp?starttime=2021-01-10%2010:02:00&endtime=2021-01-10%2010:03:00&IMEI=860588048955283&name=%E5%9F%BA%E5%9C%B021%E5%8F%B7%E5%B2%94%E5%B0%96&idx=0&timestamp=1611139739392&idxname=J1";  //多时间
-    
-     NSString *url3 = @"http://202.107.226.68:21006/getresistance.cpp?starttime=2021-01-10%2010:15:38&endtime=2021-01-10%2023:20:08&IMEI=860588048955283&name=%E5%9F%BA%E5%9C%B021%E5%8F%B7%E5%B2%94%E5%B0%96&idx=0&timestamp=1611139739392&idxname=J1";  //多时间
-    
-    [ETAFNetworking getLMK_AFNHttpSrt:url3 andTimeout:8.f andParam:nil success:^(id responseObject) {
-        NSArray *series = responseObject[@"series"];
-        if(series.count>2){
-            weakSelf.testArray = series[1][@"data"];
-            weakSelf.testArray2 = series[0][@"data"];
-            
-            NSLog(@"获取到的历史数据数量%ld  %@ %@ ",weakSelf.testArray.count,series[1][@"name"],series[1][@"data"]);
-             self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(testTimer56) userInfo:nil repeats:YES];
-        }
-    } failure:^(NSError *error) {
-        
+    NSString *endTimeStr = [NSString stringWithFormat:@"%@ %@",@"2021-03-13",@"23:59:59"];
+    NSDate *endDate = [dateFormatter dateFromString:endTimeStr];
+    NSTimeInterval endTimeInterval = [endDate timeIntervalSince1970];
+
+    NSString *stationS = DEVICETOOL.stationStr;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    // 异步执行任务创建方法
+    dispatch_async(queue, ^{
+        NSArray <TestDataModel *> * results = [[LPDBManager defaultManager] findModels: [TestDataModel class]
+        where: @"station = '%@' and timeLong > %@ and timeLong < %@",stationS,@(startTimeInterval),@(endTimeInterval)];
+      
         dispatch_async(dispatch_get_main_queue(), ^{
-            [HUD hideUIBlockingIndicator];
+            if(results.count != 0){
+                TestDataModel *dataModel = results[0];
+                
+          
+                    weakSelf.testArray = dataModel.dataArr[0];
+                    weakSelf.testArray2 = dataModel.dataArr[1];
+                    weakSelf.testArray3 = dataModel.dataArr[2];
+                    NSLog(@"获取到的历史数据数量%ld  %@  ",weakSelf.testArray.count,dataModel.dataArr);
+                     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(testTimer56) userInfo:nil repeats:YES];
+                
+            }
+            
         });
-    } WithHud:NO AndTitle:nil];
-    
+    });
 }
 -(void)stopTest1234{
     [self.timer invalidate];
@@ -498,10 +566,7 @@ static dispatch_once_t onceToken;
     }else{
         for (long a = _testCount; a< self.testArray.count; a++) {
             NSArray *data = self.testArray[a];
-            NSString *dataStr = data[1];
-            long long dataLong = [dataStr longLongValue];
-            NSNumber *num = [NSNumber numberWithLongLong:dataLong];
-            [testArr addObject:num];
+            [testArr addObject:data[1]];
              [timeArr addObject:data[0]];
             [DEVICETOOL.deviceDataArr1 addObject:data];
         }
@@ -521,7 +586,11 @@ static dispatch_once_t onceToken;
         NSLog(@"_Din _Fab 生成DEVICETOOL.checkModel1");
         DEVICETOOL.checkModel4 = [[CheckModel alloc]init];
     }
- NSMutableArray *timeArr = [NSMutableArray array];
+    if(!DEVICETOOL.checkModel1){
+        NSLog(@"生成DEVICETOOL.checkModel1");
+        DEVICETOOL.checkModel1 = [[CheckModel alloc]init];
+    }
+    NSMutableArray *timeArr = [NSMutableArray array];
     NSMutableArray *testArr = [NSMutableArray array];
     if(_testCount + 50 < self.testArray.count){
         for (long a = _testCount; a< _testCount + 50; a++) {
@@ -533,10 +602,11 @@ static dispatch_once_t onceToken;
     }else{
         for (long a = _testCount; a< self.testArray.count; a++) {
             NSArray *data = self.testArray[a];
-            NSString *dataStr = data[1];
-            long long dataLong = [dataStr longLongValue];
-            NSNumber *num = [NSNumber numberWithLongLong:dataLong];
-            [testArr addObject:num];
+//            NSString *dataStr = data[1];
+//            long long dataLong = [dataStr longLongValue];
+//            NSNumber *num = [NSNumber numberWithLongLong:dataLong];
+//            [testArr addObject:num];
+              [testArr addObject:data[1]];
              [timeArr addObject:data[0]];
             [DEVICETOOL.deviceDataArr4 addObject:data];
         }
@@ -569,6 +639,27 @@ static dispatch_once_t onceToken;
     }
     [self check56Data:testArr2 withModel:DEVICETOOL.checkModel4 withTypeStr:@"锁闭力" withId:12 withTimeArr:timeArr2];
     
+    
+    NSMutableArray *testArr3 = [NSMutableArray array];
+    NSMutableArray *timeArr3 = [NSMutableArray array];
+    if(_testCount + 50 < self.testArray3.count){
+        for (long a = _testCount; a< _testCount + 50; a++) {
+            NSArray *data = self.testArray3[a];
+            [testArr3 addObject:data[1]];
+            [timeArr3 addObject:data[0]];
+            [DEVICETOOL.deviceDataArr1 addObject:data];
+        }
+    }else{
+        for (long a = _testCount; a< self.testArray3.count; a++) {
+            NSArray *data = self.testArray3[a];
+            [testArr3 addObject:data[1]];
+             [timeArr3 addObject:data[0]];
+            [DEVICETOOL.deviceDataArr1 addObject:data];
+        }
+        [self.timer invalidate];
+        self.timer = nil;
+    }
+    [self checkData:testArr3 withModel:DEVICETOOL.checkModel1 withTypeStr:@"J1" withId:1 withTimeArr:timeArr3];
     _testCount = _testCount + 50;
     
 }
@@ -627,29 +718,6 @@ static dispatch_once_t onceToken;
                         long average = meanSum/(int)dataArr.count;
                         NSLog(@"_Din average = %ld",average);
                         if(average > 30){
-                            if(average > 600){
-//                                if(!model.closeDingChange2_OK){
-//                                    //小变化没两秒就急速升高则是受阻空转后错误曲线
-//                                    model.blockedError = YES;
-//                                    if(mean > 0){
-//                                        model.blockedErrorTypeUp = YES;
-//                                    }
-//                                     NSLog(@"_Din average > 400  model.blockedError = YES");
-//                                }else{
-                                    if(!model.blockedChange1_OK){
-                                        model.blockedChange1_OK = YES;
-                                        NSLog(@"_Din average > 600  model.blockedChange_OK = YES");
-                                    }else{
-                                        if(model.blockedStable2_OK){
-                                            if(!model.blockedChange2_OK){
-                                                model.blockedChange2_OK = YES;
-                                                NSLog(@"_Din average > 600  model.blockedChange2_OK = YES");
-                                            }
-                                        }
-                                    }
-//                                }
-                                
-                            }
                             if(!model.closeDingChange2_OK && average > 100){
                                 NSLog(@"_Din average > 100  model.closeDingChange2_OK = YES");
                                 model.closeDingChange2_OK = YES;
@@ -661,9 +729,12 @@ static dispatch_once_t onceToken;
                             [model.dataArr addObjectsFromArray:dataArr];
                             [model.timeArr addObjectsFromArray:timeArr];
                         }else{
-                            if(mean  > 3500 || mean  < -3500){
-                                [model.dataArr addObjectsFromArray:dataArr];
-                                [model.timeArr addObjectsFromArray:timeArr];
+                            if(mean  > 1000 || mean  < -1000){
+                                if(!model.reportEdDing){
+                                    [model.dataArr addObjectsFromArray:dataArr];
+                                    [model.timeArr addObjectsFromArray:timeArr];
+                                }
+                            
                                 if(!model.blockedStable1_OK){
                                     model.blockedStable1_OK = YES;
                                     NSLog(@"_Din average < 30  model.blockedStable1_OK = YES");
@@ -673,7 +744,6 @@ static dispatch_once_t onceToken;
                                     NSLog(@"_Din average < 30  model.blockedStable2_OK = YES");
                                 }
                                 else if(!model.blockedStable3_OK){
-                                   
                                     model.blockedStable3_OK = YES;
                                 }
                                 //判断正反锁闭力 是否生成受阻锁闭力报告
@@ -687,135 +757,53 @@ static dispatch_once_t onceToken;
                                     model.dataModel.deviceType = [NSString stringWithFormat:@"%@-%@",DEVICETOOL.closeLinkDevice,typeStr];
                                     long long currentTime = [[NSDate date] timeIntervalSince1970] ;
                                     model.dataModel.timeLong = currentTime;
-                                     model.dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
-                                    model.dataModel.reportType = 8;
+                                    model.dataModel.timeLongStr = [NSString stringWithFormat:@"%lld%@",currentTime,@"锁闭力"];
+                                    
                                     
                                     if(mean < 0){
                                         model.dataModel.close_ding = model.startValue ;
                                         model.dataModel.keep_ding = model.startValue  + mean;
-                                         NSLog(@"_Din mean  > 3500 定扳反受阻空转生成");
+                                        model.dataModel.reportType = 5;
+                                         NSLog(@"_Din mean  > 3500 定扳反生成");
                                     }else{
-                                        NSLog(@"_Din mean  > 3500 反扳定受阻空转生成");
+                                        NSLog(@"_Din mean  > 3500 反扳定生成");
+                                        model.dataModel.reportType = 7;
                                         model.dataModel.close_ding = model.startValue + mean;
                                         model.dataModel.keep_ding = model.startValue;
                                     }
                                   }
                                  if(model.reportEdFan && model.reportEdDing && !model.reportEd){
                                      model.reportEd = YES;
-                                     NSLog(@"_Din 锁闭力生成受阻锁闭力曲线报告 暂不清除model");
-                                     [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
+                                     NSLog(@"_11 锁闭力生成受阻锁闭力曲线报告 清除model %@  %@",model.dataModel.idStr, model.dataModel.timeLongStr);
+                                     
+//                                     ReportModel *dataModel = [ReportModel initWithReport:model.dataModel];
+//                                     [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
                                      [self device:id addReport:model.dataModel withModel:model];
+                                     [self setCheckNilWith:id];
                                  }
                                  return;
                             }else{
-                                if(model.closeDingChange2_OK){
-                                    //波动结束
-                                    NSDate *now = [NSDate date];
-                                    NSTimeInterval nowInt = [now timeIntervalSince1970 ];
-                                    model.endTime = nowInt;
+                                    if(model.closeDingChange_OK){
                                     
-//                                    if(model.blockedChange2_OK || model.blockedStable3_OK){
-//                                        NSLog(@"受阻空转后恢复平稳值 清空掉model");
-//                                        [self setCheckNilWith:id];
-//                                        return;
-//                                    }
-                                    
-                                    if(!model.blockedStable3_OK){
-                                        
-                                        if(! model.closeDingAfter1_OK){
-                                            model.closeDingAfter1_OK = YES;
-                                            NSLog(@"_Din model.closeDingAfter1_OK = YES");
-                                        }else if( !model.closeDingAfter2_OK){
-                                             model.closeDingAfter2_OK  = YES;
-                                            NSLog(@"_Din model.closeDingAfter2_OK = YES");
-                                        }else if( !model.closeDingAfter3_OK){
-                                             model.closeDingAfter3_OK  = YES;
-                                            NSLog(@"_Din model.closeDingAfter31_OK = YES");
+                                        if(!model.stable_1){
+                                            model.stable_1 = YES;
+                                        }else if(!model.stable_2){
+                                            model.stable_2 = YES;
                                         }
-                                        if(model.dataArr.count < 50){
-                                            if(model.closeDingChange_OK){
-                                                NSLog(@"_Din 短波动 舍弃掉<50");
-                                                [self setCheckNilWith:id];
-                                            }
-                                            return;
+                                        else if(!model.stable_3){
+                                            model.stable_3 = YES;
+                                            NSLog(@"小波动 舍弃掉");
+                                            [self setCheckNilWith:id];
                                         }
-                                                            long allMin = 100000;
-                                                            long allMax = -100000;
-                                                            long allSun = 0;
-                                                            for (NSNumber *number in model.dataArr) {
-                                                                long num = number.longValue ;
-                                                                allSun += num;
-                                                                if(num < allMin){
-                                                                    allMin = num;
-                                                                }
-                                                                if(num > allMax){
-                                                                    allMax = num;
-                                                                }
-                                                            }
-                                        
-                                                            if(allMax - allMin > 3500 || allMax - allMin < -3500){
-                                                                NSLog(@"_Din 检测到allMax - allMin > 3500 || allMax - allMin < -3500 舍弃掉");
-                                                                [self setCheckNilWith:id];
-                                                                return;
-                                                            }
-                                                                
-                                                             if(!model.reportEdDing && model.closeDingAfter2_OK){
-                                                        
-                                                                model.reportEdDing = YES;
-                                                                model.dataModel.station = DEVICETOOL.stationStr;
-                                                                model.dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
-                                                                model.dataModel.idStr = [NSString stringWithFormat:@"%lld%@",DEVICETOOL.startTime,typeStr];
-                                                                model.dataModel.deviceType = [NSString stringWithFormat:@"%@-%@",DEVICETOOL.closeLinkDevice,typeStr];
-                                                                long long currentTime = [[NSDate date] timeIntervalSince1970] ;
-                                                                model.dataModel.timeLong = currentTime;
-                                                                model.dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
-                                                                
-                                                                if(mean < 0){
-                                                                    model.dataModel.close_ding = model.startValue ;
-                                                                    model.dataModel.keep_ding = model.startValue + mean;
-                                                                     NSLog(@"_Din  正常定扳反锁闭力生成");
-                                                                    if(model.dataModel.reportType != 6){
-                                                                        model.dataModel.reportType = 5;
-                                                                    }
-                                                                }else{
-                                                                    NSLog(@"_Din  正常反扳定锁闭生成");
-                                                                    model.dataModel.close_ding = model.startValue + mean;
-                                                                    model.dataModel.keep_ding = model.startValue;
-                                                                    
-                                                                    if(model.dataModel.reportType != 8){
-                                                                        model.dataModel.reportType = 7;
-                                                                    }
-                                                                }
-                                                              }
-                                                             if(model.reportEdFan && model.reportEdDing && !model.reportEd){
-                                                                 model.reportEd = YES;
-                                                                 [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
-                                                                 [self device:id addReport:model.dataModel withModel:model];
-                                                                 NSLog(@"_Din 正常锁闭力曲线报告 ");
-                                                                 if(!model.reportBlockFan){
-                                                                     NSLog(@"_Din 正常锁闭力曲线报告 且清除model");
-                                                                     [self setCheckNilWith:id];
-                                                                 }
-                                                                 return;
-                                                             }
-                                        
-                                    }else{
-                                        NSLog(@"_Din 受阻曲线结束 且清除model");
-                                        [self setCheckNilWith:id];
-                                        return;
+                                                   
                                     }
-                                }else{
-//                                    if(model.closeDingChange_OK){
-//                                        NSLog(@"_Din 小波动 舍弃掉");
-//                                        [self setCheckNilWith:id];
-//                                    }
 //                                    return;
-                                }
                             }
-                            if(!model.closeDingChange_OK){
-                                NSLog(@"_Din 检测 重置初始值 !model.step1_OK model.startValue = %ld",mean);
-                                model.startValue = mean + model.startValue;
-                            }
+                            
+//                            if(!model.closeDingChange_OK){
+//                                NSLog(@"_Din 检测 重置初始值 !model.step1_OK model.startValue = %ld",mean);
+//                                model.startValue = mean + model.startValue;
+//                            }
                         }
                     }
             }else{
@@ -866,33 +854,11 @@ static dispatch_once_t onceToken;
                         long average = meanSum/(int)dataArr.count;
                         NSLog(@"_Fan average = %ld",average);
                         if(average > 30){
-                            if(average > 600){
-//                                if(!model.closeFanChange2_OK){
-//                                    //小变化没两秒就急速升高则是受阻空转后错误曲线
-//                                    model.blockedError_Fan = YES;
-//                                    if(mean > 0){
-//                                        model.blockedErrorTypeUp_Fan = YES;
-//                                    }
-//                                     NSLog(@"_Fan average > 400  model.blockedError = YES");
-//                                }else{
-                                    if(!model.blockedChange1_OK_Fan){
-                                        model.blockedChange1_OK_Fan = YES;
-                                        NSLog(@"_Fan average > 400  model.blockedChange_OK = YES");
-                                    }else{
-                                        if(model.blockedStable2_OK_Fan){
-                                            model.blockedChange2_OK_Fan = YES;
-                                             NSLog(@"_Fan average > 400  model.blockedChange2_OK = YES");
-                                        }
-                                    }
-//                                }
-                                
-                            }
+                            
                             if(!model.closeFanChange2_OK &&  average > 100){
                                 model.closeFanChange2_OK = YES;
                             }
-                            else{
-                                
-                            }
+                            
                             if(!model.closeFanChange_OK){
                                 NSLog(@"_Fan average > 400  model.closeFanChange_OK = YES");
                                 model.closeFanChange_OK = YES;
@@ -900,9 +866,11 @@ static dispatch_once_t onceToken;
                             [model.dataArr_Fan addObjectsFromArray:dataArr];
                             [model.fanTimeArr addObjectsFromArray:timeArr];
                         }else{
-                            if(mean  > 3500 || mean  < -3500){
-                                [model.dataArr_Fan addObjectsFromArray:dataArr];
-                                [model.fanTimeArr addObjectsFromArray:timeArr];
+                            if(mean  > 1000 || mean  < -1000){
+                                if(!model.reportEdFan){
+                                    [model.dataArr_Fan addObjectsFromArray:dataArr];
+                                    [model.fanTimeArr addObjectsFromArray:timeArr];
+                                }
                                 if(!model.blockedStable1_OK_Fan){
                                     model.blockedStable1_OK_Fan = YES;
                                     NSLog(@"_Fan average < 70  model.blockedStable1_OK = YES");
@@ -925,132 +893,51 @@ static dispatch_once_t onceToken;
                                     model.dataModel.deviceType = [NSString stringWithFormat:@"%@-%@",DEVICETOOL.closeLinkDevice,typeStr];
                                     long long currentTime = [[NSDate date] timeIntervalSince1970] ;
                                     model.dataModel.timeLong = currentTime;
-                                    model.dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
-                                      model.dataModel.reportType = 6;
+                                    model.dataModel.timeLongStr = [NSString stringWithFormat:@"%lld%@",currentTime,@"锁闭力"];
+                                      
                                     if(mean < 0){
                                         model.dataModel.close_fan = model.startValue_Fan ;
                                         model.dataModel.keep_fan = model.startValue_Fan  + mean;
-                                         NSLog(@"_Fan average < 70  model.blockedStable2_OK = YES 定扳反受阻空转生成");
-                                      
+                                         NSLog(@"_Fan average < 70  model.blockedStable2_OK = YES 反扳定生成");
+                                       model.dataModel.reportType = 7;
                                     }else{
-                                        NSLog(@"_Fan average < 70  model.blockedStable2_OK = YES 定扳反受阻空转生成");
-                                       
+                                        NSLog(@"_Fan average < 70  model.blockedStable2_OK = YES 定扳反生成");
+                                        model.dataModel.reportType = 5;
                                         model.dataModel.close_fan = model.startValue_Fan + mean;
                                         model.dataModel.keep_fan = model.startValue_Fan;
                                     }
                                   }
                                  if(model.reportEdFan && model.reportEdDing && !model.reportEd){
                                      model.reportEd = YES;
-                                     NSLog(@"_Fan 锁闭力生成受阻锁闭力曲线报告 暂不清除model");
-                                     [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
+                                     NSLog(@"_12 锁闭力生成受阻锁闭力曲线报告 清除model %@  %@",model.dataModel.idStr, model.dataModel.timeLongStr);
+//                                     ReportModel *dataModel = [ReportModel initWithReport:model.dataModel];
+                                   
+//                                     [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
                                      [self device:id addReport:model.dataModel withModel:model];
+                                     [self setCheckNilWith:id];
                                  }
                                  return;
                             }else{
-                                if(model.closeFanChange2_OK){
-                                    //波动结束
-                                    NSDate *now = [NSDate date];
-                                    NSTimeInterval nowInt = [now timeIntervalSince1970 ];
-                                    model.endTime = nowInt;
-                                    
-                                    if(model.blockedChange2_OK_Fan || model.blockedStable3_OK_Fan){
-                                        NSLog(@"_Fan 受阻空转后恢复平稳值 清空掉model");
-                                        [self setCheckNilWith:id];
-                                        return;
-                                    }
-                                    
-                                    if(!model.blockedStable3_OK_Fan){
-                                        
-                                        if(! model.closeFanAfter1_OK){
-                                            model.closeFanAfter1_OK = YES;
-                                        }else if(! model.closeFanAfter2_OK){
-                                             model.closeFanAfter2_OK  = YES;
-                                        }else if(! model.closeFanAfter3_OK){
-                                             model.closeFanAfter3_OK  = YES;
+
+                                    if(model.closeFanChange_OK){
+                                        if(!model.stableFan_1){
+                                            model.stableFan_1 = YES;
+                                        }else if(!model.stableFan_2){
+                                            model.stableFan_2 = YES;
                                         }
-                                        if(model.dataArr_Fan.count < 50){
-                                            if(model.closeFanChange_OK){
-                                                NSLog(@"_Fan 短波动 舍弃掉");
-                                                [self setCheckNilWith:id];
-                                            }
-                                            return;
+                                        else if(!model.stableFan_3){
+                                            model.stableFan_3 = YES;
+                                            NSLog(@"小波动 舍弃掉");
+                                            [self setCheckNilWith:id];
                                         }
-                                                            long allMin = 100000;
-                                                            long allMax = -100000;
-                                                            long allSun = 0;
-                                                            for (NSNumber *number in model.dataArr_Fan) {
-                                                                long num = number.longValue ;
-                                                                allSun += num;
-                                                                if(num < allMin){
-                                                                    allMin = num;
-                                                                }
-                                                                if(num > allMax){
-                                                                    allMax = num;
-                                                                }
-                                                            }
-                                        
-                                                            if(allMax - allMin > 3500 || allMax - allMin < -3500){
-                                                                NSLog(@"_Fan 检测到allMax - allMin > 2500 || allMax - allMin < -2500 舍弃掉");
-                                                                [self setCheckNilWith:id];
-                                                                return;
-                                                            }
-                                                                
-                                                             if(!model.reportEdFan && model.closeFanAfter2_OK){
-                                                        
-                                                                model.reportEdFan = YES;
-                                                                model.dataModel.station = DEVICETOOL.stationStr;
-                                                                model.dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
-                                                                model.dataModel.idStr = [NSString stringWithFormat:@"%lld%@",DEVICETOOL.startTime,typeStr];
-                                                                model.dataModel.deviceType = [NSString stringWithFormat:@"%@-%@",DEVICETOOL.closeLinkDevice,typeStr];
-                                                                long long currentTime = [[NSDate date] timeIntervalSince1970] ;
-                                                                model.dataModel.timeLong = currentTime;
-                                                                model.dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
-                                                                
-                                                                if(mean < 0){
-                                                                    model.dataModel.close_fan = model.startValue_Fan ;
-                                                                    model.dataModel.keep_fan = model.startValue_Fan + mean;
-                                                                     NSLog(@"_Fan 正常反扳定锁闭力生成");
-                                                                     if(model.dataModel.reportType != 8){
-                                                                         model.dataModel.reportType = 7;
-                                                                     }
-                                                                }else{
-                                                                    NSLog(@" _Fan 正常定扳反锁闭生成");
-                                                                    if(model.dataModel.reportType != 6){
-                                                                        model.dataModel.reportType = 5;
-                                                                    }
-                                                                    model.dataModel.close_fan = model.startValue_Fan + mean;
-                                                                    model.dataModel.keep_fan = model.startValue_Fan;
-                                                                }
-                                                              }
-                                                             if(model.reportEdFan && model.reportEdDing && !model.reportEd){
-                                                                 model.reportEd = YES;
-                                                                 [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
-                                                                 [self device:id addReport:model.dataModel withModel:model];
-                                                                 NSLog(@"_Fan 正常锁闭力曲线报告 ");
-                                                                 if(!model.reportBlockDing){
-                                                                     NSLog(@"_Fan 正常锁闭力曲线报告 且清除model");
-                                                                     [self setCheckNilWith:id];
-                                                                 }
-                                                                 return;
-                                                             }
-                                        
-                                    }else{
-                                        NSLog(@"_Fan 受阻曲线结束 且清除model");
-                                        [self setCheckNilWith:id];
-                                        return;
                                     }
-                                }else{
-//                                    if(model.closeFanChange_OK){
-//                                        NSLog(@"_Fan小波动 舍弃掉");
-//                                        [self setCheckNilWith:id];
-//                                    }
-//                                    return;
-                                }
+                                    return;
+                                
                             }
-                            if(!model.closeFanChange_OK){
-                                NSLog(@"_Fan 检测 重置初始值 !model.step1_OK model.startValue = %ld",mean);
-                                model.startValue_Fan = mean + model.startValue_Fan;
-                            }
+//                            if(!model.closeFanChange_OK){
+//                                NSLog(@"_Fan 检测 重置初始值 !model.step1_OK model.startValue = %ld",mean);
+//                                model.startValue_Fan = mean + model.startValue_Fan;
+//                            }
                         }
                     }
             }
@@ -1107,7 +994,7 @@ static dispatch_once_t onceToken;
         }
         long average = meanSum/(int)dataArr.count;
         NSLog(@"average = %ld",average);
-        if(average > 70){
+        if(average > 15){
             if(average > 400){
                 if(!model.step2_OK){
                     //小变化没两秒就急速升高则是受阻空转后错误曲线
@@ -1153,7 +1040,7 @@ static dispatch_once_t onceToken;
       
             [model.dataArr addObjectsFromArray:dataArr];
             [model.timeArr addObjectsFromArray:timeArr];
-            NSLog(@"分段 dataArr.count = %ld ",model.dataArr.count);
+//            NSLog(@"分段 dataArr.count = %ld ",model.dataArr.count);
         }else{
             if(mean  > 2000 || mean  < -2000){
                 [model.dataArr addObjectsFromArray:dataArr];
@@ -1191,7 +1078,7 @@ static dispatch_once_t onceToken;
                     dataModel.deviceType = typeStr;
                     long long currentTime = [[NSDate date] timeIntervalSince1970] ;
                     dataModel.timeLong = currentTime;
-                   dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
+                   dataModel.timeLongStr = [NSString stringWithFormat:@"%lld转换阻力",currentTime];
                     if(mean < model.startValue){
                         model.blocked_max = min;
                         if(DEVICETOOL.shenSuo == Shen_Ding){
@@ -1218,7 +1105,7 @@ static dispatch_once_t onceToken;
                     meanAll = meanAll/(int)model.dataBlockArr.count;
                     
                     dataModel.blocked_stable = mean;//meanAll + model.startValue;
-                    [[LPDBManager defaultManager] saveModels: @[dataModel]];
+//                    [[LPDBManager defaultManager] saveModels: @[dataModel]];
                     [self device:id addReport:dataModel withModel:model];
 //                    [self setCheckNilWith:id];
                     return;
@@ -1324,9 +1211,8 @@ static dispatch_once_t onceToken;
                                            dataModel.deviceType = typeStr;
                                            long long currentTime = [[NSDate date] timeIntervalSince1970] ;
                                            dataModel.timeLong = currentTime;
-                       dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
+                       dataModel.timeLongStr = [NSString stringWithFormat:@"%lld转换阻力",currentTime];
                                             
-                        
                         long openMin = 100000;
                         long openMax = -100000;
                         long openSun = 0;
@@ -1419,7 +1305,7 @@ static dispatch_once_t onceToken;
                                             
                                             NSLog(@"average < 100  波动结束 !model.blockedStable2_OK  正常阻力转换生");
                                          
-                                           [[LPDBManager defaultManager] saveModels: @[dataModel]];
+//                                           [[LPDBManager defaultManager] saveModels: @[dataModel]];
                                            [self device:id addReport:dataModel withModel:model];
                         [self setCheckNilWith:id];
                         return;
@@ -1484,12 +1370,11 @@ static dispatch_once_t onceToken;
     }
     
     Device *dev;
-   
+   NSInteger devID = id;
+   if(devID == 12){
+          devID = 11;
+      }
     for(Device *devi in DEVICETOOL.deviceArr){
-        NSInteger devID = id;
-        if(devID == 12){
-               devID = 11;
-           }
         if([devi.id intValue] == devID){
             dev = devi;
             break;
@@ -1497,30 +1382,32 @@ static dispatch_once_t onceToken;
     }
     if(dev){
         [dev.reportArr addObject:report];
-        
-        NSNumber *startT = checkModel.timeArr[0];
-        startT = [NSNumber numberWithLongLong:(startT.longLongValue-500)];
-        
-        NSNumber *endT = checkModel.timeArr.lastObject;
-        endT = [NSNumber numberWithLongLong:(endT.longLongValue+500)];
-        
-        if(id == 12){
+        if(id == 12 || id == 11){
+            NSNumber *startT = checkModel.fanTimeArr[0];
+            startT = [NSNumber numberWithLongLong:(startT.longLongValue-800)];
+            
+            NSNumber *endT = checkModel.fanTimeArr.lastObject;
+            endT = [NSNumber numberWithLongLong:(endT.longLongValue+500)];
+            
             [dev.fanColorArr addObject:@[startT,endT]];
+            
+            NSNumber *startT_Ding = checkModel.timeArr[0];
+            startT = [NSNumber numberWithLongLong:(startT_Ding.longLongValue-800)];
+            
+            NSNumber *endT_Ding = checkModel.timeArr.lastObject;
+            endT = [NSNumber numberWithLongLong:(endT_Ding.longLongValue+500)];
+            
+            [dev.colorArr addObject:@[startT,endT]];
         }else{
+            NSNumber *startT = checkModel.timeArr[0];
+            startT = [NSNumber numberWithLongLong:(startT.longLongValue-800)];
+            
+            NSNumber *endT = checkModel.timeArr.lastObject;
+            endT = [NSNumber numberWithLongLong:(endT.longLongValue+500)];
+            
             [dev.colorArr addObject:@[startT,endT]];
         }
-        
-//        for(long i = 0; i < arr.count;i ++){
-//            NSArray *data = arr[i];
-//            NSNumber *timeN = data[0];
-//            if(timeN == startT){
-//              [dev.colorArr addObject:@[[NSNumber numberWithLong:i],[NSNumber numberWithLong:i+checkModel.timeArr.count]]];
-//               NSLog(@"dev.colorArr = %@",dev.colorArr);
-//
-//            }
-//        }
     }
-
 }
 -(void)changeDevice:(NSDictionary *)dic{
             DeviceTool *delegate = [DeviceTool shareInstance];
@@ -1570,74 +1457,493 @@ static dispatch_once_t onceToken;
                 }];
             }
 }
-////链接服务器成功回调
-//
-//- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port{
-//
-////    if (self.time == nil) {
-////
-////        self.time = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(checkLongConnectByServe) userInfo:nil repeats:YES];
-////
-////        [self.time fire];
-////
-////    }
-//
-//}
-//
-//
-//
-//// 心跳连接
-//
-//-(void)checkLongConnectByServe{
-//
-//    // 向服务器发送固定可是的消息，来检测长连接
-//
-//    NSString *longConnect = @"ping";
-//
-//    NSData   *data  = [longConnect dataUsingEncoding:NSUTF8StringEncoding];
-//
-//    [_testSocket writeData:data withTimeout:3 tag:1];
-//
-//    [_testSocket readDataWithTimeout:30 tag:2];
-//
-//}
-//
-////收到信息回调
-//
-//-(void)testSocket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
-//
-//    NSString * string = [[NSString alloc]
-//
-//                         initWithData:data encoding:NSUTF8StringEncoding];
-//
-//    NSLog(@"didReadData===========>%@",string);
-//
-//}
-//
-//
-//
-//-(void)testSocket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket{
-//
-//    NSLog(@"===========>didAcceptNewSocket");
-//
-//}
-//
-//-(void)testSocketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err{
-//
-//    NSLog(@"===========>断开了");
-//
-//}
-//
-// //信息发送成功回调
-//
-//-(void)testSocket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag{
-//
-//    NSLog(@"===========>写入成功");
-//
-//}
 -(void)dealloc{
     [self.timer invalidate];
     self.timer = nil;
 }
+
+////检测56类型
+//-(void)check56Data:(NSArray <NSNumber*>*)dataArr withModel:(CheckModel*)model withTypeStr:(NSString*)typeStr withId:(NSInteger)id withTimeArr:(NSArray*)timeArr{
+//
+//
+//        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    // 异步执行任务创建方法
+//        dispatch_async(queue, ^{
+//            if(id == 11){
+//                if(dataArr.count > 10){
+//                        if(model.startValue == -10000){
+//                               long long sum = 0;
+//                               for(int i=0 ;i<5;i++){
+//                                    NSNumber *number = dataArr[i];  //调试修改
+//                                    sum += number.longValue;        //调试修
+//                               }
+//                               model.startValue = sum/5;
+//                               NSLog(@"_Din 前五个数据生成model.startValue = %ld",model.startValue);
+//                        }
+//
+//                        long min = 100000;
+//                        long max = -100000;
+//                        long sun = 0;
+//                        for (NSNumber *number in dataArr) {
+//                            long num = number.longValue - model.startValue;
+//                            sun += num;
+////                            NSLog(@" number = %ld num = %ld sun = %ld",number.longValue,num,sun);
+//                            if(num < min){
+//                                min = num;
+//                            }
+//                            if(num > max){
+//                                max = num;
+//                            }
+//                        }
+//                        if(min < model.min){
+//                            model.min = min;
+//                        }
+//                        if(max > model.max){
+//                            model.max = max;
+//                        }
+//
+//                        long mean = sun/(int)dataArr.count;
+//
+////                        NSLog(@"_Din mean = %ld min = %ld max=%ld",mean,min,max);
+//                        long meanSum = 0;
+//                        for (NSNumber *number in dataArr ) {
+//                            long num = number.longValue - model.startValue;
+//                            if((num - mean)>0){
+//                                meanSum += (num - mean);
+//                            }else{
+//                                meanSum += (mean - num);
+//                            }
+//                        }
+//                        long average = meanSum/(int)dataArr.count;
+//                        NSLog(@"_Din average = %ld",average);
+//                        if(average > 30){
+//                            if(average > 600){
+////                                if(!model.closeDingChange2_OK){
+////                                    //小变化没两秒就急速升高则是受阻空转后错误曲线
+////                                    model.blockedError = YES;
+////                                    if(mean > 0){
+////                                        model.blockedErrorTypeUp = YES;
+////                                    }
+////                                     NSLog(@"_Din average > 400  model.blockedError = YES");
+////                                }else{
+//                                    if(!model.blockedChange1_OK){
+//                                        model.blockedChange1_OK = YES;
+//                                        NSLog(@"_Din average > 600  model.blockedChange_OK = YES");
+//                                    }else{
+//                                        if(model.blockedStable2_OK){
+//                                            if(!model.blockedChange2_OK){
+//                                                model.blockedChange2_OK = YES;
+//                                                NSLog(@"_Din average > 600  model.blockedChange2_OK = YES");
+//                                            }
+//                                        }
+//                                    }
+////                                }
+//
+//                            }
+//                            if(!model.closeDingChange2_OK && average > 100){
+//                                NSLog(@"_Din average > 100  model.closeDingChange2_OK = YES");
+//                                model.closeDingChange2_OK = YES;
+//                            }
+//                            if(!model.closeDingChange_OK){
+//                                NSLog(@"_Din average > 30  model.closeDingChange_OK = YES");
+//                                model.closeDingChange_OK = YES;
+//                            }
+//                            [model.dataArr addObjectsFromArray:dataArr];
+//                            [model.timeArr addObjectsFromArray:timeArr];
+//                        }else{
+//                            if(mean  > 3500 || mean  < -3500){
+//                                [model.dataArr addObjectsFromArray:dataArr];
+//                                [model.timeArr addObjectsFromArray:timeArr];
+//                                if(!model.blockedStable1_OK){
+//                                    model.blockedStable1_OK = YES;
+//                                    NSLog(@"_Din average < 30  model.blockedStable1_OK = YES");
+//                                }
+//                               else if(!model.blockedStable2_OK){
+//                                    model.blockedStable2_OK = YES;
+//                                    NSLog(@"_Din average < 30  model.blockedStable2_OK = YES");
+//                                }
+//                                else if(!model.blockedStable3_OK){
+//                                    model.blockedStable3_OK = YES;
+//                                }
+//                                //判断正反锁闭力 是否生成受阻锁闭力报告
+//                                if(!model.reportEdDing && model.blockedStable2_OK){
+//                                    model.reportEdDing = YES;
+//                                    model.reportBlockDing = YES;
+//                                    model.dataModel.station = DEVICETOOL.stationStr;
+//                                    model.dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
+//                                    model.dataModel.idStr = [NSString stringWithFormat:@"%lld%@",DEVICETOOL.startTime,typeStr];
+//
+//                                    model.dataModel.deviceType = [NSString stringWithFormat:@"%@-%@",DEVICETOOL.closeLinkDevice,typeStr];
+//                                    long long currentTime = [[NSDate date] timeIntervalSince1970] ;
+//                                    model.dataModel.timeLong = currentTime;
+//                                     model.dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
+//                                    model.dataModel.reportType = 8;
+//
+//                                    if(mean < 0){
+//                                        model.dataModel.close_ding = model.startValue ;
+//                                        model.dataModel.keep_ding = model.startValue  + mean;
+//                                         NSLog(@"_Din mean  > 3500 定扳反受阻空转生成");
+//                                    }else{
+//                                        NSLog(@"_Din mean  > 3500 反扳定受阻空转生成");
+//                                        model.dataModel.close_ding = model.startValue + mean;
+//                                        model.dataModel.keep_ding = model.startValue;
+//                                    }
+//                                  }
+//                                 if(model.reportEdFan && model.reportEdDing && !model.reportEd){
+//                                     model.reportEd = YES;
+//                                     NSLog(@"_Din 锁闭力生成受阻锁闭力曲线报告 暂不清除model");
+//                                     [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
+//                                     [self device:id addReport:model.dataModel withModel:model];
+//                                 }
+//                                 return;
+//                            }else{
+//                                if(model.closeDingChange2_OK){
+//                                    //波动结束
+//                                    NSDate *now = [NSDate date];
+//                                    NSTimeInterval nowInt = [now timeIntervalSince1970 ];
+//                                    model.endTime = nowInt;
+//
+////                                    if(model.blockedChange2_OK || model.blockedStable3_OK){
+////                                        NSLog(@"受阻空转后恢复平稳值 清空掉model");
+////                                        [self setCheckNilWith:id];
+////                                        return;
+////                                    }
+//
+//                                    if(!model.blockedStable3_OK){
+//
+//                                        if(! model.closeDingAfter1_OK){
+//                                            model.closeDingAfter1_OK = YES;
+//                                            NSLog(@"_Din model.closeDingAfter1_OK = YES");
+//                                        }else if( !model.closeDingAfter2_OK){
+//                                             model.closeDingAfter2_OK  = YES;
+//                                            NSLog(@"_Din model.closeDingAfter2_OK = YES");
+//                                        }else if( !model.closeDingAfter3_OK){
+//                                             model.closeDingAfter3_OK  = YES;
+//                                            NSLog(@"_Din model.closeDingAfter31_OK = YES");
+//                                        }
+//                                        if(model.dataArr.count < 50){
+//                                            if(model.closeDingChange_OK){
+//                                                NSLog(@"_Din 短波动 舍弃掉<50");
+//                                                [self setCheckNilWith:id];
+//                                            }
+//                                            return;
+//                                        }
+//                                                            long allMin = 100000;
+//                                                            long allMax = -100000;
+//                                                            long allSun = 0;
+//                                                            for (NSNumber *number in model.dataArr) {
+//                                                                long num = number.longValue ;
+//                                                                allSun += num;
+//                                                                if(num < allMin){
+//                                                                    allMin = num;
+//                                                                }
+//                                                                if(num > allMax){
+//                                                                    allMax = num;
+//                                                                }
+//                                                            }
+//
+//                                                            if(allMax - allMin > 3500 || allMax - allMin < -3500){
+//                                                                NSLog(@"_Din 检测到allMax - allMin > 3500 || allMax - allMin < -3500 舍弃掉");
+//                                                                [self setCheckNilWith:id];
+//                                                                return;
+//                                                            }
+//
+//                                                             if(!model.reportEdDing && model.closeDingAfter2_OK){
+//
+//                                                                model.reportEdDing = YES;
+//                                                                model.dataModel.station = DEVICETOOL.stationStr;
+//                                                                model.dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
+//                                                                model.dataModel.idStr = [NSString stringWithFormat:@"%lld%@",DEVICETOOL.startTime,typeStr];
+//                                                                model.dataModel.deviceType = [NSString stringWithFormat:@"%@-%@",DEVICETOOL.closeLinkDevice,typeStr];
+//                                                                long long currentTime = [[NSDate date] timeIntervalSince1970] ;
+//                                                                model.dataModel.timeLong = currentTime;
+//                                                                model.dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
+//
+//                                                                if(mean < 0){
+//                                                                    model.dataModel.close_ding = model.startValue ;
+//                                                                    model.dataModel.keep_ding = model.startValue + mean;
+//                                                                     NSLog(@"_Din  正常定扳反锁闭力生成");
+//                                                                    if(model.dataModel.reportType != 6){
+//                                                                        model.dataModel.reportType = 5;
+//                                                                    }
+//                                                                }else{
+//                                                                    NSLog(@"_Din  正常反扳定锁闭生成");
+//                                                                    model.dataModel.close_ding = model.startValue + mean;
+//                                                                    model.dataModel.keep_ding = model.startValue;
+//
+//                                                                    if(model.dataModel.reportType != 8){
+//                                                                        model.dataModel.reportType = 7;
+//                                                                    }
+//                                                                }
+//                                                              }
+//                                                             if(model.reportEdFan && model.reportEdDing && !model.reportEd){
+//                                                                 model.reportEd = YES;
+//                                                                 [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
+//                                                                 [self device:id addReport:model.dataModel withModel:model];
+//                                                                 NSLog(@"_Din 正常锁闭力曲线报告 ");
+//                                                                 if(!model.reportBlockFan){
+//                                                                     NSLog(@"_Din 正常锁闭力曲线报告 且清除model");
+//                                                                     [self setCheckNilWith:id];
+//                                                                 }
+//                                                                 return;
+//                                                             }
+//
+//                                    }else{
+//                                        NSLog(@"_Din 受阻曲线结束 且清除model");
+//                                        [self setCheckNilWith:id];
+//                                        return;
+//                                    }
+//                                }else{
+////                                    if(model.closeDingChange_OK){
+////                                        NSLog(@"_Din 小波动 舍弃掉");
+////                                        [self setCheckNilWith:id];
+////                                    }
+////                                    return;
+//                                }
+//                            }
+//                            if(!model.closeDingChange_OK){
+//                                NSLog(@"_Din 检测 重置初始值 !model.step1_OK model.startValue = %ld",mean);
+//                                model.startValue = mean + model.startValue;
+//                            }
+//                        }
+//                    }
+//            }else{
+//                if(dataArr.count > 10){
+//                        if(model.startValue_Fan == -10000){
+//                               long long sum = 0;
+//                               for(int i=0 ;i<5;i++){
+//                                    NSNumber *number = dataArr[i];  //调试修改
+//                                    sum += number.longValue;        //调试修
+//                               }
+//                               model.startValue_Fan = sum/5;
+//                               NSLog(@"_Fan 前五个数据生成model.startValue = %ld",model.startValue_Fan);
+//                        }
+//
+//                        long min = 100000;
+//                        long max = -100000;
+//                        long sun = 0;
+//                        for (NSNumber *number in dataArr) {
+//                            long num = number.longValue - model.startValue_Fan;
+//                            sun += num;
+//                //            NSLog(@" number = %ld num = %ld sun = %ld",number.longValue,num,sun);
+//                            if(num < min){
+//                                min = num;
+//                            }
+//                            if(num > max){
+//                                max = num;
+//                            }
+//                        }
+//                        if(min < model.min_Fan){
+//                            model.min_Fan = min;
+//                        }
+//                        if(max > model.max_Fan){
+//                            model.max_Fan = max;
+//                        }
+//
+//                        long mean = sun/(int)dataArr.count;
+//
+//                        NSLog(@"_Fan mean = %ld min = %ld max=%ld",mean,min,max);
+//                        long meanSum = 0;
+//                        for (NSNumber *number in dataArr ) {
+//                            long num = number.longValue - model.startValue_Fan;
+//                            if((num - mean)>0){
+//                                meanSum += (num - mean);
+//                            }else{
+//                                meanSum += (mean - num);
+//                            }
+//                        }
+//                        long average = meanSum/(int)dataArr.count;
+//                        NSLog(@"_Fan average = %ld",average);
+//                        if(average > 30){
+//                            if(average > 600){
+////                                if(!model.closeFanChange2_OK){
+////                                    //小变化没两秒就急速升高则是受阻空转后错误曲线
+////                                    model.blockedError_Fan = YES;
+////                                    if(mean > 0){
+////                                        model.blockedErrorTypeUp_Fan = YES;
+////                                    }
+////                                     NSLog(@"_Fan average > 400  model.blockedError = YES");
+////                                }else{
+//                                    if(!model.blockedChange1_OK_Fan){
+//                                        model.blockedChange1_OK_Fan = YES;
+//                                        NSLog(@"_Fan average > 400  model.blockedChange_OK = YES");
+//                                    }else{
+//                                        if(model.blockedStable2_OK_Fan){
+//                                            model.blockedChange2_OK_Fan = YES;
+//                                             NSLog(@"_Fan average > 400  model.blockedChange2_OK = YES");
+//                                        }
+//                                    }
+////                                }
+//
+//                            }
+//                            if(!model.closeFanChange2_OK &&  average > 100){
+//                                model.closeFanChange2_OK = YES;
+//                            }
+//                            else{
+//
+//                            }
+//                            if(!model.closeFanChange_OK){
+//                                NSLog(@"_Fan average > 400  model.closeFanChange_OK = YES");
+//                                model.closeFanChange_OK = YES;
+//                            }
+//                            [model.dataArr_Fan addObjectsFromArray:dataArr];
+//                            [model.fanTimeArr addObjectsFromArray:timeArr];
+//                        }else{
+//                            if(mean  > 3500 || mean  < -3500){
+//                                [model.dataArr_Fan addObjectsFromArray:dataArr];
+//                                [model.fanTimeArr addObjectsFromArray:timeArr];
+//                                if(!model.blockedStable1_OK_Fan){
+//                                    model.blockedStable1_OK_Fan = YES;
+//                                    NSLog(@"_Fan average < 70  model.blockedStable1_OK = YES");
+//                                }
+//                                else if(!model.blockedStable2_OK_Fan){
+//                                    model.blockedStable2_OK_Fan = YES;
+//                                    NSLog(@"_Fan average < 70  model.blockedStable2_OK = YES");
+//                                }
+//                                else if(!model.blockedStable3_OK_Fan){
+//
+//                                    model.blockedStable3_OK_Fan = YES;
+//                                }
+//                                //判断正反锁闭力 是否生成受阻锁闭力报告
+//                                if(!model.reportEdFan && model.blockedStable2_OK_Fan){
+//                                    model.reportEdFan = YES;
+//                                    model.reportBlockFan = YES;
+//                                    model.dataModel.station = DEVICETOOL.stationStr;
+//                                    model.dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
+//                                    model.dataModel.idStr = [NSString stringWithFormat:@"%lld%@",DEVICETOOL.startTime,typeStr];
+//                                    model.dataModel.deviceType = [NSString stringWithFormat:@"%@-%@",DEVICETOOL.closeLinkDevice,typeStr];
+//                                    long long currentTime = [[NSDate date] timeIntervalSince1970] ;
+//                                    model.dataModel.timeLong = currentTime;
+//                                    model.dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
+//                                      model.dataModel.reportType = 6;
+//                                    if(mean < 0){
+//                                        model.dataModel.close_fan = model.startValue_Fan ;
+//                                        model.dataModel.keep_fan = model.startValue_Fan  + mean;
+//                                         NSLog(@"_Fan average < 70  model.blockedStable2_OK = YES 定扳反受阻空转生成");
+//
+//                                    }else{
+//                                        NSLog(@"_Fan average < 70  model.blockedStable2_OK = YES 定扳反受阻空转生成");
+//
+//                                        model.dataModel.close_fan = model.startValue_Fan + mean;
+//                                        model.dataModel.keep_fan = model.startValue_Fan;
+//                                    }
+//                                  }
+//                                 if(model.reportEdFan && model.reportEdDing && !model.reportEd){
+//                                     model.reportEd = YES;
+//                                     NSLog(@"_Fan 锁闭力生成受阻锁闭力曲线报告 暂不清除model");
+//                                     [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
+//                                     [self device:id addReport:model.dataModel withModel:model];
+//                                 }
+//                                 return;
+//                            }else{
+//                                if(model.closeFanChange2_OK){
+//                                    //波动结束
+//                                    NSDate *now = [NSDate date];
+//                                    NSTimeInterval nowInt = [now timeIntervalSince1970 ];
+//                                    model.endTime = nowInt;
+//
+//                                    if(model.blockedChange2_OK_Fan || model.blockedStable3_OK_Fan){
+//                                        NSLog(@"_Fan 受阻空转后恢复平稳值 清空掉model");
+//                                        [self setCheckNilWith:id];
+//                                        return;
+//                                    }
+//
+//                                    if(!model.blockedStable3_OK_Fan){
+//
+//                                        if(! model.closeFanAfter1_OK){
+//                                            model.closeFanAfter1_OK = YES;
+//                                        }else if(! model.closeFanAfter2_OK){
+//                                             model.closeFanAfter2_OK  = YES;
+//                                        }else if(! model.closeFanAfter3_OK){
+//                                             model.closeFanAfter3_OK  = YES;
+//                                        }
+//                                        if(model.dataArr_Fan.count < 50){
+//                                            if(model.closeFanChange_OK){
+//                                                NSLog(@"_Fan 短波动 舍弃掉");
+//                                                [self setCheckNilWith:id];
+//                                            }
+//                                            return;
+//                                        }
+//                                                            long allMin = 100000;
+//                                                            long allMax = -100000;
+//                                                            long allSun = 0;
+//                                                            for (NSNumber *number in model.dataArr_Fan) {
+//                                                                long num = number.longValue ;
+//                                                                allSun += num;
+//                                                                if(num < allMin){
+//                                                                    allMin = num;
+//                                                                }
+//                                                                if(num > allMax){
+//                                                                    allMax = num;
+//                                                                }
+//                                                            }
+//
+//                                                            if(allMax - allMin > 3500 || allMax - allMin < -3500){
+//                                                                NSLog(@"_Fan 检测到allMax - allMin > 2500 || allMax - allMin < -2500 舍弃掉");
+//                                                                [self setCheckNilWith:id];
+//                                                                return;
+//                                                            }
+//
+//                                                             if(!model.reportEdFan && model.closeFanAfter2_OK){
+//
+//                                                                model.reportEdFan = YES;
+//                                                                model.dataModel.station = DEVICETOOL.stationStr;
+//                                                                model.dataModel.roadSwitch = DEVICETOOL.roadSwitchNo;
+//                                                                model.dataModel.idStr = [NSString stringWithFormat:@"%lld%@",DEVICETOOL.startTime,typeStr];
+//                                                                model.dataModel.deviceType = [NSString stringWithFormat:@"%@-%@",DEVICETOOL.closeLinkDevice,typeStr];
+//                                                                long long currentTime = [[NSDate date] timeIntervalSince1970] ;
+//                                                                model.dataModel.timeLong = currentTime;
+//                                                                model.dataModel.timeLongStr = [NSString stringWithFormat:@"%lld",currentTime];
+//
+//                                                                if(mean < 0){
+//                                                                    model.dataModel.close_fan = model.startValue_Fan ;
+//                                                                    model.dataModel.keep_fan = model.startValue_Fan + mean;
+//                                                                     NSLog(@"_Fan 正常反扳定锁闭力生成");
+//                                                                     if(model.dataModel.reportType != 8){
+//                                                                         model.dataModel.reportType = 7;
+//                                                                     }
+//                                                                }else{
+//                                                                    NSLog(@" _Fan 正常定扳反锁闭生成");
+//                                                                    if(model.dataModel.reportType != 6){
+//                                                                        model.dataModel.reportType = 5;
+//                                                                    }
+//                                                                    model.dataModel.close_fan = model.startValue_Fan + mean;
+//                                                                    model.dataModel.keep_fan = model.startValue_Fan;
+//                                                                }
+//                                                              }
+//                                                             if(model.reportEdFan && model.reportEdDing && !model.reportEd){
+//                                                                 model.reportEd = YES;
+//                                                                 [[LPDBManager defaultManager] saveModels: @[model.dataModel]];
+//                                                                 [self device:id addReport:model.dataModel withModel:model];
+//                                                                 NSLog(@"_Fan 正常锁闭力曲线报告 ");
+//                                                                 if(!model.reportBlockDing){
+//                                                                     NSLog(@"_Fan 正常锁闭力曲线报告 且清除model");
+//                                                                     [self setCheckNilWith:id];
+//                                                                 }
+//                                                                 return;
+//                                                             }
+//
+//                                    }else{
+//                                        NSLog(@"_Fan 受阻曲线结束 且清除model");
+//                                        [self setCheckNilWith:id];
+//                                        return;
+//                                    }
+//                                }else{
+////                                    if(model.closeFanChange_OK){
+////                                        NSLog(@"_Fan小波动 舍弃掉");
+////                                        [self setCheckNilWith:id];
+////                                    }
+////                                    return;
+//                                }
+//                            }
+//                            if(!model.closeFanChange_OK){
+//                                NSLog(@"_Fan 检测 重置初始值 !model.step1_OK model.startValue = %ld",mean);
+//                                model.startValue_Fan = mean + model.startValue_Fan;
+//                            }
+//                        }
+//                    }
+//            }
+//        });
+//};
 @end
 

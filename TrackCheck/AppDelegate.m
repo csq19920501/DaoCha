@@ -58,7 +58,7 @@
     [self.scoketThread start];
 }
 -(void)startSocket{
-//    [CSQScoketService deallocSocket];
+    [CSQScoketService deallocSocket];
     CSQScoketService *socketSerview = [CSQScoketService shareInstance];
     //开始服务
     [socketSerview start];

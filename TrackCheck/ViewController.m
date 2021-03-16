@@ -23,6 +23,7 @@
 #import "HistoryDataViewController.h"
 #import "ReportCell.h"
 #import "CSQVisualMap.h"
+
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet PYZoomEchartsView *kEchartView1;
 @property (weak, nonatomic) IBOutlet PYZoomEchartsView *kEchartView2;
@@ -96,6 +97,16 @@
 //    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 //    self.navigationItem.backBarButtonItem = backItem;
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppDidBackGround) name:UIApplicationDidEnterBackgroundNotification object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+-(void)appBecomeActive{
+ 
+//    AppDelegate *delete =  (AppDelegate *)[UIApplication sharedApplication].delegate;
+//    [delete preSocke];
+}
+-(void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 -(void)handleAppDidBackGround{
     if (DEVICETOOL.testStatus == TestStarted){
@@ -153,15 +164,15 @@
         _kEchartView3.hidden = !_threeButton.selected;
         
         if(!_kEchartView1.hidden ){
-            [_kEchartView1 setOption:[self irregularLine2Option:0]];
+            [_kEchartView1 setOption:[self irregularLine2Option:0 withSample:@"lttb"]];
             [_kEchartView1 loadEcharts];
         }
         if(!_kEchartView2.hidden ){
-            [_kEchartView2 setOption:[self irregularLine2Option:1]];
+            [_kEchartView2 setOption:[self irregularLine2Option:1 withSample:@"lttb"]];
                    [_kEchartView2 loadEcharts];
                }
         if(!_kEchartView3.hidden){
-            [_kEchartView3 setOption:[self irregularLine2Option:2]];
+            [_kEchartView3 setOption:[self irregularLine2Option:2 withSample:@"lttb"]];
             [_kEchartView3 loadEcharts];
         }
          _chartViewBackV.hidden = YES;
@@ -171,7 +182,7 @@
         _secondButton.hidden = YES;
         _threeButton.hidden = YES;
         _chartViewBackV.hidden  = NO;
-        [_kEchartView4 setOption:[self getOption]];
+        [_kEchartView4 setOption:[self getOptionWith:@"lttb"]];
         [_kEchartView4 loadEcharts];
 //        [_kEchartView4 refreshEchartsWithOption:[self getOption]];
         self.title = [NSString stringWithFormat:@"%@-%@",DEVICETOOL.closeLinkDevice,@"锁闭力测试"];;
@@ -316,7 +327,7 @@
         _secondButton.hidden = YES;
         _threeButton.hidden = YES;
         _chartViewBackV.hidden  = NO;
-        [_kEchartView4 refreshEchartsWithOption:[self getOption]];
+        [_kEchartView4 refreshEchartsWithOption:[self getOptionWith:@"lttb"]];
     }
 }
 - (IBAction)startTest:(id)sender {
@@ -354,6 +365,7 @@
         [_startBut setTitle:@"开始" forState:UIControlStateNormal];
         [[CSQScoketService shareInstance]stopSample];
         DEVICETOOL.testStatus = TestStoped;
+        [self changeEchartNOSample];
     }else if (DEVICETOOL.testStatus == TestStoped){
         [_startBut setTitle:@"暂停" forState:UIControlStateNormal];
         DEVICETOOL.testStatus = TestStarted;
@@ -380,6 +392,27 @@
     
     [_startBut setTitle:@"开始" forState:UIControlStateNormal];
     [[CSQScoketService shareInstance]stopSample];
+    [self changeEchartNOSample];
+}
+-(void)changeEchartNOSample{
+    if(self.chartViewBackV.hidden){
+            if(!self.kEchartView1.hidden ){
+
+                    [_kEchartView1 refreshEchartsWithOption:[self irregularLine2Option:0 withSample:@""]];
+            }
+            if(!self.kEchartView2.hidden ){
+
+                    [_kEchartView2 refreshEchartsWithOption:[self irregularLine2Option:1 withSample:@""]];
+                
+            }
+            if(!self.kEchartView3.hidden){
+
+                    [_kEchartView3 refreshEchartsWithOption:[self irregularLine2Option:2 withSample:@""]];
+                
+            }
+    }else{
+            [_kEchartView4 refreshEchartsWithOption:[self getOptionWith:@""]];
+    }
 }
 - (IBAction)changeTest:(id)sender {
     if(_saveBut.enabled){
@@ -433,7 +466,10 @@
 //                        dataModel.fanColorArr = device.fanColorArr;
                         long long currentTime = [[NSDate date] timeIntervalSince1970] ;
                         dataModel.timeLong = currentTime;
-//                        dataModel.reportArr = device.reportArr;
+                   
+                        NSArray *dictArray = [ReportModel mj_keyValuesArrayWithObjectArray:device.reportArr];
+                        dataModel.reportArr = [NSMutableArray arrayWithArray:dictArray];
+                        [[LPDBManager defaultManager] saveModels: device.reportArr];
                         [saveArray addObject:dataModel];
                         
             }
@@ -487,16 +523,18 @@
             dataModel.close_transArr = deviceChange.colorArr;
             dataModel.timeLong = currentTime;
             
-//            Device*device ;
-//            for (Device*dev in DEVICETOOL.deviceArr) {
-//                if([dev.id intValue] == 11){
-//                    device = dev;
-//                    break;
-//                }
-//            }
-//            if(device){
-//                dataModel.reportArr = device.reportArr;
-//            }
+            Device*device ;
+            for (Device*dev in DEVICETOOL.deviceArr) {
+                if([dev.id intValue] == 11){
+                    device = dev;
+                    break;
+                }
+            }
+            if(device){
+                NSArray *dictArray = [ReportModel mj_keyValuesArrayWithObjectArray:device.reportArr];
+                dataModel.reportArr = [NSMutableArray arrayWithArray:dictArray];
+                [[LPDBManager defaultManager] saveModels: device.reportArr];
+            }
             [[LPDBManager defaultManager] saveModels: @[dataModel]];
         }
     }
@@ -505,27 +543,25 @@
 
 - (IBAction)butClick:(id)sender {
     
-//    AppDelegate *delete =  (AppDelegate *)[UIApplication sharedApplication].delegate;
-//    [delete preSocke];
+
     return;
-    
     NSLog(@"butClick");
     UIButton *but = sender;
     but.selected = !but.selected;
     if(but == _firstButton){
         [self.kEchartView1 setHidden:!self.firstButton.selected];
         if(!self.kEchartView1.hidden ){
-            [_kEchartView1 refreshEchartsWithOption:[self irregularLine2Option:0]];
+            [_kEchartView1 refreshEchartsWithOption:[self irregularLine2Option:0  withSample:@"lttb"]];
         }
     }else if(but == _secondButton){
         [self.kEchartView2 setHidden:!_secondButton.selected];
         if(!self.kEchartView2.hidden ){
-        [_kEchartView2 refreshEchartsWithOption:[self irregularLine2Option:1]];
+        [_kEchartView2 refreshEchartsWithOption:[self irregularLine2Option:1  withSample:@"lttb"]];
            }
     }else if(but == _threeButton){
         [self.kEchartView3 setHidden:!_threeButton.selected];
         if(!self.kEchartView3.hidden){
-               [_kEchartView3 refreshEchartsWithOption:[self irregularLine2Option:2]];
+               [_kEchartView3 refreshEchartsWithOption:[self irregularLine2Option:2 withSample:@"lttb"]];
            }
     }
 
@@ -538,20 +574,20 @@
         if(self.chartViewBackV.hidden){
                 if(!self.kEchartView1.hidden ){
 
-                        [_kEchartView1 refreshEchartsWithOption:[self irregularLine2Option:0]];
+                        [_kEchartView1 refreshEchartsWithOption:[self irregularLine2Option:0 withSample:@"lttb"]];
                 }
                 if(!self.kEchartView2.hidden ){
 
-                                           [_kEchartView2 refreshEchartsWithOption:[self irregularLine2Option:1]];
+                        [_kEchartView2 refreshEchartsWithOption:[self irregularLine2Option:1 withSample:@"lttb"]];
                     
                 }
                 if(!self.kEchartView3.hidden){
 
-                        [_kEchartView3 refreshEchartsWithOption:[self irregularLine2Option:2]];
+                        [_kEchartView3 refreshEchartsWithOption:[self irregularLine2Option:2 withSample:@"lttb"]];
                     
                 }
         }else{
-                [_kEchartView4 refreshEchartsWithOption:[self getOption]];
+                [_kEchartView4 refreshEchartsWithOption:[self getOptionWith:@"lttb"]];
         }
         
         long long currentTime = [[NSDate date] timeIntervalSince1970];
@@ -627,7 +663,7 @@
 //            }]);
 //        }];
 //}
-- (PYOption *)irregularLine2Option:(NSInteger)no {
+- (PYOption *)irregularLine2Option:(NSInteger)no withSample:(NSString*)sample{
     BOOL setMax = YES;
     if(no>=_seleJJJArr.count){
         return nil;
@@ -768,12 +804,24 @@
         }]);
     }];
     Device *device2 ;
+    int count = 0;
     for(Device *dev in DEVICETOOL.deviceArr){
+        if(dev.selected){
+            count++;
+        }
         if([dev.id intValue] == [device.id intValue] ){
-            device2 = dev; break;
+            device2 = dev;
         }
     }
-    [DEVICETOOL changeReport:option reportArr:device2.reportArr maxCount:10];
+    int maxCount = 0;
+    if(count==1){
+        maxCount = 18;
+    }else if(count==2){
+        maxCount = 14;
+    }else if(count==3){
+        maxCount = 10;
+    }
+    [DEVICETOOL changeReport:option reportArr:device2.reportArr maxCount:maxCount];
     
 //    CSQVisualMap *visual = [[CSQVisualMap alloc]init];
 //    visual.pieces = [visualMapD objectForKey:@"pieces"];
@@ -784,7 +832,7 @@
     return option;
 }
 
-- (PYOption *)getOption {
+- (PYOption *)getOptionWith:(NSString*)sample{
     BOOL setMax = YES;
     NSMutableArray *saveDataArr;
     NSMutableArray *saveDataArr2;
@@ -831,79 +879,82 @@
     saveDataArr2 = [NSMutableArray arrayWithArray:[DeviceTool shareInstance].deviceDataArr5];
    
     //锁闭力测试的s转换阻力
-        NSDictionary *visualMapDCHange = @{@"show":@(NO),@"dimension":@(0),@"seriesIndex":@(2),@"pieces":@[@{@"lte":@(1614835094000),@"color":close_transform_color},@{@"gt":@(1614835095000),@"color":close_transform_color}]};
+        NSDictionary *visualMapDCHange = @{@"show":@(NO),@"dimension":@(0),@"seriesIndex":@(0),@"pieces":@[@{@"lte":@(1614835094000),@"color":dinColor},@{@"gt":@(1614835095000),@"color":dinColor}]};
         if(deviceChange.colorArr.count != 0){
             NSMutableArray *pieces = [NSMutableArray array];
             NSNumber* saveCount = @(0);
             for (int a = 0; a<deviceChange.colorArr.count; a++) {
                 NSArray *piece = deviceChange.colorArr[a];
                 if(a==0){
-                    [pieces addObject:@{@"lte":piece[0],@"color":close_transform_color}];
-                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":redColor}];
+                    [pieces addObject:@{@"lte":piece[0],@"color":dinColor}];
+                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":realRedColor}];
                     saveCount = piece[1];
                 }else{
-                    [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":close_transform_color}];
-                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":redColor}];
+                    [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":dinColor}];
+                    [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":realRedColor}];
                     saveCount = piece[1];
                 }
                 if(a == deviceChange.colorArr.count-1){
-                     [pieces addObject:@{@"gt":saveCount,@"color":close_transform_color}];
+                     [pieces addObject:@{@"gt":saveCount,@"color":dinColor}];
                 }
             }
-            visualMapDCHange =  @{@"show":@(NO),@"seriesIndex":@(2),@"dimension":@(0),@"pieces":pieces};
+            visualMapDCHange =  @{@"show":@(NO),@"seriesIndex":@(0),@"dimension":@(0),@"pieces":pieces};
         }
-    NSDictionary *visualMapDClose1 = @{@"show":@(NO),@"dimension":@(0),@"seriesIndex":@(0),@"pieces":@[@{@"lte":@(1614835094000),@"color":dinColor},@{@"gt":@(1614835095000),@"color":dinColor}]};
+    NSDictionary *visualMapDClose1 = @{@"show":@(NO),@"dimension":@(0),@"seriesIndex":@(1),@"pieces":@[@{@"lte":@(1614835094000),@"color":fanColor},@{@"gt":@(1614835095000),@"color":fanColor}]};
     if(deviceCLose1.colorArr.count != 0){
         NSMutableArray *pieces = [NSMutableArray array];
         NSNumber* saveCount = @(0);
         for (int a = 0; a<deviceCLose1.colorArr.count; a++) {
             NSArray *piece = deviceCLose1.colorArr[a];
             if(a==0){
-                [pieces addObject:@{@"lte":piece[0],@"color":dinColor}];
-                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":redColor}];
-                saveCount = piece[1];
-            }else{
-                [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":dinColor}];
-                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":redColor}];
-                saveCount = piece[1];
-            }
-            if(a == deviceCLose1.colorArr.count-1){
-                 [pieces addObject:@{@"gt":saveCount,@"color":dinColor}];
-            }
-        }
-        visualMapDClose1 =  @{@"show":@(NO),@"seriesIndex":@(0),@"dimension":@(0),@"pieces":pieces};
-    }
-    NSDictionary *visualMapDClose2 = @{@"show":@(NO),@"dimension":@(0),@"seriesIndex":@(1),@"pieces":@[@{@"lte":@(1614835094000),@"color":fanColor},@{@"gt":@(1614835095000),@"color":fanColor}]};
-    if(deviceCLose2.fanColorArr.count != 0){
-        NSMutableArray *pieces = [NSMutableArray array];
-        NSNumber* saveCount = @(0);
-        for (int a = 0; a<deviceCLose2.fanColorArr.count; a++) {
-            NSArray *piece = deviceCLose2.fanColorArr[a];
-            if(a==0){
                 [pieces addObject:@{@"lte":piece[0],@"color":fanColor}];
-                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":redColor}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":realRedColor}];
                 saveCount = piece[1];
             }else{
                 [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":fanColor}];
-                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":redColor}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":realRedColor}];
                 saveCount = piece[1];
             }
-            if(a == deviceCLose2.fanColorArr.count-1){
+            if(a == deviceCLose1.colorArr.count-1){
                  [pieces addObject:@{@"gt":saveCount,@"color":fanColor}];
             }
         }
-        visualMapDClose2 =  @{@"show":@(NO),@"seriesIndex":@(1),@"dimension":@(0),@"pieces":pieces};
+        visualMapDClose1 =  @{@"show":@(NO),@"seriesIndex":@(1),@"dimension":@(0),@"pieces":pieces};
+    }
+    NSDictionary *visualMapDClose2 = @{@"show":@(NO),@"dimension":@(0),@"seriesIndex":@(2),@"pieces":@[@{@"lte":@(1614835094000),@"color":close_transform_color},@{@"gt":@(1614835095000),@"color":close_transform_color}]};
+    if(deviceCLose1.fanColorArr.count != 0){
+        NSMutableArray *pieces = [NSMutableArray array];
+        NSNumber* saveCount = @(0);
+        for (int a = 0; a<deviceCLose1.fanColorArr.count; a++) {
+            NSArray *piece = deviceCLose1.fanColorArr[a];
+            if(a==0){
+                [pieces addObject:@{@"lte":piece[0],@"color":close_transform_color}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":realRedColor}];
+                saveCount = piece[1];
+            }else{
+                [pieces addObject:@{@"gt":saveCount,@"lte":piece[0],@"color":close_transform_color}];
+                [pieces addObject:@{@"gt":piece[0],@"lte":piece[1],@"color":realRedColor}];
+                saveCount = piece[1];
+            }
+            if(a == deviceCLose1.fanColorArr.count-1){
+                 [pieces addObject:@{@"gt":saveCount,@"color":close_transform_color}];
+            }
+        }
+        visualMapDClose2 =  @{@"show":@(NO),@"seriesIndex":@(2),@"dimension":@(0),@"pieces":pieces};
     }
     
 //    if(saveDataArr.count < 1000){
-         for (NSArray *arr in saveDataArr) {
-                   NSNumber *num = arr[1];
-                   if(num.intValue >500 || num.intValue < -500){
-                       setMax = NO;
-                       break;
-                   }
-               }
+//         for (NSArray *arr in saveDataArr) {
+//                   NSNumber *num = arr[1];
+//                   if(num.intValue >500 || num.intValue < -500){
+//                       setMax = NO;
+//                       break;
+//                   }
+//               }
 //    }
+    
+    setMax = NO;
+    
     PYAxis * yAxis ;
     if(setMax){
       yAxis= [PYAxis initPYAxisWithBlock:^(PYAxis *axis) {
@@ -947,7 +998,7 @@
         }])
         .animationEqual(YES)
         .gridEqual([PYGrid initPYGridWithBlock:^(PYGrid *grid) {
-            grid.xEqual(@40).x2Equal(@40).y2Equal(@80).yEqual(@80);
+            grid.xEqual(@60).x2Equal(@40).y2Equal(@80).yEqual(@80);
         }])
         .tooltipEqual([PYTooltip initPYTooltipWithBlock:^(PYTooltip *tooltip) {
             tooltip.triggerEqual(PYTooltipTriggerAxis);
@@ -977,7 +1028,12 @@
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
             series.symbolEqual(@"none")
             .smoothEqual(YES)
-            .nameEqual(@"定位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(@"lttb");
+            .nameEqual([NSString stringWithFormat:@"%@转换力",DEVICETOOL.closeLinkDevice]).typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr3).samplingEqual(sample);
+        }])
+        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
+            series.symbolEqual(@"none")
+            .smoothEqual(YES)
+            .nameEqual(@"定位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr).samplingEqual(sample);
         }])
 //        .graphicEqual([CSQGraphic initCSQGraphicWithBlock:^(CSQGraphic * _Nonnull graphic) {
 //            graphic.typeEqual(@"text")
@@ -989,22 +1045,13 @@
         .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
             series.symbolEqual(@"none")
             .smoothEqual(YES)
-            .nameEqual(@"反位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr2).samplingEqual(@"lttb");
+            .nameEqual(@"反位锁闭力").typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr2).samplingEqual(sample);
         }])
-        .addSeries([PYCartesianSeries initPYCartesianSeriesWithBlock:^(PYCartesianSeries *series) {
-            series.symbolEqual(@"none")
-            .smoothEqual(YES)
-            .nameEqual([NSString stringWithFormat:@"%@转换力",DEVICETOOL.closeLinkDevice]).typeEqual(PYSeriesTypeLine).dataEqual(saveDataArr3).samplingEqual(@"lttb");
-        }]);
+        ;
     }];
-    Device *device ;
-    for(Device *dev in DEVICETOOL.deviceArr){
-        if([dev.id intValue] ==11 ){
-            device = dev; break;
-        }
-    }
+
     option.visualMap = @[visualMapDClose1,visualMapDClose2,visualMapDCHange];
-    [DEVICETOOL changeReport:option reportArr:device.reportArr maxCount:14];
+    [DEVICETOOL changeReport:option reportArr:deviceCLose1.reportArr maxCount:18];
     return option;
 }
 //-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

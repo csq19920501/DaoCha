@@ -213,7 +213,6 @@ typedef enum:NSInteger{
     [self changeView];
     [[CSQScoketService shareInstance]getVersion];
     
-    
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(changeView) userInfo:nil repeats:YES];
     
     NSArray * array = @[@"201",@"202",@"203",@"301",@"302",@"303",];
@@ -221,7 +220,6 @@ typedef enum:NSInteger{
         UIButton *but =(UIButton *)[self.view viewWithTag:[a intValue]];
         but.selected = NO;
     }
-    
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSString* linkType = [user stringForKey:[NSString stringWithFormat:@"%@%@CLOSE",DEVICETOOL.stationStr,DEVICETOOL.roadSwitchNo]];
     for(int i = 901; i<=909;i++){

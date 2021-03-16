@@ -147,11 +147,11 @@
         _shen_Fan.selected = NO;
         DEVICETOOL.shenSuo = NoSet;
     }
-    if(DEVICETOOL.shenSuo == Shen_Fan){
-        DEVICETOOL.shenSuo = Shen_Ding;
-    }else if(DEVICETOOL.shenSuo == Shen_Ding){
-        DEVICETOOL.shenSuo = Shen_Fan;
-    }
+//    if(DEVICETOOL.shenSuo == Shen_Fan){
+//        DEVICETOOL.shenSuo = Shen_Ding;
+//    }else if(DEVICETOOL.shenSuo == Shen_Ding){
+//        DEVICETOOL.shenSuo = Shen_Fan;
+//    }
 }
 
 -(void)pushAlertView:(void (^)(BOOL))re{

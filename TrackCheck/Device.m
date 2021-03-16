@@ -16,6 +16,8 @@
         _timeStr = [NSString stringWithFormat:@"%lld",currentTime];
         _reportArr = [NSMutableArray array];
         _colorArr = [NSMutableArray array];
+        _fanColorArr = [NSMutableArray array];
+        _close_transArr = [NSMutableArray array];
         _percent = @"0";
         _vol = @"0";
     }

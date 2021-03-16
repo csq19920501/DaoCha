@@ -31,7 +31,7 @@ typedef enum:NSInteger{
 NS_ASSUME_NONNULL_BEGIN
 static NSString *blueColor = @"black";   // 其他曲线   蓝色  #4B8CF5 红色 #E71D1C
 static NSString *redColor = @"#4B8CF5";   //报告曲线
-
+static NSString *realRedColor = @"#E71D1C";   //报告曲线2
 static NSString *dinColor = @"#5470C6";   //报告曲线
 static NSString *fanColor = @"#91CC75";   //报告曲线
 static NSString *close_transform_color = @"#FAC858";   //报告曲线

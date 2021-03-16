@@ -263,8 +263,10 @@ static int width = 15;
     UISegmentedControl *sen = (UISegmentedControl *)sender;
     if(sen.selectedSegmentIndex == 0){
         _chartV3.hidden = YES;
+        _chartV2.hidden = NO;
     }else{
         _chartV3.hidden = NO;
+        _chartV2.hidden = YES;
     }
 }
 
@@ -967,8 +969,10 @@ static int width = 15;
 }
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
     if ([[URL scheme] isEqualToString:@"station"]) {
-        NSLog(@"进来了");
-        [self changeStation];
+        if(!_isEdit && !_isShowEdit){
+            NSLog(@"进来了");
+                 [self changeStation];
+        }
     }
     return YES;
 }
@@ -1036,7 +1040,7 @@ static int width = 15;
 - (FCChartView *)chartV{
     
     if (!_chartV) {
-        NSInteger allHeight = self.safeView.frame.size.height ;
+        NSInteger allHeight = self.safeView.frame.size.height +60;
         NSInteger a = (int)(allHeight - 240)/40;
         NSInteger bodyHeight = a/2*40;
         _chartV = [[FCChartView alloc] initWithFrame:CGRectMake(0, 0, self.safeView.frame.size.width, bodyHeight + 150) type:FCChartViewTypeOnlySectionFixation dataSource:self suspendSection:4];
@@ -1050,7 +1054,7 @@ static int width = 15;
 - (FCChartView *)chartV2{
    
     if (!_chartV2) {
-        NSInteger allHeight = self.safeView.frame.size.height ;
+        NSInteger allHeight = self.safeView.frame.size.height + 60;
            NSInteger a = (int)(allHeight - 240)/40;
            NSInteger bodyHeight = a/2*40 ;
         

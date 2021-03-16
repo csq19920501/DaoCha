@@ -1945,7 +1945,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/**\"/**",
-					"\"$PODS_CONFIGURATION_BUILD_DIR\"\n/**",
+					"\"$PODS_CONFIGURATION_BUILD_DIR\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ethome.ipad.TrackCheck;

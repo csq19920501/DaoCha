@@ -11,13 +11,13 @@
 #import "GCDAsyncSocket.h"
 #import "CheckModel.h"
 NS_ASSUME_NONNULL_BEGIN
-
 @interface CSQScoketService : NSObject
 //开启服务
 - (void)start;
 +(CSQScoketService*)shareInstance;
 @property (strong, nonatomic) NSArray *testArray;
 @property (strong, nonatomic) NSArray *testArray2;
+@property (strong, nonatomic) NSArray *testArray3;
 @property (assign, nonatomic) NSInteger testCount;
 @property (assign, nonatomic,nullable) NSTimer * timer;
 @property (strong, nonatomic) NSMutableArray *clientSockets;//保存客户端scoket
